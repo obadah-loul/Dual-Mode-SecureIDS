@@ -1,0 +1,188 @@
+{
+  "audit_name": "cicids_deep_performance_improvement_audit",
+  "task_type": "deep_performance_improvement_strategy_audit",
+  "generated_on": "2026-06-25",
+  "baseline": {
+    "checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "acceptance_status": "ACCEPT_WITH_WARNINGS",
+    "binary_head1_macro_f1": 0.972167,
+    "binary_accuracy": 0.977486,
+    "binary_precision": 0.974214,
+    "binary_recall": 0.946193,
+    "binary_f1": 0.960000,
+    "attack_family_head2_macro_f1": 0.849111,
+    "attack_family_accuracy_on_attack_rows": 0.961306,
+    "rare_class_macro_f1": 0.716987,
+    "end_to_end_correct_attribution_rate": 0.909008,
+    "attack_missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "prepared_exp01": {
+    "id": "cicids_hierarchical_exp01_head2_mlp_capacity",
+    "config": "configs/training/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.yaml",
+    "status": "prepared_not_run"
+  },
+  "final_recommendation": "RUN_EXP01_AS_PREPARED",
+  "exp01_decision": {
+    "run_as_prepared": true,
+    "replace": false,
+    "reason": "EXP01 is the best first controlled experiment because the main weakness is Head 2 attack-family classification, the MLP attack head is already supported safely, outputs are isolated, and stronger alternatives require new code or higher-risk prep."
+  },
+  "weakness_diagnosis": {
+    "main_weakness": "head2_attack_family_classification",
+    "head1_problem": false,
+    "head2_problem": true,
+    "rare_class_problem": true,
+    "hard_class_problem": true,
+    "likely_causes": [
+      "DoS-SlowHTTPTest and FTP-BruteForce overlap in the current flow-statistical feature space",
+      "Web-BruteForce, Web-XSS, and SQL-Injection have very low support and high variance",
+      "linear Head 2 may be too weak for non-linear attack-family boundaries",
+      "current 77 flow features may not include application/content detail for web and SQL attacks",
+      "shared encoder is optimized jointly for an easier binary task and harder attack-family task"
+    ]
+  },
+  "candidate_rankings": [
+    {
+      "rank": 1,
+      "candidate_id": "exp01_head2_mlp_capacity",
+      "candidate_name": "EXP01 Head 2 MLP capacity increase",
+      "classification": "recommend_now",
+      "expected_benefit": "directly improves Head 2 boundary capacity while preserving Head 1",
+      "expected_risk": "small gain or rare-class overfit",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 2,
+      "candidate_id": "exp02_stronger_head2_branch",
+      "candidate_name": "Stronger Head 2 branch",
+      "classification": "recommend_after_exp01",
+      "expected_benefit": "more capacity if the modest MLP underfits",
+      "expected_risk": "overfit and additional architecture complexity",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 3,
+      "candidate_id": "exp03_attack_loss_weight",
+      "candidate_name": "Attack-family loss weight adjustment",
+      "classification": "recommend_after_exp01",
+      "expected_benefit": "more optimization pressure on Head 2",
+      "expected_risk": "may disrupt Head 1 and routing tradeoffs",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 4,
+      "candidate_id": "exp04_head2_focal_loss",
+      "candidate_name": "Head 2 focal loss",
+      "classification": "possible_later",
+      "expected_benefit": "focuses on hard examples and overlapping classes",
+      "expected_risk": "needs new implementation and tuning discipline",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 5,
+      "candidate_id": "exp05_attack_only_balanced_sampler",
+      "candidate_name": "Attack-only balanced sampler",
+      "classification": "possible_later",
+      "expected_benefit": "increases exposure for rare and difficult attack families",
+      "expected_risk": "overfitting and leakage risk if not strictly train-only",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 6,
+      "candidate_id": "exp06_class_weight_tuning",
+      "candidate_name": "Class-weight tuning",
+      "classification": "possible_later",
+      "expected_benefit": "could target rare/hard classes without architecture change",
+      "expected_risk": "can destabilize common-class precision",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 7,
+      "candidate_id": "exp07_two_stage_specialist",
+      "candidate_name": "Two-stage attack-family specialist",
+      "classification": "possible_later",
+      "expected_benefit": "could directly target SlowHTTPTest/FTP and web/SQL specialists",
+      "expected_risk": "model-zoo complexity and routing overfit",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 8,
+      "candidate_id": "exp08_validation_calibration",
+      "candidate_name": "Validation-only calibration/routing",
+      "classification": "possible_later",
+      "expected_benefit": "could improve operating behavior without test tuning",
+      "expected_risk": "not the main first lever and must avoid test leakage",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 9,
+      "candidate_id": "exp09_feature_engineering",
+      "candidate_name": "Feature engineering",
+      "classification": "possible_later",
+      "expected_benefit": "could add service/app signals for web and SQL attacks",
+      "expected_risk": "new preprocessing protocol and comparability break",
+      "should_replace_exp01": false
+    },
+    {
+      "rank": 10,
+      "candidate_id": "reject_random_rerun",
+      "candidate_name": "Random rerun until lucky",
+      "classification": "reject",
+      "expected_benefit": "none scientifically",
+      "expected_risk": "invalid experimental story",
+      "should_replace_exp01": false
+    }
+  ],
+  "recommended_sequence": [
+    "EXP01: run prepared Head 2 MLP capacity experiment",
+    "EXP02: if needed, prepare a stronger Head 2 branch",
+    "EXP03: if needed, prepare conservative attack_loss_weight adjustment",
+    "EXP04: if needed, prepare Head 2 focal loss",
+    "EXP05: if needed, prepare train-only attack-balanced sampler",
+    "EXP06: if needed, prepare train-only class-weight tuning",
+    "EXP07: if needed, prepare SlowHTTPTest/FTP specialist",
+    "EXP08: if needed, prepare Web/SQL specialist or guarded routing",
+    "EXP09: if needed, prepare validation-only calibration",
+    "EXP10: confirm the best candidate across multiple seeds"
+  ],
+  "do_not_do": [
+    "do not run EXP01 without main-control approval",
+    "do not tune thresholds on the test set",
+    "do not rerun randomly until lucky",
+    "do not hide weak classes",
+    "do not change taxonomy to inflate metrics",
+    "do not use validation/test labels for class weights or samplers",
+    "do not overwrite the accepted baseline checkpoint or results",
+    "do not combine multiple new improvements in one uncontrolled run",
+    "do not copy V1 model-zoo routing directly into V2"
+  ],
+  "commands_run": [
+    "Get-Content for CICIDS metrics, configs, reports, and metadata",
+    "Select-String for relevant model/trainer/config/CLI support checks",
+    "rg read-only search in V1 reference tree",
+    "No tests rerun for this audit",
+    "No training, preprocessing, long evaluation, XAI, Streamlit, checkpoint, Git, or full-array load command run"
+  ],
+  "created_files": [
+    "docs/CICIDS_DEEP_PERFORMANCE_IMPROVEMENT_AUDIT.md",
+    "docs/CICIDS_ADVANCED_IMPROVEMENT_ROADMAP.md",
+    "results/audits/cicids_deep_performance_improvement_audit.json",
+    "results/audits/cicids_advanced_improvement_candidates.csv"
+  ],
+  "modified_files": [],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "full_cicids_training_run": false,
+    "exp01_training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "next_main_control_decision": "APPROVE_EXP01_TRAINING_AS_PREPARED_OR_PAUSE_AND_PREPARE_A_DIFFERENT_EXP01"
+}

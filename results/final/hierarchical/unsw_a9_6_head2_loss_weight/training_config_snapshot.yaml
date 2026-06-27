@@ -1,0 +1,123 @@
+dataset: unsw_nb15
+task: hierarchical
+status: task_a6_design_only_full_training_not_run
+model_name: SecureIDSHierarchicalAdvancedNet
+hierarchical_data_dir: data/processed/unsw_nb15/hierarchical
+feature_names_path: data/processed/unsw_nb15/hierarchical/feature_names.json
+attack_family_label_mapping_path: data/processed/unsw_nb15/hierarchical/attack_family_label_mapping.json
+preprocessing_manifest_path: data/processed/unsw_nb15/hierarchical/hierarchical_preprocessing_manifest.json
+readiness_json: results/audits/hierarchical_preprocessing_readiness_unsw_nb15.json
+taxonomy_config: configs/taxonomy/unsw_nb15_attack_taxonomy.yaml
+input_dim: 192
+attack_head_dim: 9
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  hidden_dims:
+  - 256
+  - 128
+  - 128
+  dropout: 0.2
+  normalization: layernorm
+  binary_output_dim: 1
+  attack_output_dim: 9
+loss:
+  type: masked_multi_task
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.5
+  ignore_index: -1
+  binary_loss: BCEWithLogitsLoss
+  attack_family_loss: CrossEntropyLoss_on_attack_rows_only
+class_imbalance:
+  binary_class_weighting: train_split_balanced_mean_normalized
+  attack_family_class_weighting: train_split_sqrt_inverse_frequency_mean_normalized_capped
+  class_weight_max_clip: 10.0
+  class_weight_min_clip: 0.0
+  compute_weights_from: train_only
+  allow_test_based_weights: false
+  oversampling_enabled: false
+class_weights:
+  binary:
+    enabled: true
+    source_split: train
+    method: balanced
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+  attack_family:
+    enabled: true
+    source_split: train_attack_rows_only
+    method: sqrt_inverse_frequency
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+    oversampling: false
+training:
+  seed: 42
+  batch_size: 1024
+  max_epochs: 40
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  early_stopping_metric: val_hierarchical_score
+  early_stopping_patience: 6
+checkpoint_selection:
+  monitor: val_hierarchical_score
+  formula: 0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1
+  use_validation_only: true
+  select_by_test_metrics: false
+  final_test_once_after_best_validation: true
+metrics:
+  binary:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - macro_f1
+  - confusion_matrix
+  - false_negative_attack_count
+  attack_family:
+  - attack_family_accuracy_on_attack_rows
+  - attack_family_macro_f1_on_attack_rows
+  - per_class_precision_recall_f1_support
+  - rare_class_macro_f1
+  - weak_hard_class_report
+  - attack_family_confusion_matrix
+  - validation_vs_test_gap_report
+  hierarchical_end_to_end:
+  - benign_correctly_stopped
+  - attack_detected_and_correctly_attributed
+  - attack_detected_wrong_family
+  - attack_missed_as_benign
+  - end_to_end_hierarchical_macro_f1_if_clearly_defined
+rare_classes:
+- Shellcode
+- Worms
+weak_hard_classes: []
+outputs:
+  checkpoint: models/final/final_unsw_hierarchical_a9_6_head2_loss_weight.pt
+  result_dir: results/final/hierarchical/unsw_a9_6_head2_loss_weight
+  training_history_csv: results/final/hierarchical/unsw_a9_6_head2_loss_weight/training_history.csv
+  test_metrics_json: results/final/hierarchical/unsw_a9_6_head2_loss_weight/test_metrics.json
+  binary_confusion_matrix_csv: results/final/hierarchical/unsw_a9_6_head2_loss_weight/binary_confusion_matrix.csv
+  attack_family_confusion_matrix_csv: results/final/hierarchical/unsw_a9_6_head2_loss_weight/attack_family_confusion_matrix.csv
+  per_class_attack_metrics_csv: results/final/hierarchical/unsw_a9_6_head2_loss_weight/per_class_attack_metrics.csv
+  rare_class_metrics_csv: results/final/hierarchical/unsw_a9_6_head2_loss_weight/rare_class_metrics.csv
+  hierarchical_routing_summary_json: results/final/hierarchical/unsw_a9_6_head2_loss_weight/hierarchical_routing_summary.json
+  training_config_snapshot_yaml: results/final/hierarchical/unsw_a9_6_head2_loss_weight/training_config_snapshot.yaml
+  class_weight_snapshot_json: results/final/hierarchical/unsw_a9_6_head2_loss_weight/class_weight_snapshot.json
+  model_summary_json: results/final/hierarchical/unsw_a9_6_head2_loss_weight/model_summary.json
+  manifest_json: results/audits/hierarchical_training_manifest_unsw_nb15_a9_6_head2_loss_weight.json
+  report_md: docs/HIERARCHICAL_TRAINING_REPORT_A9_6_HEAD2_LOSS_WEIGHT.md
+safety:
+  a6_design_only: true
+  full_training_run_in_a6: false
+  final_checkpoint_created_in_a6: false
+  final_metrics_created_in_a6: false
+  no_test_set_tuning: true
+  no_scaler_encoder_refit_on_test: true
+  overwrite_binary_artifacts: false
+  overwrite_hierarchical_preprocessing_artifacts: false
+  hierarchical_fedavg_started: false
+  security_attack_xai_dashboard_started: false

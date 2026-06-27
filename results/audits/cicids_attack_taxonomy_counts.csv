@@ -1,0 +1,15 @@
+raw_label,mapped_attack_family,common_superclass,support_count,support_percent,is_rare
+DDOS attack-HOIC,DDoS,DoS/DDoS,686012,24.961912,false
+DDoS attacks-LOIC-HTTP,DDoS,DoS/DDoS,576191,20.965856,false
+DoS attacks-Hulk,DoS,DoS/DDoS,461912,16.807587,false
+Bot,Bot,Malware/Botnet,286191,10.413629,false
+FTP-BruteForce,Brute Force,Brute Force,193360,7.035788,false
+SSH-Bruteforce,Brute Force,Brute Force,187589,6.825799,false
+Infilteration,Infilteration / Infiltration,Exploitation,161934,5.892291,false
+DoS attacks-SlowHTTPTest,DoS,DoS/DDoS,139890,5.090176,false
+DoS attacks-GoldenEye,DoS,DoS/DDoS,41508,1.510351,false
+DoS attacks-Slowloris,DoS,DoS/DDoS,10990,0.399893,true
+DDOS attack-LOIC-UDP,DDoS,DoS/DDoS,1730,0.062949,true
+Brute Force -Web,Web Brute Force,Web/Injection,611,0.022232,true
+Brute Force -XSS,Web Attack / XSS,Web/Injection,230,0.008369,true
+SQL Injection,SQL Injection,Web/Injection,87,0.003166,true

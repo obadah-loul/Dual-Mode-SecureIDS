@@ -1,0 +1,10 @@
+candidate,decision,reason,risk,selected
+Head 2 capacity increase,selected,Already supported safely by the model/trainer and directly targets the main Head 2 weakness without changing Head 1,Could overfit rare classes or produce only small gains,true
+Attack-family loss weighting change,defer,Supported through existing loss weights but previous UNSW loss-pressure experiment was not convincing and this would affect optimization globally,Can trade off strong classes and binary/head routing behavior,false
+Rare-class sampling / balanced attack-family sampler,defer,Higher implementation scope and more leakage/overfit risk than EXP01,Must be strictly train-only and could destabilize distribution,false
+Class-weight tuning,defer,Possible train-only future direction but changes weighting rather than capacity,Can destabilize class balance,false
+Validation calibration,defer,Could be useful later but does not target the main Head 2 family-separation weakness,Must remain validation-only,false
+Specialist attack-family module,reject_for_now,Too much model-zoo complexity before a simple controlled Head 2 capacity test,Large architecture and comparison burden,false
+Threshold tuning,reject,Head 1 is already excellent and test-based threshold tuning is invalid,Could introduce leakage or disrupt binary behavior,false
+Reporting-only improvement,already_done,Improves honesty but not model performance,No metric improvement,false
+No immediate improvement / proceed to federated/security,rejected_by_main_control,Main control chose to keep improving CICIDS first,Delays federated/security work,false

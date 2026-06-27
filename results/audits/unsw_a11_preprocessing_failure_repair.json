@@ -1,0 +1,256 @@
+{
+  "audit_name": "unsw_a11_preprocessing_failure_repair",
+  "task_type": "a11_preprocessing_bugfix_partial_output_handling_no_rerun",
+  "generated_on": "2026-06-25",
+  "failure": {
+    "command": "prepare-unsw-a11 --execute",
+    "error": "KeyError: 0",
+    "location": "secureids/preprocessing/unsw_a11_preprocessor.py",
+    "function": "build_a11_split_summary",
+    "likely_cause": "taxonomy id_to_class mapping key type mismatch"
+  },
+  "root_cause_confirmed": "Confirmed. secureids.preprocessing.hierarchical.build_taxonomy_info builds id_to_class with string keys such as \"0\", while build_a11_split_summary iterated integer class ids from NumPy counts and indexed id_to_class[0], causing KeyError: 0.",
+  "code_fix_summary": "Added resolve_class_name(id_to_class, class_id) in the A11 preprocessor to support integer-key, string-key, and mixed id_to_class mappings. build_a11_split_summary and separability-diagnostic output now use the resolver. Added A11 partial-output inspection and explicit --execute refusal when an incomplete A11 processed directory is present.",
+  "partial_outputs": {
+    "processed_dir": "data/processed/unsw_a11_enhanced/",
+    "detected": true,
+    "classification": "incomplete",
+    "files_checked": [
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/X_train.npy",
+        "exists": true,
+        "shape": [
+          149039,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/X_val.npy",
+        "exists": true,
+        "shape": [
+          26302,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/X_test.npy",
+        "exists": true,
+        "shape": [
+          82332,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/y_train.npy",
+        "exists": true,
+        "shape": [
+          149039
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/y_val.npy",
+        "exists": true,
+        "shape": [
+          26302
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/binary/y_test.npy",
+        "exists": true,
+        "shape": [
+          82332
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/X_train.npy",
+        "exists": true,
+        "shape": [
+          149039,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/X_val.npy",
+        "exists": true,
+        "shape": [
+          26302,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/X_test.npy",
+        "exists": true,
+        "shape": [
+          82332,
+          192
+        ],
+        "dtype": "float32"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_binary_train.npy",
+        "exists": true,
+        "shape": [
+          149039
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_binary_val.npy",
+        "exists": true,
+        "shape": [
+          26302
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_binary_test.npy",
+        "exists": true,
+        "shape": [
+          82332
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_attack_family_train.npy",
+        "exists": true,
+        "shape": [
+          149039
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_attack_family_val.npy",
+        "exists": true,
+        "shape": [
+          26302
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/y_attack_family_test.npy",
+        "exists": true,
+        "shape": [
+          82332
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/attack_family_mask_train.npy",
+        "exists": true,
+        "shape": [
+          149039
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/attack_family_mask_val.npy",
+        "exists": true,
+        "shape": [
+          26302
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/attack_family_mask_test.npy",
+        "exists": true,
+        "shape": [
+          82332
+        ],
+        "dtype": "int64"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/feature_names.json",
+        "exists": true,
+        "json_parse": "ok"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/binary_label_mapping.json",
+        "exists": true,
+        "json_parse": "ok"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/attack_family_label_mapping.json",
+        "exists": true,
+        "json_parse": "ok"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/common_attack_superclass_mapping.json",
+        "exists": true,
+        "json_parse": "ok"
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/split_summary.json",
+        "exists": false
+      },
+      {
+        "path": "data/processed/unsw_a11_enhanced/hierarchical/hierarchical_preprocessing_manifest.json",
+        "exists": false
+      },
+      {
+        "path": "results/audits/unsw_a11_enhanced_feature_protocol_preprocessing_audit.json",
+        "exists": false
+      },
+      {
+        "path": "models/experiments/preprocessors/unsw_a11_enhanced/unsw_a11_enhanced_preprocessor.joblib",
+        "exists": false
+      }
+    ],
+    "cleanup_performed": false,
+    "safe_to_use_for_training": false
+  },
+  "future_rerun_behavior": {
+    "rerun_allowed_now": false,
+    "requires_cleanup_approval": true,
+    "partial_output_detection_added": true,
+    "staging_or_refusal_behavior": "A11 dry-run reports partial_outputs detected/incomplete. A11 --execute now refuses to run when data/processed/unsw_a11_enhanced exists without completed manifest/audit/preprocessor validators; cleanup or overwrite approval must come from main control."
+  },
+  "tests_run": [
+    {
+      "command": "$env:PYTHONDONTWRITEBYTECODE = '1'; .\\.venv\\Scripts\\python.exe -m pytest tests/test_unsw_a11_preprocessing_config.py tests/test_unsw_a11_preprocessor.py tests/test_unsw_a11_cli.py -q",
+      "result": "21 passed in 3.69s"
+    }
+  ],
+  "validation_checks": [
+    "inspected secureids/preprocessing/unsw_a11_preprocessor.py",
+    "inspected secureids/preprocessing/unsw_a11_config.py",
+    "inspected configs/preprocessing/experiments/unsw_a11_enhanced_feature_protocol.yaml",
+    "parsed data/processed/unsw_a11_enhanced/hierarchical/attack_family_label_mapping.json",
+    "confirmed id_to_class keys are JSON strings",
+    "checked A11 partial output file existence",
+    "checked A11 .npy shapes with mmap_mode='r'",
+    "confirmed missing split_summary.json",
+    "confirmed missing hierarchical_preprocessing_manifest.json",
+    "confirmed missing A11 preprocessing audit JSON",
+    "confirmed missing A11 preprocessor joblib",
+    "confirmed A11 seed42 checkpoint is absent",
+    "confirmed A11 seed42 results directory is absent",
+    "confirmed A11 CLI dry-run reports partial_outputs detected=True classification=incomplete",
+    "confirmed dry-run did not create missing validator files"
+  ],
+  "safety": {
+    "preprocessing_rerun": false,
+    "training_run": false,
+    "evaluation_run": false,
+    "checkpoint_created": false,
+    "checkpoint_modified": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "partial_outputs_deleted": false,
+    "partial_outputs_overwritten": false,
+    "v1_modified": false,
+    "git_action": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "next_main_control_decision": "approve_partial_output_cleanup_or_manual_a11_preprocessing_rerun_after_cleanup"
+}

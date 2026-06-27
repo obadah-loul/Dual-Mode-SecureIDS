@@ -1,0 +1,4 @@
+class_name,precision,recall,f1,support
+Shellcode,0.282342,0.791005,0.416145,378
+Worms,0.254902,0.295455,0.273684,44
+rare_class_macro_f1,,,0.344914,422

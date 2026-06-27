@@ -1,0 +1,871 @@
+{
+  "a8_safety": {
+    "checkpoint_created": false,
+    "final_metrics_created": false,
+    "full_epoch_run": false,
+    "full_training_run": false,
+    "hierarchical_fedavg_started": false,
+    "optimizer_training_loop_run": false,
+    "security_attack_trimmed_mean_xai_dashboard_started": false
+  },
+  "blocking_issues": [],
+  "class_distribution": {
+    "attack_family_by_split": {
+      "test": {
+        "Analysis": 2000,
+        "Backdoor": 1746,
+        "DoS": 12264,
+        "Exploits": 33393,
+        "Fuzzers": 18184,
+        "Generic": 40000,
+        "Reconnaissance": 10491,
+        "Shellcode": 1133,
+        "Worms": 130
+      },
+      "train": {
+        "Analysis": 578,
+        "Backdoor": 488,
+        "DoS": 3474,
+        "Exploits": 9470,
+        "Fuzzers": 5086,
+        "Generic": 16077,
+        "Reconnaissance": 3003,
+        "Shellcode": 316,
+        "Worms": 40
+      },
+      "val": {
+        "Analysis": 99,
+        "Backdoor": 95,
+        "DoS": 615,
+        "Exploits": 1662,
+        "Fuzzers": 976,
+        "Generic": 2794,
+        "Reconnaissance": 493,
+        "Shellcode": 62,
+        "Worms": 4
+      }
+    },
+    "binary_by_split": {
+      "test": {
+        "0": 56000,
+        "1": 119341
+      },
+      "train": {
+        "0": 31450,
+        "1": 38532
+      },
+      "val": {
+        "0": 5550,
+        "1": 6800
+      }
+    }
+  },
+  "class_weight_preview": {
+    "attack_family": {
+      "all_classes_have_nonzero_train_support": true,
+      "by_class": {
+        "Analysis": {
+          "capped_balanced_weight": 7.407151,
+          "class_id": 5,
+          "log_smoothed_weight": 4.21456,
+          "raw_balanced_weight": 7.407151,
+          "sqrt_inverse_frequency_weight": 5.273981,
+          "train_support": 578
+        },
+        "Backdoor": {
+          "capped_balanced_weight": 8.773224,
+          "class_id": 6,
+          "log_smoothed_weight": 4.381514,
+          "raw_balanced_weight": 8.773224,
+          "sqrt_inverse_frequency_weight": 5.739745,
+          "train_support": 488
+        },
+        "DoS": {
+          "capped_balanced_weight": 1.232393,
+          "class_id": 3,
+          "log_smoothed_weight": 2.492506,
+          "raw_balanced_weight": 1.232393,
+          "sqrt_inverse_frequency_weight": 2.151234,
+          "train_support": 3474
+        },
+        "Exploits": {
+          "capped_balanced_weight": 0.452094,
+          "class_id": 1,
+          "log_smoothed_weight": 1.623114,
+          "raw_balanced_weight": 0.452094,
+          "sqrt_inverse_frequency_weight": 1.302949,
+          "train_support": 9470
+        },
+        "Fuzzers": {
+          "capped_balanced_weight": 0.841788,
+          "class_id": 2,
+          "log_smoothed_weight": 2.148978,
+          "raw_balanced_weight": 0.841788,
+          "sqrt_inverse_frequency_weight": 1.777929,
+          "train_support": 5086
+        },
+        "Generic": {
+          "capped_balanced_weight": 0.266302,
+          "class_id": 0,
+          "log_smoothed_weight": 1.222809,
+          "raw_balanced_weight": 0.266302,
+          "sqrt_inverse_frequency_weight": 1.0,
+          "train_support": 16077
+        },
+        "Reconnaissance": {
+          "capped_balanced_weight": 1.425685,
+          "class_id": 4,
+          "log_smoothed_weight": 2.626925,
+          "raw_balanced_weight": 1.425685,
+          "sqrt_inverse_frequency_weight": 2.313795,
+          "train_support": 3003
+        },
+        "Shellcode": {
+          "capped_balanced_weight": 10.0,
+          "class_id": 7,
+          "log_smoothed_weight": 4.81167,
+          "raw_balanced_weight": 13.548523,
+          "sqrt_inverse_frequency_weight": 7.132782,
+          "train_support": 316
+        },
+        "Worms": {
+          "capped_balanced_weight": 10.0,
+          "class_id": 8,
+          "log_smoothed_weight": 6.871402,
+          "raw_balanced_weight": 107.033333,
+          "sqrt_inverse_frequency_weight": 20.048067,
+          "train_support": 40
+        }
+      },
+      "capped_balanced_weights_by_class": {
+        "Analysis": 7.407151,
+        "Backdoor": 8.773224,
+        "DoS": 1.232393,
+        "Exploits": 0.452094,
+        "Fuzzers": 0.841788,
+        "Generic": 0.266302,
+        "Reconnaissance": 1.425685,
+        "Shellcode": 10.0,
+        "Worms": 10.0
+      },
+      "log_smoothed_weights_by_class": {
+        "Analysis": 4.21456,
+        "Backdoor": 4.381514,
+        "DoS": 2.492506,
+        "Exploits": 1.623114,
+        "Fuzzers": 2.148978,
+        "Generic": 1.222809,
+        "Reconnaissance": 2.626925,
+        "Shellcode": 4.81167,
+        "Worms": 6.871402
+      },
+      "raw_balanced_weights_by_class": {
+        "Analysis": 7.407151,
+        "Backdoor": 8.773224,
+        "DoS": 1.232393,
+        "Exploits": 0.452094,
+        "Fuzzers": 0.841788,
+        "Generic": 0.266302,
+        "Reconnaissance": 1.425685,
+        "Shellcode": 13.548523,
+        "Worms": 107.033333
+      },
+      "sqrt_inverse_frequency_weights_by_class": {
+        "Analysis": 5.273981,
+        "Backdoor": 5.739745,
+        "DoS": 2.151234,
+        "Exploits": 1.302949,
+        "Fuzzers": 1.777929,
+        "Generic": 1.0,
+        "Reconnaissance": 2.313795,
+        "Shellcode": 7.132782,
+        "Worms": 20.048067
+      },
+      "train_attack_rows": 38532
+    },
+    "binary": {
+      "balanced_class_weights": {
+        "0": 1.112591,
+        "1": 0.908102
+      },
+      "bce_pos_weight_neg_over_pos": 0.816205,
+      "train_counts": {
+        "0": 31450,
+        "1": 38532
+      }
+    },
+    "computed_from_split": "train",
+    "test_labels_used": false
+  },
+  "class_weight_risk_assessment": {
+    "assessment": "WARNING",
+    "configured_max_clip": 10.0,
+    "configured_min_clip": 0.0,
+    "extreme_raw_weight_classes": [
+      "Worms"
+    ],
+    "raw_attack_weight_max": 107.033333,
+    "raw_attack_weight_min": 0.266302,
+    "raw_weight_extreme_threshold": 20.0,
+    "recommendations": [
+      "Do not use uncapped raw inverse-frequency Head 2 weights.",
+      "Use the configured max weight cap, sqrt inverse-frequency weighting, or log-smoothed weighting before real training.",
+      "Keep class weights computed from the train split only.",
+      "Do not add oversampling unless a later task explicitly approves it."
+    ],
+    "very_low_support_classes_lt_50": [
+      "Worms"
+    ],
+    "zero_support_classes": []
+  },
+  "config_summary": {
+    "attack_family_mapping_count": 9,
+    "attack_head_dim": 9,
+    "checkpoint_selection_formula": "0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1",
+    "checkpoint_selection_uses_test_metrics": false,
+    "checkpoint_selection_validation_only": true,
+    "config_exists": true,
+    "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\training\\unsw_nb15_hierarchical.yaml",
+    "dataset": "unsw_nb15",
+    "input_dim": 190,
+    "loss": {
+      "attack_loss_weight": 1.0,
+      "binary_loss_weight": 1.0,
+      "ignore_index": -1
+    },
+    "model_name": "SecureIDSHierarchicalAdvancedNet",
+    "preprocessing_manifest": {
+      "exists": true,
+      "feature_dim": 190,
+      "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical\\hierarchical_preprocessing_manifest.json",
+      "status": "PASS",
+      "task": "hierarchical_preprocessing"
+    },
+    "preprocessing_readiness_json": {
+      "exists": true,
+      "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\hierarchical_preprocessing_readiness_unsw_nb15.json",
+      "ready_for_hierarchical_model_implementation": true,
+      "status": "PASS"
+    },
+    "processed_feature_dim": 190,
+    "task": "hierarchical",
+    "taxonomy_config": {
+      "exists": true,
+      "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\taxonomy\\unsw_nb15_attack_taxonomy.yaml"
+    }
+  },
+  "created_at_utc": "2026-06-24T01:31:24.806191+00:00",
+  "data_summary": {
+    "all_required_files_exist": true,
+    "all_splits_have_all_expected_head2_classes": true,
+    "hierarchical_data_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical",
+    "hierarchical_data_dir_exists": true,
+    "memory_policy": "X arrays loaded with numpy mmap_mode='r'; label arrays scanned in chunks.",
+    "required_files_missing": [],
+    "required_files_present": [
+      "X_train.npy",
+      "X_val.npy",
+      "X_test.npy",
+      "y_binary_train.npy",
+      "y_binary_val.npy",
+      "y_binary_test.npy",
+      "y_attack_family_train.npy",
+      "y_attack_family_val.npy",
+      "y_attack_family_test.npy",
+      "attack_family_mask_train.npy",
+      "attack_family_mask_val.npy",
+      "attack_family_mask_test.npy"
+    ],
+    "splits": {
+      "test": {
+        "X_dtype": "float32",
+        "X_shape": [
+          175341,
+          190
+        ],
+        "attack_family_mask_dtype": "int8",
+        "attack_family_mask_shape": [
+          175341
+        ],
+        "head2_classes_missing": [],
+        "head2_classes_present": [
+          "Generic",
+          "Exploits",
+          "Fuzzers",
+          "DoS",
+          "Reconnaissance",
+          "Analysis",
+          "Backdoor",
+          "Shellcode",
+          "Worms"
+        ],
+        "labels": {
+          "all_expected_head2_classes_present": true,
+          "attack_family_counts": {
+            "0": 40000,
+            "1": 33393,
+            "2": 18184,
+            "3": 12264,
+            "4": 10491,
+            "5": 2000,
+            "6": 1746,
+            "7": 1133,
+            "8": 130
+          },
+          "binary0_not_mask0_count": 0,
+          "binary1_not_mask1_count": 0,
+          "binary_counts": {
+            "0": 56000,
+            "1": 119341
+          },
+          "invalid_binary_label_count": 0,
+          "invalid_mask_value_count": 0,
+          "mask0_not_ignore_count": 0,
+          "mask1_invalid_attack_label_count": 0,
+          "mask_counts": {
+            "0": 56000,
+            "1": 119341
+          },
+          "missing_head2_class_ids": [],
+          "row_count": 175341,
+          "unique_attack_family_values": [
+            -1,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "unique_binary_values": [
+            0,
+            1
+          ],
+          "unique_mask_values": [
+            0,
+            1
+          ]
+        },
+        "y_attack_family_dtype": "int64",
+        "y_attack_family_shape": [
+          175341
+        ],
+        "y_binary_dtype": "int64",
+        "y_binary_shape": [
+          175341
+        ]
+      },
+      "train": {
+        "X_dtype": "float32",
+        "X_shape": [
+          69982,
+          190
+        ],
+        "attack_family_mask_dtype": "int8",
+        "attack_family_mask_shape": [
+          69982
+        ],
+        "head2_classes_missing": [],
+        "head2_classes_present": [
+          "Generic",
+          "Exploits",
+          "Fuzzers",
+          "DoS",
+          "Reconnaissance",
+          "Analysis",
+          "Backdoor",
+          "Shellcode",
+          "Worms"
+        ],
+        "labels": {
+          "all_expected_head2_classes_present": true,
+          "attack_family_counts": {
+            "0": 16077,
+            "1": 9470,
+            "2": 5086,
+            "3": 3474,
+            "4": 3003,
+            "5": 578,
+            "6": 488,
+            "7": 316,
+            "8": 40
+          },
+          "binary0_not_mask0_count": 0,
+          "binary1_not_mask1_count": 0,
+          "binary_counts": {
+            "0": 31450,
+            "1": 38532
+          },
+          "invalid_binary_label_count": 0,
+          "invalid_mask_value_count": 0,
+          "mask0_not_ignore_count": 0,
+          "mask1_invalid_attack_label_count": 0,
+          "mask_counts": {
+            "0": 31450,
+            "1": 38532
+          },
+          "missing_head2_class_ids": [],
+          "row_count": 69982,
+          "unique_attack_family_values": [
+            -1,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "unique_binary_values": [
+            0,
+            1
+          ],
+          "unique_mask_values": [
+            0,
+            1
+          ]
+        },
+        "y_attack_family_dtype": "int64",
+        "y_attack_family_shape": [
+          69982
+        ],
+        "y_binary_dtype": "int64",
+        "y_binary_shape": [
+          69982
+        ]
+      },
+      "val": {
+        "X_dtype": "float32",
+        "X_shape": [
+          12350,
+          190
+        ],
+        "attack_family_mask_dtype": "int8",
+        "attack_family_mask_shape": [
+          12350
+        ],
+        "head2_classes_missing": [],
+        "head2_classes_present": [
+          "Generic",
+          "Exploits",
+          "Fuzzers",
+          "DoS",
+          "Reconnaissance",
+          "Analysis",
+          "Backdoor",
+          "Shellcode",
+          "Worms"
+        ],
+        "labels": {
+          "all_expected_head2_classes_present": true,
+          "attack_family_counts": {
+            "0": 2794,
+            "1": 1662,
+            "2": 976,
+            "3": 615,
+            "4": 493,
+            "5": 99,
+            "6": 95,
+            "7": 62,
+            "8": 4
+          },
+          "binary0_not_mask0_count": 0,
+          "binary1_not_mask1_count": 0,
+          "binary_counts": {
+            "0": 5550,
+            "1": 6800
+          },
+          "invalid_binary_label_count": 0,
+          "invalid_mask_value_count": 0,
+          "mask0_not_ignore_count": 0,
+          "mask1_invalid_attack_label_count": 0,
+          "mask_counts": {
+            "0": 5550,
+            "1": 6800
+          },
+          "missing_head2_class_ids": [],
+          "row_count": 12350,
+          "unique_attack_family_values": [
+            -1,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "unique_binary_values": [
+            0,
+            1
+          ],
+          "unique_mask_values": [
+            0,
+            1
+          ]
+        },
+        "y_attack_family_dtype": "int64",
+        "y_attack_family_shape": [
+          12350
+        ],
+        "y_binary_dtype": "int64",
+        "y_binary_shape": [
+          12350
+        ]
+      }
+    }
+  },
+  "dataloader_check": {
+    "batch_size_used": 1024,
+    "full_epoch_run": false,
+    "optimizer_step_run": false,
+    "splits": {
+      "test": {
+        "batch_dtypes": {
+          "X": "torch.float32",
+          "attack_family_mask": "torch.int64",
+          "y_attack_family": "torch.int64",
+          "y_binary": "torch.float32"
+        },
+        "batch_shapes": {
+          "X": [
+            1024,
+            190
+          ],
+          "attack_family_mask": [
+            1024
+          ],
+          "y_attack_family": [
+            1024
+          ],
+          "y_binary": [
+            1024
+          ]
+        },
+        "dataloader_initialized": true,
+        "dataset_object_initialized": true,
+        "one_batch_loaded": true,
+        "passed": true,
+        "required_keys_present": [
+          "X",
+          "attack_family_mask",
+          "y_attack_family",
+          "y_binary"
+        ]
+      },
+      "train": {
+        "batch_dtypes": {
+          "X": "torch.float32",
+          "attack_family_mask": "torch.int64",
+          "y_attack_family": "torch.int64",
+          "y_binary": "torch.float32"
+        },
+        "batch_shapes": {
+          "X": [
+            1024,
+            190
+          ],
+          "attack_family_mask": [
+            1024
+          ],
+          "y_attack_family": [
+            1024
+          ],
+          "y_binary": [
+            1024
+          ]
+        },
+        "dataloader_initialized": true,
+        "dataset_object_initialized": true,
+        "one_batch_loaded": true,
+        "passed": true,
+        "required_keys_present": [
+          "X",
+          "attack_family_mask",
+          "y_attack_family",
+          "y_binary"
+        ]
+      },
+      "val": {
+        "batch_dtypes": {
+          "X": "torch.float32",
+          "attack_family_mask": "torch.int64",
+          "y_attack_family": "torch.int64",
+          "y_binary": "torch.float32"
+        },
+        "batch_shapes": {
+          "X": [
+            1024,
+            190
+          ],
+          "attack_family_mask": [
+            1024
+          ],
+          "y_attack_family": [
+            1024
+          ],
+          "y_binary": [
+            1024
+          ]
+        },
+        "dataloader_initialized": true,
+        "dataset_object_initialized": true,
+        "one_batch_loaded": true,
+        "passed": true,
+        "required_keys_present": [
+          "X",
+          "attack_family_mask",
+          "y_attack_family",
+          "y_binary"
+        ]
+      }
+    },
+    "status": "PASS"
+  },
+  "dataset": "unsw_nb15",
+  "device_check": {
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 4070 Ti",
+    "gpu_total_memory_gb": 11.994,
+    "memory_caution": null,
+    "python_executable": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\.venv\\Scripts\\python.exe",
+    "selected_device_recommendation": "cuda",
+    "torch_version": "2.11.0+cu128"
+  },
+  "loss_check": {
+    "backward_pass_run": false,
+    "finite_loss": true,
+    "loss_values": {
+      "attack_loss": 2.3584868907928467,
+      "attack_rows": 599,
+      "binary_loss": 0.5990889072418213,
+      "total_loss": 2.957575798034668
+    },
+    "masked_loss_computed": true,
+    "optimizer_step_run": false,
+    "status": "PASS"
+  },
+  "metric_output_plan": {
+    "attack_family_confusion_matrix": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/attack_family_confusion_matrix.csv",
+      "planned_only_not_created_by_a8": true
+    },
+    "best_validation_checkpoint_selection": {
+      "formula": "0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1",
+      "monitor": "val_hierarchical_score",
+      "use_validation_only": true
+    },
+    "binary_confusion_matrix": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/binary_confusion_matrix.csv",
+      "planned_only_not_created_by_a8": true
+    },
+    "final_metrics_created_by_a8": false,
+    "final_one_time_test_metrics": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/test_metrics.json",
+      "planned_only_not_created_by_a8": true
+    },
+    "metric_config_coverage": {
+      "attack_required_missing": [],
+      "attack_required_present": [
+        "attack_family_confusion_matrix",
+        "attack_family_macro_f1_on_attack_rows",
+        "per_class_precision_recall_f1_support",
+        "rare_class_macro_f1",
+        "validation_vs_test_gap_report",
+        "weak_hard_class_report"
+      ],
+      "binary_required_missing": [],
+      "binary_required_present": [
+        "confusion_matrix",
+        "macro_f1"
+      ]
+    },
+    "per_class_attack_metrics": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/per_class_attack_metrics.csv",
+      "planned_only_not_created_by_a8": true
+    },
+    "rare_class_metrics": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/rare_class_metrics.csv",
+      "planned_only_not_created_by_a8": true
+    },
+    "status": "PASS",
+    "training_history_csv": {
+      "exists_now": false,
+      "path": "results/final/hierarchical/unsw/training_history.csv",
+      "planned_only_not_created_by_a8": true
+    },
+    "training_manifest_json": {
+      "exists_now": false,
+      "path": "results/audits/hierarchical_training_manifest_unsw_nb15.json",
+      "planned_only_not_created_by_a8": true
+    },
+    "validation_metrics_per_epoch": "planned inside training_history_csv",
+    "validation_vs_test_gap_report": "planned in config metrics.attack_family",
+    "weak_hard_class_report": "planned in config metrics.attack_family"
+  },
+  "model_forward_check": {
+    "attack_head_dim": 9,
+    "checkpoint_saved": false,
+    "device": "cuda",
+    "expected_output_shapes": {
+      "attack_logits": [
+        1024,
+        9
+      ],
+      "binary_logit": [
+        1024
+      ],
+      "embedding": [
+        1024,
+        128
+      ]
+    },
+    "input_dim": 190,
+    "model_class": "SecureIDSHierarchicalAdvancedNet",
+    "optimizer_step_run": false,
+    "output_shapes": {
+      "attack_logits": [
+        1024,
+        9
+      ],
+      "binary_logit": [
+        1024
+      ],
+      "embedding": [
+        1024,
+        128
+      ]
+    },
+    "status": "PASS",
+    "training_mode": false
+  },
+  "next_recommended_training_command": "python -m secureids.cli train-hierarchical --dataset unsw --config configs/training/unsw_nb15_hierarchical.yaml --execute",
+  "no_fake_results_check": {
+    "no_checkpoint_saved": true,
+    "no_fake_shared_multiclass_taxonomy": true,
+    "no_fedavg_security_attack_xai_dashboard_started": true,
+    "no_final_metrics_created_in_a8": true,
+    "no_full_training_execution": true,
+    "no_optimizer_training_loop": true,
+    "no_scaler_encoder_refit_on_test": true,
+    "no_smoke_metrics_reported_as_final": true,
+    "no_test_based_class_weights": true,
+    "no_test_set_tuning": true,
+    "status": "PASS"
+  },
+  "output_safety_check": {
+    "all_binary_checkpoints_exist": true,
+    "all_binary_result_files_exist": true,
+    "binary_checkpoints_preserved": {
+      "models/federated/fedavg_cicids_binary.pt": true,
+      "models/federated/fedavg_unsw_binary.pt": true,
+      "models/final/final_cicids_binary.pt": true,
+      "models/final/final_unsw_binary.pt": true
+    },
+    "binary_result_files_preserved": {
+      "results/audits/training_manifest_cicids2018.json": true,
+      "results/audits/training_manifest_unsw_nb15.json": true,
+      "results/final/centralized/cicids_confusion_matrix.csv": true,
+      "results/final/centralized/cicids_test_metrics.json": true,
+      "results/final/centralized/cicids_training_history.csv": true,
+      "results/final/centralized/unsw_confusion_matrix.csv": true,
+      "results/final/centralized/unsw_test_metrics.json": true,
+      "results/final/centralized/unsw_training_history.csv": true
+    },
+    "expected_checkpoint_path_match": true,
+    "expected_result_dir_match": true,
+    "federated_hierarchical_started": false,
+    "hierarchical_checkpoints_exist": {
+      "models/federated/fedavg_cicids_hierarchical.pt": false,
+      "models/federated/fedavg_unsw_hierarchical.pt": false,
+      "models/final/final_cicids_hierarchical.pt": false,
+      "models/final/final_unsw_hierarchical.pt": false
+    },
+    "no_overwrite_would_occur": true,
+    "planned_checkpoint": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_hierarchical.pt",
+    "planned_checkpoint_exists": false,
+    "planned_final_output_files_existing": {},
+    "planned_result_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\unsw",
+    "result_dir_contains_final_metrics": false,
+    "result_dir_existing_files": [],
+    "result_dir_exists": false,
+    "smoke_outputs_non_final": {
+      "cicids2018": {
+        "checkpoint_created": false,
+        "do_not_report_as_final": true,
+        "exists": true,
+        "final_metrics_created": false,
+        "non_final": true,
+        "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\hierarchical_smoke_training_cicids2018.json",
+        "smoke_only": true
+      },
+      "unsw_nb15": {
+        "checkpoint_created": false,
+        "do_not_report_as_final": true,
+        "exists": true,
+        "final_metrics_created": false,
+        "non_final": true,
+        "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\hierarchical_smoke_training_unsw_nb15.json",
+        "smoke_only": true
+      }
+    },
+    "status": "PASS"
+  },
+  "rare_class_summary": {
+    "handling_plan": [
+      "Keep rare classes separate in Head 2.",
+      "Report per-class precision, recall, F1, and support.",
+      "Report rare-class metrics and weak/hard-class behavior.",
+      "Use capped or smoothed train-only class weights; avoid oversampling unless later approved."
+    ],
+    "rare_class_entries": [
+      {
+        "class_id": 7,
+        "class_name": "Shellcode",
+        "documented_in_config": true,
+        "present_train_val_test": true,
+        "split_counts": {
+          "test": 1133,
+          "train": 316,
+          "val": 62
+        }
+      },
+      {
+        "class_id": 8,
+        "class_name": "Worms",
+        "documented_in_config": true,
+        "present_train_val_test": true,
+        "split_counts": {
+          "test": 130,
+          "train": 40,
+          "val": 4
+        }
+      }
+    ],
+    "rare_classes_from_config": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_classes_missing_or_not_mapped": [],
+    "rare_classes_present_in_train_val_test_or_documented": true
+  },
+  "ready_for_full_hierarchical_training": true,
+  "schema_version": "task_a8_hierarchical_full_training_readiness_v1",
+  "status": "PASS",
+  "warnings": [
+    "Raw inverse-frequency Head 2 weights are extreme for: Worms; use capped, sqrt, or log-smoothed weighting before real training.",
+    "Very low Head 2 train support (<50 rows) for: Worms"
+  ]
+}

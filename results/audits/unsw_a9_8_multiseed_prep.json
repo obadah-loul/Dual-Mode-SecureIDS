@@ -1,0 +1,185 @@
+{
+  "status": "prepared_not_run",
+  "task": "A9.8-prep formal multi-seed A9 vs A9.7 comparison preparation",
+  "path_fix_status": "prepared",
+  "blocked_before_training": true,
+  "original_error": "unexpected checkpoint path",
+  "allowed_checkpoint_namespace": "models/final/multiseed/",
+  "allowed_result_namespace": "results/final/hierarchical/multiseed/",
+  "allowed_manifest_namespace": "results/audits/multiseed/",
+  "ready_for_manual_run_after_path_fix": true,
+  "training_was_run": false,
+  "tests_were_run": false,
+  "python_commands_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "a9_7_artifacts_modified": false,
+  "cicids_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "seeds": [
+    42,
+    123,
+    999
+  ],
+  "models_compared": [
+    {
+      "key": "a9_linear",
+      "label": "A9 linear Head 2 baseline",
+      "base_config": "configs/training/unsw_nb15_hierarchical.yaml",
+      "historical_context_result_dir": "results/final/hierarchical/unsw/",
+      "seed_runs": [
+        {
+          "seed": 42,
+          "config": "configs/training/multiseed/unsw_a9_linear_seed42.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_linear_seed42.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_linear_seed42",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed42.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED42.md"
+        },
+        {
+          "seed": 123,
+          "config": "configs/training/multiseed/unsw_a9_linear_seed123.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_linear_seed123.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_linear_seed123",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed123.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED123.md"
+        },
+        {
+          "seed": 999,
+          "config": "configs/training/multiseed/unsw_a9_linear_seed999.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_linear_seed999.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_linear_seed999",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed999.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED999.md"
+        }
+      ]
+    },
+    {
+      "key": "a9_7_branch",
+      "label": "A9.7 MLP Head 2 branch-capacity model",
+      "base_config": "configs/training/unsw_nb15_hierarchical_a9_7_head2_branch_capacity.yaml",
+      "historical_context_result_dir": "results/final/hierarchical/unsw_a9_7_head2_branch_capacity/",
+      "seed_runs": [
+        {
+          "seed": 42,
+          "config": "configs/training/multiseed/unsw_a9_7_branch_seed42.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_7_branch_seed42.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed42",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed42.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED42.md"
+        },
+        {
+          "seed": 123,
+          "config": "configs/training/multiseed/unsw_a9_7_branch_seed123.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_7_branch_seed123.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed123",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed123.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED123.md"
+        },
+        {
+          "seed": 999,
+          "config": "configs/training/multiseed/unsw_a9_7_branch_seed999.yaml",
+          "checkpoint": "models/final/multiseed/unsw_a9_7_branch_seed999.pt",
+          "result_dir": "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed999",
+          "manifest": "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed999.json",
+          "report": "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED999.md"
+        }
+      ]
+    }
+  ],
+  "configs_created": [
+    "configs/training/multiseed/unsw_a9_linear_seed42.yaml",
+    "configs/training/multiseed/unsw_a9_linear_seed123.yaml",
+    "configs/training/multiseed/unsw_a9_linear_seed999.yaml",
+    "configs/training/multiseed/unsw_a9_7_branch_seed42.yaml",
+    "configs/training/multiseed/unsw_a9_7_branch_seed123.yaml",
+    "configs/training/multiseed/unsw_a9_7_branch_seed999.yaml"
+  ],
+  "output_paths_created_or_planned": {
+    "created_now": [
+      "configs/training/multiseed/"
+    ],
+    "planned_checkpoints": [
+      "models/final/multiseed/unsw_a9_linear_seed42.pt",
+      "models/final/multiseed/unsw_a9_linear_seed123.pt",
+      "models/final/multiseed/unsw_a9_linear_seed999.pt",
+      "models/final/multiseed/unsw_a9_7_branch_seed42.pt",
+      "models/final/multiseed/unsw_a9_7_branch_seed123.pt",
+      "models/final/multiseed/unsw_a9_7_branch_seed999.pt"
+    ],
+    "planned_result_dirs": [
+      "results/final/hierarchical/multiseed/unsw_a9_linear_seed42/",
+      "results/final/hierarchical/multiseed/unsw_a9_linear_seed123/",
+      "results/final/hierarchical/multiseed/unsw_a9_linear_seed999/",
+      "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed42/",
+      "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed123/",
+      "results/final/hierarchical/multiseed/unsw_a9_7_branch_seed999/"
+    ],
+    "planned_manifests": [
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed42.json",
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed123.json",
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_linear_seed999.json",
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed42.json",
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed123.json",
+      "results/audits/multiseed/hierarchical_training_manifest_unsw_a9_7_branch_seed999.json"
+    ],
+    "planned_reports": [
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED42.md",
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED123.md",
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_LINEAR_SEED999.md",
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED42.md",
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED123.md",
+      "docs/multiseed/HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED999.md"
+    ]
+  },
+  "aggregation_script_created": true,
+  "aggregation_outputs_planned": [
+    "results/audits/unsw_a9_vs_a9_7_multiseed_summary.json",
+    "results/audits/unsw_a9_vs_a9_7_multiseed_summary.csv",
+    "docs/UNSW_A9_VS_A9_7_MULTI_SEED_REPORT.md"
+  ],
+  "manual_compile_command": ".\\.venv\\Scripts\\python.exe -m compileall secureids tests",
+  "manual_focused_tests_command": ".\\.venv\\Scripts\\python.exe -m pytest tests\\test_hierarchical_multiseed_path_safety.py tests\\test_hierarchical_training_config.py tests\\test_hierarchical_trainer_safety.py -q",
+  "manual_optional_full_tests_command": ".\\.venv\\Scripts\\python.exe -m pytest tests -q",
+  "manual_training_commands": [
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_linear_seed42.yaml --execute",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_linear_seed123.yaml --execute",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_linear_seed999.yaml --execute",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_7_branch_seed42.yaml --execute",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_7_branch_seed123.yaml --execute",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; .\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset unsw --config configs/training/multiseed/unsw_a9_7_branch_seed999.yaml --execute"
+  ],
+  "manual_aggregation_command": ".\\.venv\\Scripts\\python.exe secureids\\evaluation\\compare_multiseed_hierarchical.py --config results\\audits\\unsw_a9_8_multiseed_prep.json",
+  "manual_verification_commands": [
+    "Write-Host \"`n=== A9.8-prep outputs ===\"",
+    "Get-Item docs\\UNSW_A9_8_MULTI_SEED_COMPARISON_PLAN.md",
+    "Get-Item results\\audits\\unsw_a9_8_multiseed_prep.json",
+    "Get-ChildItem configs\\training\\multiseed -Filter \"unsw_a9*.yaml\" | Select-Object Name,Length,LastWriteTime",
+    "Get-Item secureids\\evaluation\\compare_multiseed_hierarchical.py -ErrorAction SilentlyContinue",
+    "Write-Host \"`n=== A9.8-prep JSON summary ===\"",
+    "$p = Get-Content results\\audits\\unsw_a9_8_multiseed_prep.json -Raw | ConvertFrom-Json",
+    "$p | Select-Object status,training_was_run,tests_were_run,checkpoints_created,final_metrics_created,configs_created,aggregation_script_created,ready_for_manual_run,remaining_blockers | Format-List",
+    "Write-Host \"`n=== Confirm no multiseed checkpoints yet ===\"",
+    "Get-ChildItem models\\final\\multiseed -ErrorAction SilentlyContinue | Select-Object Name,Length,LastWriteTime",
+    "Write-Host \"`n=== Confirm no multiseed result folders yet ===\"",
+    "Get-ChildItem results\\final\\hierarchical\\multiseed -Directory -ErrorAction SilentlyContinue | Select-Object Name,LastWriteTime"
+  ],
+  "ready_for_manual_run": true,
+  "remaining_blockers": [
+    "User must run compile/check commands manually if desired.",
+    "User must run all six training commands manually before aggregation.",
+    "Aggregation must be run manually only after all six seed result folders contain completed metrics."
+  ],
+  "commands_run_by_codex": [
+    "Get-Content attached A9.8-prep prompt after explicit permission update",
+    "Get-Content source A9 and A9.7 configs and A9.7 review documents",
+    "Select-String inspection of model, trainer, and CLI output-path support",
+    "Get-ChildItem/Test-Path file-inspection commands",
+    "New-Item -ItemType Directory -Force -Path configs\\training\\multiseed",
+    "Get-Content/Select-String inspection for A9.8 path-fix-prep",
+    "apply_patch edits to secureids/training/hierarchical_config.py, tests/test_hierarchical_multiseed_path_safety.py, docs/UNSW_A9_8_MULTI_SEED_COMPARISON_PLAN.md, and results/audits/unsw_a9_8_multiseed_prep.json"
+  ]
+}

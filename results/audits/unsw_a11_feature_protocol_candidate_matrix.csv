@@ -1,0 +1,9 @@
+rank,candidate_name,status,expected_benefit,expected_risk,implementation_complexity,leakage_risk,comparability_impact,manual_run_count,targets_rare_classes,targets_analysis_backdoor_dos_exploits,reason
+1,Train-only feature/category inventory and separability diagnostics,recommend_now,medium_de_risking,low,medium,low,low,0,true,true,Defines fixed train-only feature decisions before any preprocessing or training.
+2,Numeric-only scaling / leave one-hot features unscaled,recommend_now,low_to_medium,low_to_medium,medium,low,high,4,true,true,Removes rare one-hot scaling amplification while preserving corrected raw split and taxonomy.
+3,Train-only proto min-frequency grouping / other bucket,recommend_now,low_to_medium,medium,medium_high,low,high,4,true,true,Reduces sparse proto dummy noise from the current 133 proto-derived one-hot features.
+4,Train-only categorical frequency/count features,possible_later,uncertain_low_to_medium,medium,medium_high,low_to_medium,high,4,true,true,May represent categorical rarity more smoothly but must be frozen from train-only evidence.
+5,Numeric log transforms for skewed count/rate/byte features,possible_later,uncertain_low_to_medium,medium,medium,low,high,4,false,true,May stabilize heavy-tailed flow features relevant to DoS and Exploits separation.
+6,Train-only feature selection / redundancy cleanup,possible_later,uncertain,medium,medium,medium,high,4,false,true,Could remove noisy redundant columns but is easy to overfit if not fixed before test use.
+7,Interaction features between grouped categorical and numeric features,possible_later,uncertain,high,high,medium,high,6,true,true,Could expose weak-class patterns but adds overfit and protocol complexity.
+8,Test-label feature selection / taxonomy merging / hidden class removal,reject,invalid_fake_gain,high,variable,high,invalid,0,false,false,Reject because it would use unsafe shortcuts or inflate metrics by changing the task.

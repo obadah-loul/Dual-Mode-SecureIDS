@@ -1,0 +1,651 @@
+{
+  "status": "complete",
+  "task": "A9.8 multi-seed A9 linear vs A9.7 branch-capacity aggregation",
+  "config": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\unsw_a9_8_multiseed_prep.json",
+  "metric_summary": {
+    "binary_macro_f1": {
+      "a9_linear": {
+        "mean": 0.8939740590809431,
+        "std": 0.0023603096626703254,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.8944882344898011
+          },
+          {
+            "seed": 123,
+            "value": 0.8913990457003137
+          },
+          {
+            "seed": 999,
+            "value": 0.8960348970527146
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.8999135546778045,
+        "std": 0.00162032391593625,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.898347724134197
+          },
+          {
+            "seed": 123,
+            "value": 0.8998095761430653
+          },
+          {
+            "seed": 999,
+            "value": 0.9015833637561512
+          }
+        ]
+      }
+    },
+    "binary_f1": {
+      "a9_linear": {
+        "mean": 0.9093643172439604,
+        "std": 0.0022990949310365437,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.9101332769198224
+          },
+          {
+            "seed": 123,
+            "value": 0.9067793003659885
+          },
+          {
+            "seed": 999,
+            "value": 0.9111803744460701
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.9136237879050177,
+        "std": 0.0011934944110645665,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.9125006663468203
+          },
+          {
+            "seed": 123,
+            "value": 0.9134937003750921
+          },
+          {
+            "seed": 999,
+            "value": 0.914876996993141
+          }
+        ]
+      }
+    },
+    "attack_family_macro_f1": {
+      "a9_linear": {
+        "mean": 0.4949651167018448,
+        "std": 0.014303009136831258,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.5004290493995509
+          },
+          {
+            "seed": 123,
+            "value": 0.47873555241948956
+          },
+          {
+            "seed": 999,
+            "value": 0.5057307482864939
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.49948930700777017,
+        "std": 0.010440169274278,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.49366672940713396
+          },
+          {
+            "seed": 123,
+            "value": 0.5115422765637812
+          },
+          {
+            "seed": 999,
+            "value": 0.4932589150523954
+          }
+        ]
+      }
+    },
+    "attack_family_accuracy": {
+      "a9_linear": {
+        "mean": 0.7695226330186182,
+        "std": 0.0034234140535721064,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.766478425836054
+          },
+          {
+            "seed": 123,
+            "value": 0.7688608488484956
+          },
+          {
+            "seed": 999,
+            "value": 0.773228624371305
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.772809494396894,
+        "std": 0.004965733728816184,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.7675372805082502
+          },
+          {
+            "seed": 123,
+            "value": 0.773493338039354
+          },
+          {
+            "seed": 999,
+            "value": 0.7773978646430777
+          }
+        ]
+      }
+    },
+    "rare_class_macro_f1": {
+      "a9_linear": {
+        "mean": 0.36061690484745457,
+        "std": 0.056629412710339964,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.3856689342403628
+          },
+          {
+            "seed": 123,
+            "value": 0.2957823129251701
+          },
+          {
+            "seed": 999,
+            "value": 0.40039946737683085
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.37188653385325693,
+        "std": 0.038713012738200145,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.35450059186742167
+          },
+          {
+            "seed": 123,
+            "value": 0.41624453142988715
+          },
+          {
+            "seed": 999,
+            "value": 0.344914478262462
+          }
+        ]
+      }
+    },
+    "attack_false_negatives": {
+      "a9_linear": {
+        "mean": 2461.6666666666665,
+        "std": 222.42376971298128,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 2310
+          },
+          {
+            "seed": 123,
+            "value": 2717
+          },
+          {
+            "seed": 999,
+            "value": 2358
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 2570.6666666666665,
+        "std": 28.571547618799606,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 2538
+          },
+          {
+            "seed": 123,
+            "value": 2591
+          },
+          {
+            "seed": 999,
+            "value": 2583
+          }
+        ]
+      }
+    },
+    "benign_false_positives": {
+      "a9_linear": {
+        "mean": 6083.666666666667,
+        "std": 89.50046554813741,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 6186
+          },
+          {
+            "seed": 123,
+            "value": 6045
+          },
+          {
+            "seed": 999,
+            "value": 6020
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 5515,
+        "std": 148.8052418431555,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 5669
+          },
+          {
+            "seed": 123,
+            "value": 5504
+          },
+          {
+            "seed": 999,
+            "value": 5372
+          }
+        ]
+      }
+    },
+    "per_class_f1_Analysis": {
+      "a9_linear": {
+        "mean": 0.00411,
+        "std": 0.007118728819108086,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.01233
+          },
+          {
+            "seed": 123,
+            "value": 0.0
+          },
+          {
+            "seed": 999,
+            "value": 0.0
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.002695333333333333,
+        "std": 0.004668454276667314,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.0
+          },
+          {
+            "seed": 123,
+            "value": 0.0
+          },
+          {
+            "seed": 999,
+            "value": 0.008086
+          }
+        ]
+      }
+    },
+    "per_class_f1_Backdoor": {
+      "a9_linear": {
+        "mean": 0.057029333333333335,
+        "std": 0.012499699249715307,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.07037
+          },
+          {
+            "seed": 123,
+            "value": 0.045588
+          },
+          {
+            "seed": 999,
+            "value": 0.05513
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.06342,
+        "std": 0.01847329954285373,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.076886
+          },
+          {
+            "seed": 123,
+            "value": 0.071014
+          },
+          {
+            "seed": 999,
+            "value": 0.04236
+          }
+        ]
+      }
+    },
+    "per_class_f1_DoS": {
+      "a9_linear": {
+        "mean": 0.41978566666666667,
+        "std": 0.028540735402812125,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.387737
+          },
+          {
+            "seed": 123,
+            "value": 0.429159
+          },
+          {
+            "seed": 999,
+            "value": 0.442461
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.433181,
+        "std": 0.02316123994953638,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.408535
+          },
+          {
+            "seed": 123,
+            "value": 0.436511
+          },
+          {
+            "seed": 999,
+            "value": 0.454497
+          }
+        ]
+      }
+    },
+    "per_class_f1_Shellcode": {
+      "a9_linear": {
+        "mean": 0.39361466666666667,
+        "std": 0.050272993409318026,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.439909
+          },
+          {
+            "seed": 123,
+            "value": 0.340136
+          },
+          {
+            "seed": 999,
+            "value": 0.400799
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.4351163333333333,
+        "std": 0.022789998954219678,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.428808
+          },
+          {
+            "seed": 123,
+            "value": 0.460396
+          },
+          {
+            "seed": 999,
+            "value": 0.416145
+          }
+        ]
+      }
+    },
+    "per_class_f1_Worms": {
+      "a9_linear": {
+        "mean": 0.3276193333333333,
+        "std": 0.07435872968477429,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.331429
+          },
+          {
+            "seed": 123,
+            "value": 0.251429
+          },
+          {
+            "seed": 999,
+            "value": 0.4
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.3086566666666667,
+        "std": 0.05503379016870757,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.280193
+          },
+          {
+            "seed": 123,
+            "value": 0.372093
+          },
+          {
+            "seed": 999,
+            "value": 0.273684
+          }
+        ]
+      }
+    },
+    "per_class_f1_Exploits": {
+      "a9_linear": {
+        "mean": 0.6886773333333334,
+        "std": 0.0034930658930706,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.69072
+          },
+          {
+            "seed": 123,
+            "value": 0.684644
+          },
+          {
+            "seed": 999,
+            "value": 0.690668
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.6832146666666666,
+        "std": 0.004348013377777662,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.684826
+          },
+          {
+            "seed": 123,
+            "value": 0.686527
+          },
+          {
+            "seed": 999,
+            "value": 0.678291
+          }
+        ]
+      }
+    },
+    "per_class_f1_Generic": {
+      "a9_linear": {
+        "mean": 0.9805986666666667,
+        "std": 0.00021576453214864637,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.980808
+          },
+          {
+            "seed": 123,
+            "value": 0.980377
+          },
+          {
+            "seed": 999,
+            "value": 0.980611
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.9802523333333333,
+        "std": 0.0005684332268027409,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.979605
+          },
+          {
+            "seed": 123,
+            "value": 0.98067
+          },
+          {
+            "seed": 999,
+            "value": 0.980482
+          }
+        ]
+      }
+    },
+    "per_class_f1_Reconnaissance": {
+      "a9_linear": {
+        "mean": 0.8207036666666667,
+        "std": 0.0028763034146858033,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.822659
+          },
+          {
+            "seed": 123,
+            "value": 0.822051
+          },
+          {
+            "seed": 999,
+            "value": 0.817401
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.8150813333333333,
+        "std": 0.004958347338915777,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.812773
+          },
+          {
+            "seed": 123,
+            "value": 0.820773
+          },
+          {
+            "seed": 999,
+            "value": 0.811698
+          }
+        ]
+      }
+    },
+    "per_class_f1_Fuzzers": {
+      "a9_linear": {
+        "mean": 0.762547,
+        "std": 0.006554857206682682,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.767899
+          },
+          {
+            "seed": 123,
+            "value": 0.755236
+          },
+          {
+            "seed": 999,
+            "value": 0.764506
+          }
+        ]
+      },
+      "a9_7_branch": {
+        "mean": 0.773786,
+        "std": 0.0022758780723052424,
+        "seed_values": [
+          {
+            "seed": 42,
+            "value": 0.771375
+          },
+          {
+            "seed": 123,
+            "value": 0.775897
+          },
+          {
+            "seed": 999,
+            "value": 0.774086
+          }
+        ]
+      }
+    }
+  },
+  "branch_minus_linear_delta": {
+    "binary_macro_f1": 0.005939495596861466,
+    "binary_f1": 0.004259470661057363,
+    "attack_family_macro_f1": 0.00452419030592538,
+    "attack_family_accuracy": 0.0032868613782757183,
+    "rare_class_macro_f1": 0.011269629005802362,
+    "attack_false_negatives": 109.0,
+    "benign_false_positives": -568.666666666667,
+    "per_class_f1_Analysis": -0.001414666666666667,
+    "per_class_f1_Backdoor": 0.0063906666666666695,
+    "per_class_f1_DoS": 0.013395333333333315,
+    "per_class_f1_Shellcode": 0.04150166666666666,
+    "per_class_f1_Worms": -0.018962666666666628,
+    "per_class_f1_Exploits": -0.005462666666666727,
+    "per_class_f1_Generic": -0.0003463333333334484,
+    "per_class_f1_Reconnaissance": -0.005622333333333396,
+    "per_class_f1_Fuzzers": 0.011238999999999999
+  },
+  "missing_files": {
+    "a9_linear": {},
+    "a9_7_branch": {}
+  },
+  "promotion_decision": {
+    "promote_a9_7_branch": false,
+    "reason": "One or more promotion criteria failed.",
+    "checks": {
+      "attack_family_macro_f1_gain_at_least_0_015": false,
+      "rare_class_macro_f1_not_worse_than_minus_0_010": true,
+      "binary_macro_f1_mean_at_least_0_884": true,
+      "binary_f1_mean_at_least_0_905": true,
+      "all_branch_attack_false_negatives_at_or_below_2450": false,
+      "no_branch_seed_severe_rare_collapse": true,
+      "improvement_not_only_easy_classes": true,
+      "no_missing_files": true
+    }
+  }
+}

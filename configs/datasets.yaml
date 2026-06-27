@@ -1,0 +1,18 @@
+cicids2018:
+  raw_dir: data/raw/cicids2018
+  label_columns:
+    - Label
+    - label
+    - attack_label
+  task: binary
+
+unsw_nb15:
+  raw_dir: data/raw/unsw_nb15
+  label_columns:
+    - label
+    - attack_cat
+  categorical_columns:
+    - proto
+    - service
+    - state
+  task: binary

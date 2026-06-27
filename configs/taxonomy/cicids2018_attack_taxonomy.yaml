@@ -1,0 +1,125 @@
+dataset: cicids2018
+task: hierarchical
+status: revised_for_task_a4_5_raw_preserving_head2
+source_a1_taxonomy_counts_csv: results/audits/cicids_attack_taxonomy_counts.csv
+source_columns:
+  raw_label: Label
+  benign_values:
+    - Benign
+binary_mapping:
+  benign_output: 0
+  attack_output: 1
+  attack_rule: all_non_benign_label_values_are_attacks
+attack_family_mapping:
+  ignore_index: -1
+  mask_values:
+    benign_or_normal_rows: 0
+    attack_rows: 1
+  revision_note: Task A4.5 preserves all observed CICIDS raw attack labels as distinct Head 2 classes using clean normalized names.
+rare_threshold:
+  rule: support_percent < 1.0
+  support_percent_lt: 1.0
+common_superclass:
+  reporting_only: true
+  training_target: false
+  note: Common superclasses are for reporting and dashboard comparison only.
+fake_shared_multiclass_label_list_created: false
+attack_labels:
+  - raw_label: DDOS attack-HOIC
+    mapped_attack_family: DDoS-HOIC
+    common_superclass: DoS/DDoS
+    support_count: 686012
+    support_percent: 24.961912
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: DDoS attacks-LOIC-HTTP
+    mapped_attack_family: DDoS-LOIC-HTTP
+    common_superclass: DoS/DDoS
+    support_count: 576191
+    support_percent: 20.965856
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: DDOS attack-LOIC-UDP
+    mapped_attack_family: DDoS-LOIC-UDP
+    common_superclass: DoS/DDoS
+    support_count: 1730
+    support_percent: 0.062949
+    is_rare: true
+    is_weak_or_hard_class: false
+  - raw_label: DoS attacks-Hulk
+    mapped_attack_family: DoS-Hulk
+    common_superclass: DoS/DDoS
+    support_count: 461912
+    support_percent: 16.807587
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: DoS attacks-SlowHTTPTest
+    mapped_attack_family: DoS-SlowHTTPTest
+    common_superclass: DoS/DDoS
+    support_count: 139890
+    support_percent: 5.090176
+    is_rare: false
+    is_weak_or_hard_class: true
+  - raw_label: DoS attacks-GoldenEye
+    mapped_attack_family: DoS-GoldenEye
+    common_superclass: DoS/DDoS
+    support_count: 41508
+    support_percent: 1.510351
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: DoS attacks-Slowloris
+    mapped_attack_family: DoS-Slowloris
+    common_superclass: DoS/DDoS
+    support_count: 10990
+    support_percent: 0.399893
+    is_rare: true
+    is_weak_or_hard_class: false
+  - raw_label: Bot
+    mapped_attack_family: Bot
+    common_superclass: Malware/Botnet
+    support_count: 286191
+    support_percent: 10.413629
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: FTP-BruteForce
+    mapped_attack_family: FTP-BruteForce
+    common_superclass: Brute Force
+    support_count: 193360
+    support_percent: 7.035788
+    is_rare: false
+    is_weak_or_hard_class: true
+  - raw_label: SSH-Bruteforce
+    mapped_attack_family: SSH-Bruteforce
+    common_superclass: Brute Force
+    support_count: 187589
+    support_percent: 6.825799
+    is_rare: false
+    is_weak_or_hard_class: false
+  - raw_label: Infilteration
+    mapped_attack_family: Infilteration / Infiltration
+    common_superclass: Exploitation
+    support_count: 161934
+    support_percent: 5.892291
+    is_rare: false
+    is_weak_or_hard_class: true
+  - raw_label: Brute Force -Web
+    mapped_attack_family: Web-BruteForce
+    common_superclass: Web/Injection
+    support_count: 611
+    support_percent: 0.022232
+    is_rare: true
+    is_weak_or_hard_class: false
+  - raw_label: Brute Force -XSS
+    mapped_attack_family: Web-XSS
+    common_superclass: Web/Injection
+    support_count: 230
+    support_percent: 0.008369
+    is_rare: true
+    is_weak_or_hard_class: false
+  - raw_label: SQL Injection
+    mapped_attack_family: SQL-Injection
+    common_superclass: Web/Injection
+    support_count: 87
+    support_percent: 0.003166
+    is_rare: true
+    is_weak_or_hard_class: false

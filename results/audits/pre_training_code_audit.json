@@ -1,0 +1,184 @@
+{
+  "schema_version": "task_a8_75_pre_training_code_audit_v1",
+  "created_at_utc": "2026-06-24",
+  "task": "A8.75 full project pre-training code, design, and result-quality audit",
+  "project_root": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+  "status": "AUDIT_COMPLETE",
+  "go_for_unsw_training": "conditional_go",
+  "go_decision_summary": "Pipeline scaffolding, safety guards, tests, and readiness gates all PASS. A conditional GO is recommended for implementing and running the first UNSW full centralized hierarchical training in A9, provided the two HIGH findings are resolved or explicitly accepted first: (1) verify/decide the UNSW official train/test partition swap, and (2) ensure A9 actually applies the A8.5-locked attack-family class weights (the current masked loss has no mechanism to apply them).",
+  "blocking_issue_count": 0,
+  "high_issue_count": 2,
+  "medium_issue_count": 4,
+  "low_issue_count": 3,
+  "info_issue_count": 3,
+  "training_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "git_operations_run": false,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "HIGH",
+      "area": "dataset_and_preprocessing",
+      "title": "UNSW official train/test partition appears swapped; model trains on the smaller canonical-test split",
+      "detail": "The physical raw files are UNSW_NB15_training-set.csv = 82,332 data rows and UNSW_NB15_testing-set.csv = 175,341 data rows. The canonical UNSW-NB15 partition is the reverse (training-set = 175,341, testing-set = 82,332). The binary config (configs/preprocessing/unsw_nb15_binary.yaml) feeds train_file (training-set.csv = 82,332) into V2 train+val and test_file (testing-set.csv = 175,341) into V2 test. Result: V2 train = 69,982, val = 12,350 (= canonical TEST partition), V2 test = 175,341 (= canonical TRAIN partition). Verified: V2 test attack rows = 119,341 = canonical training-set attack count; V2 train+val attack rows = 45,332 = canonical testing-set attack count.",
+      "impact": "Inverts the standard published UNSW-NB15 protocol, trains on ~53% less labeled data than available, shrinks rare-class train support (e.g. Worms train=40 instead of ~130), shrinks validation rare-class support (Worms val=4), and makes results non-comparable to published benchmarks that use the official partition. Not a leakage bug (splits are disjoint) but a result-quality and comparability bug. The first planned real training is UNSW, so it would bake this into the headline final model.",
+      "recommendation": "Before the first real UNSW hierarchical run, verify file provenance. Either (a) correct the file assignment so V2 trains on the canonical 175,341-row partition and tests on the 82,332-row partition (requires re-running binary + hierarchical preprocessing and re-locking baselines), or (b) make an explicit, documented decision to use the non-standard split and clearly label all UNSW results as not following the official partition. Do not silently proceed.",
+      "evidence": "wc -l data/raw/unsw_nb15/*.csv; data/processed/unsw_nb15/hierarchical/split_summary.json; secureids/preprocessing/hierarchical.py reconstruct_unsw_labels()"
+    },
+    {
+      "id": "F2",
+      "severity": "HIGH",
+      "area": "loss_and_class_weighting",
+      "title": "Masked loss cannot apply the A8.5-locked attack-family class weights",
+      "detail": "compute_hierarchical_loss() in secureids/models/secureids_hierarchical_advanced_net.py accepts only a binary pos_weight. The attack-family branch calls F.cross_entropy(attack_logits[mask], y[mask]) with no weight= argument. The A8.5-locked strategy (and lock-hierarchical-class-weights command) computes sqrt-inverse-frequency, mean-normalized, capped attack-family weights, but there is no code path that feeds those weights into the loss. No hierarchical training loop exists yet to wire them in either.",
+      "impact": "If A9 implements training by calling the current loss as-is, the carefully-locked attack-family class weights are silently ignored, directly undermining rare-class detection (the project's headline objective). This would make rare-class results look weak for the wrong reason.",
+      "recommendation": "In A9, extend compute_hierarchical_loss to accept an attack_class_weights tensor and pass it to F.cross_entropy(weight=...), move it to the batch device, and confirm via a unit test that weights change the attack loss. The training loop must build the weight tensor from the A8.5 lock JSON (train-only).",
+      "evidence": "secureids/models/secureids_hierarchical_advanced_net.py:215-288; docs/HIERARCHICAL_CLASS_WEIGHT_STRATEGY.md; results/audits/hierarchical_class_weight_strategy_unsw_nb15.json"
+    },
+    {
+      "id": "F3",
+      "severity": "MEDIUM",
+      "area": "metrics_and_model_selection",
+      "title": "Tiny rare-class validation support makes val attack-family macro-F1 unstable for checkpoint selection",
+      "detail": "Checkpoint selection monitors val_hierarchical_score = 0.5*val_binary_macro_f1 + 0.5*val_attack_family_macro_f1. UNSW validation rare-class support is extremely small: Worms val=4, Shellcode val=62. CICIDS validation rare support: SQL-Injection val=12, Web-XSS val=35, Web-BruteForce val=87. Macro-F1 weights every class equally, so a class with 4 validation samples can swing the per-class F1 (and therefore the model-selection score) by large discrete steps between epochs.",
+      "impact": "Best-checkpoint selection and early stopping can be driven by noise on a handful of rare validation rows, producing a final model that is not actually best. Aggravated by F1 (the partition swap shrinks the val set).",
+      "recommendation": "Document the instability; consider a stratified validation split that guarantees a minimum rare-class count, report rare-class val F1 with support so noisy values are visible, and consider a more robust selection signal (e.g. macro-F1 over classes with sufficient support, plus a separately reported rare-class diagnostic). Keep selection validation-only.",
+      "evidence": "data/processed/*/hierarchical/split_summary.json; configs/training/unsw_nb15_hierarchical.yaml checkpoint_selection"
+    },
+    {
+      "id": "F4",
+      "severity": "MEDIUM",
+      "area": "metrics",
+      "title": "Final hierarchical metric computation is not implemented; only non-final smoke diagnostics exist",
+      "detail": "secureids/training/hierarchical_metrics.py contains only smoke diagnostics. compute_attack_family_smoke_metrics computes macro-F1 over classes observed in y_true only (classes = unique(true)). The config plans per-class precision/recall/F1/support, attack-family macro-F1, rare-class macro-F1, confusion matrices, weak/hard-class report, validation-vs-test gap, and end-to-end hierarchical metrics, but no implementation exists.",
+      "impact": "A9 must implement all final metrics. If A9 reuses the observed-classes macro-F1 logic for final reporting, macro-F1 could be computed over a variable class set and become misleading. The end-to-end hierarchical metric (benign stopped / detected+attributed / detected wrong family / missed as benign) must be defined precisely.",
+      "recommendation": "Implement final metrics over the full fixed Head 2 class set (all 9 / 14 classes), compute rare-class macro-F1 over the documented rare set, emit full confusion matrices, and define the end-to-end metric explicitly. Mark smoke outputs non-final (already done) and never present them as final.",
+      "evidence": "secureids/training/hierarchical_metrics.py:26-66; configs/training/unsw_nb15_hierarchical.yaml metrics"
+    },
+    {
+      "id": "F5",
+      "severity": "MEDIUM",
+      "area": "loss_and_class_weighting",
+      "title": "Two divergent definitions of sqrt inverse-frequency attack weights coexist",
+      "detail": "Readiness (secureids/training/hierarchical_readiness.py) previews sqrt_inverse_frequency_weight as sqrt(max_count/count). The A8.5 lock (secureids/training/hierarchical_class_weights.py) defines the locked strategy as sqrt(total/(class_count*count)), mean-normalized, capped at 10.0. Both are previews/audits; neither is yet applied by training code.",
+      "impact": "Ambiguity risk: A9 could apply the readiness preview formula instead of the locked A8.5 formula, changing the effective rare-class weighting.",
+      "recommendation": "Treat the A8.5 lock JSON (results/audits/hierarchical_class_weight_strategy_*.json final_weights) as the single source of truth and load those exact values in A9. Document that the readiness sqrt figure is a risk-preview only.",
+      "evidence": "secureids/training/hierarchical_readiness.py:310-325; secureids/training/hierarchical_class_weights.py:124-186"
+    },
+    {
+      "id": "F6",
+      "severity": "MEDIUM",
+      "area": "loss_and_class_weighting",
+      "title": "Binary class-weight application path must match the locked strategy explicitly",
+      "detail": "Readiness applies pos_weight = raw negatives/positives. The A8.5 lock specifies balanced, mean-normalized, capped-at-10 binary weights. These coincide numerically only because the cap does not currently bind (CICIDS pos_weight=2.50, UNSW pos_weight=0.816; balanced mean-normalized ratio equals neg/pos when uncapped). UNSW train is attack-majority, so pos_weight<1.",
+      "impact": "If the data or cap changes, the two definitions could diverge. A9 should apply the locked binary weights explicitly rather than recomputing raw neg/pos, so the applied weighting always matches the locked strategy.",
+      "recommendation": "In A9, derive the binary pos_weight from the A8.5 lock (final binary weights ratio after cap) rather than raw neg/pos, and assert they match within tolerance.",
+      "evidence": "secureids/training/hierarchical_readiness.py:_check_model_forward_and_loss; results/audits/hierarchical_class_weight_strategy_unsw_nb15.json"
+    },
+    {
+      "id": "F7",
+      "severity": "LOW",
+      "area": "configs",
+      "title": "Stale stage labels in hierarchical training configs",
+      "detail": "Both configs/training/*_hierarchical.yaml still set status: task_a6_design_only_full_training_not_run and safety.a6_design_only: true, although the project is now past A6/A8/A8.5 and ready for A9. No code validates these fields, so they are documentation-only.",
+      "impact": "Could mislead a reader into thinking the config is still design-only.",
+      "recommendation": "Update the status/safety labels to reflect A9-ready state when A9 begins. Left unchanged by this audit to respect the design lock.",
+      "evidence": "configs/training/unsw_nb15_hierarchical.yaml:3,110-113"
+    },
+    {
+      "id": "F8",
+      "severity": "LOW",
+      "area": "dataset_and_preprocessing",
+      "title": "UNSW one-hot encoder fit on the smaller (swapped) train partition increases unknown-category encodings at test time",
+      "detail": "encoding.handle_unknown=ignore and fit_on=train_only. With the swapped, smaller train partition (82,332), categorical values (proto/service/state) that occur only in the larger test partition are encoded as all-zero one-hot rows at test time. input_dim=190 is fixed from the train-fit encoder.",
+      "impact": "Some test rows receive degraded categorical features, further weakening UNSW test performance. This is an aggravating consequence of F1, not an independent leakage bug.",
+      "recommendation": "Re-evaluate after deciding F1. If the partition is corrected to train on the larger split, unknown-category exposure decreases.",
+      "evidence": "configs/preprocessing/unsw_nb15_binary.yaml encoding; data/processed/unsw_nb15/hierarchical/feature_names.json (190)"
+    },
+    {
+      "id": "F9",
+      "severity": "LOW",
+      "area": "configs",
+      "title": "class_weight_min_clip mismatch between config and readiness default",
+      "detail": "Config sets class_imbalance.class_weight_min_clip: 0.0 while the readiness preview default is 0.1. Harmless under the locked sqrt+mean-normalize+cap strategy (which does not use a min clip), but the inconsistency is a documentation smell.",
+      "impact": "Negligible while the locked cap strategy is authoritative.",
+      "recommendation": "Document that min_clip is unused by the locked strategy, or align the values for clarity.",
+      "evidence": "configs/training/unsw_nb15_hierarchical.yaml:30-37; secureids/training/hierarchical_readiness.py:308-309"
+    },
+    {
+      "id": "F10",
+      "severity": "INFO",
+      "area": "artifact_safety_and_quality",
+      "title": "Strong pipeline safety and no fake/leaked artifacts",
+      "detail": "compileall clean; 87/87 tests pass; check-hierarchical-training-readiness PASS for both datasets; lock-hierarchical-class-weights PASS (max final attack weight CICIDS 5.53, UNSW 3.86, both <10 cap). No final hierarchical checkpoints exist (final_*_hierarchical.pt absent), results/final/hierarchical absent, binary baselines preserved (final_*_binary.pt, fedavg_*_binary.pt present). .gitignore excludes data/raw, data/processed, *.pt, *.joblib, *.pem/.key/.crt, .venv, draft/. Class weights are computed strictly from train arrays (validation_files_read=[], test_files_read=[]).",
+      "impact": "Positive: leakage-safe, no test-set tuning configured, artifact overwrite guards present.",
+      "recommendation": "Maintain these guards through A9; the new train-hierarchical command must refuse to overwrite existing final outputs unless an explicit --overwrite is passed.",
+      "evidence": "pytest output; CLI readiness/lock output; models/ and results/ listings; .gitignore"
+    },
+    {
+      "id": "F11",
+      "severity": "INFO",
+      "area": "architecture_and_organization",
+      "title": "Single final architecture, clean module layout, no competing or V1-dumped models",
+      "detail": "One final model (SecureIDSHierarchicalAdvancedNet, ~485k params CICIDS / ~513k params UNSW, embedding_dim 128) with shared encoder + binary head + dataset-aware attack head. Future-stage modules (security, attacks, aggregation, xai, evaluation, core, utils) are empty __init__ placeholders. experiments/ empty. dashboard/app.py is a 15-line placeholder explicitly stating final models/metrics are not available yet. No V1 files copied into V2.",
+      "impact": "Positive: matches the design lock (one organized system, dataset-specific checkpoints allowed, no competing models).",
+      "recommendation": "Keep new layers in their dedicated modules; do not introduce parallel final models.",
+      "evidence": "find secureids/*; dashboard/app.py; model param counts"
+    },
+    {
+      "id": "F12",
+      "severity": "INFO",
+      "area": "training_readiness_and_cli",
+      "title": "Hierarchical training implementation does not exist yet (expected A9 scope)",
+      "detail": "There is no train-hierarchical CLI subcommand and no centralized hierarchical training module (no equivalent of secureids/training/centralized.py for the hierarchical path). The planned do-not-run command would currently fail with an argparse invalid-choice error, which is safe. Readiness PASS certifies the scaffolding/config/data only, not an implemented trainer.",
+      "impact": "Clarifies that 'ready' means scaffolding-ready, not trainer-implemented. A9 must build the trainer, class-weight wiring (F2/F5/F6), checkpoint selection, final metrics (F4), and a guarded CLI command.",
+      "recommendation": "Implement A9 with explicit --execute and --overwrite guards mirroring the centralized binary command, honoring use_validation_only and final_test_once_after_best_validation.",
+      "evidence": "secureids/cli.py (no train-hierarchical); grep train-hierarchical"
+    }
+  ],
+  "commands_run": [
+    ".venv/Scripts/python.exe -m compileall secureids tests -q  (exit 0)",
+    ".venv/Scripts/python.exe -m pytest tests -q  (87 passed)",
+    ".venv/Scripts/python.exe -m secureids.cli check-hierarchical-training-readiness --dataset all  (PASS/PASS)",
+    ".venv/Scripts/python.exe -m secureids.cli lock-hierarchical-class-weights --dataset all  (PASS/PASS)",
+    "read-only inspection of source, configs, docs, tests, processed data headers, mappings, split summaries",
+    "wc -l data/raw/unsw_nb15/*.csv  (partition-size verification)"
+  ],
+  "files_created": [
+    "docs/PRE_TRAINING_CODE_AUDIT_REPORT.md",
+    "results/audits/pre_training_code_audit.json",
+    "results/audits/pre_training_code_audit_findings.csv"
+  ],
+  "files_modified": [
+    "results/audits/hierarchical_full_training_readiness_cicids2018.json (regenerated by recommended readiness command; idempotent except created_at_utc)",
+    "results/audits/hierarchical_full_training_readiness_unsw_nb15.json (regenerated; idempotent except created_at_utc)",
+    "docs/HIERARCHICAL_FULL_TRAINING_READINESS_REPORT.md (regenerated; idempotent except timestamp)",
+    "results/audits/hierarchical_class_weight_strategy_cicids2018.json (regenerated by recommended class-weight command; idempotent except created_at_utc)",
+    "results/audits/hierarchical_class_weight_strategy_unsw_nb15.json (regenerated; idempotent except created_at_utc)",
+    "docs/HIERARCHICAL_CLASS_WEIGHT_STRATEGY.md (regenerated; idempotent except timestamp)"
+  ],
+  "safety_summary": {
+    "v1_modified": false,
+    "v1_files_copied_into_v2": false,
+    "full_training_run": false,
+    "unsw_real_training_run": false,
+    "cicids_real_training_run": false,
+    "final_hierarchical_checkpoints_created": false,
+    "final_hierarchical_metrics_created": false,
+    "hierarchical_fedavg_started": false,
+    "security_attack_trimmed_mean_xai_dashboard_started": false,
+    "existing_checkpoints_overwritten": false,
+    "existing_final_results_overwritten": false,
+    "binary_baseline_checkpoints_preserved": true,
+    "git_operations_run": false,
+    "only_documentation_and_audit_files_created": true,
+    "leakage_safe": true,
+    "test_set_tuning_configured": false,
+    "class_weights_train_only": true,
+    "tests_passed": "87/87",
+    "compile_clean": true,
+    "readiness_status": "PASS",
+    "class_weight_lock_status": "PASS"
+  }
+}

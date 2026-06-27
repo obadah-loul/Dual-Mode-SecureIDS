@@ -1,0 +1,54 @@
+{
+  "audit_name": "unsw_a10_specialist_adjustment_plan",
+  "task_type": "a10_adjusted_specialist_plan_deep_analysis_no_implementation",
+  "generated_on": "2026-06-25",
+  "a99_status": "FAIL_SCREEN",
+  "a99_primary_failure": "validation_to_test_gap_and_rare_class_regression",
+  "a10_worth_attempting": true,
+  "a10_worth_attempting_qualifier": "Worth exactly ONE bounded seed42 screen of the corrected design, with a hard stop if it fails. Four consecutive improvement experiments (A9.6/A9.7/A9.8/A9.9) have failed, so prior probability of clearing the gate is modest; this is the last specialist attempt.",
+  "recommended_strategy": {
+    "id": "A9.10",
+    "name": "frozen_a9_embedding_regularized_head",
+    "description": "Freeze the entire A9 encoder+gate and use its 128-d embedding as FIXED features for attack rows. Train ONLY a small, strongly-regularized attack-family head (linear or a single shallow GELU layer) with high dropout, weight decay, label smoothing, and tempered (less aggressive) class weights. Keep A9 Head 1 as the frozen binary router. Use a generalization-aware validation criterion / earlier stopping. This directly fixes A9.9's two failure modes: it preserves the shared representation A9.9 discarded, and a tiny regularized head shrinks the validation-to-test gap.",
+    "changes_from_a99": [
+      "Reuse the FROZEN A9 encoder embedding instead of training a new encoder from scratch (restores shared representation).",
+      "Much smaller head: linear or one shallow layer, vs A9.9's [256,128] independent encoder (reduces overfit).",
+      "Stronger regularization: higher dropout + weight decay + label smoothing.",
+      "Tempered / less aggressive attack-family class weights to protect rare-class precision (avoid the Shellcode over-prediction and the A9.6/A9.9 RC5 pattern).",
+      "Earlier stopping / generalization-aware validation selection to close the val->test gap."
+    ],
+    "requires_codex_implementation": true,
+    "config_only": false,
+    "manual_run_count": 1
+  },
+  "expected_benefit": "Addresses both A9.9 failure modes. Realistic oracle attack-family macro-F1 ~0.50-0.53 (3-seed mean if it advances); a fair chance to recover rare-class macro toward A9 0.385669 by protecting Shellcode/Worms precision. Binary unchanged (router frozen).",
+  "expected_risk": "Modest upside, real chance of another below-gate result. A9.7/A9.8 already showed that adding Head-2 capacity on the shared embedding gives only +0.0045 attack-family (within the ~0.0143 seed-noise band), and intrinsic RC1 overlap caps the ceiling near ~0.60. If the seed42 screen does not clear 0.515429 with rare >= 0.385669, the specialist direction is exhausted.",
+  "why_this_avoids_a99_failure_mode": "A9.9 failed because the independent encoder overfit (val 0.5863 -> test 0.4747) and lost the benign-informed shared representation, regressing Fuzzers/Shellcode/Worms. A9.10 freezes and reuses that representation and trains only a tiny regularized head, so there is far less to overfit and the generalizing features are retained; tempered weights protect rare precision.",
+  "screening_plan": {
+    "seed42_only_first": true,
+    "three_seed_confirmation_only_if_seed42_passes": true,
+    "no_single_seed_promotion": true,
+    "hard_stop_if_seed42_fails": true
+  },
+  "candidate_summary": [
+    {"rank": 1, "id": "A10", "name": "frozen_a9_embedding_regularized_head", "recommendation": "recommend_now", "requires_codex": true, "config_only": false, "manual_runs": 1},
+    {"rank": 2, "id": "A10b", "name": "config_only_regularized_independent_specialist", "recommendation": "possible_later", "requires_codex": false, "config_only": true, "manual_runs": 1},
+    {"rank": 3, "id": "A10c", "name": "label_smoothing_plus_tempered_class_weights", "recommendation": "possible_later", "requires_codex": true, "config_only": false, "manual_runs": 1},
+    {"rank": 4, "id": "A10d", "name": "generalization_aware_validation_selection", "recommendation": "possible_later", "requires_codex": true, "config_only": false, "manual_runs": 1},
+    {"rank": 5, "id": "A10e", "name": "two_stage_partial_unfreeze_finetune", "recommendation": "reject", "requires_codex": true, "config_only": false, "manual_runs": 0},
+    {"rank": 6, "id": "A10f", "name": "independent_specialist_again_or_bigger", "recommendation": "reject", "requires_codex": false, "config_only": true, "manual_runs": 0},
+    {"rank": 7, "id": "STOP", "name": "keep_a9_and_move_to_federated_security", "recommendation": "stop_work", "requires_codex": false, "config_only": false, "manual_runs": 0}
+  ],
+  "rejection_option": {
+    "keep_a9_and_stop_specialist_work": true,
+    "reason": "A fully defensible choice now: A9.6 (loss weight), A9.7/A9.8 (branch capacity), and A9.9 (independent specialist) have all failed to beat A9. The attack-family ceiling (~0.50-0.60) is dominated by intrinsic Analysis/Backdoor/DoS/Exploits overlap (RC1). If main control prefers, freeze A9 as the final UNSW model with documented limitations and move to federated/security/XAI scope rather than spend another run."
+  },
+  "scientific_safety": {
+    "no_test_tuning": true,
+    "no_fake_metrics": true,
+    "no_taxonomy_change": true,
+    "no_oracle_as_routed_claim": true,
+    "weak_classes_visible": true
+  },
+  "next_main_control_decision": "approve_or_reject_codex_a10_prep_or_stop_unsw_specialist_work"
+}

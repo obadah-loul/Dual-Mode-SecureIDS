@@ -1,0 +1,162 @@
+{
+  "audit_name": "v2_final_architecture_reset",
+  "project_title": "Secure, Robust, Explainable, and Hierarchical Federated Intrusion Detection System",
+  "task_type": "design_only_architecture_reset",
+  "generated_on": "2026-06-24",
+  "created_files": [
+    "docs/V2_FINAL_ARCHITECTURE_RESET.md",
+    "docs/V2_FINAL_DESIGN_LOCK_DECISION.md",
+    "results/audits/v2_final_architecture_reset.json"
+  ],
+  "forbidden_actions_confirmed": {
+    "code_modified": false,
+    "training_run": false,
+    "preprocessing_run": false,
+    "v1_modified": false,
+    "checkpoints_modified": false,
+    "existing_configs_modified": false,
+    "files_deleted": false,
+    "git_commit_or_push": false
+  },
+  "final_architecture_recommendation": {
+    "continue_in_current_v2": true,
+    "create_v3_now": false,
+    "architecture_pattern": "automatic_schema_router_with_dataset_specific_adapters_and_dataset_aware_hierarchical_pipelines",
+    "model_strategy": "shared_architecture_family_with_dataset_specific_preprocessing_artifacts_and_checkpoints_where_required",
+    "reason": "CICIDS2018 and UNSW-NB15 have incompatible schemas and taxonomies, so one forced checkpoint would be scientifically unsafe."
+  },
+  "final_system_flow": [
+    "input_sample_or_file",
+    "schema_detector_router",
+    "dataset_source_adapter",
+    "leakage_safe_preprocessing_artifacts",
+    "head1_binary_normal_vs_attack",
+    "head2_dataset_aware_attack_family_type",
+    "xai_explanation",
+    "streamlit_dashboard_output"
+  ],
+  "adapter_router_design": {
+    "supported_schema_routes": [
+      "cicids2018_like",
+      "unsw_nb15_like"
+    ],
+    "unknown_schema_policy": "reject_with_clear_error",
+    "manual_model_selection_in_final_demo": false,
+    "router_outputs": [
+      "schema_id",
+      "adapter_id",
+      "preprocessing_artifact_set",
+      "checkpoint_family",
+      "taxonomy_id",
+      "dashboard_label"
+    ]
+  },
+  "two_head_design": {
+    "head1": "normal_vs_attack",
+    "head2": "attack_family_or_type",
+    "head2_scope": "attack_samples_or_attack_probability_path",
+    "attack_taxonomy_strategy": "dataset_aware_taxonomies_with_optional_common_reporting_superclasses",
+    "binary_only_final_project_allowed": false
+  },
+  "current_v2_reuse_plan": {
+    "reuse": [
+      "project_package_structure",
+      "dataset_adapter_and_preprocessing_foundation",
+      "hierarchical_preprocessing_work",
+      "hierarchical_model_and_training_foundation",
+      "taxonomy_configs",
+      "training_configs_as_evidence_and_possible_foundation",
+      "tests_as_safety_foundation",
+      "audits_and_reports_as_evidence"
+    ],
+    "experiment_evidence": [
+      "unsw_a9_6",
+      "unsw_a9_7",
+      "unsw_a9_8_multiseed",
+      "dry_runs",
+      "smoke_runs"
+    ],
+    "legacy_archive_candidates": [
+      "legacy_pre_a8_8_unsw",
+      "binary_only_results_that_do_not_support_final_hierarchical_claims"
+    ],
+    "do_not_delete_now": true
+  },
+  "streamlit_ui_story": {
+    "train_live_in_dashboard": false,
+    "prediction_demo": "upload_or_select_sample_then_auto_detect_schema_route_predict_explain",
+    "recommended_pages": [
+      "Project Overview",
+      "Dataset / Schema Audit",
+      "Prediction Demo",
+      "Federated Security Results",
+      "Byzantine Attack Defense",
+      "Robust Aggregation Results",
+      "XAI Explanation",
+      "Reproducibility / Logs"
+    ]
+  },
+  "xai_plan": {
+    "required": true,
+    "baseline_method": "permutation_importance",
+    "optional_methods": [
+      "integrated_gradients",
+      "shap_if_practical"
+    ],
+    "required_outputs": [
+      "global_feature_importance_table",
+      "global_feature_importance_plot",
+      "local_benign_explanation",
+      "local_attack_explanation",
+      "head1_explanation",
+      "head2_explanation",
+      "dashboard_ready_xai_artifacts"
+    ],
+    "test_label_tuning_allowed": false
+  },
+  "post_design_training_order": [
+    "main_control_update_and_approval",
+    "schema_detector_router_implementation",
+    "adapter_interface_finalization",
+    "cicids_hierarchical_training_completion",
+    "unsw_evidence_review_before_more_training",
+    "federated_layer_cleanup",
+    "tls_sha256_security_evidence",
+    "byzantine_attack_implementation",
+    "fedavg_vs_trimmed_mean_grid",
+    "xai_artifact_generation",
+    "streamlit_dashboard_finalization",
+    "final_figures_tables_readme_reproducibility"
+  ],
+  "result_acceptance_rules": {
+    "final_result_requires": [
+      "config_snapshot",
+      "command_or_log_evidence",
+      "saved_metrics",
+      "saved_artifacts",
+      "clear_report",
+      "no_test_leakage"
+    ],
+    "dry_runs_are_final": false,
+    "smoke_runs_are_final": false,
+    "placeholder_metrics_allowed": false,
+    "unrecorded_metric_value": "NOT_RECORDED"
+  },
+  "risks": [
+    "V2 is not currently a Git repository based on the provided/current snapshot.",
+    "Existing results may mix final, experiment, diagnostic, and legacy evidence.",
+    "CICIDS final hierarchical training still needs confirmation.",
+    "Schema detector/router is not implemented yet.",
+    "XAI and Streamlit dashboard are likely incomplete until proven otherwise.",
+    "No implementation approval is granted by this design reset."
+  ],
+  "next_control_step_required": "prepare_concise_update_for_main_control_chat_before_any_coding_training_cleanup_or_refactor",
+  "design_lock_status": "proposed_pending_main_control_acceptance",
+  "final_project_must_remain_hierarchical": true,
+  "v1_modified": false,
+  "training_run_by_this_task": false,
+  "tests_run_by_this_task": false,
+  "xai_run_by_this_task": false,
+  "streamlit_run_by_this_task": false,
+  "other_files_modified": false
+}

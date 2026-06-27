@@ -1,0 +1,196 @@
+{
+  "audit_name": "cicids_hierarchical_exp04_rare_class_optimization_plan",
+  "task_type": "rare_class_and_confusion_focused_plan_only",
+  "generated_on": "2026-06-25",
+  "current_status": {
+    "official_baseline_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "strongest_candidate": "cicids_hierarchical_exp03_attack_loss_weight_125_confirmation",
+    "official_final_model": "EXP03 1.25 seed999",
+    "official_final_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "promoted_source_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "promotion_record": "results/audits/cicids_hierarchical_exp03_125_final_promotion_record_20260625_160136.json",
+    "backup_directory": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136",
+    "rollback_target": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136/models_final/final_cicids_hierarchical.pt",
+    "exp03_not_promoted_yet": false,
+    "final_model_changed": true,
+    "exp04_status": "planning_and_diagnostic_only_not_promoted"
+  },
+  "baseline_metrics": {
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp03_125_aggregate": {
+    "mean_metrics": {
+      "binary_macro_f1": 0.973477,
+      "attack_family_macro_f1": 0.870986,
+      "rare_class_macro_f1": 0.774602,
+      "correct_attribution_rate": 0.908243,
+      "missed_as_benign_rate": 0.053831,
+      "benign_false_alarm_rate": 0.008481
+    },
+    "deltas_vs_baseline": {
+      "binary_macro_f1": 0.001310,
+      "attack_family_macro_f1": 0.021875,
+      "rare_class_macro_f1": 0.057615,
+      "correct_attribution_rate": -0.000765,
+      "missed_as_benign_rate": 0.000024,
+      "benign_false_alarm_rate": -0.001527
+    },
+    "status": "promoted_official_final_with_warnings"
+  },
+  "remaining_weaknesses": [
+    {"class": "DoS-SlowHTTPTest", "support": 20941, "baseline_f1": 0.553, "exp03_125_mean_f1": 0.582, "recall_baseline": 0.437, "recall_exp03_mean": 0.491, "verdict": "REAL_AND_MEANINGFUL_BUT_FEATURE_LIMITED", "note": "Improved and stable across all 3 seeds, but still the weakest large-support class; the residual error is the FTP overlap (see confusion_findings)."},
+    {"class": "FTP-BruteForce", "support": 28928, "baseline_f1": 0.779, "exp03_125_mean_f1": 0.770, "verdict": "MILD_STABLE_REGRESSION", "note": "Precision up (0.688->~0.699 all seeds) but recall down; the regression is the direct see-saw cost of the SlowHTTPTest recall gain (same overlap region). Largest single drop in seed123 (recall 0.805)."},
+    {"class": "Web-XSS", "support": 38, "baseline_f1": 0.618, "exp03_125_mean_f1": 0.618, "verdict": "REAL_STUCK_BUT_TINY", "note": "Frozen at exactly 17/38 correct (recall 0.447, F1 0.618) in baseline, EXP02 and all EXP03 seeds. Deterministically stuck. Leaks to Bot (10-15) and Infiltration (5-10), which are large classes -> up-weighting Web-XSS would risk net harm for <=21 samples. Guardrail, not a target."},
+    {"class": "Web-BruteForce", "support": 96, "baseline_f1": 0.364, "exp03_125_mean_f1": 0.686, "verdict": "STRONG_STABLE_IMPROVEMENT_BUT_SMALL", "note": "Precision 0.24->~0.75 across all seeds, driven by Infiltration->Web-BruteForce FP dropping 220->~19. Recall slipped 0.75->0.635 (72->61 correct). Net big F1 gain but only 96 samples; treat as a watched guardrail, do not over-optimize further."},
+    {"class": "SQL-Injection", "support": 12, "baseline_f1": 0.800, "exp03_125_mean_f1": 0.753, "verdict": "PURE_VARIANCE", "note": "Recall fixed at 8/12; precision swings on a few FPs. EXP03 1.35 seed42 collapsed its precision to 0.091 (F1 0.16), proving tiny classes destabilize under stronger weighting. Guardrail only; never optimize."},
+    {"class": "DDoS-LOIC-UDP", "support": 271, "baseline_f1": 0.821, "exp03_125_mean_f1": 0.828, "verdict": "STABLE_OK", "note": "Recall perfect (1.0); precision ~0.70 (capped by ~118 FPs into it). Minor; not a priority."},
+    {"class": "DoS-Slowloris", "support": 1642, "baseline_f1": 0.982, "exp03_125_mean_f1": 0.989, "verdict": "STRONG", "note": "Already near-ceiling and improved slightly; not a concern."}
+  ],
+  "rare_class_reliability": [
+    {"class": "DoS-SlowHTTPTest", "support": 20941, "reliability": "high", "role": "PRIMARY_DRIVER", "note": "Large support; metric is meaningful and movements are stable across seeds."},
+    {"class": "FTP-BruteForce", "support": 28928, "reliability": "high", "role": "PRIMARY_GUARDRAIL", "note": "Must not regress further while chasing SlowHTTPTest."},
+    {"class": "Web-BruteForce", "support": 96, "reliability": "low_to_moderate", "role": "WATCHED_GUARDRAIL", "note": "Big improvement but small support; recall already traded; do not push further."},
+    {"class": "Web-XSS", "support": 38, "reliability": "low", "role": "GUARDRAIL_ONLY", "note": "Deterministically stuck; too small and entangled with big classes to optimize safely."},
+    {"class": "SQL-Injection", "support": 12, "reliability": "very_low", "role": "GUARDRAIL_ONLY", "note": "12 samples; high variance; never optimize."},
+    {"class": "DDoS-LOIC-UDP", "support": 271, "reliability": "moderate", "role": "GUARDRAIL", "note": "Stable; not a driver."}
+  ],
+  "drivers_vs_guardrails": {
+    "should_drive_exp04": ["DoS-SlowHTTPTest", "FTP-BruteForce"],
+    "guardrails_only_do_not_over_optimize": ["Web-XSS", "SQL-Injection", "Web-BruteForce", "DDoS-LOIC-UDP"],
+    "rationale": "Only DoS-SlowHTTPTest and FTP-BruteForce have enough support for reliable, meaningful gains. The tiny classes (12/38/96 samples) are either stuck (Web-XSS), noise (SQL-Injection), or already improved (Web-BruteForce) and entangle with large classes, so optimizing them risks overfit and routing harm."
+  },
+  "confusion_findings": [
+    {"pair": "DoS-SlowHTTPTest -> FTP-BruteForce", "baseline_count": 11796, "baseline_pct_of_true": 56.3, "exp03_125_mean_count": 10665, "exp03_125_mean_pct_of_true": 50.9, "verdict": "improved_direction", "note": "EXP03 1.25 reduced this direction in all 3 seeds."},
+    {"pair": "FTP-BruteForce -> DoS-SlowHTTPTest", "baseline_count": 2958, "baseline_pct_of_true": 10.2, "exp03_125_mean_count": 4093, "exp03_125_mean_pct_of_true": 14.1, "verdict": "worsened_direction", "note": "Reverse direction increased - the cost of the SlowHTTPTest recall gain. FTP degradation IS connected to SlowHTTPTest gains (same overlap region)."},
+    {"pair": "SlowHTTPTest<->FTP (both directions)", "baseline_total": 14754, "exp03_125_mean_total": 14758, "verdict": "CONSERVED_FEATURE_LIMITED", "note": "KEY FINDING: total pair error mass is conserved across the entire loss-weight sweep (EXP02 1.5, EXP03 1.25/1.35). Loss weighting only moves the decision boundary along the overlap; it does NOT separate the classes. Only feature engineering can reduce this."},
+    {"pair": "Infiltration -> Web-BruteForce", "baseline_count": 220, "exp03_125_mean_count": 19, "verdict": "fixed", "note": "The stable Web-BruteForce precision win comes from here, not from new feature separability."},
+    {"pair": "Web-XSS -> Bot / Infiltration", "baseline_count": 14, "exp03_125_mean_count": 18, "verdict": "stuck_tiny", "note": "21/38 Web-XSS misrouted to large classes; tiny support; not safely fixable by weighting."},
+    {"pair": "DDoS-LOIC-HTTP -> Bot", "baseline_count": 287, "exp03_125_seed_counts": [992, 847, 0], "verdict": "high_variance_seed_noise", "note": "Swings 0..992 for the same class+config across seeds; not a stable target."}
+  ],
+  "largest_remaining_confusions": [
+    {"rank": 1, "pair": "DoS-SlowHTTPTest -> FTP-BruteForce", "exp03_125_mean_count": 10665, "addressable_by_loss": false, "addressable_by_features": true},
+    {"rank": 2, "pair": "FTP-BruteForce -> DoS-SlowHTTPTest", "exp03_125_mean_count": 4093, "addressable_by_loss": false, "addressable_by_features": true},
+    {"rank": 3, "pair": "DDoS-LOIC-HTTP -> Bot", "exp03_125_mean_count": 613, "addressable_by_loss": "maybe", "addressable_by_features": "maybe", "note": "but high seed variance"},
+    {"rank": 4, "pair": "Infiltration -> Bot", "exp03_125_mean_count": 277, "addressable_by_loss": "maybe", "addressable_by_features": "maybe", "note": "large class, low macro impact"},
+    {"rank": 5, "pair": "DDoS-LOIC-HTTP -> DDoS-LOIC-UDP", "exp03_125_mean_count": 113, "addressable_by_loss": false, "note": "stable, negligible macro impact"}
+  ],
+  "recommended_exp04": {
+    "id": "cicids_hierarchical_exp04_feature_confusion_diagnostic",
+    "idea": "Feature/confusion diagnostic phase FIRST (Option B): quantify the SlowHTTPTest<->FTP feature overlap (and the Web-XSS->Bot/Infiltration leak) using TRAIN/VALIDATION-split processed features only, to decide whether further gains require feature engineering rather than more loss/weight tuning.",
+    "description": "The confusion evidence proves the dominant remaining error (SlowHTTPTest<->FTP, ~14,758 conserved across the whole loss-weight sweep) is feature-limited: loss weighting redistributes the error between the two directions but does not reduce the total. The smaller stuck classes (Web-XSS 38, SQL-Injection 12) are too tiny and too entangled with large classes (Bot, Infiltration) to optimize without overfitting or routing harm. Therefore the responsible next step is a diagnostic, not another blind loss/weight experiment. The diagnostic computes per-feature class-conditional separability between SlowHTTPTest and FTP (and Web-XSS vs Bot/Infiltration) on TRAIN features (with a VALIDATION cross-check), e.g. per-feature distribution overlap / simple separability scores, to answer: is the pair separable with existing features (=> a targeted modeling experiment is justified) or genuinely overlapping (=> only new engineered features, a separate preprocessing-protocol decision, can help). It selects nothing on test.",
+    "config_only": false,
+    "requires_code_change": false,
+    "is_analysis_phase": true,
+    "expected_manual_runs": 0,
+    "expected_training_runs": 0,
+    "gated_followup_if_separable": "cicids_hierarchical_exp05_head2_focal_loss (code change, ~4-6 runs, validation-driven, gated on the diagnostic showing separability)",
+    "target_classes": ["DoS-SlowHTTPTest", "FTP-BruteForce", "Web-XSS"],
+    "target_metrics": ["per-feature SlowHTTPTest-vs-FTP separability (train, val cross-check)", "whether the overlap is feature-limited or model-limited", "go/no-go for feature engineering vs a targeted modeling experiment"],
+    "expected_benefit": "Prevents wasted controlled-experiment slots on loss/weight tricks that the conservation evidence says cannot work; produces an evidence-based go/no-go for feature engineering; keeps the program honest.",
+    "expected_risk": "Low. It is analysis only (no training, no test tuning). The main risk is that it confirms the pair is feature-limited and the cheap wins are exhausted - which is itself a valuable, honest result that points to promoting EXP03 1.25 with documented weaknesses.",
+    "requires_main_control_approval_before_config_creation": true
+  },
+  "why_selected": [
+    "Confusion conservation is decisive: the SlowHTTPTest<->FTP total error is ~14,754 (baseline) vs ~14,758 (EXP03 1.25 mean) - loss weighting only redistributes it. More loss/weight/focal/sampler tuning on this pair is predicted by the data to be zero-sum.",
+    "The remaining rare-class targets are either feature-limited (the pair) or too small to optimize responsibly (Web-XSS 38, SQL-Injection 12), and the tiny classes leak into LARGE classes (Bot, Infiltration), so up-weighting them risks routing harm for <=21 samples.",
+    "EXP03 1.35 seed42 already demonstrated tiny-class instability (SQL-Injection precision 1.0->0.091) under stronger weighting - a warning against the targeted-weight family.",
+    "Config-only rare-class levers are effectively exhausted: attack_loss_weight is already optimized at 1.25; the weight method (sqrt_inverse_frequency, cap 10.0) is hardcoded with no per-class override, and the cap is non-binding, so there is no safe config-only rare-class boost left.",
+    "A diagnostic is the scientifically honest 'analyze before assume' step the task demands, and it produces the evidence needed to choose between feature engineering and promoting EXP03 1.25."
+  ],
+  "why_not_selected_now": {
+    "focal_loss_head2": "Plausible modeling lever for hard examples but it is a code change AND, per conservation evidence, unlikely to beat the feature limit on the dominant pair; risks tiny-class instability (1.35 precedent). Justified only if the diagnostic shows separability -> recommend_after_exp04 (as EXP05), gated.",
+    "rare_class_or_targeted_weight_boost": "No config hook exists (weights are hardcoded sqrt_inverse_frequency, cap 10.0 non-binding), so it needs code; and it would chase 12-38 sample classes entangled with large classes -> high overfit + routing-harm risk. needs_main_control_decision / reject.",
+    "slowhttptest_ftp_targeted_weighting": "Conservation proves this only shifts error between the two directions; it cannot reduce the pair. reject as an improvement lever.",
+    "class_balanced_effective_number_loss": "Code change; a reweighting variant unlikely to beat the feature limit. possible_later.",
+    "attack_only_sampler": "Code change; the hard pair is not rare so limited upside; oversampling tiny classes risks overfit/optimism. possible_later.",
+    "validation_only_calibration": "A Head-1 routing tool (recovers missed-as-benign); it does NOT change Head-2 family attribution, so it is off-topic for a rare-class task. Still useful as the routing experiment (prior EXP plan), but not a rare-class lever. possible_later.",
+    "two_stage_finetuning": "Code change, medium complexity; will not beat feature conservation on the pair. possible_later.",
+    "specialist_module": "Model-zoo; the project requires one organized final system. reject.",
+    "promote_exp03_with_warnings": "Legitimately on the table - EXP03 1.25 is already a strong, honest improvement (attack +0.0219, rare +0.0576, routing within noise). If the diagnostic confirms the pair is feature-limited, promoting EXP03 1.25 with documented weak classes (Web-XSS, SQL-Injection, SlowHTTPTest/FTP residual) is the honest stop. needs_main_control_decision."
+  },
+  "candidate_rankings": [
+    {"rank": 1, "option_id": "feature_confusion_diagnostic", "status": "recommend_now", "config_only": false, "requires_code_change": false, "targets_rare_classes": "diagnostic", "targets_slowhttp_ftp": true, "may_hurt_routing": false, "overfit_leakage_risk": "none", "runs": 0},
+    {"rank": 2, "option_id": "promote_exp03_125_with_warnings", "status": "needs_main_control_decision", "config_only": true, "requires_code_change": false, "targets_rare_classes": "no", "targets_slowhttp_ftp": false, "may_hurt_routing": false, "overfit_leakage_risk": "none", "runs": 0},
+    {"rank": 3, "option_id": "head2_focal_loss", "status": "recommend_after_exp04", "config_only": false, "requires_code_change": true, "targets_rare_classes": "maybe", "targets_slowhttp_ftp": "maybe", "may_hurt_routing": "maybe", "overfit_leakage_risk": "medium", "runs": "4_to_6"},
+    {"rank": 4, "option_id": "class_balanced_effective_number_loss", "status": "possible_later", "config_only": false, "requires_code_change": true, "targets_rare_classes": "yes", "targets_slowhttp_ftp": "no", "may_hurt_routing": "maybe", "overfit_leakage_risk": "medium", "runs": "3_to_6"},
+    {"rank": 5, "option_id": "validation_only_calibration", "status": "possible_later", "config_only": false, "requires_code_change": true, "targets_rare_classes": "no", "targets_slowhttp_ftp": "no", "may_hurt_routing": "no_helps_routing", "overfit_leakage_risk": "low", "runs": "3_to_4", "note": "Head-1 routing tool, off-topic for rare-class but valuable separately"},
+    {"rank": 6, "option_id": "attack_only_balanced_sampler", "status": "possible_later", "config_only": false, "requires_code_change": true, "targets_rare_classes": "yes", "targets_slowhttp_ftp": "no", "may_hurt_routing": "maybe", "overfit_leakage_risk": "high", "runs": "3_to_6"},
+    {"rank": 7, "option_id": "two_stage_finetuning", "status": "possible_later", "config_only": false, "requires_code_change": true, "targets_rare_classes": "maybe", "targets_slowhttp_ftp": "maybe", "may_hurt_routing": "maybe", "overfit_leakage_risk": "medium", "runs": "3_to_6"},
+    {"rank": 8, "option_id": "attack_family_per_class_weight_tuning", "status": "needs_main_control_decision", "config_only": false, "requires_code_change": true, "targets_rare_classes": "yes", "targets_slowhttp_ftp": "maybe", "may_hurt_routing": "maybe", "overfit_leakage_risk": "high", "runs": "3_plus"},
+    {"rank": 9, "option_id": "webxss_webbruteforce_targeted_weighting", "status": "needs_main_control_decision", "config_only": false, "requires_code_change": true, "targets_rare_classes": "yes", "targets_slowhttp_ftp": false, "may_hurt_routing": "yes", "overfit_leakage_risk": "high", "runs": "3_plus", "note": "<=96 sample classes entangled with Bot/Infiltration"},
+    {"rank": 10, "option_id": "slowhttptest_ftp_targeted_weighting", "status": "reject", "config_only": false, "requires_code_change": true, "targets_rare_classes": "no", "targets_slowhttp_ftp": true, "may_hurt_routing": "maybe", "overfit_leakage_risk": "high", "runs": "n/a", "note": "conservation proves it only redistributes error"},
+    {"rank": 11, "option_id": "rare_class_weight_cap_boost", "status": "reject", "config_only": "partial", "requires_code_change": true, "targets_rare_classes": "yes", "targets_slowhttp_ftp": false, "may_hurt_routing": "maybe", "overfit_leakage_risk": "high", "runs": "n/a", "note": "cap 10.0 non-binding (no effect) and would overfit tiny classes"},
+    {"rank": 12, "option_id": "attack_family_specialist_module", "status": "reject", "config_only": false, "requires_code_change": true, "targets_rare_classes": "maybe", "targets_slowhttp_ftp": "maybe", "may_hurt_routing": "no", "overfit_leakage_risk": "high", "runs": "n/a", "note": "model-zoo"}
+  ],
+  "engineering_feasibility": {
+    "config_only_options": ["global attack_loss_weight (already optimized at 1.25)", "binary_loss_weight (routing protection, not rare-class)"],
+    "code_change_options": ["focal loss (no focal anywhere today)", "class-balanced/effective-number loss", "per-class/targeted attack weights (method hardcoded sqrt_inverse_frequency, no override)", "attack-only sampler (no sampler today)", "validation-only threshold calibration (threshold hardcoded 0.5)", "two-stage fine-tuning", "specialist module"],
+    "custom_attack_class_weights_supported_in_config": false,
+    "custom_attack_class_weights_note": "WEIGHT_CAP=10.0 and method sqrt_inverse_frequency are module constants in hierarchical_class_weights.py; there is no config field for per-class multipliers or alternative methods. The cap is also non-binding (all rare weights already within cap), so raising it via config would have no effect.",
+    "focal_loss_exists": false,
+    "sampler_exists": false,
+    "validation_only_calibration_exists": false,
+    "low_risk_options": ["feature_confusion_diagnostic", "promote_exp03_125_with_warnings", "validation_only_calibration"],
+    "high_risk_options": ["per-class/targeted weighting", "tiny-class targeted weighting", "attack-only sampler", "specialist module", "cap boost"]
+  },
+  "proposed_files_if_approved": [
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP04_FEATURE_CONFUSION_DIAGNOSTIC_PLAN.md (detailed diagnostic protocol, if main control approves the diagnostic)",
+    "results/audits/cicids_hierarchical_exp04_feature_separability_slowhttp_vs_ftp.json (diagnostic output)",
+    "results/audits/cicids_hierarchical_exp04_feature_separability_slowhttp_vs_ftp.csv (per-feature separability table)",
+    "results/audits/cicids_hierarchical_exp04_webxss_confusion_diagnostic.json (diagnostic output)",
+    "IF a gated modeling follow-up (EXP05 focal) is later approved: configs/training/experiments/cicids_hierarchical_exp05_focal_*_seed*.yaml + models/experiments/* + results/experiments/* + results/audits/hierarchical_training_manifest_* + docs/experiments/* (isolated experiment paths only)"
+  ],
+  "must_not_overwrite": [
+    "models/final/final_cicids_hierarchical.pt",
+    "results/final/hierarchical/cicids/",
+    "results/audits/hierarchical_training_manifest_cicids2018.json",
+    "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+    "any EXP01/EXP02/EXP03 artifact"
+  ],
+  "promotion_criteria": {
+    "note": "EXP04 (the diagnostic) does not itself produce a promotable model; it produces a go/no-go. Promotion criteria below apply to any gated modeling follow-up (EXP05) and restate the EXP03 bar.",
+    "decision_basis": "3-seed (42/123/999) TEST mean; report mean +/- std",
+    "attack_family_macro_f1": ">= 0.871 (must beat EXP03 1.25, not just baseline)",
+    "rare_class_macro_f1": ">= 0.774 (hold the EXP03 1.25 rare gain; no tiny class -> ~0)",
+    "dos_slowhttptest_recall": "improved without dropping FTP-BruteForce F1 below ~0.770 (the pair must net-improve, not see-saw)",
+    "correct_attribution_rate": ">= 0.909008 (recover to baseline)",
+    "missed_as_benign_rate": "<= 0.053807",
+    "binary_macro_f1": ">= 0.970",
+    "robustness": "no single seed regresses routing badly; tiny classes (12/38/96) used only as guardrails, never as promotion drivers",
+    "safety": "validation-only selection; train-only weights; single final test per seed; no test tuning; no baseline/EXP01/EXP02/EXP03 overwrite"
+  },
+  "rejection_criteria": [
+    "Diagnostic shows the pair is feature-limited AND no modeling lever can net-improve it -> stop modeling; recommend promoting EXP03 1.25 with documented weaknesses.",
+    "Any follow-up that improves a macro number only by over-fitting a 12-38-96 sample class, or by trading the SlowHTTPTest/FTP see-saw without net pair improvement.",
+    "Any taxonomy change to inflate metrics; any weak-class hiding; any test tuning; any model-zoo proliferation.",
+    "Any baseline/EXP01/EXP02/EXP03 artifact overwritten."
+  ],
+  "scientific_safety_rules": {
+    "no_test_tuning": true,
+    "no_taxonomy_inflation": true,
+    "no_weak_class_hiding": true,
+    "no_tiny_class_overfit": true,
+    "train_only_weights_required": true,
+    "validation_driven_selection_required": true
+  },
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_claimed": false,
+    "test_tuning": false,
+    "v1_modified": false,
+    "exp04_configs_created": false
+  },
+  "next_main_control_decision": "approve_or_reject_exp04_preparation"
+}

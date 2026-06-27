@@ -1,0 +1,211 @@
+{
+  "audit_name": "cicids_hierarchical_training_readiness",
+  "task_type": "training_readiness_audit_after_pretraining_safe_fixes",
+  "generated_on": "2026-06-24",
+  "readiness_status": "READY_FOR_MANUAL_TRAINING",
+  "safe_fixes_verified": {
+    "manual_test_command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_pretraining_safe_fixes.py tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "manual_test_result": "47 passed in 2.11s",
+    "run_by": "user",
+    "h1_report_path_collision_fixed": true,
+    "h2_dataset_aware_outputs_fixed": true,
+    "m1_float64_micro_fix_applied": true,
+    "adapter_registry_test_isolation_fixed": true
+  },
+  "dataset_aware_gate_fix_verified": {
+    "focused_test_command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_hierarchical_preconditions_dataset_aware.py tests/test_cicids_pretraining_safe_fixes.py tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "result": "55 passed in 2.30s",
+    "run_by": "claude",
+    "new_test_file": "tests/test_hierarchical_preconditions_dataset_aware.py"
+  },
+  "created_or_modified_files": [
+    "docs/CICIDS_HIERARCHICAL_TRAINING_READINESS.md",
+    "results/audits/cicids_hierarchical_training_readiness.json"
+  ],
+  "inspected_files": [
+    "docs/CICIDS_HIERARCHICAL_TRAINING_READINESS.md",
+    "results/audits/cicids_hierarchical_training_readiness.json",
+    "docs/CICIDS_PRETRAINING_SAFE_FIXES.md",
+    "results/audits/cicids_pretraining_safe_fixes.json",
+    "configs/training/cicids2018_hierarchical.yaml",
+    "configs/taxonomy/cicids2018_attack_taxonomy.yaml",
+    "secureids/training/hierarchical_trainer.py",
+    "data/processed/cicids2018/hierarchical/split_summary.json",
+    "data/processed/cicids2018/hierarchical/attack_family_label_mapping.json",
+    "results/audits/hierarchical_full_training_readiness_cicids2018.json",
+    "results/audits/hierarchical_class_weight_strategy_cicids2018.json",
+    "tests/test_cicids_pretraining_safe_fixes.py",
+    "tests/test_adapter_registry.py"
+  ],
+  "cicids_artifacts": {
+    "processed_hierarchical_dir": {
+      "path": "data/processed/cicids2018/hierarchical",
+      "exists": true
+    },
+    "train_files": [
+      "data/processed/cicids2018/hierarchical/X_train.npy [6737603, 77]",
+      "data/processed/cicids2018/hierarchical/y_binary_train.npy [6737603]",
+      "data/processed/cicids2018/hierarchical/y_attack_family_train.npy [6737603]",
+      "data/processed/cicids2018/hierarchical/attack_family_mask_train.npy [6737603]"
+    ],
+    "val_files": [
+      "data/processed/cicids2018/hierarchical/X_val.npy [1443772, 77]",
+      "data/processed/cicids2018/hierarchical/y_binary_val.npy [1443772]",
+      "data/processed/cicids2018/hierarchical/y_attack_family_val.npy [1443772]",
+      "data/processed/cicids2018/hierarchical/attack_family_mask_val.npy [1443772]"
+    ],
+    "test_files": [
+      "data/processed/cicids2018/hierarchical/X_test.npy [1443773, 77]",
+      "data/processed/cicids2018/hierarchical/y_binary_test.npy [1443773]",
+      "data/processed/cicids2018/hierarchical/y_attack_family_test.npy [1443773]",
+      "data/processed/cicids2018/hierarchical/attack_family_mask_test.npy [1443773]"
+    ],
+    "preprocessing_artifacts": [
+      "data/processed/cicids2018/hierarchical/feature_names.json",
+      "data/processed/cicids2018/hierarchical/binary_label_mapping.json",
+      "data/processed/cicids2018/hierarchical/attack_family_label_mapping.json",
+      "data/processed/cicids2018/hierarchical/common_attack_superclass_mapping.json",
+      "data/processed/cicids2018/hierarchical/split_summary.json",
+      "data/processed/cicids2018/hierarchical/hierarchical_preprocessing_manifest.json"
+    ],
+    "audit_files": [
+      "results/audits/hierarchical_preprocessing_audit_cicids2018.json (PASS)",
+      "results/audits/hierarchical_preprocessing_readiness_cicids2018.json (PASS)",
+      "results/audits/hierarchical_full_training_readiness_cicids2018.json (PASS)",
+      "results/audits/hierarchical_class_weight_strategy_cicids2018.json (PASS)"
+    ]
+  },
+  "dimensions": {
+    "input_dim": 77,
+    "binary_head_dim": 2,
+    "binary_model_output_dim": 1,
+    "attack_family_head_dim": 14,
+    "source_of_input_dim": "config/feature_names/audit",
+    "source_of_attack_family_dim": "config/taxonomy/label_mapping"
+  },
+  "training_config": {
+    "path": "configs/training/cicids2018_hierarchical.yaml",
+    "exists": true,
+    "dataset": "cicids2018",
+    "task": "hierarchical",
+    "input_dim": 77,
+    "attack_head_dim": 14,
+    "output_checkpoint_path": "models/final/final_cicids_hierarchical.pt",
+    "report_md": "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+    "points_to_expected_processed_artifacts": true,
+    "accepted_by_cli_gate_after_fix": true,
+    "safe_to_run_manually": true,
+    "checkpoint_selection_validation_only": true,
+    "checkpoint_selection_uses_test_metrics": false,
+    "final_test_once_after_best_validation": true,
+    "report_path_collision_with_unsw": false
+  },
+  "model_compatibility": {
+    "hierarchical_model_found": true,
+    "model_class": "SecureIDSHierarchicalAdvancedNet",
+    "binary_head_found": true,
+    "attack_family_head_found": true,
+    "supports_input_dim_77": true,
+    "supports_attack_family_dim_14": true,
+    "benign_attack_label_masking_supported": true,
+    "class_weights_train_only": true,
+    "prior_model_forward_check_status": "PASS",
+    "prior_forward_shapes": {
+      "binary_logit": [4096],
+      "attack_logits": [4096, 14],
+      "embedding": [4096, 128]
+    }
+  },
+  "a8_8_unsw_precondition_gate_review": {
+    "gate_found": true,
+    "location": "secureids/training/hierarchical_trainer.py :: validate_execute_preconditions() -> _dataset_precondition_errors()",
+    "checks_for_unsw": [
+      "docs/UNSW_SPLIT_PROTOCOL_DECISION.md exists",
+      "results/audits/pre_training_high_findings_resolution.json exists",
+      "pre_training_high_findings_resolution.json: ready_for_unsw_training == True"
+    ],
+    "fixed": true,
+    "made_dataset_aware": true,
+    "applies_to_cicids_after_fix": false,
+    "applies_to_unsw_after_fix": true,
+    "unsupported_dataset_fails_clearly": true,
+    "blocks_manual_training": false,
+    "unsw_safety_preserved": true,
+    "dataset_agnostic_checks_preserved": true,
+    "classification": "fixed",
+    "uses_canonical_config_dataset_not_cli_alias": true,
+    "recommended_next_action": "None required. Gate is dataset-aware; CICIDS no longer depends on UNSW/A8.8 files and UNSW safety is unchanged. Verified by tests/test_hierarchical_preconditions_dataset_aware.py (part of the 55-passed run)."
+  },
+  "safety_checks": {
+    "no_training_run": true,
+    "no_full_preprocessing_rebuild_run": true,
+    "no_checkpoint_modified": true,
+    "no_test_tuning_found": true,
+    "no_scaler_refit_on_val_test_found": true,
+    "no_binary_only_checkpoint_treated_as_hierarchical_final": true,
+    "no_fake_metrics_claimed": true
+  },
+  "existing_output_status": {
+    "models/final/final_cicids_hierarchical.pt": false,
+    "results/final/hierarchical/cicids": false,
+    "results/audits/hierarchical_training_manifest_cicids2018.json": false,
+    "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md": false,
+    "docs/HIERARCHICAL_TRAINING_REPORT.md_unsw_report_preserved": true,
+    "overwrite_guard_passes_without_overwrite_flag": true
+  },
+  "manual_training_command": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/cicids2018_hierarchical.yaml --execute"
+  ],
+  "expected_outputs": [
+    "models/final/final_cicids_hierarchical.pt",
+    "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+    "results/final/hierarchical/cicids/training_history.csv",
+    "results/final/hierarchical/cicids/test_metrics.json",
+    "results/final/hierarchical/cicids/binary_confusion_matrix.csv",
+    "results/final/hierarchical/cicids/attack_family_confusion_matrix.csv",
+    "results/final/hierarchical/cicids/per_class_attack_metrics.csv",
+    "results/final/hierarchical/cicids/rare_class_metrics.csv",
+    "results/audits/hierarchical_training_manifest_cicids2018.json"
+  ],
+  "monitoring_instructions": [
+    "Watch console epoch logs; confirm loss is finite (not NaN/Inf).",
+    "Confirm validation metrics appear per epoch and checkpoint selection is validation-only.",
+    "Confirm the final test is evaluated once after the best validation checkpoint.",
+    "Confirm outputs are CICIDS hierarchical and the report is docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md labeled CICIDS2018 (no UNSW/A8.8 text).",
+    "Monitor GPU and host memory (CICIDS is large; ~6.7M training rows).",
+    "Stop if UNSW paths/configs appear unexpectedly or if it tries to overwrite unexpected checkpoints."
+  ],
+  "safe_stop_instructions": [
+    "Press Ctrl+C once and wait for Python to exit cleanly.",
+    "Do not delete partial outputs until reviewed.",
+    "Paste the console output back to the project-controller chat.",
+    "Do not rerun with --overwrite without explicit approval."
+  ],
+  "risks": [
+    "Runtime/memory: ~6.7M training rows x ~30 epochs; eager all-split tensor load (~3 GB X resident).",
+    "Rare-class instability: SQL-Injection (12 test rows), Web-XSS (38), Web-BruteForce (96), DDoS-LOIC-UDP have low support -> high-variance per-class/rare-class F1.",
+    "Random-split near-duplicate caveat: val/test i.i.d. with train; random-split CICIDS can leak near-duplicate flows and optimistically inflate metrics.",
+    "First CICIDS hierarchical checkpoint must be reviewed before acceptance as final."
+  ],
+  "warnings": [
+    "A8.8/UNSW precondition gate false dependency is RESOLVED (gate is now dataset-aware); no longer a warning.",
+    "READY_FOR_MANUAL_TRAINING: remaining items are ordinary training risks/caveats only (runtime/memory on ~6.7M rows, rare-class variance, random-split near-duplicate reporting caveat, first-checkpoint review).",
+    "Original safe-fix verification (47 passed) was run by the user; the gate-fix focused run (55 passed) was run by Claude. The user should re-run to independently confirm."
+  ],
+  "blockers": [],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "full_cicids_training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "next_step": "return_to_project_controller_chat_for_main_control_update_before_manual_training"
+}

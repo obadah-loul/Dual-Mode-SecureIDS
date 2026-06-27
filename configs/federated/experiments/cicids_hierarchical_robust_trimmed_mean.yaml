@@ -1,0 +1,88 @@
+status: not_run_yet
+dataset: cicids2018
+task: hierarchical_federated
+protocol_label: cicids_hierarchical_robust_trimmed_mean_reference_final_exp03_125_seed999
+
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  input_dim: 77
+  attack_head_dim: 14
+
+hierarchical_data:
+  processed_dir: data/processed/cicids2018/hierarchical
+  feature_names: data/processed/cicids2018/hierarchical/feature_names.json
+  attack_family_label_mapping: data/processed/cicids2018/hierarchical/attack_family_label_mapping.json
+  preprocessing_manifest: data/processed/cicids2018/hierarchical/hierarchical_preprocessing_manifest.json
+
+centralized_reference:
+  checkpoint: models/final/final_cicids_hierarchical.pt
+  sha256: 2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0
+  status: FINALIZED_PROMOTED_WITH_WARNINGS
+  use: reference_only
+  warm_start_from_centralized: false
+
+initialization: from_scratch
+
+federation:
+  num_clients: 5
+  client_split: stratified_iid
+  non_iid_planned: true
+  seed: 42
+  rounds: 20
+  client_fraction: 1.0
+  local_epochs: 1
+  execute_gate_required: true
+
+training:
+  seed: 42
+  batch_size: 4096
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  threshold: 0.5
+
+loss:
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.0
+  ignore_index: -1
+
+aggregation:
+  strategy: trimmed_mean
+  trim_ratio: 0.2
+
+attack:
+  enabled: true
+  type: sign_flip
+  malicious_fraction: 0.25
+  seed: 42
+  scale: -1.0
+
+integrity:
+  sha256_update_hashing: true
+  verify_before_aggregation: true
+  secure_aggregation: future_optional
+
+outputs:
+  checkpoint: models/experiments/federated_security/cicids_hierarchical_robust_trimmed_mean.pt
+  result_dir: results/experiments/federated_security/cicids_hierarchical_robust_trimmed_mean
+  round_history: results/experiments/federated_security/cicids_hierarchical_robust_trimmed_mean/round_history.csv
+  client_distribution: results/experiments/federated_security/cicids_hierarchical_robust_trimmed_mean/client_distribution.csv
+  test_metrics: results/experiments/federated_security/cicids_hierarchical_robust_trimmed_mean/test_metrics.json
+  audit_json: results/audits/federated_security_cicids_hierarchical_robust_trimmed_mean_manifest.json
+  report_md: docs/experiments/FEDERATED_SECURITY_CICIDS_HIERARCHICAL_ROBUST_TRIMMED_MEAN_REPORT.md
+
+dataset_warnings:
+  - SlowHTTPTest to FTP-BruteForce remains dominant unresolved confusion.
+  - Robust-defense results must be compared against clean and attacked baselines separately.
+
+safety:
+  dry_run_writes_outputs: false
+  training_allowed_in_scaffold: false
+  evaluation_allowed_in_scaffold: false
+  no_final_path_writes: true
+  models_final_write_allowed: false
+  results_final_write_allowed: false
+  a11_excluded_as_final: true
+  a11_used_as_final: false
+  no_test_tuning: true
+  do_not_rerun_dataset_optimization: true

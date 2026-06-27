@@ -1,0 +1,15 @@
+true\pred,DDoS-HOIC,DDoS-LOIC-HTTP,DDoS-LOIC-UDP,DoS-Hulk,DoS-SlowHTTPTest,DoS-GoldenEye,DoS-Slowloris,Bot,FTP-BruteForce,SSH-Bruteforce,Infilteration / Infiltration,Web-BruteForce,Web-XSS,SQL-Injection
+DDoS-HOIC,102689,0,0,0,0,0,0,0,0,0,19,0,0,0
+DDoS-LOIC-HTTP,0,85692,118,0,0,0,0,493,0,0,98,0,0,0
+DDoS-LOIC-UDP,0,0,271,0,0,0,0,0,0,0,0,0,0,0
+DoS-Hulk,0,0,0,69495,0,12,0,0,0,0,7,0,0,0
+DoS-SlowHTTPTest,0,0,0,0,10939,0,0,0,10002,0,0,0,0,0
+DoS-GoldenEye,0,0,0,2,0,6117,7,0,0,0,1,0,0,0
+DoS-Slowloris,0,0,0,0,0,0,1628,0,0,0,14,0,0,0
+Bot,0,0,0,0,0,0,0,42688,0,0,29,0,0,0
+FTP-BruteForce,0,0,0,0,4771,0,0,0,24157,0,0,0,0,0
+SSH-Bruteforce,0,0,0,0,1,0,0,0,2,28348,1,0,0,0
+Infilteration / Infiltration,25,30,0,1,3,0,42,388,2,0,23973,21,0,4
+Web-BruteForce,0,0,0,0,0,0,0,10,0,0,25,61,0,0
+Web-XSS,0,0,0,0,0,0,0,12,0,0,8,1,17,0
+SQL-Injection,0,0,0,0,0,0,0,1,0,0,2,1,0,8

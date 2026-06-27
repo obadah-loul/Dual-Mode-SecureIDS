@@ -1,0 +1,72 @@
+{
+  "audit_name": "unsw_a10_seed42_artifact_repair",
+  "task_type": "a10_seed42_artifact_report_repair_no_training_rerun",
+  "generated_on": "2026-06-25",
+  "root_cause": "A9.10 wrote JSON metrics and then crashed while generating CSV/report artifacts because frozen_embedding_specialist_trainer.py expected oracle_metrics['per_class'] to be a dict with .items(), but the shared multiclass metrics helper stores per_class as a list of row dicts.",
+  "existing_checkpoint": "models/experiments/unsw_a10_frozen_embedding_specialist_seed42.pt",
+  "existing_checkpoint_sha256_before": "AC790FD0FBD67FAD9702DBBE29F12ED8A817FE3C076C9E2D91027187111C81D6",
+  "existing_checkpoint_sha256_after": "AC790FD0FBD67FAD9702DBBE29F12ED8A817FE3C076C9E2D91027187111C81D6",
+  "a9_checkpoint": "models/final/final_unsw_hierarchical.pt",
+  "a9_checkpoint_sha256_before": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "a9_checkpoint_sha256_after": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "training_rerun": false,
+  "checkpoint_modified": false,
+  "checkpoint_promoted": false,
+  "results_dir": "results/experiments/unsw_a10_frozen_embedding_specialist_seed42/",
+  "report_created": "docs/experiments/UNSW_A10_FROZEN_EMBEDDING_SPECIALIST_SEED42_REPORT.md",
+  "generated_csvs": [
+    "results/experiments/unsw_a10_frozen_embedding_specialist_seed42/per_class_attack_metrics.csv",
+    "results/experiments/unsw_a10_frozen_embedding_specialist_seed42/rare_class_metrics.csv",
+    "results/experiments/unsw_a10_frozen_embedding_specialist_seed42/attack_family_confusion_matrix.csv"
+  ],
+  "seed42_metrics": {
+    "oracle_attack_family_macro_f1": 0.501155,
+    "oracle_rare_class_macro_f1": 0.374971,
+    "routed_attack_family_macro_f1": 0.490005
+  },
+  "a9_baseline": {
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "screen_gate_result": {
+    "oracle_attack_family_target": 0.515429,
+    "oracle_attack_family_pass": false,
+    "rare_class_target": 0.385669,
+    "rare_class_pass": false,
+    "oracle_routed_separation": true,
+    "single_seed_promotion_allowed": false,
+    "overall_seed42_screen": "FAIL_SCREEN"
+  },
+  "recommendation": "reject_a10_seed42_diagnostic_only_do_not_run_3seed",
+  "tests_run": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_frozen_embedding_specialist_artifacts.py tests/test_frozen_embedding_specialist_config.py tests/test_frozen_embedding_specialist_cli.py tests/test_frozen_embedding_specialist_metrics.py tests/test_attack_family_specialist_cli.py tests/test_attack_family_specialist_config.py tests/test_train_hierarchical_cli_gate.py -q",
+      "result": "42 passed in 2.35s"
+    }
+  ],
+  "validation_checks": [
+    "existing_json_metrics_parsed",
+    "per_class_list_format_accepted",
+    "rare_class_dict_with_per_rare_class_accepted",
+    "confusion_matrix_list_format_accepted",
+    "a10_checkpoint_hash_unchanged",
+    "a9_checkpoint_hash_unchanged"
+  ],
+  "forbidden_actions_confirmed": {
+    "training_rerun": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "a9_checkpoint_modified": false,
+    "a10_checkpoint_overwritten": false,
+    "checkpoint_promoted": false,
+    "results_final_modified": false,
+    "models_final_modified": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "next_main_control_decision": "formally_reject_a10_and_stop_unsw_specialist_work_or_request_deep_analysis"
+}

@@ -1,0 +1,102 @@
+{
+  "diagnostic": "cicids_slowhttp_ftp_feature_probe",
+  "note": "DIAGNOSTIC ONLY \u2014 not training metrics; train/val only; test untouched.",
+  "classes": {
+    "A": "DoS-SlowHTTPTest",
+    "B": "FTP-BruteForce"
+  },
+  "per_class_cap": 20000,
+  "seed": 42,
+  "train_sample_sizes": {
+    "DoS-SlowHTTPTest": 20000,
+    "FTP-BruteForce": 20000
+  },
+  "n_features": 77,
+  "smd_summary": {
+    "n_strong_separators_abs_smd_ge_0p8": 3,
+    "n_moderate_0p2_to_0p8": 0,
+    "n_weak_lt_0p2": 74,
+    "max_abs_smd": 0.900221,
+    "top_features": [
+      {
+        "feature": "Flow Pkts/s",
+        "abs_smd": 0.900221
+      },
+      {
+        "feature": "Fwd Pkts/s",
+        "abs_smd": 0.90022
+      },
+      {
+        "feature": "Bwd Pkts/s",
+        "abs_smd": 0.90022
+      },
+      {
+        "feature": "Flow Duration",
+        "abs_smd": 0.194494
+      },
+      {
+        "feature": "Flow IAT Min",
+        "abs_smd": 0.189744
+      },
+      {
+        "feature": "Flow IAT Mean",
+        "abs_smd": 0.186357
+      },
+      {
+        "feature": "Flow IAT Max",
+        "abs_smd": 0.182852
+      },
+      {
+        "feature": "TotLen Fwd Pkts",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Fwd Pkt Len Min",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Fwd Pkt Len Mean",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Bwd Pkt Len Max",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Fwd Pkt Len Std",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Bwd Pkt Len Min",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "TotLen Bwd Pkts",
+        "abs_smd": 0.0
+      },
+      {
+        "feature": "Tot Fwd Pkts",
+        "abs_smd": 0.0
+      }
+    ]
+  },
+  "linear_probe": {
+    "available": true,
+    "probe_type": "logistic_regression_linear_balanced",
+    "train_fit_split": "train",
+    "eval_split": "val_held_out",
+    "train_metrics": {
+      "accuracy": 0.679775,
+      "recall_slowhttptest": 0.96645,
+      "recall_ftp_bruteforce": 0.3931,
+      "balanced_accuracy": 0.679775
+    },
+    "val_metrics": {
+      "accuracy": 0.681825,
+      "recall_slowhttptest": 0.96745,
+      "recall_ftp_bruteforce": 0.3962,
+      "balanced_accuracy": 0.681825
+    }
+  },
+  "feature_diagnostics_csv": "results/audits/cicids_hierarchical_exp04_slowhttp_ftp_feature_diagnostics.csv"
+}

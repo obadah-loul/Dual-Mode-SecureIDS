@@ -1,0 +1,234 @@
+{
+  "attack_head_dim": 14,
+  "best_epoch": 6,
+  "best_val_hierarchical_score": 0.913383,
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\experiments\\cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+  "checkpoint_selected_by": "validation_only (val_hierarchical_score = 0.5*val_binary_macro_f1 + 0.5*val_attack_family_macro_f1)",
+  "created_utc": "2026-06-25T10:37:36.804507+00:00",
+  "dataset": "cicids2018",
+  "input_dim": 77,
+  "model": "SecureIDSHierarchicalAdvancedNet",
+  "protocol": "CICIDS2018 hierarchical benchmark protocol (stratified train/validation/test split)",
+  "safety_notes": {
+    "checkpoint_not_selected_by_test_metrics": true,
+    "class_weights_train_only": true,
+    "no_fake_metrics": true,
+    "no_federated_training": true,
+    "no_security_or_attack_simulation": true,
+    "no_xai_or_dashboard": true,
+    "other_dataset_pre_correction_baselines_used_as_final": false,
+    "single_dataset_hierarchical_run": true,
+    "test_evaluated_once_after_best_validation_checkpoint": true,
+    "validation_or_test_labels_used_for_weights": false
+  },
+  "task": "hierarchical",
+  "test_metrics": {
+    "attack_family": {
+      "accuracy_on_attack_rows": 0.9641127897612047,
+      "attack_rows_evaluated": 412236,
+      "macro_f1_on_attack_rows": 0.8750940225320021,
+      "per_class": [
+        {
+          "class_id": 0,
+          "class_name": "DDoS-HOIC",
+          "f1": 0.9998928981753744,
+          "precision": 0.9999123695279638,
+          "recall": 0.9998734275811038,
+          "support": 102708
+        },
+        {
+          "class_id": 1,
+          "class_name": "DDoS-LOIC-HTTP",
+          "f1": 0.9988132659499952,
+          "precision": 0.9991545250283755,
+          "recall": 0.9984722399046307,
+          "support": 86401
+        },
+        {
+          "class_id": 2,
+          "class_name": "DDoS-LOIC-UDP",
+          "f1": 0.8312883435582823,
+          "precision": 0.7112860892388452,
+          "recall": 1.0,
+          "support": 271
+        },
+        {
+          "class_id": 3,
+          "class_name": "DoS-Hulk",
+          "f1": 0.9997482612041746,
+          "precision": 0.9997123088652023,
+          "recall": 0.999784216129125,
+          "support": 69514
+        },
+        {
+          "class_id": 4,
+          "class_name": "DoS-SlowHTTPTest",
+          "f1": 0.5811805961426066,
+          "precision": 0.7488515701483546,
+          "recall": 0.4748579341960747,
+          "support": 20941
+        },
+        {
+          "class_id": 5,
+          "class_name": "DoS-GoldenEye",
+          "f1": 0.9968974526453299,
+          "precision": 0.9973860480313674,
+          "recall": 0.9964093357271095,
+          "support": 6127
+        },
+        {
+          "class_id": 6,
+          "class_name": "DoS-Slowloris",
+          "f1": 0.9923664122137403,
+          "precision": 0.9951010410287814,
+          "recall": 0.989646772228989,
+          "support": 1642
+        },
+        {
+          "class_id": 7,
+          "class_name": "Bot",
+          "f1": 0.9986549235645694,
+          "precision": 0.9979195885928004,
+          "recall": 0.9993913430250252,
+          "support": 42717
+        },
+        {
+          "class_id": 8,
+          "class_name": "FTP-BruteForce",
+          "f1": 0.7813081830113238,
+          "precision": 0.6994371277118968,
+          "recall": 0.8848866150442478,
+          "support": 28928
+        },
+        {
+          "class_id": 9,
+          "class_name": "SSH-Bruteforce",
+          "f1": 0.9999470908802314,
+          "precision": 1.0,
+          "recall": 0.9998941873589164,
+          "support": 28352
+        },
+        {
+          "class_id": 10,
+          "class_name": "Infilteration / Infiltration",
+          "f1": 0.9939894508729608,
+          "precision": 0.9952917093142273,
+          "recall": 0.9926905957776961,
+          "support": 24489
+        },
+        {
+          "class_id": 11,
+          "class_name": "Web-BruteForce",
+          "f1": 0.6971428571428571,
+          "precision": 0.7721518987341772,
+          "recall": 0.6354166666666666,
+          "support": 96
+        },
+        {
+          "class_id": 12,
+          "class_name": "Web-XSS",
+          "f1": 0.6181818181818182,
+          "precision": 1.0,
+          "recall": 0.4473684210526316,
+          "support": 38
+        },
+        {
+          "class_id": 13,
+          "class_name": "SQL-Injection",
+          "f1": 0.761904761904762,
+          "precision": 0.8888888888888888,
+          "recall": 0.6666666666666666,
+          "support": 12
+        }
+      ]
+    },
+    "binary": {
+      "accuracy": 0.9794683790318838,
+      "attack_false_negatives": 21115,
+      "confusion_matrix": {
+        "fn": 21115,
+        "fp": 8528,
+        "tn": 1023009,
+        "tp": 391121
+      },
+      "f1": 0.9634886714251403,
+      "macro_f1": 0.9746037188199272,
+      "n_samples": 1443773,
+      "precision": 0.9786612752690486,
+      "recall": 0.9487793399897146,
+      "threshold": 0.5
+    },
+    "hierarchical_routing": {
+      "attack_detected_and_correctly_attributed": 376508,
+      "attack_detected_and_correctly_attributed_rate": 0.9133311986337923,
+      "attack_detected_wrong_family": 14613,
+      "attack_detected_wrong_family_rate": 0.035448141355922336,
+      "attack_missed_as_benign": 21115,
+      "attack_missed_as_benign_rate": 0.05122066001028537,
+      "attack_total": 412236,
+      "benign_correctly_stopped": 1023009,
+      "benign_correctly_stopped_rate": 0.9917327250500951,
+      "benign_flagged_as_attack": 8528,
+      "benign_flagged_as_attack_rate": 0.00826727494990485,
+      "benign_total": 1031537
+    },
+    "rare_class": {
+      "per_rare_class": [
+        {
+          "class_name": "DDoS-LOIC-UDP",
+          "f1": 0.8312883435582823,
+          "precision": 0.7112860892388452,
+          "present": true,
+          "recall": 1.0,
+          "support": 271
+        },
+        {
+          "class_name": "DoS-Slowloris",
+          "f1": 0.9923664122137403,
+          "precision": 0.9951010410287814,
+          "present": true,
+          "recall": 0.989646772228989,
+          "support": 1642
+        },
+        {
+          "class_name": "Web-BruteForce",
+          "f1": 0.6971428571428571,
+          "precision": 0.7721518987341772,
+          "present": true,
+          "recall": 0.6354166666666666,
+          "support": 96
+        },
+        {
+          "class_name": "Web-XSS",
+          "f1": 0.6181818181818182,
+          "precision": 1.0,
+          "present": true,
+          "recall": 0.4473684210526316,
+          "support": 38
+        },
+        {
+          "class_name": "SQL-Injection",
+          "f1": 0.761904761904762,
+          "precision": 0.8888888888888888,
+          "present": true,
+          "recall": 0.6666666666666666,
+          "support": 12
+        }
+      ],
+      "rare_class_macro_f1": 0.780176838600292,
+      "rare_classes": [
+        "DDoS-LOIC-UDP",
+        "DoS-Slowloris",
+        "Web-BruteForce",
+        "Web-XSS",
+        "SQL-Injection"
+      ]
+    }
+  },
+  "threshold": 0.5,
+  "validation_at_best_epoch": {
+    "val_attack_family_macro_f1": 0.8519415406313945,
+    "val_binary_macro_f1": 0.9748248869448586,
+    "val_hierarchical_score": 0.9133832137881266
+  }
+}

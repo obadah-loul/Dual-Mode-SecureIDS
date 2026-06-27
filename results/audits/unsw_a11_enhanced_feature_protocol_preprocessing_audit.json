@@ -1,0 +1,273 @@
+{
+  "a9_artifacts_modified": false,
+  "audit_name": "unsw_a11_enhanced_feature_protocol_preprocessing_audit",
+  "feature_count": 192,
+  "models_final_modified": false,
+  "no_test_fitting": true,
+  "no_test_label_feature_selection": true,
+  "no_test_tuning": true,
+  "numeric_only_scaling": true,
+  "one_hot_columns_not_scaled": true,
+  "protocol_name": "UNSW A11 Enhanced Feature Protocol",
+  "results_final_modified": false,
+  "split_summary": {
+    "binary": {
+      "test": {
+        "binary_class_counts": {
+          "0": 37000,
+          "1": 45332
+        },
+        "rows": 82332
+      },
+      "train": {
+        "binary_class_counts": {
+          "0": 47600,
+          "1": 101439
+        },
+        "rows": 149039
+      },
+      "val": {
+        "binary_class_counts": {
+          "0": 8400,
+          "1": 17902
+        },
+        "rows": 26302
+      }
+    },
+    "test": {
+      "X_shape": [
+        82332,
+        192
+      ],
+      "attack_family_class_counts_excluding_ignore": {
+        "0": 18871,
+        "1": 11132,
+        "2": 6062,
+        "3": 4089,
+        "4": 3496,
+        "5": 677,
+        "6": 583,
+        "7": 378,
+        "8": 44
+      },
+      "attack_family_class_counts_excluding_ignore_named": {
+        "Analysis": 677,
+        "Backdoor": 583,
+        "DoS": 4089,
+        "Exploits": 11132,
+        "Fuzzers": 6062,
+        "Generic": 18871,
+        "Reconnaissance": 3496,
+        "Shellcode": 378,
+        "Worms": 44
+      },
+      "attack_family_mask_shape": [
+        82332
+      ],
+      "attack_rows_count": 45332,
+      "benign_or_normal_rows_count": 37000,
+      "binary_class_counts": {
+        "0": 37000,
+        "1": 45332
+      },
+      "mask_valid": true,
+      "y_attack_family_shape": [
+        82332
+      ],
+      "y_binary_shape": [
+        82332
+      ]
+    },
+    "train": {
+      "X_shape": [
+        149039,
+        192
+      ],
+      "attack_family_class_counts_excluding_ignore": {
+        "0": 33959,
+        "1": 28482,
+        "2": 15445,
+        "3": 10397,
+        "4": 8902,
+        "5": 1675,
+        "6": 1505,
+        "7": 965,
+        "8": 109
+      },
+      "attack_family_class_counts_excluding_ignore_named": {
+        "Analysis": 1675,
+        "Backdoor": 1505,
+        "DoS": 10397,
+        "Exploits": 28482,
+        "Fuzzers": 15445,
+        "Generic": 33959,
+        "Reconnaissance": 8902,
+        "Shellcode": 965,
+        "Worms": 109
+      },
+      "attack_family_mask_shape": [
+        149039
+      ],
+      "attack_rows_count": 101439,
+      "benign_or_normal_rows_count": 47600,
+      "binary_class_counts": {
+        "0": 47600,
+        "1": 101439
+      },
+      "mask_valid": true,
+      "y_attack_family_shape": [
+        149039
+      ],
+      "y_binary_shape": [
+        149039
+      ]
+    },
+    "val": {
+      "X_shape": [
+        26302,
+        192
+      ],
+      "attack_family_class_counts_excluding_ignore": {
+        "0": 6041,
+        "1": 4911,
+        "2": 2739,
+        "3": 1867,
+        "4": 1589,
+        "5": 325,
+        "6": 241,
+        "7": 168,
+        "8": 21
+      },
+      "attack_family_class_counts_excluding_ignore_named": {
+        "Analysis": 325,
+        "Backdoor": 241,
+        "DoS": 1867,
+        "Exploits": 4911,
+        "Fuzzers": 2739,
+        "Generic": 6041,
+        "Reconnaissance": 1589,
+        "Shellcode": 168,
+        "Worms": 21
+      },
+      "attack_family_mask_shape": [
+        26302
+      ],
+      "attack_rows_count": 17902,
+      "benign_or_normal_rows_count": 8400,
+      "binary_class_counts": {
+        "0": 8400,
+        "1": 17902
+      },
+      "mask_valid": true,
+      "y_attack_family_shape": [
+        26302
+      ],
+      "y_binary_shape": [
+        26302
+      ]
+    }
+  },
+  "status": "PASS",
+  "train_only_fitting": true,
+  "transform_summaries": {
+    "test": {
+      "categorical_encoded_columns": 153,
+      "feature_count": 192,
+      "grouping": {
+        "proto": {
+          "enabled": true,
+          "kept_category_count": 132,
+          "other_bucket": "__other__",
+          "split": "test",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "service": {
+          "enabled": false,
+          "kept_category_count": 13,
+          "other_bucket": null,
+          "split": "test",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "state": {
+          "enabled": false,
+          "kept_category_count": 7,
+          "other_bucket": null,
+          "split": "test",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        }
+      },
+      "numeric_columns": 39,
+      "one_hot_values_are_binary": true,
+      "split": "test"
+    },
+    "train": {
+      "categorical_encoded_columns": 153,
+      "feature_count": 192,
+      "grouping": {
+        "proto": {
+          "enabled": true,
+          "kept_category_count": 132,
+          "other_bucket": "__other__",
+          "split": "train",
+          "total_values_mapped_to_other": 1,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "service": {
+          "enabled": false,
+          "kept_category_count": 13,
+          "other_bucket": null,
+          "split": "train",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "state": {
+          "enabled": false,
+          "kept_category_count": 7,
+          "other_bucket": null,
+          "split": "train",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        }
+      },
+      "numeric_columns": 39,
+      "one_hot_values_are_binary": true,
+      "split": "train"
+    },
+    "val": {
+      "categorical_encoded_columns": 153,
+      "feature_count": 192,
+      "grouping": {
+        "proto": {
+          "enabled": true,
+          "kept_category_count": 132,
+          "other_bucket": "__other__",
+          "split": "val",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "service": {
+          "enabled": false,
+          "kept_category_count": 13,
+          "other_bucket": null,
+          "split": "val",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        },
+        "state": {
+          "enabled": false,
+          "kept_category_count": 7,
+          "other_bucket": null,
+          "split": "val",
+          "total_values_mapped_to_other": 0,
+          "unknown_categories_mapped_to_other": 0
+        }
+      },
+      "numeric_columns": 39,
+      "one_hot_values_are_binary": true,
+      "split": "val"
+    }
+  }
+}

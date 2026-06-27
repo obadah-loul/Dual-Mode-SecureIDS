@@ -1,0 +1,168 @@
+{
+  "attack_family_counts_train_attack_rows_only": {
+    "Analysis": 578,
+    "Backdoor": 488,
+    "DoS": 3474,
+    "Exploits": 9470,
+    "Fuzzers": 5086,
+    "Generic": 16077,
+    "Reconnaissance": 3003,
+    "Shellcode": 316,
+    "Worms": 40
+  },
+  "binary_counts_train_only": {
+    "0": 31450,
+    "1": 38532
+  },
+  "binary_weight_strategy": {
+    "enabled": true,
+    "max_weight": 10.0,
+    "method": "balanced",
+    "normalize_mean": true,
+    "source_split": "train",
+    "use_test_labels": false,
+    "use_validation_labels": false
+  },
+  "binary_weights_preview": {
+    "bce_pos_weight_equivalent": 0.816205,
+    "cap_applied": false,
+    "final_weights": {
+      "0": 1.101197,
+      "1": 0.898803
+    },
+    "max_weight": 10.0,
+    "mean_normalized_weights": {
+      "0": 1.101197,
+      "1": 0.898803
+    },
+    "normalization": {
+      "applied": true,
+      "mean_after_cap": 1.0,
+      "mean_after_normalization_before_cap": 1.0,
+      "mean_before_normalization": 1.010347,
+      "method": "arithmetic_mean_over_classes"
+    },
+    "raw_balanced_weights": {
+      "0": 1.112591,
+      "1": 0.908102
+    }
+  },
+  "blocking_issues": [],
+  "created_at_utc": "2026-06-24T01:31:34.031490+00:00",
+  "dataset": "unsw_nb15",
+  "final_attack_weight_strategy": {
+    "enabled": true,
+    "max_weight": 10.0,
+    "method": "sqrt_inverse_frequency",
+    "normalize_mean": true,
+    "oversampling": false,
+    "source_split": "train_attack_rows_only",
+    "use_test_labels": false,
+    "use_validation_labels": false
+  },
+  "final_attack_weights_preview": {
+    "Analysis": 1.015519,
+    "Backdoor": 1.105203,
+    "DoS": 0.414226,
+    "Exploits": 0.250886,
+    "Fuzzers": 0.342345,
+    "Generic": 0.192553,
+    "Reconnaissance": 0.445527,
+    "Shellcode": 1.373436,
+    "Worms": 3.860307
+  },
+  "max_final_attack_weight": 3.860307,
+  "min_final_attack_weight": 0.192553,
+  "no_fake_results_check": {
+    "binary_baseline_artifacts_preserved": {
+      "models/federated/fedavg_cicids_binary.pt": true,
+      "models/federated/fedavg_unsw_binary.pt": true,
+      "models/final/final_cicids_binary.pt": true,
+      "models/final/final_unsw_binary.pt": true,
+      "results/final/centralized/cicids_test_metrics.json": true,
+      "results/final/centralized/unsw_test_metrics.json": true
+    },
+    "fedavg_security_attack_xai_dashboard_started": false,
+    "final_checkpoints_created": false,
+    "final_hierarchical_checkpoints_exist": {
+      "models/federated/fedavg_cicids_hierarchical.pt": false,
+      "models/federated/fedavg_unsw_hierarchical.pt": false,
+      "models/final/final_cicids_hierarchical.pt": false,
+      "models/final/final_unsw_hierarchical.pt": false
+    },
+    "final_hierarchical_metric_files": [],
+    "final_metrics_created": false,
+    "full_training_run": false,
+    "model_evaluation_run": false,
+    "test_labels_used_for_weights": false,
+    "validation_labels_used_for_weights": false
+  },
+  "normalization": {
+    "applied": true,
+    "mean_after_cap": 1.0,
+    "mean_after_normalization_before_cap": 1.0,
+    "mean_before_normalization": 2.680018,
+    "method": "arithmetic_mean_over_classes"
+  },
+  "oversampling_enabled": false,
+  "rare_class_weight_summary": {
+    "all_rare_weights_within_cap": true,
+    "most_common_class": {
+      "class_name": "Generic",
+      "final_weight": 0.192553,
+      "train_support": 16077
+    },
+    "non_rare_mean_final_weight": 0.538037,
+    "rare_classes": [
+      {
+        "class_id": 7,
+        "class_name": "Shellcode",
+        "final_weight": 1.373436,
+        "higher_than_most_common_class": true,
+        "train_support": 316
+      },
+      {
+        "class_id": 8,
+        "class_name": "Worms",
+        "final_weight": 3.860307,
+        "higher_than_most_common_class": true,
+        "train_support": 40
+      }
+    ],
+    "rare_mean_final_weight": 2.616872,
+    "rare_mean_higher_than_non_rare_mean": true
+  },
+  "raw_inverse_frequency_weight_preview_for_comparison": {
+    "Analysis": 7.407151,
+    "Backdoor": 8.773224,
+    "DoS": 1.232393,
+    "Exploits": 0.452094,
+    "Fuzzers": 0.841788,
+    "Generic": 0.266302,
+    "Reconnaissance": 1.425685,
+    "Shellcode": 13.548523,
+    "Worms": 107.033333
+  },
+  "safe_for_full_training": true,
+  "schema_version": "task_a8_5_hierarchical_class_weight_strategy_v1",
+  "status": "PASS",
+  "strategy_locked": true,
+  "test_labels_used": false,
+  "train_only_read_diagnostics": {
+    "attack_rows_seen": 38532,
+    "invalid_attack_label_count": 0,
+    "invalid_binary_label_count": 0,
+    "invalid_mask_value_count": 0,
+    "source_files": [
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical\\y_binary_train.npy",
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical\\y_attack_family_train.npy",
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical\\attack_family_mask_train.npy"
+    ],
+    "test_files_read": [],
+    "train_rows": 69982,
+    "validation_files_read": []
+  },
+  "validation_labels_used": false,
+  "warnings": [],
+  "weight_cap": 10.0
+}

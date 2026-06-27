@@ -1,0 +1,21 @@
+{
+  "architecture_metadata": {
+    "architecture": "AttackFamilySpecialistNet",
+    "role": "attack_only_family_classifier_behind_frozen_a9_router",
+    "input_dim": 192,
+    "num_attack_families": 9,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "embedding_dim": 128,
+    "dropout": 0.2,
+    "normalization": "layernorm",
+    "has_binary_head": false
+  },
+  "best_val_attack_family_macro_f1": 0.5862711090268267,
+  "selection": "validation_only_attack_family_macro_f1",
+  "seed": 42,
+  "checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+  "checkpoint_sha256": "E6F72328F70D498800DD62AA9853D104EA5C61F17AF292B7F9DF8E97649E3A0B"
+}

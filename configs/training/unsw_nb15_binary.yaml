@@ -1,0 +1,34 @@
+dataset: unsw_nb15
+task: binary
+processed_dir: data/processed/unsw_nb15/binary
+input_dim: 190
+feature_names_path: data/processed/unsw_nb15/binary/feature_names.json
+label_mapping_path: data/processed/unsw_nb15/binary/label_mapping.json
+preprocessing_manifest_path: data/processed/unsw_nb15/binary/preprocessing_manifest.json
+output_checkpoint: models/final/final_unsw_binary.pt
+training:
+  seed: 42
+  batch_size: 1024
+  max_epochs: 30
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  early_stopping_metric: val_macro_f1
+  early_stopping_patience: 5
+  use_pos_weight: true
+model:
+  architecture: SecureIDSNet
+  hidden_dims:
+    - 256
+    - 128
+    - 64
+  dropout: 0.20
+  output_dim: 1
+evaluation:
+  threshold: 0.5
+  final_test_once: true
+outputs:
+  history_csv: results/final/centralized/unsw_training_history.csv
+  metrics_json: results/final/centralized/unsw_test_metrics.json
+  confusion_matrix_csv: results/final/centralized/unsw_confusion_matrix.csv
+  manifest_json: results/audits/training_manifest_unsw_nb15.json

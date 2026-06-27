@@ -1,0 +1,257 @@
+{
+  "datasets": [
+    {
+      "dataset": "cicids2018",
+      "display_name": "CICIDS2018",
+      "feature_count": 77,
+      "feature_names_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\feature_names.json",
+      "preprocessing_manifest_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\preprocessing_manifest.json",
+      "split_summary_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\split_summary.json",
+      "artifact_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\cicids2018_binary_preprocessor.joblib",
+      "artifact_feature_names_match": true,
+      "forbidden_matches": [],
+      "suspicious_matches": [],
+      "numeric_features_confirmed": true,
+      "binary_labels_confirmed": true,
+      "train_only_fitting_confirmed": true,
+      "test_not_used_for_fitting_confirmed": true,
+      "array_checks": {
+        "arrays": {
+          "train": {
+            "x_shape": [
+              6737603,
+              77
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              6737603
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          },
+          "val": {
+            "x_shape": [
+              1443772,
+              77
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              1443772
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          },
+          "test": {
+            "x_shape": [
+              1443773,
+              77
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              1443773
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          }
+        },
+        "all_numeric": true,
+        "all_2d_x": true,
+        "all_1d_y": true,
+        "all_finite_x": true,
+        "binary_labels": true
+      },
+      "fit_evidence": {
+        "encoding_fit_on_train_only": true,
+        "imputation_fit_on_train_only": true,
+        "scaling_fit_on_train_only": true,
+        "split_strategy": "stratified_random",
+        "split_strategy_expected": true,
+        "memory_strategy": "Chunked CSV reading with .npy memmap outputs; train-fitted median imputation and standard scaling applied in place.",
+        "expected_artifact_components_present": true
+      },
+      "split_summary": {
+        "test": {
+          "label_distribution": {
+            "0": 1031537,
+            "1": 412236
+          },
+          "rows": 1443773
+        },
+        "total_rows": 9625148,
+        "train": {
+          "label_distribution": {
+            "0": 4813839,
+            "1": 1923764
+          },
+          "rows": 6737603
+        },
+        "val": {
+          "label_distribution": {
+            "0": 1031537,
+            "1": 412235
+          },
+          "rows": 1443772
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "dataset": "unsw_nb15",
+      "display_name": "UNSW-NB15",
+      "feature_count": 190,
+      "feature_names_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\feature_names.json",
+      "preprocessing_manifest_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\preprocessing_manifest.json",
+      "split_summary_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\split_summary.json",
+      "artifact_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\unsw_nb15_binary_preprocessor.joblib",
+      "artifact_feature_names_match": true,
+      "forbidden_matches": [],
+      "suspicious_matches": [],
+      "numeric_features_confirmed": true,
+      "binary_labels_confirmed": true,
+      "train_only_fitting_confirmed": true,
+      "test_not_used_for_fitting_confirmed": true,
+      "array_checks": {
+        "arrays": {
+          "train": {
+            "x_shape": [
+              69982,
+              190
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              69982
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          },
+          "val": {
+            "x_shape": [
+              12350,
+              190
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              12350
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          },
+          "test": {
+            "x_shape": [
+              175341,
+              190
+            ],
+            "x_dtype": "float32",
+            "x_numeric_dtype": true,
+            "x_is_2d": true,
+            "x_finite": true,
+            "y_shape": [
+              175341
+            ],
+            "y_dtype": "int64",
+            "y_numeric_dtype": true,
+            "y_is_1d": true,
+            "labels": [
+              0,
+              1
+            ],
+            "binary_labels": true
+          }
+        },
+        "all_numeric": true,
+        "all_2d_x": true,
+        "all_1d_y": true,
+        "all_finite_x": true,
+        "binary_labels": true
+      },
+      "fit_evidence": {
+        "encoding_fit_on_train_only": true,
+        "imputation_fit_on_train_only": true,
+        "scaling_fit_on_train_only": true,
+        "split_strategy": "official_train_test_with_validation_from_train",
+        "split_strategy_expected": true,
+        "memory_strategy": "Official UNSW training/testing files processed in memory; validation split created only from official training data.",
+        "expected_artifact_components_present": true
+      },
+      "split_summary": {
+        "test": {
+          "label_distribution": {
+            "0": 56000,
+            "1": 119341
+          },
+          "rows": 175341
+        },
+        "total_rows": 257673,
+        "train": {
+          "label_distribution": {
+            "0": 31450,
+            "1": 38532
+          },
+          "rows": 69982
+        },
+        "val": {
+          "label_distribution": {
+            "0": 5550,
+            "1": 6800
+          },
+          "rows": 12350
+        }
+      },
+      "status": "PASS"
+    }
+  ],
+  "fix_recommendation": null,
+  "overall_status": "PASS",
+  "safety_confirmation": {
+    "training_run": false,
+    "checkpoints_created": false,
+    "model_metrics_created": false,
+    "v1_modified": false,
+    "git_commit_or_push": false
+  }
+}

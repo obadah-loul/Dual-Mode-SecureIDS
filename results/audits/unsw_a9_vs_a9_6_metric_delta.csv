@@ -1,0 +1,37 @@
+category,metric,a9_value,a9_6_value,delta,interpretation
+headline,binary_macro_f1,0.8944882344898011,0.9114740968030606,0.016985862313259492,improved
+headline,binary_f1,0.9101332769198224,0.9225704787808142,0.012437201860991842,improved
+headline,attack_false_negatives,2310,2593,283,"worse, higher missed attacks"
+headline,benign_false_positives,6186,4581,-1605,"improved, fewer benign false positives"
+headline,attack_family_accuracy,0.766478425836054,0.7611400335303979,-0.005338392305656026,slightly worse
+headline,attack_family_macro_f1,0.5004290493995509,0.485478136549314,-0.01495091285023692,worse
+headline,rare_class_macro_f1,0.3856689342403628,0.3621246367452373,-0.023544297495125488,worse
+validation,best_epoch,35,36,1,A9.6 selected one epoch later
+validation,best_val_hierarchical_score,0.7623640323809326,0.757316611188801,-0.00504742119213164,worse
+validation,val_binary_macro_f1,0.9330895845116535,0.9251139019877719,-0.007975682523881589,worse
+validation,val_attack_family_macro_f1,0.5916384802502117,0.5895193203898301,-0.002119159860381581,worse
+routing,attack_detected_and_correctly_attributed,32674,32237,-437,routing delta
+routing,attack_detected_wrong_family,10348,10502,154,routing delta
+routing,attack_missed_as_benign,2310,2593,283,routing delta
+routing,benign_correctly_stopped,30814,32419,1605,routing delta
+routing,benign_flagged_as_attack,6186,4581,-1605,routing delta
+routing,attack_detected_and_correctly_attributed_rate,0.7207711991529162,0.7111312097414629,-0.009639989411453276,routing delta
+routing,attack_detected_wrong_family_rate,0.22827141974763965,0.23166857848760258,0.0033971587399629355,routing delta
+routing,attack_missed_as_benign_rate,0.0509573810994441,0.05720021177093444,0.00624283067149034,routing delta
+routing,benign_correctly_stopped_rate,0.8328108108108108,0.8761891891891892,0.043378378378378435,routing delta
+routing,benign_flagged_as_attack_rate,0.16718918918918918,0.12381081081081081,-0.043378378378378366,routing delta
+per_class_f1,Generic,0.980808,0.981135,0.0003269999999999662,per-class F1 delta
+per_class_f1,Exploits,0.69072,0.699625,0.008905000000000052,per-class F1 delta
+per_class_f1,Fuzzers,0.767899,0.74247,-0.025429000000000035,per-class F1 delta
+per_class_f1,DoS,0.387737,0.337537,-0.05020000000000002,per-class F1 delta
+per_class_f1,Reconnaissance,0.822659,0.828571,0.005911999999999917,per-class F1 delta
+per_class_f1,Analysis,0.01233,0.007576,-0.004754,per-class F1 delta
+per_class_f1,Backdoor,0.07037,0.04814,-0.02223,per-class F1 delta
+per_class_f1,Shellcode,0.439909,0.368421,-0.071488,per-class F1 delta
+per_class_f1,Worms,0.331429,0.355828,0.024399000000000004,per-class F1 delta
+rare_class_precision,Shellcode,0.307937,0.236486,-0.07145100000000001,rare precision delta
+rare_class_recall,Shellcode,0.769841,0.833333,0.06349199999999999,rare recall delta
+rare_class_f1,Shellcode,0.439909,0.368421,-0.071488,rare F1 delta
+rare_class_precision,Worms,0.221374,0.243697,0.02232300000000001,rare precision delta
+rare_class_recall,Worms,0.659091,0.659091,0.0,rare recall delta
+rare_class_f1,Worms,0.331429,0.355828,0.024399000000000004,rare F1 delta

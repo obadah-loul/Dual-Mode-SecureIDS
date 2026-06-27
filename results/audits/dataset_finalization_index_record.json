@@ -1,0 +1,61 @@
+{
+  "audit_name": "dataset_finalization_index_record",
+  "task_type": "dataset_finalization_status_index_documentation_only",
+  "generated_on": "2026-06-25",
+  "process_correction_context": "wrong_chat_decisions_reviewed_and_ratified_by_main_control",
+  "cicids": {
+    "status": "FINALIZED_PROMOTED_WITH_WARNINGS",
+    "official_final_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "promoted_source_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "promotion_record": "results/audits/cicids_hierarchical_exp03_125_final_promotion_record_20260625_160136.json",
+    "rollback_target": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136/models_final/final_cicids_hierarchical.pt",
+    "sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+    "hash_verified": true,
+    "selected_by": "highest_validation_hierarchical_score_not_test_metrics",
+    "warnings": [
+      "DoS-SlowHTTPTest to FTP-BruteForce remains dominant unresolved confusion",
+      "FTP-BruteForce mean F1 slightly lower than old baseline",
+      "Web-XSS and SQL-Injection have tiny support and must not be over-claimed",
+      "EXP04 diagnostic suggested SlowHTTPTest/FTP issue may be feature-limited"
+    ]
+  },
+  "unsw": {
+    "status": "FROZEN_ACCEPTED_A9_BASELINE_REOPENABLE",
+    "official_frozen_checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "accepted_model_identity": "A9 corrected-protocol hierarchical baseline",
+    "freeze_record": "results/audits/unsw_a9_final_acceptance_freeze_record.json",
+    "rollback_target": "results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt",
+    "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+    "hash_verified": true,
+    "known_metrics": {
+      "binary_macro_f1": 0.894488,
+      "attack_family_macro_f1": 0.500429,
+      "rare_class_macro_f1": 0.385669
+    },
+    "reopen_allowed": true,
+    "reopen_reason": "attack-family and rare-class metrics remain weak"
+  },
+  "next_planned_work": [
+    "UNSW improvement first after main-control approval",
+    "federated/security implementation after dataset status is clean"
+  ],
+  "files_created": [
+    "docs/final/DATASET_FINALIZATION_INDEX.md",
+    "results/audits/dataset_finalization_index_record.json",
+    "results/audits/dataset_finalization_index_summary.csv"
+  ],
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "checkpoint_modified": false,
+    "checkpoint_copied_or_replaced": false,
+    "results_deleted_moved_or_archived": false,
+    "git_action": false,
+    "fake_metrics": false,
+    "test_tuning": false,
+    "v1_modified": false
+  }
+}

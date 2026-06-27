@@ -1,0 +1,101 @@
+{
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_cicids_binary.pt",
+  "class_distribution_train": {
+    "0": 4813839,
+    "1": 1923764
+  },
+  "config_path": "configs\\training\\cicids2018_binary.yaml",
+  "created_utc": "2026-06-23T19:00:59.793904+00:00",
+  "dataset": "cicids2018",
+  "device": "cuda",
+  "early_stopping": {
+    "best_epoch": 7,
+    "epochs_run": 11,
+    "metric": "val_macro_f1",
+    "patience": 4
+  },
+  "feature_count": 77,
+  "feature_names_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\feature_names.json",
+  "input_dim": 77,
+  "label_mapping_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\label_mapping.json",
+  "max_epochs": 20,
+  "model": {
+    "architecture": "SecureIDSNet",
+    "dropout": 0.2,
+    "hidden_dims": [
+      256,
+      128,
+      64
+    ],
+    "input_dim": 77,
+    "output_dim": 1
+  },
+  "output_paths": {
+    "confusion_matrix_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_confusion_matrix.csv",
+    "history_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_training_history.csv",
+    "metrics_json": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_test_metrics.json"
+  },
+  "pos_weight": 2.5023022574494584,
+  "preprocessing_manifest_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\preprocessing_manifest.json",
+  "preprocessing_safety_check_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\preprocessing_safety_check.json",
+  "processed_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary",
+  "processed_paths": {
+    "X_test": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_test.npy",
+    "X_train": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_train.npy",
+    "X_val": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_val.npy",
+    "y_test": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_test.npy",
+    "y_train": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_train.npy",
+    "y_val": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_val.npy"
+  },
+  "safety": {
+    "final_checkpoint": true,
+    "no_attack_simulation": true,
+    "no_federated_training": true,
+    "no_xai": true,
+    "preprocessing_safety_check_passed": true,
+    "test_set_used_for_tuning": false
+  },
+  "seed": 42,
+  "split_shapes": {
+    "test": {
+      "X": [
+        1443773,
+        77
+      ],
+      "y": [
+        1443773
+      ]
+    },
+    "train": {
+      "X": [
+        6737603,
+        77
+      ],
+      "y": [
+        6737603
+      ]
+    },
+    "val": {
+      "X": [
+        1443772,
+        77
+      ],
+      "y": [
+        1443772
+      ]
+    }
+  },
+  "task": "binary",
+  "training": {
+    "batch_size": 4096,
+    "early_stopping_metric": "val_macro_f1",
+    "early_stopping_patience": 4,
+    "learning_rate": 0.001,
+    "max_epochs": 20,
+    "optimizer": "adamw",
+    "seed": 42,
+    "threshold": 0.5,
+    "use_pos_weight": true,
+    "weight_decay": 0.0001
+  }
+}

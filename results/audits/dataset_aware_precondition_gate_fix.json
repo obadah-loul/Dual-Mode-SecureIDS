@@ -1,0 +1,68 @@
+{
+  "audit_name": "dataset_aware_precondition_gate_fix",
+  "task_type": "focused_pretraining_safety_fix",
+  "generated_on": "2026-06-24",
+  "created_or_modified_files": [
+    "secureids/training/hierarchical_trainer.py (modified - dataset-aware gate + dead-var cleanup)",
+    "tests/test_hierarchical_preconditions_dataset_aware.py (created)",
+    "docs/DATASET_AWARE_PRECONDITION_GATE_FIX.md (created)",
+    "results/audits/dataset_aware_precondition_gate_fix.json (created)",
+    "docs/CICIDS_HIERARCHICAL_TRAINING_READINESS.md (updated)",
+    "results/audits/cicids_hierarchical_training_readiness.json (updated)"
+  ],
+  "primary_fix": {
+    "file": "secureids/training/hierarchical_trainer.py",
+    "function": "validate_execute_preconditions",
+    "helper_added": "_dataset_precondition_errors",
+    "issue": "UNSW/A8.8 precondition checks applied to all datasets including CICIDS.",
+    "fixed": true,
+    "unsw_checks_preserved": true,
+    "cicids_unsw_file_dependency_removed": true,
+    "unsupported_dataset_fails_clearly": true,
+    "uses_canonical_config_dataset_not_cli_alias": true,
+    "dataset_agnostic_checks_preserved": true,
+    "overwrite_protection_preserved": true,
+    "finite_label_data_checks_preserved": true,
+    "training_metrics_model_optimizer_behavior_changed": false
+  },
+  "additional_small_safe_fixes": [
+    "Removed a dead variable (`short`) in validate_execute_preconditions class-weight section (no behavior change)."
+  ],
+  "tests_added_or_updated": [
+    "tests/test_hierarchical_preconditions_dataset_aware.py (new): CICIDS has no UNSW dependency; UNSW still required (absent->fail, not-ready->fail, present+ready->pass); real configs map to correct branches; unsupported dataset fails clearly."
+  ],
+  "tests_run_by_agent": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_hierarchical_preconditions_dataset_aware.py tests/test_cicids_pretraining_safe_fixes.py tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+      "result": "55 passed in 2.30s"
+    }
+  ],
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_hierarchical_preconditions_dataset_aware.py tests/test_cicids_pretraining_safe_fixes.py tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "Get-Content \"results\\audits\\dataset_aware_precondition_gate_fix.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool",
+    "Get-Content \"results\\audits\\cicids_hierarchical_training_readiness.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "cicids_readiness_status_after_fix": "READY_FOR_MANUAL_TRAINING",
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "full_cicids_training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "old_result_files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "remaining_warnings": [
+    "Ordinary training risks only: long runtime / memory (~6.7M training rows, ~3 GB eager X load).",
+    "Rare-class variance: tiny supports (SQL-Injection 12 test rows, Web-XSS 38, Web-BruteForce 96) -> high-variance per-class/rare-class F1.",
+    "Random-split near-duplicate reporting caveat: val/test i.i.d. with train; report transparently.",
+    "First CICIDS hierarchical checkpoint should be reviewed before acceptance as final."
+  ],
+  "remaining_blockers": [],
+  "next_step": "return_to_project_controller_chat_for_main_control_update_before_manual_cicids_training"
+}

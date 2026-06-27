@@ -1,0 +1,74 @@
+{
+  "audit_name": "unsw_optimization_closure_record",
+  "task_type": "unsw_optimization_closure_documentation_only",
+  "generated_on": "2026-06-25",
+  "final_decision": "keep_a9_accept_a11_rejected_diagnostic",
+  "unsw_status": "optimization_closed_for_now",
+  "accepted_baseline": {
+    "model_identity": "A9 corrected-protocol hierarchical baseline",
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "a11_seed42": {
+    "status": "REJECTED_DIAGNOSTIC_ONLY",
+    "checkpoint": "models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt",
+    "sha256": "2F7D138E94169F11FC2EDB872DC87D0B013B4E0E41D4022A36FEA5C138A899E8",
+    "binary_macro_f1": 0.896630,
+    "attack_family_macro_f1": 0.494685,
+    "rare_class_macro_f1": 0.342636,
+    "correctly_attributed_rate": 0.725117,
+    "missed_as_benign_rate": 0.043038,
+    "benign_false_alarm_rate": 0.171784
+  },
+  "screen_gates": {
+    "attack_family_macro_f1_target": 0.515,
+    "attack_family_gate_pass": false,
+    "rare_class_macro_f1_floor": 0.385669,
+    "rare_class_gate_pass": false,
+    "binary_macro_f1_not_damaged": true,
+    "weak_classes_visible": true,
+    "single_seed_promotion_allowed": false,
+    "overall": "FAIL_SCREEN"
+  },
+  "no_three_seed_confirmation": {
+    "seed123_run": false,
+    "seed999_run": false,
+    "reason": "seed42 failed core attack-family and rare-class gates; 3-seed confirmation would be unjustified"
+  },
+  "optimization_history_summary": {
+    "a9": "accepted corrected-protocol hierarchical baseline",
+    "a9_6": "attack-loss change; did not replace A9",
+    "a9_7_a9_8": "stronger Head 2 branch / multi-seed comparison; did not clearly beat A9",
+    "a9_9": "attack-only specialist; failed due to overfitting and weak test performance",
+    "a9_10": "frozen-A9 embedding specialist; did not meaningfully beat A9 and hurt rare-class macro-F1",
+    "a11": "enhanced feature protocol seed42; rejected diagnostic only"
+  },
+  "final_path_integrity": {
+    "a9_not_replaced": true,
+    "a11_not_promoted": true,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "checkpoint_modified": false
+  },
+  "next_phase_recommendation": "move_to_federated_security_with_cicids_final_and_unsw_a9_baseline",
+  "safety": {
+    "training_run": false,
+    "evaluation_run": false,
+    "seed123_run": false,
+    "seed999_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "a11_promoted": false,
+    "a9_replaced": false,
+    "fake_metrics": false,
+    "test_tuning": false
+  },
+  "next_main_control_decision": "approve_federated_security_phase_planning"
+}

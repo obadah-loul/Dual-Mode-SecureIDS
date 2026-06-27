@@ -1,0 +1,198 @@
+{
+  "audit_name": "cicids_improvement_opportunity_audit",
+  "task_type": "improvement_opportunity_audit_existing_outputs_only",
+  "generated_on": "2026-06-25",
+  "baseline_candidate": "models/final/final_cicids_hierarchical.pt",
+  "baseline_acceptance_status": "ACCEPT_WITH_WARNINGS",
+  "main_weakness": "head2_attack_family_classification",
+  "head1_status": "excellent_do_not_disrupt_casually",
+  "head2_status": "strong_overall_but_rare_and_difficult_classes_reduce_macro_f1",
+  "simple_rerun_recommended": false,
+  "controlled_improvement_recommended": true,
+  "recommended_strategy": "lock_current_baseline_then_decide_between_one_controlled_head2_experiment_or_moving_to_federated_security",
+  "weakness_analysis": [
+    {
+      "class_name": "Web-BruteForce",
+      "f1": 0.3636,
+      "support": 96,
+      "weakness_type": "rare_class_high_variance_web_attack",
+      "macro_f1_effect": "large because macro-F1 weights each class equally",
+      "notes": "Lowest listed F1; should be reported honestly rather than hidden."
+    },
+    {
+      "class_name": "Web-XSS",
+      "f1": 0.6182,
+      "support": 38,
+      "weakness_type": "rare_class_high_variance_web_attack",
+      "macro_f1_effect": "meaningful despite tiny support because macro-F1 is class-balanced",
+      "notes": "Very small support makes the estimate unstable."
+    },
+    {
+      "class_name": "DoS-SlowHTTPTest",
+      "f1": 0.5535,
+      "support": 20941,
+      "weakness_type": "difficult_non_rare_class",
+      "macro_f1_effect": "large because F1 is low and support is substantial",
+      "notes": "Likely reflects class overlap, feature ambiguity, or model/loss allocation rather than rarity alone."
+    },
+    {
+      "class_name": "FTP-BruteForce",
+      "f1": 0.7787,
+      "support": 28928,
+      "weakness_type": "moderate_large_support_head2_weakness",
+      "macro_f1_effect": "moderate",
+      "notes": "May benefit from Head 2 or loss calibration if a controlled experiment is approved."
+    },
+    {
+      "class_name": "SQL-Injection",
+      "f1": 0.8000,
+      "support": 12,
+      "weakness_type": "extremely_rare_class",
+      "macro_f1_effect": "limited but unstable",
+      "notes": "Do not overinterpret small support; still disclose rare-class instability."
+    }
+  ],
+  "improvement_candidates": [
+    {
+      "id": "c01",
+      "candidate": "Head 2 capacity increase",
+      "classification": "needs_main_chat_decision",
+      "target": "attack-family macro-F1 and difficult Head 2 classes",
+      "expected_benefit": "may improve attack-family separation while preserving Head 1 if kept modest",
+      "risk": "overfit or reduced comparability if capacity change is too broad",
+      "implementation_scope": "single controlled model/config change only if already supported or very small",
+      "requires_retraining": true,
+      "requires_main_chat_decision": true,
+      "notes": "Strongest single controlled experiment candidate if main control approves improvement work."
+    },
+    {
+      "id": "c02",
+      "candidate": "Attack-family loss weighting change",
+      "classification": "needs_main_chat_decision",
+      "target": "DoS-SlowHTTPTest, FTP-BruteForce, and weak rare classes",
+      "expected_benefit": "directly reallocates optimization pressure to weak Head 2 families",
+      "risk": "may reduce strong class performance or destabilize macro/accuracy tradeoff",
+      "implementation_scope": "single controlled loss/config change if already supported",
+      "requires_retraining": true,
+      "requires_main_chat_decision": true,
+      "notes": "Keep validation-only selection and compare against accepted baseline."
+    },
+    {
+      "id": "c03",
+      "candidate": "Rare-class sampling / balanced attack-family sampler",
+      "classification": "possible_later",
+      "target": "rare web classes and SQL-Injection",
+      "expected_benefit": "could expose Head 2 to rare classes more often",
+      "risk": "higher overfit and leakage risk if not strictly train-only",
+      "implementation_scope": "moderate data-loader/training change",
+      "requires_retraining": true,
+      "requires_main_chat_decision": true,
+      "notes": "Defer unless a careful train-only sampler design is approved."
+    },
+    {
+      "id": "c04",
+      "candidate": "Class-weight tuning",
+      "classification": "possible_later",
+      "target": "rare and difficult Head 2 classes",
+      "expected_benefit": "lower implementation scope than sampler changes",
+      "risk": "can destabilize class balance and must not use validation/test labels",
+      "implementation_scope": "small-to-moderate train-only config change",
+      "requires_retraining": true,
+      "requires_main_chat_decision": true,
+      "notes": "Must remain train-only with validation-only checkpoint selection."
+    },
+    {
+      "id": "c05",
+      "candidate": "Validation calibration",
+      "classification": "possible_later",
+      "target": "operating-point behavior",
+      "expected_benefit": "could improve decision calibration without test leakage",
+      "risk": "not the main Head 2 family-classification weakness",
+      "implementation_scope": "validation-only analysis/config if approved",
+      "requires_retraining": false,
+      "requires_main_chat_decision": true,
+      "notes": "Only valid if performed on validation data, never test."
+    },
+    {
+      "id": "c06",
+      "candidate": "Specialist attack-family module",
+      "classification": "possible_later",
+      "target": "difficult or overlapping families",
+      "expected_benefit": "could target class overlap more directly",
+      "risk": "model-zoo complexity and higher integration burden",
+      "implementation_scope": "large model/training change",
+      "requires_retraining": true,
+      "requires_main_chat_decision": true,
+      "notes": "Not the safest immediate step before broader system work is complete."
+    },
+    {
+      "id": "c07",
+      "candidate": "Threshold tuning",
+      "classification": "reject",
+      "target": "binary operating point",
+      "expected_benefit": "limited for the main Head 2 weakness",
+      "risk": "test-set threshold tuning would be leakage and could disrupt excellent Head 1",
+      "implementation_scope": "small if validation-only, invalid if test-based",
+      "requires_retraining": false,
+      "requires_main_chat_decision": true,
+      "notes": "Reject test-based threshold tuning. Validation-only threshold work is separate and not the priority."
+    },
+    {
+      "id": "c08",
+      "candidate": "Reporting-only improvement",
+      "classification": "recommend_now",
+      "target": "transparency around weak classes",
+      "expected_benefit": "improves explanation and thesis honesty without changing metrics",
+      "risk": "does not improve model performance",
+      "implementation_scope": "documentation/reporting only",
+      "requires_retraining": false,
+      "requires_main_chat_decision": false,
+      "notes": "Recommended immediately as part of honest acceptance reporting."
+    },
+    {
+      "id": "c09",
+      "candidate": "No immediate improvement; proceed to federated/security first",
+      "classification": "recommend_now",
+      "target": "project completion and system integration",
+      "expected_benefit": "uses accepted centralized baseline and avoids spending time chasing marginal gains",
+      "risk": "Head 2 weaknesses remain for later controlled work",
+      "implementation_scope": "project sequencing decision",
+      "requires_retraining": false,
+      "requires_main_chat_decision": true,
+      "notes": "Recommended if timeline favors completing the full secure/federated/explainable system."
+    }
+  ],
+  "risky_or_rejected_ideas": [
+    {
+      "idea": "test-set threshold tuning",
+      "decision": "reject",
+      "reason": "would leak test information and is not the main Head 2 weakness"
+    },
+    {
+      "idea": "oversampling using validation/test information",
+      "decision": "reject",
+      "reason": "would violate train-only data handling"
+    },
+    {
+      "idea": "major specialist/model zoo before baseline is preserved",
+      "decision": "defer",
+      "reason": "adds complexity before the accepted candidate is locked and broader system work is complete"
+    },
+    {
+      "idea": "hiding weak classes",
+      "decision": "reject",
+      "reason": "would make the report misleading"
+    },
+    {
+      "idea": "changing taxonomy just to improve metrics",
+      "decision": "reject",
+      "reason": "would undermine comparability"
+    },
+    {
+      "idea": "rerunning until lucky",
+      "decision": "reject",
+      "reason": "would weaken the controlled experimental story"
+    }
+  ],
+  "next_decision_needed": "decide_one_controlled_improvement_experiment_vs_move_to_federated_security"
+}

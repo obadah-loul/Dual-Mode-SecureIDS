@@ -1,0 +1,1058 @@
+{
+  "all_attack_family_classes_present_or_documented": true,
+  "attack_family_distribution": {
+    "absent_attack_family_classes": [],
+    "by_split": {
+      "test": {
+        "Bot": 42717,
+        "DDoS-HOIC": 102708,
+        "DDoS-LOIC-HTTP": 86401,
+        "DDoS-LOIC-UDP": 271,
+        "DoS-GoldenEye": 6127,
+        "DoS-Hulk": 69514,
+        "DoS-SlowHTTPTest": 20941,
+        "DoS-Slowloris": 1642,
+        "FTP-BruteForce": 28928,
+        "Infilteration / Infiltration": 24489,
+        "SQL-Injection": 12,
+        "SSH-Bruteforce": 28352,
+        "Web-BruteForce": 96,
+        "Web-XSS": 38
+      },
+      "train": {
+        "Bot": 200578,
+        "DDoS-HOIC": 480349,
+        "DDoS-LOIC-HTTP": 403361,
+        "DDoS-LOIC-UDP": 1183,
+        "DoS-GoldenEye": 29053,
+        "DoS-Hulk": 323003,
+        "DoS-SlowHTTPTest": 98130,
+        "DoS-Slowloris": 7688,
+        "FTP-BruteForce": 135304,
+        "Infilteration / Infiltration": 113249,
+        "SQL-Injection": 63,
+        "SSH-Bruteforce": 131218,
+        "Web-BruteForce": 428,
+        "Web-XSS": 157
+      },
+      "val": {
+        "Bot": 42896,
+        "DDoS-HOIC": 102955,
+        "DDoS-LOIC-HTTP": 86429,
+        "DDoS-LOIC-UDP": 276,
+        "DoS-GoldenEye": 6328,
+        "DoS-Hulk": 69395,
+        "DoS-SlowHTTPTest": 20819,
+        "DoS-Slowloris": 1660,
+        "FTP-BruteForce": 29128,
+        "Infilteration / Infiltration": 24196,
+        "SQL-Injection": 12,
+        "SSH-Bruteforce": 28019,
+        "Web-BruteForce": 87,
+        "Web-XSS": 35
+      }
+    },
+    "total_by_id": {
+      "0": 686012,
+      "1": 576191,
+      "10": 161934,
+      "11": 611,
+      "12": 230,
+      "13": 87,
+      "2": 1730,
+      "3": 461912,
+      "4": 139890,
+      "5": 41508,
+      "6": 10990,
+      "7": 286191,
+      "8": 193360,
+      "9": 187589
+    },
+    "total_by_name": {
+      "Bot": 286191,
+      "DDoS-HOIC": 686012,
+      "DDoS-LOIC-HTTP": 576191,
+      "DDoS-LOIC-UDP": 1730,
+      "DoS-GoldenEye": 41508,
+      "DoS-Hulk": 461912,
+      "DoS-SlowHTTPTest": 139890,
+      "DoS-Slowloris": 10990,
+      "FTP-BruteForce": 193360,
+      "Infilteration / Infiltration": 161934,
+      "SQL-Injection": 87,
+      "SSH-Bruteforce": 187589,
+      "Web-BruteForce": 611,
+      "Web-XSS": 230
+    }
+  },
+  "attack_family_labels_valid": true,
+  "binary_distribution": {
+    "test": {
+      "0": 1031537,
+      "1": 412236
+    },
+    "train": {
+      "0": 4813839,
+      "1": 1923764
+    },
+    "val": {
+      "0": 1031537,
+      "1": 412235
+    }
+  },
+  "binary_labels_valid": true,
+  "blocking_issues": [],
+  "checkpoints_created": false,
+  "checks": [
+    {
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\hierarchical",
+      "name": "hierarchical_folder_exists",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "all_expected_files_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=77, expected=77",
+      "name": "feature_names_count_matches_expected_dim",
+      "status": "PASS"
+    },
+    {
+      "detail": "Head 1 mapping is 0=benign/normal, 1=attack",
+      "name": "binary_label_mapping_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "class_count=14",
+      "name": "attack_family_label_mapping_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "common superclass is reporting-only and not training target",
+      "name": "common_superclass_mapping_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "-1",
+      "name": "ignore_index_recorded_as_minus_one",
+      "status": "PASS"
+    },
+    {
+      "detail": "cicids2018",
+      "name": "dataset_name_recorded_in_attack_mapping",
+      "status": "PASS"
+    },
+    {
+      "detail": "cicids2018",
+      "name": "manifest_dataset_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "hierarchical_preprocessing",
+      "name": "manifest_task_type_hierarchical",
+      "status": "PASS"
+    },
+    {
+      "detail": "configs/taxonomy/cicids2018_attack_taxonomy.yaml",
+      "name": "manifest_taxonomy_config_path_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "configs/preprocessing/cicids2018_hierarchical.yaml",
+      "name": "manifest_preprocessing_config_path_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "feature_dim=77, expected=77",
+      "name": "manifest_input_dim_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_no_test_set_tuning",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_no_scaler_encoder_refit_on_test",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_common_superclass_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "manifest_no_fake_shared_multiclass",
+      "status": "PASS"
+    },
+    {
+      "detail": "[6737603, 77]",
+      "name": "train_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[6737603], ya=[6737603]",
+      "name": "train_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[6737603]",
+      "name": "train_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[6737603, 77], yb=[6737603], ya=[6737603], mask=[6737603]",
+      "name": "train_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=77, expected=77",
+      "name": "train_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "train_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "train_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]",
+      "name": "train_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "train_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "train_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "train_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "train_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[6737603, 77], new X=[6737603, 77], y match=True",
+      "name": "train_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "[1443772, 77]",
+      "name": "val_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[1443772], ya=[1443772]",
+      "name": "val_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[1443772]",
+      "name": "val_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[1443772, 77], yb=[1443772], ya=[1443772], mask=[1443772]",
+      "name": "val_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=77, expected=77",
+      "name": "val_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "val_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "val_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]",
+      "name": "val_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "val_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "val_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "val_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "val_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[1443772, 77], new X=[1443772, 77], y match=True",
+      "name": "val_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "[1443773, 77]",
+      "name": "test_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[1443773], ya=[1443773]",
+      "name": "test_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[1443773]",
+      "name": "test_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[1443773, 77], yb=[1443773], ya=[1443773], mask=[1443773]",
+      "name": "test_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=77, expected=77",
+      "name": "test_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "test_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "test_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]",
+      "name": "test_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "test_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "test_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "test_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "test_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[1443773, 77], new X=[1443773, 77], y match=True",
+      "name": "test_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "split_summary.json matches inspected arrays",
+      "name": "split_summary_matches_arrays",
+      "status": "PASS"
+    },
+    {
+      "detail": "train/val/test all contain rows",
+      "name": "no_split_empty",
+      "status": "PASS"
+    },
+    {
+      "detail": "absent=[]",
+      "name": "all_attack_family_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "Rare raw labels are preserved in mapping metadata. Counts from A3 arrays are available at the mapped attack-family level.",
+      "name": "rare_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_processed_outputs_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_final_checkpoints_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_fedavg_checkpoints_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\secureids\\models\\secureids_hierarchical_advanced_net.py",
+      "name": "advanced_hierarchical_model_code_present_expected_from_a5",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_hierarchical_checkpoints",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_hierarchical_training_metrics",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_security_attack_xai_dashboard_outputs",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "feature_dim_match",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "label_mask_consistency",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "attack_family_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "masks_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "ignore_index_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "split_summary_matches_arrays",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "all_attack_family_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "rare_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "common_superclass_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "fake_shared_multiclass_label_list_created",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "no_test_set_tuning",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "no_scaler_encoder_refit_on_test",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_binary_outputs_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_binary_checkpoints_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_fedavg_checkpoints_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "model_code_created=True (approved and implemented at A5)",
+      "name": "advanced_model_code_present_expected_from_a5",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "training_or_evaluation_run",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "checkpoints_created",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "security_attack_xai_dashboard_started",
+      "status": "PASS"
+    }
+  ],
+  "common_superclass_reporting_only": true,
+  "created_at_utc": "2026-06-24T02:12:49.076044+00:00",
+  "dataset": "cicids2018",
+  "detected_feature_dim": 77,
+  "existing_binary_checkpoints_preserved": true,
+  "existing_binary_outputs_preserved": true,
+  "existing_fedavg_checkpoints_preserved": true,
+  "expected_feature_dim": 77,
+  "expected_files_count": 18,
+  "fake_shared_multiclass_label_list_created": false,
+  "feature_dim_match": true,
+  "ignore_index_valid": true,
+  "label_mask_consistency": true,
+  "manifest_summary": {
+    "common_superclass_reporting_only": true,
+    "creation_command": "python -m secureids.cli preprocess-hierarchical --dataset cicids --execute --overwrite",
+    "creation_command_recorded": true,
+    "dataset": "cicids2018",
+    "expected_creation_command": "python -m secureids.cli preprocess-hierarchical --dataset all --execute",
+    "expected_input_dim": 77,
+    "fake_shared_multiclass_label_list_created": false,
+    "input_dim": 77,
+    "no_scaler_encoder_refit_on_test": true,
+    "no_test_set_tuning": true,
+    "preprocessing_config_path": "configs/preprocessing/cicids2018_hierarchical.yaml",
+    "status": "PASS",
+    "task": "hierarchical_preprocessing",
+    "taxonomy_config_path": "configs/taxonomy/cicids2018_attack_taxonomy.yaml"
+  },
+  "mapping_summary": {
+    "attack_family_class_count": 14,
+    "attack_family_class_to_id": {
+      "Bot": 7,
+      "DDoS-HOIC": 0,
+      "DDoS-LOIC-HTTP": 1,
+      "DDoS-LOIC-UDP": 2,
+      "DoS-GoldenEye": 5,
+      "DoS-Hulk": 3,
+      "DoS-SlowHTTPTest": 4,
+      "DoS-Slowloris": 6,
+      "FTP-BruteForce": 8,
+      "Infilteration / Infiltration": 10,
+      "SQL-Injection": 13,
+      "SSH-Bruteforce": 9,
+      "Web-BruteForce": 11,
+      "Web-XSS": 12
+    },
+    "binary_class_to_id": {
+      "Attack": 1,
+      "Benign / Normal": 0
+    },
+    "common_superclass_reporting_only": true,
+    "dataset": "cicids2018",
+    "fake_shared_multiclass_label_list_created": false,
+    "id_to_class": {
+      "0": "DDoS-HOIC",
+      "1": "DDoS-LOIC-HTTP",
+      "10": "Infilteration / Infiltration",
+      "11": "Web-BruteForce",
+      "12": "Web-XSS",
+      "13": "SQL-Injection",
+      "2": "DDoS-LOIC-UDP",
+      "3": "DoS-Hulk",
+      "4": "DoS-SlowHTTPTest",
+      "5": "DoS-GoldenEye",
+      "6": "DoS-Slowloris",
+      "7": "Bot",
+      "8": "FTP-BruteForce",
+      "9": "SSH-Bruteforce"
+    },
+    "id_to_class_int": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "ignore_index": -1,
+    "rare_raw_labels": [
+      "DDOS attack-LOIC-UDP",
+      "DoS attacks-Slowloris",
+      "Brute Force -Web",
+      "Brute Force -XSS",
+      "SQL Injection"
+    ],
+    "rare_threshold": {
+      "rule": "support_percent < 1.0",
+      "support_percent_lt": 1.0
+    },
+    "raw_label_to_attack_family": {
+      "Bot": "Bot",
+      "Brute Force -Web": "Web-BruteForce",
+      "Brute Force -XSS": "Web-XSS",
+      "DDOS attack-HOIC": "DDoS-HOIC",
+      "DDOS attack-LOIC-UDP": "DDoS-LOIC-UDP",
+      "DDoS attacks-LOIC-HTTP": "DDoS-LOIC-HTTP",
+      "DoS attacks-GoldenEye": "DoS-GoldenEye",
+      "DoS attacks-Hulk": "DoS-Hulk",
+      "DoS attacks-SlowHTTPTest": "DoS-SlowHTTPTest",
+      "DoS attacks-Slowloris": "DoS-Slowloris",
+      "FTP-BruteForce": "FTP-BruteForce",
+      "Infilteration": "Infilteration / Infiltration",
+      "SQL Injection": "SQL-Injection",
+      "SSH-Bruteforce": "SSH-Bruteforce"
+    },
+    "raw_label_to_attack_family_id": {
+      "Bot": 7,
+      "Brute Force -Web": 11,
+      "Brute Force -XSS": 12,
+      "DDOS attack-HOIC": 0,
+      "DDOS attack-LOIC-UDP": 2,
+      "DDoS attacks-LOIC-HTTP": 1,
+      "DoS attacks-GoldenEye": 5,
+      "DoS attacks-Hulk": 3,
+      "DoS attacks-SlowHTTPTest": 4,
+      "DoS attacks-Slowloris": 6,
+      "FTP-BruteForce": 8,
+      "Infilteration": 10,
+      "SQL Injection": 13,
+      "SSH-Bruteforce": 9
+    }
+  },
+  "masks_valid": true,
+  "missing_files": [],
+  "model_code_created": true,
+  "no_scaler_encoder_refit_on_test": true,
+  "no_test_set_tuning": true,
+  "rare_class_summary": {
+    "note": "Rare raw labels are preserved in mapping metadata. Counts from A3 arrays are available at the mapped attack-family level.",
+    "rare_classes": [
+      {
+        "attack_family_id": 2,
+        "family_total_count_in_hierarchical_arrays": 1730,
+        "mapped_attack_family": "DDoS-LOIC-UDP",
+        "present_or_documented": true,
+        "raw_label": "DDOS attack-LOIC-UDP",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 271,
+          "train": 1183,
+          "val": 276
+        }
+      },
+      {
+        "attack_family_id": 6,
+        "family_total_count_in_hierarchical_arrays": 10990,
+        "mapped_attack_family": "DoS-Slowloris",
+        "present_or_documented": true,
+        "raw_label": "DoS attacks-Slowloris",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 1642,
+          "train": 7688,
+          "val": 1660
+        }
+      },
+      {
+        "attack_family_id": 11,
+        "family_total_count_in_hierarchical_arrays": 611,
+        "mapped_attack_family": "Web-BruteForce",
+        "present_or_documented": true,
+        "raw_label": "Brute Force -Web",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 96,
+          "train": 428,
+          "val": 87
+        }
+      },
+      {
+        "attack_family_id": 12,
+        "family_total_count_in_hierarchical_arrays": 230,
+        "mapped_attack_family": "Web-XSS",
+        "present_or_documented": true,
+        "raw_label": "Brute Force -XSS",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 38,
+          "train": 157,
+          "val": 35
+        }
+      },
+      {
+        "attack_family_id": 13,
+        "family_total_count_in_hierarchical_arrays": 87,
+        "mapped_attack_family": "SQL-Injection",
+        "present_or_documented": true,
+        "raw_label": "SQL Injection",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 12,
+          "train": 63,
+          "val": 12
+        }
+      }
+    ],
+    "rare_classes_present_or_documented": true,
+    "rare_raw_labels": [
+      "DDOS attack-LOIC-UDP",
+      "DoS attacks-Slowloris",
+      "Brute Force -Web",
+      "Brute Force -XSS",
+      "SQL Injection"
+    ],
+    "rare_threshold": {
+      "rule": "support_percent < 1.0",
+      "support_percent_lt": 1.0
+    }
+  },
+  "rare_classes_present_or_documented": true,
+  "ready_for_hierarchical_model_implementation": true,
+  "safety_summary": {
+    "advanced_model_code_exists": true,
+    "advanced_model_code_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\secureids\\models\\secureids_hierarchical_advanced_net.py",
+    "binary_fedavg_checkpoints": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/federated/fedavg_cicids_binary.pt"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/federated/fedavg_unsw_binary.pt"
+      }
+    ],
+    "binary_final_checkpoints": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/final/final_cicids_binary.pt"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/final/final_unsw_binary.pt"
+      }
+    ],
+    "binary_outputs": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_test.npy"
+      }
+    ],
+    "hierarchical_checkpoints": [
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/final/final_cicids_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/final/final_unsw_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/federated/fedavg_cicids_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/federated/fedavg_unsw_hierarchical.pt"
+      }
+    ],
+    "hierarchical_training_metric_files": [],
+    "later_layer_outputs": [
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/security"
+      },
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/attacks"
+      },
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/robust"
+      },
+      {
+        "exists": true,
+        "file_count": 0,
+        "files": [],
+        "is_dir": true,
+        "is_file": false,
+        "path": "results/xai"
+      }
+    ],
+    "preexisting_future_layer_scaffolds_not_modified_by_a4": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "dashboard/app.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/security/__init__.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/attacks/__init__.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/xai/__init__.py"
+      }
+    ]
+  },
+  "security_attack_xai_dashboard_started": false,
+  "shape_summary": {
+    "test": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    },
+    "train": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    },
+    "val": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    }
+  },
+  "split_shapes": {
+    "test": {
+      "X": [
+        1443773,
+        77
+      ],
+      "attack_family_mask": [
+        1443773
+      ],
+      "existing_binary_X": [
+        1443773,
+        77
+      ],
+      "existing_binary_y": [
+        1443773
+      ],
+      "y_attack_family": [
+        1443773
+      ],
+      "y_binary": [
+        1443773
+      ]
+    },
+    "train": {
+      "X": [
+        6737603,
+        77
+      ],
+      "attack_family_mask": [
+        6737603
+      ],
+      "existing_binary_X": [
+        6737603,
+        77
+      ],
+      "existing_binary_y": [
+        6737603
+      ],
+      "y_attack_family": [
+        6737603
+      ],
+      "y_binary": [
+        6737603
+      ]
+    },
+    "val": {
+      "X": [
+        1443772,
+        77
+      ],
+      "attack_family_mask": [
+        1443772
+      ],
+      "existing_binary_X": [
+        1443772,
+        77
+      ],
+      "existing_binary_y": [
+        1443772
+      ],
+      "y_attack_family": [
+        1443772
+      ],
+      "y_binary": [
+        1443772
+      ]
+    }
+  },
+  "split_summary_matches_arrays": true,
+  "status": "PASS",
+  "training_or_evaluation_run": false,
+  "warnings": []
+}

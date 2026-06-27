@@ -1,0 +1,147 @@
+dataset: unsw_nb15
+task: hierarchical
+status: not_run_yet
+experiment: unsw_a11_enhanced_feature_protocol_seed42
+protocol_name: UNSW A11 Enhanced Feature Protocol
+protocol_label: enhanced_feature_protocol_not_same_preprocessing_a9_improvement
+model_name: SecureIDSHierarchicalAdvancedNet
+seed: 42
+hierarchical_data_dir: data/processed/unsw_a11_enhanced/hierarchical
+feature_names_path: data/processed/unsw_a11_enhanced/hierarchical/feature_names.json
+attack_family_label_mapping_path: data/processed/unsw_a11_enhanced/hierarchical/attack_family_label_mapping.json
+preprocessing_manifest_path: data/processed/unsw_a11_enhanced/hierarchical/hierarchical_preprocessing_manifest.json
+readiness_json: results/audits/unsw_a11_enhanced_feature_protocol_preprocessing_audit.json
+taxonomy_config: configs/taxonomy/unsw_nb15_attack_taxonomy.yaml
+input_dim: 192
+input_dim_source: locked_from_a11_preprocessing_manifest
+attack_head_dim: 9
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  hidden_dims:
+  - 256
+  - 128
+  - 128
+  dropout: 0.2
+  normalization: layernorm
+  binary_output_dim: 1
+  attack_output_dim: 9
+loss:
+  type: masked_multi_task
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.0
+  ignore_index: -1
+  binary_loss: BCEWithLogitsLoss
+  attack_family_loss: CrossEntropyLoss_on_attack_rows_only
+class_imbalance:
+  binary_class_weighting: train_split_balanced_mean_normalized
+  attack_family_class_weighting: train_split_sqrt_inverse_frequency_mean_normalized_capped
+  class_weight_max_clip: 10.0
+  class_weight_min_clip: 0.0
+  compute_weights_from: train_only
+  allow_test_based_weights: false
+  oversampling_enabled: false
+class_weights:
+  binary:
+    enabled: true
+    source_split: train
+    method: balanced
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+  attack_family:
+    enabled: true
+    source_split: train_attack_rows_only
+    method: sqrt_inverse_frequency
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+    oversampling: false
+training:
+  seed: 42
+  batch_size: 1024
+  max_epochs: 40
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  early_stopping_metric: val_hierarchical_score
+  early_stopping_patience: 6
+checkpoint_selection:
+  monitor: val_hierarchical_score
+  formula: 0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1
+  use_validation_only: true
+  select_by_test_metrics: false
+  final_test_once_after_best_validation: true
+metrics:
+  binary:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - macro_f1
+  - confusion_matrix
+  - false_negative_attack_count
+  attack_family:
+  - attack_family_accuracy_on_attack_rows
+  - attack_family_macro_f1_on_attack_rows
+  - per_class_precision_recall_f1_support
+  - rare_class_macro_f1
+  - weak_hard_class_report
+  - attack_family_confusion_matrix
+  - validation_vs_test_gap_report
+  hierarchical_end_to_end:
+  - benign_correctly_stopped
+  - attack_detected_and_correctly_attributed
+  - attack_detected_wrong_family
+  - attack_missed_as_benign
+  - end_to_end_hierarchical_macro_f1_if_clearly_defined
+baseline_a9:
+  checkpoint: models/final/final_unsw_hierarchical.pt
+  identity: A9 corrected-protocol hierarchical baseline
+  binary_macro_f1: 0.894488
+  attack_family_macro_f1: 0.500429
+  rare_class_macro_f1: 0.385669
+  input_dim: 192
+future_seed42_screen_gates:
+  attack_family_macro_f1_target: 0.515
+  rare_class_macro_f1_floor: 0.385669
+  binary_macro_f1_not_damaged: true
+  weak_classes_visible: true
+  no_leakage_or_test_tuning: true
+  no_single_seed_promotion: true
+  if_seed42_fails: stop_unsw_optimization_keep_a9_move_to_federated_security
+rare_classes:
+- Shellcode
+- Worms
+weak_classes_must_remain_visible:
+- Analysis
+- Backdoor
+- DoS
+- Shellcode
+- Worms
+outputs:
+  checkpoint: models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt
+  result_dir: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/
+  training_history_csv: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/training_history.csv
+  test_metrics_json: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/test_metrics.json
+  binary_confusion_matrix_csv: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/binary_confusion_matrix.csv
+  attack_family_confusion_matrix_csv: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/attack_family_confusion_matrix.csv
+  per_class_attack_metrics_csv: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/per_class_attack_metrics.csv
+  rare_class_metrics_csv: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/rare_class_metrics.csv
+  manifest_json: results/experiments/unsw_a11_enhanced_feature_protocol_seed42/manifest.json
+  report_md: docs/experiments/UNSW_A11_ENHANCED_FEATURE_PROTOCOL_SEED42_REPORT.md
+safety:
+  dry_config_only: true
+  preprocessing_required_before_training: true
+  training_executed: false
+  evaluation_executed: false
+  checkpoint_created: false
+  no_test_tuning: true
+  validation_only_selection: true
+  no_single_seed_promotion: true
+  no_final_overwrite: true
+  do_not_replace_a9_without_approval: true
+  allow_overwrite: false
+  git_action: false
+  v1_modified: false

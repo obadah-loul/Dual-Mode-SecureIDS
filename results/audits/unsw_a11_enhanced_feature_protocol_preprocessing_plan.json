@@ -1,0 +1,64 @@
+{
+  "audit_name": "unsw_a11_enhanced_feature_protocol_preprocessing_plan",
+  "task_type": "a11_prep_only_no_preprocessing_no_training",
+  "generated_on": "2026-06-25",
+  "status": "NOT_RUN_YET",
+  "protocol_name": "UNSW A11 Enhanced Feature Protocol",
+  "baseline_a9": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "identity": "A9 corrected-protocol hierarchical baseline",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669,
+    "input_dim": 192
+  },
+  "a11_design": {
+    "separate_protocol": true,
+    "numeric_only_scaling": true,
+    "one_hot_columns_not_scaled": true,
+    "train_only_categorical_grouping": true,
+    "proto_min_frequency_grouping": true,
+    "validation_only_protocol_selection": true,
+    "same_raw_split": true,
+    "same_taxonomy": true,
+    "same_heldout_canonical_test": true
+  },
+  "corrected_split": {
+    "canonical_train_source": "local UNSW_NB15_testing-set.csv",
+    "canonical_train_rows": 175341,
+    "canonical_test_source": "local UNSW_NB15_training-set.csv",
+    "canonical_test_rows": 82332,
+    "train_rows": 149039,
+    "val_rows": 26302,
+    "test_rows": 82332
+  },
+  "planned_paths": {
+    "preprocessing_config": "configs/preprocessing/experiments/unsw_a11_enhanced_feature_protocol.yaml",
+    "training_config_seed42": "configs/training/experiments/unsw_a11_enhanced_feature_protocol_seed42.yaml",
+    "processed_data_dir": "data/processed/unsw_a11_enhanced/",
+    "seed42_checkpoint": "models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt",
+    "seed42_results": "results/experiments/unsw_a11_enhanced_feature_protocol_seed42/",
+    "seed42_report": "docs/experiments/UNSW_A11_ENHANCED_FEATURE_PROTOCOL_SEED42_REPORT.md",
+    "preprocessing_audit": "results/audits/unsw_a11_enhanced_feature_protocol_preprocessing_audit.json"
+  },
+  "safety": {
+    "preprocessing_run": false,
+    "training_run": false,
+    "evaluation_run": false,
+    "checkpoint_modified": false,
+    "final_results_modified": false,
+    "a9_replaced": false,
+    "test_tuning": false,
+    "fake_metrics": false,
+    "v1_modified": false,
+    "git_action": false
+  },
+  "future_screen_gates": {
+    "attack_family_macro_f1_target": 0.515,
+    "rare_class_macro_f1_floor": 0.385669,
+    "binary_macro_f1_not_damaged": true,
+    "weak_classes_visible": true,
+    "no_single_seed_promotion": true
+  },
+  "next_main_control_decision": "approve_or_reject_a11_preprocessing_implementation"
+}

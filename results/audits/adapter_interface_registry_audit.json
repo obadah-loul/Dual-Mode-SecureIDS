@@ -1,0 +1,166 @@
+{
+  "audit_name": "adapter_interface_registry_audit",
+  "task_type": "adapter_interface_finalization_and_lightweight_pipeline_planning",
+  "generated_on": "2026-06-24",
+  "project_root": "C:/IDS/IDS_V2/Secure-Distributed-Intrusion-Detection_V2",
+  "created_or_modified_files": [
+    "secureids/datasets/adapter_contracts.py",
+    "secureids/datasets/adapter_registry.py",
+    "tests/test_adapter_registry.py",
+    "docs/ADAPTER_INTERFACE_AND_PIPELINE_REGISTRY.md",
+    "results/audits/adapter_interface_registry_audit.json"
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "model_checkpoints_modified": false,
+    "existing_training_configs_modified": false,
+    "files_deleted_or_moved": false,
+    "git_commit_or_push": false,
+    "fake_predictions_or_metrics_claimed": false
+  },
+  "registered_schemas": [
+    "cicids2018",
+    "unsw_nb15"
+  ],
+  "metadata_contract_fields": [
+    "ArtifactStatus.path",
+    "ArtifactStatus.exists",
+    "ArtifactStatus.kind",
+    "ArtifactStatus.required_for",
+    "ArtifactStatus.note",
+    "PreprocessingArtifactSet.binary_config",
+    "PreprocessingArtifactSet.hierarchical_config",
+    "PreprocessingArtifactSet.taxonomy_config",
+    "PreprocessingArtifactSet.expected_processed_dir",
+    "PreprocessingArtifactSet.expected_audit_files",
+    "PreprocessingArtifactSet.artifact_statuses",
+    "CheckpointReference.checkpoint_family",
+    "CheckpointReference.expected_path",
+    "CheckpointReference.exists",
+    "CheckpointReference.checkpoint_type",
+    "CheckpointReference.is_final_claim",
+    "CheckpointReference.note",
+    "AdapterPipelineMetadata.schema_id",
+    "AdapterPipelineMetadata.adapter_id",
+    "AdapterPipelineMetadata.adapter_class",
+    "AdapterPipelineMetadata.dataset_display_name",
+    "AdapterPipelineMetadata.raw_label_column",
+    "AdapterPipelineMetadata.binary_label_mapping",
+    "AdapterPipelineMetadata.attack_family_source",
+    "AdapterPipelineMetadata.taxonomy_config",
+    "AdapterPipelineMetadata.preprocessing_artifacts",
+    "AdapterPipelineMetadata.model_input_dim",
+    "AdapterPipelineMetadata.checkpoint_references",
+    "AdapterPipelineMetadata.prediction_sample_format",
+    "AdapterPipelineMetadata.dashboard_label",
+    "AdapterPipelineMetadata.supports_hierarchical",
+    "AdapterPipelineMetadata.notes",
+    "AdapterPipelineMetadata.training_configs"
+  ],
+  "preprocessing_config_paths_discovered": {
+    "cicids2018": {
+      "binary": {
+        "path": "configs/preprocessing/cicids2018_binary.yaml",
+        "exists": true
+      },
+      "hierarchical": {
+        "path": "configs/preprocessing/cicids2018_hierarchical.yaml",
+        "exists": true
+      }
+    },
+    "unsw_nb15": {
+      "binary": {
+        "path": "configs/preprocessing/unsw_nb15_binary.yaml",
+        "exists": true
+      },
+      "hierarchical": {
+        "path": "configs/preprocessing/unsw_nb15_hierarchical.yaml",
+        "exists": true
+      }
+    }
+  },
+  "taxonomy_config_paths_discovered": {
+    "cicids2018": {
+      "path": "configs/taxonomy/cicids2018_attack_taxonomy.yaml",
+      "exists": true
+    },
+    "unsw_nb15": {
+      "path": "configs/taxonomy/unsw_nb15_attack_taxonomy.yaml",
+      "exists": true
+    }
+  },
+  "checkpoint_references_checked": {
+    "cicids2018": [
+      {
+        "path": "models/final/final_cicids_hierarchical.pt",
+        "exists": false,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/final/final_cicids_binary.pt",
+        "exists": true,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/federated/fedavg_cicids_hierarchical.pt",
+        "exists": false,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/federated/fedavg_cicids_binary.pt",
+        "exists": true,
+        "is_final_claim": false
+      }
+    ],
+    "unsw_nb15": [
+      {
+        "path": "models/final/final_unsw_hierarchical.pt",
+        "exists": true,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/final/final_unsw_binary.pt",
+        "exists": true,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/federated/fedavg_unsw_hierarchical.pt",
+        "exists": false,
+        "is_final_claim": false
+      },
+      {
+        "path": "models/federated/fedavg_unsw_binary.pt",
+        "exists": true,
+        "is_final_claim": false
+      }
+    ]
+  },
+  "missing_or_unconfirmed_artifacts": [
+    "models/final/final_cicids_hierarchical.pt",
+    "models/federated/fedavg_cicids_hierarchical.pt",
+    "models/federated/fedavg_unsw_hierarchical.pt"
+  ],
+  "final_checkpoint_claims_made": false,
+  "prediction_or_model_loading_performed": false,
+  "tests_added": [
+    "tests/test_adapter_registry.py"
+  ],
+  "manual_test_commands_for_user": [
+    "python -m pytest tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "python -c \"from secureids.datasets.adapter_registry import list_supported_adapters, get_adapter_metadata, resolve_metadata_from_columns; print(list_supported_adapters()); print(get_adapter_metadata('cicids2018')); print(resolve_metadata_from_columns(['Flow Duration','Total Fwd Packets','Total Backward Packets','Flow Bytes/s','Flow Packets/s','Fwd Packet Length Max','Bwd Packet Length Max','Protocol','Label']))\"",
+    "Get-Content \"results\\audits\\adapter_interface_registry_audit.json\" -Raw | python -m json.tool"
+  ],
+  "risks": [
+    "The registry performs column-route metadata resolution only; it does not prove semantic traffic origin.",
+    "Checkpoint file existence is not treated as final accepted evidence.",
+    "CICIDS hierarchical and federated hierarchical checkpoint paths are missing or unconfirmed.",
+    "Tests were added but not run by this task per boundary.",
+    "Future predictor/dashboard integration still needs explicit main-control approval."
+  ],
+  "next_step": "return_to_project_controller_chat_for_main_control_update_before_prediction_pipeline_or_dashboard_integration"
+}

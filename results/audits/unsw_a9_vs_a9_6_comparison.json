@@ -1,0 +1,452 @@
+{
+  "status": "a9_6_review_complete_failed_improvement_experiment",
+  "task": "A9.6-review: A9 vs A9.6 controlled experiment comparison and next-improvement decision",
+  "created_utc": "2026-06-24T11:00:38.495662+00:00",
+  "a9_baseline": {
+    "label": "A9",
+    "accepted_current_best": true,
+    "result_dir": "results/final/hierarchical/unsw/",
+    "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_hierarchical.pt",
+    "test_metrics_path": "results/final/hierarchical/unsw/test_metrics.json",
+    "best_epoch": 35,
+    "best_val_hierarchical_score": 0.762364,
+    "validation_at_best_epoch": {
+      "val_attack_family_macro_f1": 0.5916384802502117,
+      "val_binary_macro_f1": 0.9330895845116535,
+      "val_hierarchical_score": 0.7623640323809326
+    },
+    "test_summary": {
+      "binary_macro_f1": 0.8944882344898011,
+      "binary_f1": 0.9101332769198224,
+      "attack_false_negatives": 2310,
+      "benign_false_positives": 6186,
+      "attack_family_accuracy": 0.766478425836054,
+      "attack_family_macro_f1": 0.5004290493995509,
+      "rare_class_macro_f1": 0.3856689342403628
+    }
+  },
+  "a9_6_experiment": {
+    "label": "A9.6 head2_loss_weight",
+    "controlled_change": "attack_loss_weight increased from 1.0 to 1.5; binary_loss_weight stayed 1.0",
+    "result_dir": "results/final/hierarchical/unsw_a9_6_head2_loss_weight/",
+    "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_hierarchical_a9_6_head2_loss_weight.pt",
+    "test_metrics_path": "results/final/hierarchical/unsw_a9_6_head2_loss_weight/test_metrics.json",
+    "best_epoch": 36,
+    "best_val_hierarchical_score": 0.757317,
+    "validation_at_best_epoch": {
+      "val_attack_family_macro_f1": 0.5895193203898301,
+      "val_binary_macro_f1": 0.9251139019877719,
+      "val_hierarchical_score": 0.757316611188801
+    },
+    "test_summary": {
+      "binary_macro_f1": 0.9114740968030606,
+      "binary_f1": 0.9225704787808142,
+      "attack_false_negatives": 2593,
+      "benign_false_positives": 4581,
+      "attack_family_accuracy": 0.7611400335303979,
+      "attack_family_macro_f1": 0.485478136549314,
+      "rare_class_macro_f1": 0.3621246367452373
+    }
+  },
+  "a9_6_passed_success_criteria": false,
+  "a9_6_should_replace_a9": false,
+  "accepted_current_best": "A9",
+  "binary_macro_f1_delta": 0.016985862313259492,
+  "attack_family_macro_f1_delta": -0.01495091285023692,
+  "rare_class_macro_f1_delta": -0.023544297495125488,
+  "binary_f1_delta": 0.012437201860991842,
+  "attack_false_negative_delta": 283,
+  "benign_false_positive_delta": -1605,
+  "attack_family_accuracy_delta": -0.005338392305656026,
+  "validation_deltas": {
+    "best_epoch_delta": 1,
+    "best_val_hierarchical_score_delta": -0.00504742119213164,
+    "val_binary_macro_f1_delta": -0.007975682523881589,
+    "val_attack_family_macro_f1_delta": -0.002119159860381581
+  },
+  "per_class_f1_deltas": {
+    "Generic": {
+      "class_id": 0,
+      "support": 18871,
+      "a9_precision": 0.998135,
+      "a9_recall": 0.964072,
+      "a9_f1": 0.980808,
+      "a9_6_precision": 0.999725,
+      "a9_6_recall": 0.963224,
+      "a9_6_f1": 0.981135,
+      "precision_delta": 0.0015899999999999803,
+      "recall_delta": -0.0008480000000000709,
+      "f1_delta": 0.0003269999999999662
+    },
+    "Exploits": {
+      "class_id": 1,
+      "support": 11132,
+      "a9_precision": 0.778353,
+      "a9_recall": 0.620823,
+      "a9_f1": 0.69072,
+      "a9_6_precision": 0.722419,
+      "a9_6_recall": 0.678225,
+      "a9_6_f1": 0.699625,
+      "precision_delta": -0.05593399999999993,
+      "recall_delta": 0.05740199999999995,
+      "f1_delta": 0.008905000000000052
+    },
+    "Fuzzers": {
+      "class_id": 2,
+      "support": 6062,
+      "a9_precision": 0.83677,
+      "a9_recall": 0.709502,
+      "a9_f1": 0.767899,
+      "a9_6_precision": 0.864533,
+      "a9_6_recall": 0.65061,
+      "a9_6_f1": 0.74247,
+      "precision_delta": 0.027762999999999982,
+      "recall_delta": -0.058891999999999944,
+      "f1_delta": -0.025429000000000035
+    },
+    "DoS": {
+      "class_id": 3,
+      "support": 4089,
+      "a9_precision": 0.32408,
+      "a9_recall": 0.482514,
+      "a9_f1": 0.387737,
+      "a9_6_precision": 0.305964,
+      "a9_6_recall": 0.376376,
+      "a9_6_f1": 0.337537,
+      "precision_delta": -0.018115999999999965,
+      "recall_delta": -0.10613800000000001,
+      "f1_delta": -0.05020000000000002
+    },
+    "Reconnaissance": {
+      "class_id": 4,
+      "support": 3496,
+      "a9_precision": 0.803051,
+      "a9_recall": 0.843249,
+      "a9_f1": 0.822659,
+      "a9_6_precision": 0.827626,
+      "a9_6_recall": 0.829519,
+      "a9_6_f1": 0.828571,
+      "precision_delta": 0.024575000000000014,
+      "recall_delta": -0.01373000000000002,
+      "f1_delta": 0.005911999999999917
+    },
+    "Analysis": {
+      "class_id": 5,
+      "support": 677,
+      "a9_precision": 0.037313,
+      "a9_recall": 0.007386,
+      "a9_f1": 0.01233,
+      "a9_6_precision": 0.006615,
+      "a9_6_recall": 0.008863,
+      "a9_6_f1": 0.007576,
+      "precision_delta": -0.030698,
+      "recall_delta": 0.0014769999999999991,
+      "f1_delta": -0.004754
+    },
+    "Backdoor": {
+      "class_id": 6,
+      "support": 583,
+      "a9_precision": 0.044875,
+      "a9_recall": 0.16295,
+      "a9_f1": 0.07037,
+      "a9_6_precision": 0.035341,
+      "a9_6_recall": 0.075472,
+      "a9_6_f1": 0.04814,
+      "precision_delta": -0.009534,
+      "recall_delta": -0.08747800000000001,
+      "f1_delta": -0.02223
+    },
+    "Shellcode": {
+      "class_id": 7,
+      "support": 378,
+      "a9_precision": 0.307937,
+      "a9_recall": 0.769841,
+      "a9_f1": 0.439909,
+      "a9_6_precision": 0.236486,
+      "a9_6_recall": 0.833333,
+      "a9_6_f1": 0.368421,
+      "precision_delta": -0.07145100000000001,
+      "recall_delta": 0.06349199999999999,
+      "f1_delta": -0.071488
+    },
+    "Worms": {
+      "class_id": 8,
+      "support": 44,
+      "a9_precision": 0.221374,
+      "a9_recall": 0.659091,
+      "a9_f1": 0.331429,
+      "a9_6_precision": 0.243697,
+      "a9_6_recall": 0.659091,
+      "a9_6_f1": 0.355828,
+      "precision_delta": 0.02232300000000001,
+      "recall_delta": 0.0,
+      "f1_delta": 0.024399000000000004
+    }
+  },
+  "rare_class_deltas": {
+    "Shellcode": {
+      "support": 378,
+      "a9_precision": 0.307937,
+      "a9_recall": 0.769841,
+      "a9_f1": 0.439909,
+      "a9_6_precision": 0.236486,
+      "a9_6_recall": 0.833333,
+      "a9_6_f1": 0.368421,
+      "precision_delta": -0.07145100000000001,
+      "recall_delta": 0.06349199999999999,
+      "f1_delta": -0.071488
+    },
+    "Worms": {
+      "support": 44,
+      "a9_precision": 0.221374,
+      "a9_recall": 0.659091,
+      "a9_f1": 0.331429,
+      "a9_6_precision": 0.243697,
+      "a9_6_recall": 0.659091,
+      "a9_6_f1": 0.355828,
+      "precision_delta": 0.02232300000000001,
+      "recall_delta": 0.0,
+      "f1_delta": 0.024399000000000004
+    },
+    "rare_class_macro_f1": {
+      "a9_f1": 0.3856689342403628,
+      "a9_6_f1": 0.3621246367452373,
+      "f1_delta": -0.023544297495125488
+    }
+  },
+  "routing_deltas": {
+    "attack_detected_and_correctly_attributed": {
+      "a9": 32674,
+      "a9_6": 32237,
+      "delta": -437
+    },
+    "attack_detected_and_correctly_attributed_rate": {
+      "a9": 0.7207711991529162,
+      "a9_6": 0.7111312097414629,
+      "delta": -0.009639989411453276
+    },
+    "attack_detected_wrong_family": {
+      "a9": 10348,
+      "a9_6": 10502,
+      "delta": 154
+    },
+    "attack_detected_wrong_family_rate": {
+      "a9": 0.22827141974763965,
+      "a9_6": 0.23166857848760258,
+      "delta": 0.0033971587399629355
+    },
+    "attack_missed_as_benign": {
+      "a9": 2310,
+      "a9_6": 2593,
+      "delta": 283
+    },
+    "attack_missed_as_benign_rate": {
+      "a9": 0.0509573810994441,
+      "a9_6": 0.05720021177093444,
+      "delta": 0.00624283067149034
+    },
+    "attack_total": {
+      "a9": 45332,
+      "a9_6": 45332,
+      "delta": 0
+    },
+    "benign_correctly_stopped": {
+      "a9": 30814,
+      "a9_6": 32419,
+      "delta": 1605
+    },
+    "benign_correctly_stopped_rate": {
+      "a9": 0.8328108108108108,
+      "a9_6": 0.8761891891891892,
+      "delta": 0.043378378378378435
+    },
+    "benign_flagged_as_attack": {
+      "a9": 6186,
+      "a9_6": 4581,
+      "delta": -1605
+    },
+    "benign_flagged_as_attack_rate": {
+      "a9": 0.16718918918918918,
+      "a9_6": 0.12381081081081081,
+      "delta": -0.043378378378378366
+    },
+    "benign_total": {
+      "a9": 37000,
+      "a9_6": 37000,
+      "delta": 0
+    }
+  },
+  "success_criteria_results": [
+    {
+      "criterion": "Attack-family macro-F1 improves to at least 0.535000",
+      "a9_baseline": 0.5004290493995509,
+      "a9_6_value": 0.485478136549314,
+      "threshold": ">= 0.535000",
+      "passed": false,
+      "detail": "delta -0.014951"
+    },
+    {
+      "criterion": "Attack-family accuracy remains at least 0.760000",
+      "a9_baseline": 0.766478425836054,
+      "a9_6_value": 0.7611400335303979,
+      "threshold": ">= 0.760000",
+      "passed": true,
+      "detail": "delta -0.005338"
+    },
+    {
+      "criterion": "Binary macro-F1 remains at least 0.884000",
+      "a9_baseline": 0.8944882344898011,
+      "a9_6_value": 0.9114740968030606,
+      "threshold": ">= 0.884000",
+      "passed": true,
+      "detail": "delta +0.016986"
+    },
+    {
+      "criterion": "Binary F1 remains at least 0.905000",
+      "a9_baseline": 0.9101332769198224,
+      "a9_6_value": 0.9225704787808142,
+      "threshold": ">= 0.905000",
+      "passed": true,
+      "detail": "delta +0.012437"
+    },
+    {
+      "criterion": "Attack false negatives remain <= 2,450",
+      "a9_baseline": 2310,
+      "a9_6_value": 2593,
+      "threshold": "<= 2,450",
+      "passed": false,
+      "detail": "delta +283"
+    },
+    {
+      "criterion": "Benign false positives remain <= 7,000",
+      "a9_baseline": 6186,
+      "a9_6_value": 4581,
+      "threshold": "<= 7,000",
+      "passed": true,
+      "detail": "delta -1,605"
+    },
+    {
+      "criterion": "Rare-class macro-F1 remains at least 0.385669",
+      "a9_baseline": 0.3856689342403628,
+      "a9_6_value": 0.3621246367452373,
+      "threshold": ">= 0.385669",
+      "passed": false,
+      "detail": "delta -0.023544"
+    },
+    {
+      "criterion": "Shellcode F1 does not drop by more than 0.030",
+      "a9_baseline": 0.439909,
+      "a9_6_value": 0.368421,
+      "threshold": ">= 0.409909",
+      "passed": false,
+      "detail": "delta -0.071488"
+    },
+    {
+      "criterion": "Worms F1 does not drop by more than 0.050",
+      "a9_baseline": 0.331429,
+      "a9_6_value": 0.355828,
+      "threshold": ">= 0.281429",
+      "passed": true,
+      "detail": "delta +0.024399"
+    },
+    {
+      "criterion": "At least one of Analysis, Backdoor, or DoS improves without rare-class collapse",
+      "a9_baseline": "Analysis/Backdoor/DoS and rare macro-F1",
+      "a9_6_value": "Analysis -0.004754; Backdoor -0.022230; DoS -0.050200; rare macro -0.023544",
+      "threshold": "one weak class F1 delta > 0 and rare macro-F1 not lower than A9",
+      "passed": false,
+      "detail": "none of the three weak classes improved, and rare macro-F1 decreased"
+    }
+  ],
+  "failure_reasons": [
+    "Attack-family macro-F1 decreased from 0.500429 to 0.485478 instead of reaching 0.535000.",
+    "Attack false negatives increased from 2,310 to 2,593, exceeding the <= 2,450 safety gate.",
+    "Rare-class macro-F1 decreased from 0.385669 to 0.362125.",
+    "Shellcode F1 dropped by 0.071488, more than the allowed 0.030 drop.",
+    "Analysis, Backdoor, and DoS all failed to improve; DoS and Backdoor degraded materially.",
+    "Shellcode precision dropped below the A9.6 failure threshold of 0.250000."
+  ],
+  "diagnosis": [
+    "A9.6 shows that global Head 2 loss scaling is too blunt for this UNSW hierarchy. It increased the total pressure on Head 2 but did not produce better family boundaries.",
+    "The main Head 2 issue is not simply undertraining the shared encoder: binary macro-F1 and binary F1 improved, while attack-family macro-F1 and rare-class macro-F1 decreased.",
+    "The routing profile worsened for attacks: missed attacks increased by 283 and correctly attributed attacks decreased by 437, while wrong-family detected attacks increased by 154.",
+    "Weak and overlapping families did not benefit. Analysis, Backdoor, and DoS all had lower F1 under A9.6.",
+    "Rare-class behavior became less balanced. Shellcode recall increased, but precision fell enough to reduce Shellcode F1 and rare-class macro-F1.",
+    "The next change should target hard Head 2 examples or class boundaries directly rather than increasing attack_loss_weight further."
+  ],
+  "next_recommended_experiment": "head2_focal_loss",
+  "next_experiment_rationale": [
+    "A9.6 disproved the simple hypothesis that more global Head 2 loss pressure would improve family classification.",
+    "A focal Head 2 loss is a single targeted objective change aimed at hard and overlapping attack-family examples without raising attack_loss_weight further.",
+    "It preserves the binary head, architecture, data protocol, train-only weights, and separate-output discipline, making it safer and more interpretable than random retraining.",
+    "Use gamma 1.5 rather than an aggressive value first because A9 and A9.6 already show rare-class precision instability."
+  ],
+  "next_experiment_exact_change": {
+    "experiment_name": "head2_focal_loss",
+    "suggested_series_name": "A9.7 controlled UNSW head2_focal_loss",
+    "do_not_create_config_yet": true,
+    "binary_loss": "unchanged binary cross-entropy/BCE path",
+    "binary_loss_weight": 1.0,
+    "attack_loss_weight": 1.0,
+    "head2_loss": "replace attack-row Head 2 cross-entropy with focal loss only for attack-family classification",
+    "focal_gamma": 1.5,
+    "focal_alpha": "use existing train-only attack class weights; do not add a second alpha scheme unless separately approved",
+    "class_weight_cap": 10.0,
+    "class_weights": "keep train-only class weights",
+    "architecture": "unchanged SecureIDSHierarchicalAdvancedNet",
+    "data_protocol": "unchanged corrected UNSW protocol",
+    "checkpoint_selection": "unchanged validation-only hierarchical score for this single-factor test",
+    "future_config_path_if_approved": "configs/training/unsw_nb15_hierarchical_a9_7_head2_focal_loss.yaml",
+    "future_checkpoint_path_if_approved": "models/final/final_unsw_hierarchical_a9_7_head2_focal_loss.pt",
+    "future_result_dir_if_approved": "results/final/hierarchical/unsw_a9_7_head2_focal_loss/",
+    "future_manifest_path_if_approved": "results/audits/hierarchical_training_manifest_unsw_nb15_a9_7_head2_focal_loss.json",
+    "future_report_path_if_approved": "docs/HIERARCHICAL_TRAINING_REPORT_A9_7_HEAD2_FOCAL_LOSS.md"
+  },
+  "next_experiment_success_criteria": {
+    "replacement_baseline": "A9 remains the baseline to beat",
+    "attack_family_macro_f1_min": 0.535,
+    "attack_family_accuracy_min": 0.76,
+    "binary_macro_f1_min": 0.884,
+    "binary_f1_min": 0.905,
+    "attack_false_negatives_max": 2450,
+    "benign_false_positives_max": 7000,
+    "rare_class_macro_f1_min": 0.3856689342403628,
+    "shellcode_f1_min": 0.40990899999999997,
+    "worms_f1_min": 0.281429,
+    "weak_class_requirement": "At least one of Analysis, Backdoor, or DoS must improve over A9 without rare-class macro-F1 falling below A9.",
+    "artifact_rule": "write only to separate A9.7/head2_focal_loss paths if approved later"
+  },
+  "next_experiment_failure_criteria": [
+    "Any A9 safety gate fails.",
+    "Attack-family macro-F1 fails to beat A9 by a meaningful margin or remains below 0.535000.",
+    "Attack false negatives exceed 2,450.",
+    "Rare-class macro-F1 drops below A9 baseline 0.385669.",
+    "Shellcode F1 drops below 0.409909 or Shellcode precision collapses below 0.250000.",
+    "Worms F1 drops below 0.281429 or Worms precision collapses below 0.180000.",
+    "Analysis, Backdoor, and DoS remain stagnant while stronger classes absorb gains.",
+    "Training is unstable, incomplete, or produces NaN metrics.",
+    "Any A9 or A9.6 final artifacts are overwritten."
+  ],
+  "training_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "cicids_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "commands_run": [
+    "Get-Content C:\\Users\\PC\\.codex\\attachments\\d86cf656-ea60-44c8-9c66-7af571013302\\pasted-text.txt",
+    "PowerShell Test-Path check for listed A9, A9.6, and planning artifacts",
+    "Python read-only schema inspection for A9/A9.6 metrics, manifests, routing JSON, CSVs, and planning JSON; first pass hit a UTF-8 BOM in the A9.6 prep JSON",
+    "Python read-only schema inspection rerun with utf-8-sig for JSON/CSV inputs",
+    "Python read-only dump of A9 and A9.6 nested test_metrics and validation fields",
+    "Select-String read-only review of A9/A9.5/A9.6 report and planning docs",
+    "PowerShell Test-Path check for expected comparison output files",
+    "Attempted inline Python generation command; Windows rejected it because the command line was too long, and no files were written by that attempt",
+    "Created temporary _tmp_generate_a9_vs_a96_review.py generator script",
+    "Ran python _tmp_generate_a9_vs_a96_review.py to write the requested comparison docs/json/csv",
+    "Removed temporary _tmp_generate_a9_vs_a96_review.py generator script",
+    "PowerShell verification commands for generated outputs and JSON summary"
+  ]
+}

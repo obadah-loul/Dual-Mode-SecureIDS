@@ -1,0 +1,28 @@
+source,true_class,predicted_class,count,support,percent_of_true_class,evidence_type,comment
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Analysis,DoS,479,677,70.8,existing_attack_family_confusion_matrix,Analysis is overwhelmingly absorbed by DoS (only 5/677 recalled as Analysis)
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Analysis,Backdoor,109,677,16.1,existing_attack_family_confusion_matrix,Remainder of Analysis leaks into Backdoor
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Analysis,Exploits,76,677,11.2,existing_attack_family_confusion_matrix,Analysis also confused with Exploits; Analysis F1 collapses to 0.0123
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Analysis,Analysis,5,677,0.7,existing_attack_family_confusion_matrix,Recall collapse: Analysis almost never predicted as itself
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Backdoor,DoS,409,583,70.2,existing_attack_family_confusion_matrix,Backdoor is overwhelmingly absorbed by DoS
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Backdoor,Exploits,56,583,9.6,existing_attack_family_confusion_matrix,Backdoor also leaks into Exploits
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Backdoor,Backdoor,95,583,16.3,existing_attack_family_confusion_matrix,Low recall; combined with low precision gives Backdoor F1 0.0704
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,DoS,Exploits,1039,4089,25.4,existing_attack_family_confusion_matrix,DoS<->Exploits two-way overlap (recall loss)
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,DoS,Backdoor,775,4089,19.0,existing_attack_family_confusion_matrix,DoS leaks into Backdoor within the low-precision cluster
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,DoS,DoS,1973,4089,48.3,existing_attack_family_confusion_matrix,DoS recall 0.48; precision only 0.324 because other families flood into DoS
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Exploits,DoS,2076,11132,18.6,existing_attack_family_confusion_matrix,Largest single off-diagonal mass; Exploits leak into the DoS attractor
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Exploits,Backdoor,771,11132,6.9,existing_attack_family_confusion_matrix,Exploits inflate Backdoor false positives
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Exploits,Fuzzers,464,11132,4.2,existing_attack_family_confusion_matrix,Exploits<->Fuzzers overlap
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Exploits,Reconnaissance,464,11132,4.2,existing_attack_family_confusion_matrix,Exploits leak into Reconnaissance
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Exploits,Shellcode,275,11132,2.5,existing_attack_family_confusion_matrix,Exploits inflate Shellcode false positives (rare-class precision hit)
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Fuzzers,DoS,899,6062,14.8,existing_attack_family_confusion_matrix,Fuzzers recall loss to DoS attractor
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Fuzzers,Backdoor,260,6062,4.3,existing_attack_family_confusion_matrix,Fuzzers leak into Backdoor
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Fuzzers,Shellcode,179,6062,3.0,existing_attack_family_confusion_matrix,Fuzzers inflate Shellcode false positives
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Reconnaissance,DoS,160,3496,4.6,existing_attack_family_confusion_matrix,Reconnaissance minor leak to DoS
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Reconnaissance,Shellcode,91,3496,2.6,existing_attack_family_confusion_matrix,Recon<->Shellcode overlap contributes to Shellcode low precision
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Shellcode,Reconnaissance,36,378,9.5,existing_attack_family_confusion_matrix,Shellcode<->Recon overlap; Shellcode precision only 0.308
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Shellcode,Fuzzers,35,378,9.3,existing_attack_family_confusion_matrix,Shellcode also confused with Fuzzers
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Worms,Exploits,7,44,15.9,existing_attack_family_confusion_matrix,Tiny-support Worms confusion with Exploits; Worms precision only 0.221
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Worms,Fuzzers,5,44,11.4,existing_attack_family_confusion_matrix,Worms also leaks to Fuzzers; high variance due to 44-row support
+results/final/hierarchical/unsw/attack_family_confusion_matrix.csv,Generic,Exploits,385,18871,2.0,existing_attack_family_confusion_matrix,Generic largely clean (F1 0.981); main leak is to Exploits
+results/final/hierarchical/unsw/binary_confusion_matrix.csv,Attack,Benign,2310,45332,5.1,existing_binary_confusion_matrix,Head 1 misses 5.1% of attacks as benign (attack_missed_as_benign); not the primary bottleneck
+results/final/hierarchical/unsw/binary_confusion_matrix.csv,Benign,Attack,6186,37000,16.7,existing_binary_confusion_matrix,Head 1 benign false-positive rate 16.7% on test; inflated by official-partition prior shift (RC4)

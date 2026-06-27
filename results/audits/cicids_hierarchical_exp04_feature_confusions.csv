@@ -1,0 +1,17 @@
+source_model_or_seed,true_class,predicted_class,count,row_support,percent_of_true_class,evidence_type,comment
+baseline,DoS-SlowHTTPTest,FTP-BruteForce,11796,20941,56.3,test_descriptive,Dominant remaining error (test confusion matrix; descriptive only)
+exp03_125_seed42,DoS-SlowHTTPTest,FTP-BruteForce,11039,20941,52.7,test_descriptive,Reduced direction (boundary shifted toward SlowHTTPTest)
+exp03_125_seed123,DoS-SlowHTTPTest,FTP-BruteForce,9960,20941,47.6,test_descriptive,Largest reduction of the three seeds
+exp03_125_seed999,DoS-SlowHTTPTest,FTP-BruteForce,10997,20941,52.5,test_descriptive,Reduced direction
+baseline,FTP-BruteForce,DoS-SlowHTTPTest,2958,28928,10.2,test_descriptive,Reverse direction of the overlap pair
+exp03_125_seed42,FTP-BruteForce,DoS-SlowHTTPTest,3299,28928,11.4,test_descriptive,Increased (cost of SlowHTTPTest recall gain)
+exp03_125_seed123,FTP-BruteForce,DoS-SlowHTTPTest,5650,28928,19.5,test_descriptive,Largest FTP recall loss; offsets the SlowHTTPTest gain
+exp03_125_seed999,FTP-BruteForce,DoS-SlowHTTPTest,3330,28928,11.5,test_descriptive,Increased
+baseline,SlowHTTPTest+FTP,both_directions,14754,49869,29.6,test_descriptive,Baseline pair-total error mass
+exp03_125_mean,SlowHTTPTest+FTP,both_directions,14758,49869,29.6,test_descriptive,CONSERVED vs baseline - error redistributed not reduced
+linear_probe_val_seed42,DoS-SlowHTTPTest,FTP-BruteForce,645,20000,3.2,train_val_diagnostic,Probe SH recall 0.967 (boundary favored SlowHTTPTest under balanced weighting)
+linear_probe_val_seed42,FTP-BruteForce,DoS-SlowHTTPTest,12076,20000,60.4,train_val_diagnostic,Probe FTP recall 0.396 - same overlap see-saw as the deep model
+baseline,Web-XSS,Bot,10,38,26.3,test_descriptive,Web-XSS frozen at 17/38; main leak to Bot (tiny support)
+baseline,Web-XSS,Infilteration / Infiltration,4,38,10.5,test_descriptive,Second Web-XSS leak target (tiny support)
+baseline,Infilteration / Infiltration,Web-BruteForce,220,24489,0.9,test_descriptive,Source of baseline Web-BruteForce low precision (fixed by EXP03 to ~19)
+exp03_125_seed42,DDoS-LOIC-HTTP,Bot,992,86401,1.1,test_descriptive,High-variance across seeds (baseline 287; seed999 0) - not a stable target

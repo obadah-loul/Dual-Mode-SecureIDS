@@ -1,0 +1,161 @@
+{
+  "audit_name": "cicids_hierarchical_exp03_screening_prep",
+  "task_type": "controlled_screening_config_preparation",
+  "generated_on": "2026-06-25",
+  "experiment_id": "cicids_hierarchical_exp03_attack_loss_weight_conservative_sweep",
+  "goal": "search_for_attack_loss_balance_that_keeps_head2_and_rare_class_gains_while_recovering_routing_and_missed_attack_behavior",
+  "screening_values": [1.25, 1.35],
+  "screening_seed": 42,
+  "controlled_changes": {
+    "attack_loss_weight_values": [1.25, 1.35],
+    "seed": 42,
+    "binary_loss_weight": 1.0,
+    "head2_architecture": "baseline_linear_head2",
+    "preprocessing_changed": false,
+    "taxonomy_changed": false,
+    "split_changed": false,
+    "test_tuning": false
+  },
+  "validation_only_selection_rule": {
+    "primary_selection_metric": "validation_hierarchical_score",
+    "formula": "0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1",
+    "guardrails": [
+      "val_attack_family_macro_f1 should stay meaningfully above the accepted baseline validation-equivalent where comparable",
+      "val_binary_macro_f1 should not collapse",
+      "prefer the value that improves validation tradeoff without over-weighting test metrics"
+    ],
+    "test_metrics_recorded_but_not_used_for_selection": true,
+    "winner_selection_uses_test_metrics": false
+  },
+  "baseline": {
+    "checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp02_reference": {
+    "attack_loss_weight": 1.5,
+    "status": "HEAD2_AND_RARE_CLASS_IMPROVEMENT_FAMILY_NOT_PROMOTED",
+    "mean_binary_macro_f1": 0.973222,
+    "mean_attack_family_macro_f1": 0.859641,
+    "mean_rare_class_macro_f1": 0.751845,
+    "mean_correct_attribution_rate": 0.905235,
+    "mean_missed_as_benign_rate": 0.056220,
+    "mean_benign_false_alarm_rate": 0.007776
+  },
+  "screening_configs": [
+    {
+      "attack_loss_weight": 1.25,
+      "seed": 42,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_125_SEED42_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_125_seed42.json"
+    },
+    {
+      "attack_loss_weight": 1.35,
+      "seed": 42,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_135_SEED42_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_135_seed42.json"
+    }
+  ],
+  "created_or_modified_files": [
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42.yaml",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP03_SCREENING_PREP_PLAN.md",
+    "results/audits/cicids_hierarchical_exp03_screening_prep.json",
+    "results/audits/cicids_hierarchical_exp03_screening_expected_runs.csv",
+    "tests/test_cicids_exp03_screening_preparation.py"
+  ],
+  "created_directories": [
+    "configs/training/experiments",
+    "models/experiments",
+    "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42",
+    "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42",
+    "docs/experiments"
+  ],
+  "code_changes_made": false,
+  "tests_added_or_updated": [
+    "tests/test_cicids_exp03_screening_preparation.py"
+  ],
+  "tests_run_by_agent": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp03_screening_preparation.py tests/test_cicids_exp02_3seed_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "result": "FAILED: 42 passed, 3 failed",
+      "note": "Failures were in the older EXP02 prep test, which still expects EXP02 checkpoints not to exist. EXP02 was manually trained before this task, so those checkpoints now exist. No EXP03 check failed."
+    },
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp03_screening_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "result": "33 passed in 1.00s"
+    }
+  ],
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp03_screening_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+    "Get-Content \"results\\audits\\cicids_hierarchical_exp03_screening_prep.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "manual_training_commands": [
+    {
+      "attack_loss_weight": 1.25,
+      "seed": 42,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.yaml --execute"
+      ]
+    },
+    {
+      "attack_loss_weight": 1.35,
+      "seed": 42,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42.yaml --execute"
+      ]
+    }
+  ],
+  "post_run_validation_plan": [
+    "After each screening run, paste first 30-50 console lines and final 80-120 console lines.",
+    "After each screening run, paste output file existence checks.",
+    "After each screening run, paste test_metrics.json, per_class_attack_metrics.csv, rare_class_metrics.csv, hierarchical_routing_summary.json, and training manifest JSON.",
+    "Include a training_history.csv summary if useful, especially best_val_hierarchical_score, val_binary_macro_f1, and val_attack_family_macro_f1.",
+    "After both screening runs, choose the winner using validation metrics only.",
+    "Primary selection metric: best_val_hierarchical_score = 0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1.",
+    "Secondary validation guardrails: validation attack-family macro-F1 should preserve most EXP02 Head 2 signal and validation binary macro-F1 should stay strong.",
+    "If validation metrics are close, prefer 1.25 because EXP03's goal is routing recovery.",
+    "Record test metrics for audit/final review only; do not use test metrics to choose between 1.25 and 1.35."
+  ],
+  "winner_next_steps": {
+    "if_125_wins": "prepare_125_seed123_and_seed999_confirmation_configs_after_main_control_approval",
+    "if_135_wins": "prepare_135_seed123_and_seed999_confirmation_configs_after_main_control_approval",
+    "if_neither_wins": "do_not_continue_loss_sweep_without_main_control_decision"
+  },
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false,
+    "test_tuning": false
+  },
+  "next_step": "main_control_approval_before_user_runs_exp03_screening_training"
+}

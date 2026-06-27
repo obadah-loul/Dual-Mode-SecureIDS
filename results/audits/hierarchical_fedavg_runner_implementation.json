@@ -1,0 +1,134 @@
+{
+  "audit_name": "hierarchical_fedavg_runner_implementation",
+  "task_type": "implementation_config_test_docs_scaffold_no_training",
+  "generated_on": "2026-06-25",
+  "runner_status": {
+    "hierarchical_fedavg_runner_implemented": true,
+    "dry_run_supported": true,
+    "actual_training_run_now": false,
+    "first_future_dataset": "unsw_nb15",
+    "initialization": "from_scratch",
+    "centralized_checkpoints_reference_only": true
+  },
+  "official_references": {
+    "cicids": {
+      "checkpoint": "models/final/final_cicids_hierarchical.pt",
+      "sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+      "status": "FINALIZED_PROMOTED_WITH_WARNINGS"
+    },
+    "unsw": {
+      "checkpoint": "models/final/final_unsw_hierarchical.pt",
+      "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+      "status": "A9_ACCEPTED_FROZEN_BASELINE"
+    },
+    "a11_status": "REJECTED_DIAGNOSTIC_ONLY_DO_NOT_USE_AS_FINAL"
+  },
+  "files_created": [
+    "secureids/federated/hierarchical_training.py",
+    "tests/test_hierarchical_federated_splitting.py",
+    "tests/test_hierarchical_federated_config.py",
+    "tests/test_hierarchical_federated_training.py",
+    "tests/test_hierarchical_federated_cli.py",
+    "docs/experiments/HIERARCHICAL_FEDAVG_RUNNER_IMPLEMENTATION_REPORT.md",
+    "results/audits/hierarchical_fedavg_runner_implementation.json",
+    "results/audits/hierarchical_fedavg_runner_test_matrix.csv",
+    "results/audits/hierarchical_fedavg_expected_manual_runs.csv"
+  ],
+  "files_modified": [
+    "secureids/federated/splitting.py",
+    "secureids/federated/hierarchical_plan.py",
+    "secureids/cli.py",
+    "configs/federated/experiments/unsw_hierarchical_clean_fedavg.yaml",
+    "configs/federated/experiments/cicids_hierarchical_clean_fedavg.yaml"
+  ],
+  "configs_updated": [
+    "configs/federated/experiments/unsw_hierarchical_clean_fedavg.yaml",
+    "configs/federated/experiments/cicids_hierarchical_clean_fedavg.yaml"
+  ],
+  "cli_commands_added": [
+    "federated-train-hierarchical"
+  ],
+  "tests_run": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_hierarchical_federated_training.py tests/test_hierarchical_federated_splitting.py tests/test_hierarchical_federated_cli.py tests/test_hierarchical_federated_config.py tests/test_federated_robust_aggregation.py tests/test_update_integrity.py tests/test_hierarchical_federated_plan.py tests/test_federated_plan_cli.py -q",
+      "result": "PASS",
+      "summary": "33 passed in 2.20s"
+    },
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m secureids.cli federated-train-hierarchical --config \"configs\\federated\\experiments\\unsw_hierarchical_clean_fedavg.yaml\"",
+      "result": "PASS",
+      "summary": "UNSW dry-run wrote nothing"
+    },
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m secureids.cli federated-train-hierarchical --config \"configs\\federated\\experiments\\cicids_hierarchical_clean_fedavg.yaml\"",
+      "result": "PASS",
+      "summary": "CICIDS dry-run wrote nothing"
+    }
+  ],
+  "dry_run_validation": {
+    "unsw_clean_config_validated": true,
+    "cicids_clean_config_validated": true,
+    "dry_run_wrote_nothing": true,
+    "planned_outputs_absent_after_dry_run": true,
+    "unsw_planned_outputs_existing_after_dry_run": 0,
+    "cicids_planned_outputs_existing_after_dry_run": 0
+  },
+  "expected_future_manual_runs": [
+    {
+      "run_id": "unsw_clean_actual",
+      "dataset": "unsw_nb15",
+      "command": ".\\.venv\\Scripts\\python.exe -m secureids.cli federated-train-hierarchical --config \"configs\\federated\\experiments\\unsw_hierarchical_clean_fedavg.yaml\" --execute",
+      "do_not_run_until_approved": true
+    },
+    {
+      "run_id": "cicids_clean_actual",
+      "dataset": "cicids2018",
+      "command": ".\\.venv\\Scripts\\python.exe -m secureids.cli federated-train-hierarchical --config \"configs\\federated\\experiments\\cicids_hierarchical_clean_fedavg.yaml\" --execute",
+      "do_not_run_until_approved": true
+    },
+    {
+      "run_id": "later_attacked_fedavg",
+      "dataset": "unsw_nb15_then_cicids2018",
+      "command": "DO_NOT_RUN_UNTIL_SEPARATE_MAIN_CONTROL_APPROVAL",
+      "do_not_run_until_approved": true
+    },
+    {
+      "run_id": "later_robust_defense",
+      "dataset": "unsw_nb15_then_cicids2018",
+      "command": "DO_NOT_RUN_UNTIL_SEPARATE_MAIN_CONTROL_APPROVAL",
+      "do_not_run_until_approved": true
+    }
+  ],
+  "final_hash_checks": {
+    "unsw": {
+      "path": "models/final/final_unsw_hierarchical.pt",
+      "sha256_observed": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+      "matches_official": true
+    },
+    "cicids": {
+      "path": "models/final/final_cicids_hierarchical.pt",
+      "sha256_observed": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+      "matches_official": true
+    }
+  },
+  "safety": {
+    "federated_training_run": false,
+    "unsw_clean_fedavg_run": false,
+    "cicids_clean_fedavg_run": false,
+    "attacked_fedavg_run": false,
+    "robust_defense_run": false,
+    "evaluation_run": false,
+    "preprocessing_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "checkpoint_modified": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "v1_modified": false,
+    "a11_used_as_final": false,
+    "fake_metrics": false,
+    "test_tuning": false
+  },
+  "next_main_control_decision": "approve_or_reject_manual_unsw_clean_hierarchical_fedavg_run"
+}

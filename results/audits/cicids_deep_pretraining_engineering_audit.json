@@ -1,0 +1,291 @@
+{
+  "audit_name": "cicids_deep_pretraining_engineering_audit",
+  "task_type": "deep_pretraining_engineering_audit_only",
+  "generated_on": "2026-06-24",
+  "project_root": "C:/IDS/IDS_V2/Secure-Distributed-Intrusion-Detection_V2",
+  "v1_reference_path": "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection",
+  "created_files": [
+    "docs/CICIDS_DEEP_PRETRAINING_ENGINEERING_AUDIT.md",
+    "docs/CICIDS_MODEL_OPTIMIZATION_RECOMMENDATIONS.md",
+    "results/audits/cicids_deep_pretraining_engineering_audit.json",
+    "results/audits/cicids_model_optimization_recommendations.csv"
+  ],
+  "modified_files": [],
+  "inspected_v2_files": [
+    "configs/training/cicids2018_hierarchical.yaml",
+    "configs/taxonomy/cicids2018_attack_taxonomy.yaml",
+    "data/processed/cicids2018/hierarchical/split_summary.json",
+    "data/processed/cicids2018/hierarchical/attack_family_label_mapping.json",
+    "data/processed/cicids2018/hierarchical/feature_names.json (enumerated)",
+    "results/audits/hierarchical_full_training_readiness_cicids2018.json",
+    "results/audits/hierarchical_class_weight_strategy_cicids2018.json",
+    "secureids/models/secureids_hierarchical_advanced_net.py",
+    "secureids/training/hierarchical_trainer.py",
+    "secureids/training/hierarchical_evaluation.py",
+    "secureids/training/hierarchical_metrics.py",
+    "secureids/training/hierarchical_class_weights.py",
+    "secureids/training/hierarchical_config.py",
+    "secureids/training/hierarchical_datasets.py",
+    "secureids/cli.py",
+    "secureids/datasets/schema_detector.py",
+    "secureids/datasets/router.py"
+  ],
+  "inspected_v1_reference_files": [
+    "scripts/v5/calibration_v5.py (name/role only, read-only reference)",
+    "scripts/v5/selection_policy.py (name/role only)",
+    "scripts/v5/specialists_v5.py (name/role only)",
+    "scripts/v5/ensemble_v5.py (name/role only)",
+    "scripts/v5/hierarchy.py (name/role only)",
+    "scripts/v5/ids_metrics.py (name/role only)",
+    "scripts/v5/conflict_audit.py (name/role only)",
+    "scripts/v5/split_builder.py (name/role only)",
+    "scripts/v5/feature_engineering.py (name/role only)",
+    "results/final_v6/FINAL_MODEL_SUMMARY.md (name/role only)"
+  ],
+  "commands_run": [
+    "READ-ONLY Glob: data/processed/cicids2018/hierarchical/*, secureids/datasets/**, results/audits/*cicids*, secureids/training/hierarchical_*.py, docs/HIERARCHICAL_TRAINING_REPORT*.md, V1 **/*.{md,py}",
+    "READ-ONLY Grep: cli.py (handle_train_hierarchical / gate / dataset choices / input_dim)",
+    "READ-ONLY Read: CICIDS configs, taxonomy, readiness/class-weight audits, split_summary, label mapping, trainer slices, schema_detector, router, hierarchical_datasets",
+    "No training, preprocessing, evaluation, XAI, Streamlit, checkpoint writes, or Git were executed."
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "full_cicids_training_run": false,
+    "long_preprocessing_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "current_readiness_context": {
+    "previous_readiness_status": "READY_WITH_WARNINGS",
+    "cli_gate_resolved": true,
+    "manual_cli_gate_verification_result": "33 passed in 0.74s",
+    "cicids_input_dim": 77,
+    "cicids_attack_family_dim": 14,
+    "intended_checkpoint_path": "models/final/final_cicids_hierarchical.pt"
+  },
+  "data_facts": {
+    "train_rows": 6737603,
+    "val_rows": 1443772,
+    "test_rows": 1443773,
+    "feature_dim": 77,
+    "attack_head_dim": 14,
+    "binary_train_benign": 4813839,
+    "binary_train_attack": 1923764,
+    "binary_attack_fraction_train": 0.2856,
+    "bce_pos_weight_neg_over_pos": 2.502302,
+    "val_test_distributions_identical": true,
+    "split_type_inferred": "random_stratified_70_15_15 (val and test binary counts are identical => i.i.d. splits, low covariate shift)",
+    "label_mask_integrity": "PASS (mask0==benign, ignore -1 exactly where mask0, attack labels valid 0..13, no invalid labels in any split)",
+    "rare_classes": {
+      "DDoS-LOIC-UDP": {"train": 1183, "val": 276, "test": 271},
+      "DoS-Slowloris": {"train": 7688, "val": 1660, "test": 1642},
+      "Web-BruteForce": {"train": 428, "val": 87, "test": 96},
+      "Web-XSS": {"train": 157, "val": 35, "test": 38},
+      "SQL-Injection": {"train": 63, "val": 12, "test": 12}
+    },
+    "weak_hard_classes": ["FTP-BruteForce", "Infilteration / Infiltration", "DoS-SlowHTTPTest"],
+    "applied_attack_class_weights_strategy": "sqrt_inverse_frequency mean-normalized capped@10 (final max 5.527 SQL-Injection, min 0.063 DDoS-HOIC; cap not binding)"
+  },
+  "finding_counts_by_severity": {
+    "BLOCKER": 0,
+    "HIGH": 2,
+    "MEDIUM": 3,
+    "LOW": 3,
+    "IMPROVEMENT": 4
+  },
+  "findings": [
+    {
+      "id": "H1",
+      "severity": "HIGH",
+      "category": "artifact_safety_config",
+      "affected_files": ["configs/training/cicids2018_hierarchical.yaml", "secureids/training/hierarchical_trainer.py"],
+      "evidence": "CICIDS config outputs.report_md = docs/HIERARCHICAL_TRAINING_REPORT.md, which already exists (UNSW A9 report). The trainer precondition guard collects existing final outputs (validate_execute_preconditions builds existing_final for every outputs key except result_dir) and the plan's future_final_outputs_absent check, both of which see the existing report.",
+      "impact": "The provided as-is training command (no --overwrite) will ABORT at the overwrite/precondition guard because docs/HIERARCHICAL_TRAINING_REPORT.md exists. If forced with --overwrite, it would overwrite the UNSW A9 report with a CICIDS run's content (and destroy the A9 artifact).",
+      "recommendation": "Point the CICIDS config report_md to a distinct path, e.g. docs/HIERARCHICAL_TRAINING_REPORT_CICIDS2018.md. Trivial, safe config edit.",
+      "blocks_training": true,
+      "requires_main_control_decision": true,
+      "recommendation_class": "apply_before_training"
+    },
+    {
+      "id": "H2",
+      "severity": "HIGH",
+      "category": "scientific_correctness_reporting",
+      "affected_files": ["secureids/training/hierarchical_trainer.py"],
+      "evidence": "Trainer output writers hardcode UNSW strings regardless of dataset: _build_test_metrics_payload line 587 protocol='A8.8 corrected UNSW benchmark protocol (train 175,341-row partition; test 82,332-row partition)'; _write_report line 738 title '# Hierarchical Training Report (UNSW-NB15)' and lines 740/746-748 'Task A9 complete ... UNSW-NB15 only' and 'corrected UNSW-NB15 benchmark protocol (A8.8) ... 175,341-row ... 82,332-row'; _build_manifest hardcodes protocol='A8.8 corrected UNSW benchmark protocol'.",
+      "impact": "A CICIDS run would emit test_metrics.json with dataset=cicids2018 but protocol='UNSW ... 175,341 rows' (CICIDS has 6.7M train rows), and a report doc titled UNSW-NB15 with UNSW scope text. The CICIDS metrics/manifest/report would be internally contradictory and mislabeled (a misleading-results risk for a professor-facing report).",
+      "recommendation": "Make protocol/title/scope dataset-aware (derive from config.dataset and split_summary sizes). Do not hardcode UNSW. Keep UNSW behavior unchanged for the UNSW config.",
+      "blocks_training": true,
+      "requires_main_control_decision": true,
+      "recommendation_class": "needs_main_chat_decision"
+    },
+    {
+      "id": "M1",
+      "severity": "MEDIUM",
+      "category": "memory_performance",
+      "affected_files": ["secureids/training/hierarchical_trainer.py"],
+      "evidence": "fit_hierarchical eagerly loads all three splits via _load_split_arrays (np.load WITHOUT mmap) -> ~3 GB resident for X across splits. validate_execute_preconditions -> _validate_split_labels runs np.isfinite(np.asarray(X, dtype=np.float64)).all(), upcasting the whole X to float64 (~4.15 GB transient for the 6.74M-row train split).",
+      "impact": "Transient host-RAM peak ~6 GB during preconditions for CICIDS (vs negligible for UNSW). Feasible on a 16-32 GB machine but a real footprint; on tight RAM it could thrash or OOM.",
+      "recommendation": "Safe micro-fix: np.isfinite works on float32 directly -> drop the dtype=np.float64 upcast (optionally chunk the finite check). Optionally mmap X in _load_split_arrays. Does not change any metric.",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_before_training"
+    },
+    {
+      "id": "M2",
+      "severity": "MEDIUM",
+      "category": "scientific_validity_methodology",
+      "affected_files": ["data/processed/cicids2018/hierarchical/split_summary.json", "configs/preprocessing/cicids2018_hierarchical.yaml"],
+      "evidence": "val and test binary counts are identical (benign 1,031,537 both; attack 412,235 vs 412,236) -> the split is a random stratified 70/15/15 of the full data, so train/val/test are i.i.d. with no covariate shift.",
+      "impact": "Good: validation-based selection should transfer cleanly to test (small val->test gap, unlike UNSW). Caveat: random-split CICIDS is known to risk near-duplicate-flow leakage across splits (flows from one attack burst can appear in both train and test), which can inflate apparent metrics. This is common in the literature but must be reported transparently so strong numbers are not over-claimed.",
+      "recommendation": "Document the split type and this caveat in the final report. Consider (future, approval-gated) a split-conflict/near-duplicate audit (V1 conflict_audit idea) and/or a temporal/day-based split. Do not change the split before the first baseline (it would break comparability and is a major change).",
+      "blocks_training": false,
+      "requires_main_control_decision": true,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "M3",
+      "severity": "MEDIUM",
+      "category": "engineering_duplication",
+      "affected_files": ["secureids/training/hierarchical_datasets.py", "secureids/training/hierarchical_readiness.py", "secureids/training/hierarchical_trainer.py"],
+      "evidence": "The readiness dataloader_check exercises a separate dataset path (HierarchicalNumpyDataset / readiness loader returning dict-keyed batches) while the real trainer builds its own torch TensorDataset (tuple batches) in fit_hierarchical. Two parallel data-loading implementations.",
+      "impact": "Readiness PASS validates a data path that is NOT the one used in training. Low risk for CICIDS because the trainer TensorDataset path was already exercised by UNSW A9 with identical code and the CICIDS arrays passed strict label/mask validation; but the divergence could hide a future regression.",
+      "recommendation": "Note as engineering debt. Optionally converge on a single hierarchical dataset/loader used by both readiness and training (after baseline).",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "L1",
+      "severity": "LOW",
+      "category": "documentation_clarity",
+      "affected_files": ["results/audits/hierarchical_full_training_readiness_cicids2018.json"],
+      "evidence": "The readiness JSON shows two attack-family weight previews: capped_balanced_weights (DDoS-LOIC-UDP/DoS-Slowloris/SQL-Injection/Web-BruteForce/Web-XSS = 10.0) AND sqrt_inverse_frequency mean-normalized (max 5.527). Only the sqrt mean-normalized set is actually applied by the trainer (confirmed: loss_check.attack_class_weights_value matches the sqrt set).",
+      "impact": "A reader could mistake the capped-balanced preview (max 10.0) for the applied weights. No functional bug; the applied weights are the safe sqrt set.",
+      "recommendation": "Clarify in the report which weight set is applied (sqrt-inverse-frequency mean-normalized, max 5.527).",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "L2",
+      "severity": "LOW",
+      "category": "honest_reporting",
+      "affected_files": ["configs/training/cicids2018_hierarchical.yaml", "secureids/training/hierarchical_metrics.py"],
+      "evidence": "SQL-Injection test support = 12, Web-XSS = 38, Web-BruteForce = 96. Macro-F1 over 14 classes gives these tiny-support classes equal weight; their per-class F1 is high-variance.",
+      "impact": "rare_class_macro_f1 and 14-class macro-F1 will be noisy run-to-run; a single seed can over/under-state rare-class quality.",
+      "recommendation": "Report per-class support alongside F1, flag tiny-support classes explicitly, and (improvement) use multi-seed mean +/- std for rare/weak classes. Metric code itself is correct (full-class macro, attack-rows-only).",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "L3",
+      "severity": "LOW",
+      "category": "config_hygiene",
+      "affected_files": ["secureids/training/hierarchical_trainer.py", "configs/training/cicids2018_hierarchical.yaml"],
+      "evidence": "The trainer default report_md (docs/HIERARCHICAL_TRAINING_REPORT.md) and the CICIDS config both use the shared, non-dataset-namespaced report filename, which is what causes H1.",
+      "impact": "Future datasets/experiments could collide on the same report file again.",
+      "recommendation": "Adopt a per-dataset report naming convention (e.g. HIERARCHICAL_TRAINING_REPORT_<DATASET>.md) as the default; covered operationally by the H1 fix.",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_before_training"
+    },
+    {
+      "id": "I1",
+      "severity": "IMPROVEMENT",
+      "category": "calibration_routing",
+      "affected_files": ["secureids/training/hierarchical_evaluation.py"],
+      "evidence": "Head 1 routing uses a fixed 0.5 sigmoid threshold. V1 reference has calibration_v5.py (probability/threshold calibration).",
+      "impact": "Validation-only threshold/temperature calibration could trade benign-FP vs attack-FN for the hierarchical routing without touching training. Bounded benefit; CICIDS val/test are i.i.d. so calibration should transfer well.",
+      "recommendation": "Optional, after baseline: validation-only threshold calibration. Must remain validation-only (no test tuning).",
+      "blocks_training": false,
+      "requires_main_control_decision": true,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "I2",
+      "severity": "IMPROVEMENT",
+      "category": "model_capacity_head2",
+      "affected_files": ["secureids/models/secureids_hierarchical_advanced_net.py", "configs/training/cicids2018_hierarchical.yaml"],
+      "evidence": "The model now supports an opt-in non-linear Head 2 branch (attack_head_type: mlp) from A9.7-prep. CICIDS Head 2 has 14 classes.",
+      "impact": "For CICIDS the families are more separable than UNSW, so the linear Head 2 may already be strong; a deeper branch may help the harder classes (Infiltration, Web/SQL) but risks rare-class overfit.",
+      "recommendation": "Train the CICIDS baseline with the linear (default) Head 2 first; only consider attack_head_type: mlp as a later controlled experiment if baseline Head 2 is weak. Do NOT bundle it into the first run.",
+      "blocks_training": false,
+      "requires_main_control_decision": true,
+      "recommendation_class": "apply_after_baseline"
+    },
+    {
+      "id": "I3",
+      "severity": "IMPROVEMENT",
+      "category": "leakage_audit",
+      "affected_files": ["data/processed/cicids2018/hierarchical/"],
+      "evidence": "Random-split CICIDS (M2) plus V1 reference conflict_audit.py / split_builder.py suggest a duplicate/near-duplicate cross-split audit.",
+      "impact": "Quantifying near-duplicate flows across train/test would let the report honestly bound any optimistic inflation.",
+      "recommendation": "Optional, after baseline, approval-gated: add a read-only split-conflict/near-duplicate audit. Idea only; do not copy V1 code.",
+      "blocks_training": false,
+      "requires_main_control_decision": true,
+      "recommendation_class": "needs_main_chat_decision"
+    },
+    {
+      "id": "I4",
+      "severity": "IMPROVEMENT",
+      "category": "evaluation_rigor",
+      "affected_files": ["secureids/training/hierarchical_trainer.py", "configs/training/cicids2018_hierarchical.yaml"],
+      "evidence": "Config seed is single (42); rare classes are tiny (L2).",
+      "impact": "Multi-seed (>=3) mean +/- std would make rare/weak-class CICIDS results honest and stable, consistent with the UNSW methodology recommendation.",
+      "recommendation": "After the first baseline, repeat with >=3 seeds for the headline and rare-class metrics before any promotion or cross-dataset claim.",
+      "blocks_training": false,
+      "requires_main_control_decision": false,
+      "recommendation_class": "apply_after_baseline"
+    }
+  ],
+  "performance_expectations": {
+    "binary_head_gt_0_90_plausible": true,
+    "binary_head_comment": "Yes, strongly plausible (likely >0.95 honestly). Evidence: clean validated data (finite X, consistent labels/masks, no invalid labels), 28.6% attack with BCE pos_weight 2.502 balancing, 77 standard CICFlowMeter features, val/test i.i.d. with train (random stratified split -> low covariate shift), and an existing CICIDS binary baseline. CICIDS benign-vs-attack is a well-separated, high-volume task. Not a guarantee, but well-supported by code/data design rather than guesswork.",
+    "head2_macro_f1_gt_0_90_plausible": false,
+    "head2_comment": "Weighted-F1 is very likely >0.96 (dominated by large, separable families: DDoS-HOIC, DoS-Hulk, DDoS-LOIC-HTTP, SSH/FTP-BruteForce, Bot). But 14-class MACRO-F1 is dragged by hard/tiny classes: Infiltration mimics benign (often low F1), and Web-BruteForce/Web-XSS/SQL-Injection/DDoS-LOIC-UDP have tiny support (SQL-Injection 12 test rows, Web-XSS 38) -> high-variance, often weak F1. Honest expected macro-F1 ~0.78-0.90; >0.90 macro is possible (CICIDS is far more separable than UNSW) but should NOT be promised before training. Report weighted-F1, macro-F1, and per-class F1+support together.",
+    "expected_main_risks": [
+      "Infiltration class weakness (designed to resemble benign traffic).",
+      "Tiny-support Web/SQL/rare classes producing high-variance per-class and rare-class macro-F1.",
+      "Random-split near-duplicate-flow leakage could optimistically inflate apparent metrics (report transparently).",
+      "Long training run (~6.7M rows x 30 epochs) -- justifies auditing before training.",
+      "Hardcoded-UNSW labeling (H2) would produce a misleading CICIDS report/manifest if not fixed."
+    ]
+  },
+  "v1_v6_reference_findings": {
+    "safe_reusable_ideas": [
+      "Validation-only threshold/probability calibration (calibration_v5.py) -- as an idea, not code.",
+      "Richer per-class / false-negative / validation-vs-test-gap reporting (ids_metrics.py, v5/v6 reports) -- V2 already plans most of this.",
+      "Split-conflict / near-duplicate cross-split audit (conflict_audit.py, split_builder.py) -- relevant to M2."
+    ],
+    "unsafe_or_messy_not_to_reuse": [
+      "V1 sprawling multi-model specialists/ensembles/experiment grids (specialists_v5.py, ensemble_v5.py, grid scripts) -- conflicts with the clean single-system V2 architecture (one organized final model, not many competing models).",
+      "V1 script-based coupling of security + dashboard + models -- V2's adapter/router separation is cleaner; do not import V1 structure."
+    ],
+    "ideas_requiring_future_approval": [
+      "Per-class/per-family specialist heads or ensembling.",
+      "Feature engineering (feature_engineering.py) -- would change feature_dim and break comparability.",
+      "Temporal/day-based split instead of random split."
+    ],
+    "rule": "V1 used as read-only reference for ideas only; no V1 code copied, no V1 files modified, no V1 metrics used as V2 results."
+  },
+  "engineering_quality_summary": {
+    "label_mask_taxonomy_integrity": "PASS (verified via split_summary + readiness; no off-by-one, ignore -1 correct, attack-rows-only masking correct)",
+    "metrics_evaluation_correctness": "PASS (full-class macro-F1, attack-rows-only Head 2, routed metrics, no inflation) -- reused from UNSW audits; dataset-generic",
+    "class_weights": "PASS (train-only, sqrt-inverse mean-normalized capped; no val/test leakage; cap not binding at max 5.527)",
+    "cli_gate_router_adapters": "PASS (train-hierarchical gate cross-checks dataset<->config and per-dataset input_dim=77; schema_detector/router are clean metadata-only with correct 'input schema matches a supported adapter/pipeline' wording; no hidden model/dashboard coupling; no fake checkpoint claims)",
+    "reproducibility": "seed 42 + seeded DataLoader generator + set_global_seed; deterministic",
+    "device_handling": "cuda auto-resolved (RTX 4070 Ti, 12 GB); batches moved to device; OK",
+    "nan_inf_handling": "trainer raises on non-finite total_loss; X finite-check in preconditions",
+    "windows_path_safety": "configs use forward-slash relative paths resolved via project_root; OK",
+    "main_concerns": ["H1 report-path collision", "H2 hardcoded-UNSW labeling", "M1 host-RAM transient for 6.7M rows"]
+  },
+  "final_audit_recommendation": "PROCEED_AFTER_SAFE_FIXES",
+  "requires_main_chat_decision_before_training": true,
+  "next_step": "return_to_project_controller_chat_for_main_control_update_before_any_training_or_model_changes"
+}

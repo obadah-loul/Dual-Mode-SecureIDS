@@ -1,0 +1,7 @@
+metric,baseline,exp02_mean,exp03_seed42,exp03_seed123,exp03_seed999,exp03_mean,exp03_sample_std,exp03_delta_vs_baseline,exp03_delta_vs_exp02,interpretation
+binary_macro_f1,0.972167,0.973222,0.972019,0.973807,0.974604,0.973477,0.001324,0.001310,0.000255,Up vs baseline and EXP02; near ceiling and stable
+attack_family_macro_f1,0.849111,0.859641,0.867881,0.869983,0.875094,0.870986,0.003710,0.021875,0.011345,Main gain; beats baseline by +0.0219 and EXP02 by +0.0113; low variance
+rare_class_macro_f1,0.716987,0.751845,0.765155,0.778473,0.780177,0.774602,0.008225,0.057615,0.022757,Largest gain (+0.0576 vs baseline); driven by Web-BruteForce precision recovery
+correct_attribution_rate,0.909008,0.905235,0.909144,0.902253,0.913331,0.908243,0.005594,-0.000765,0.003008,Mean fractionally below baseline (seed123 effect) but above EXP02; selected seed999 0.9133 > baseline
+missed_as_benign_rate,0.053807,0.056220,0.053081,0.057191,0.051221,0.053831,0.003055,0.000024,-0.002389,Essentially baseline on mean; better than EXP02; selected seed999 0.0512 < baseline (lower is better)
+benign_false_alarm_rate,0.010008,0.007776,0.010484,0.006692,0.008267,0.008481,0.001905,-0.001527,0.000705,Lower than baseline (fewer false alarms); slightly above EXP02 (lower is better)

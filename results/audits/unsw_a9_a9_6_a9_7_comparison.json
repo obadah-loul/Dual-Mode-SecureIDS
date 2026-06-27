@@ -1,0 +1,568 @@
+{
+  "status": "a9_7_review_complete_failed_replacement_candidate",
+  "task": "A9.7-review: A9 vs A9.6 vs A9.7 comparison and official next-step decision",
+  "created_utc": "2026-06-24T12:46:09.130280+00:00",
+  "a9": {
+    "experiment": "baseline",
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "result_dir": "results/final/hierarchical/unsw/",
+    "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15.json",
+    "best_epoch": 35,
+    "epochs_run": 40,
+    "best_val_hierarchical_score": 0.762364,
+    "val_binary_macro_f1": 0.9330895845116535,
+    "val_attack_family_macro_f1": 0.5916384802502117,
+    "binary_macro_f1": 0.8944882344898011,
+    "binary_f1": 0.9101332769198224,
+    "attack_false_negatives": 2310,
+    "benign_false_positives": 6186,
+    "attack_family_accuracy": 0.766478425836054,
+    "attack_family_macro_f1": 0.5004290493995509,
+    "rare_class_macro_f1": 0.3856689342403628,
+    "param_count": 513418
+  },
+  "a9_6": {
+    "experiment": "head2_loss_weight",
+    "checkpoint": "models/final/final_unsw_hierarchical_a9_6_head2_loss_weight.pt",
+    "result_dir": "results/final/hierarchical/unsw_a9_6_head2_loss_weight/",
+    "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15_a9_6_head2_loss_weight.json",
+    "best_epoch": 36,
+    "epochs_run": 40,
+    "best_val_hierarchical_score": 0.757317,
+    "val_binary_macro_f1": 0.9251139019877719,
+    "val_attack_family_macro_f1": 0.5895193203898301,
+    "binary_macro_f1": 0.9114740968030606,
+    "binary_f1": 0.9225704787808142,
+    "attack_false_negatives": 2593,
+    "benign_false_positives": 4581,
+    "attack_family_accuracy": 0.7611400335303979,
+    "attack_family_macro_f1": 0.485478136549314,
+    "rare_class_macro_f1": 0.3621246367452373,
+    "param_count": 513418
+  },
+  "a9_7": {
+    "experiment": "head2_branch_capacity",
+    "checkpoint": "models/final/final_unsw_hierarchical_a9_7_head2_branch_capacity.pt",
+    "result_dir": "results/final/hierarchical/unsw_a9_7_head2_branch_capacity/",
+    "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15_a9_7_head2_branch_capacity.json",
+    "best_epoch": 17,
+    "epochs_run": 23,
+    "best_val_hierarchical_score": 0.752137,
+    "val_binary_macro_f1": 0.9275356293301599,
+    "val_attack_family_macro_f1": 0.5767386198904179,
+    "binary_macro_f1": 0.898347724134197,
+    "binary_f1": 0.9125006663468203,
+    "attack_false_negatives": 2538,
+    "benign_false_positives": 5669,
+    "attack_family_accuracy": 0.7675372805082502,
+    "attack_family_macro_f1": 0.49366672940713396,
+    "rare_class_macro_f1": 0.35450059186742167,
+    "param_count": 530186
+  },
+  "current_accepted_best": "A9",
+  "a9_6_should_replace_a9": false,
+  "a9_7_should_replace_a9": false,
+  "a9_7_passed_success_criteria": false,
+  "a9_6_binary_macro_f1_delta_vs_a9": 0.016985862313259492,
+  "a9_6_attack_family_macro_f1_delta_vs_a9": -0.01495091285023692,
+  "a9_6_rare_class_macro_f1_delta_vs_a9": -0.023544297495125488,
+  "a9_7_binary_macro_f1_delta_vs_a9": 0.0038594896443958637,
+  "a9_7_attack_family_macro_f1_delta_vs_a9": -0.006762319992416943,
+  "a9_7_rare_class_macro_f1_delta_vs_a9": -0.031168342372941138,
+  "a9_7_vs_a9_6_deltas": {
+    "binary_macro_f1": -0.013126372668863628,
+    "binary_f1": -0.010069812433993963,
+    "attack_false_negatives": -55,
+    "benign_false_positives": 1088,
+    "attack_family_accuracy": 0.006397246977852267,
+    "attack_family_macro_f1": 0.008188592857819976,
+    "rare_class_macro_f1": -0.00762404487781565
+  },
+  "per_class_deltas_if_available": {
+    "Generic": {
+      "A9": {
+        "precision": 0.998135,
+        "recall": 0.964072,
+        "f1": 0.980808,
+        "support": 18871
+      },
+      "A9.6": {
+        "precision": 0.999725,
+        "recall": 0.963224,
+        "f1": 0.981135,
+        "support": 18871
+      },
+      "A9.7": {
+        "precision": 0.999118,
+        "recall": 0.960839,
+        "f1": 0.979605,
+        "support": 18871
+      },
+      "a9_6_f1_delta_vs_a9": 0.0003269999999999662,
+      "a9_7_f1_delta_vs_a9": -0.0012030000000000651,
+      "a9_7_f1_delta_vs_a9_6": -0.0015300000000000313
+    },
+    "Exploits": {
+      "A9": {
+        "precision": 0.778353,
+        "recall": 0.620823,
+        "f1": 0.69072,
+        "support": 11132
+      },
+      "A9.6": {
+        "precision": 0.722419,
+        "recall": 0.678225,
+        "f1": 0.699625,
+        "support": 11132
+      },
+      "A9.7": {
+        "precision": 0.788439,
+        "recall": 0.605282,
+        "f1": 0.684826,
+        "support": 11132
+      },
+      "a9_6_f1_delta_vs_a9": 0.008905000000000052,
+      "a9_7_f1_delta_vs_a9": -0.005893999999999955,
+      "a9_7_f1_delta_vs_a9_6": -0.014799000000000007
+    },
+    "Fuzzers": {
+      "A9": {
+        "precision": 0.83677,
+        "recall": 0.709502,
+        "f1": 0.767899,
+        "support": 6062
+      },
+      "A9.6": {
+        "precision": 0.864533,
+        "recall": 0.65061,
+        "f1": 0.74247,
+        "support": 6062
+      },
+      "A9.7": {
+        "precision": 0.847659,
+        "recall": 0.707687,
+        "f1": 0.771375,
+        "support": 6062
+      },
+      "a9_6_f1_delta_vs_a9": -0.025429000000000035,
+      "a9_7_f1_delta_vs_a9": 0.0034760000000000346,
+      "a9_7_f1_delta_vs_a9_6": 0.02890500000000007
+    },
+    "DoS": {
+      "A9": {
+        "precision": 0.32408,
+        "recall": 0.482514,
+        "f1": 0.387737,
+        "support": 4089
+      },
+      "A9.6": {
+        "precision": 0.305964,
+        "recall": 0.376376,
+        "f1": 0.337537,
+        "support": 4089
+      },
+      "A9.7": {
+        "precision": 0.32171,
+        "recall": 0.55955,
+        "f1": 0.408535,
+        "support": 4089
+      },
+      "a9_6_f1_delta_vs_a9": -0.05020000000000002,
+      "a9_7_f1_delta_vs_a9": 0.020797999999999983,
+      "a9_7_f1_delta_vs_a9_6": 0.070998
+    },
+    "Reconnaissance": {
+      "A9": {
+        "precision": 0.803051,
+        "recall": 0.843249,
+        "f1": 0.822659,
+        "support": 3496
+      },
+      "A9.6": {
+        "precision": 0.827626,
+        "recall": 0.829519,
+        "f1": 0.828571,
+        "support": 3496
+      },
+      "A9.7": {
+        "precision": 0.77714,
+        "recall": 0.851831,
+        "f1": 0.812773,
+        "support": 3496
+      },
+      "a9_6_f1_delta_vs_a9": 0.005911999999999917,
+      "a9_7_f1_delta_vs_a9": -0.009886000000000061,
+      "a9_7_f1_delta_vs_a9_6": -0.01579799999999998
+    },
+    "Analysis": {
+      "A9": {
+        "precision": 0.037313,
+        "recall": 0.007386,
+        "f1": 0.01233,
+        "support": 677
+      },
+      "A9.6": {
+        "precision": 0.006615,
+        "recall": 0.008863,
+        "f1": 0.007576,
+        "support": 677
+      },
+      "A9.7": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 677
+      },
+      "a9_6_f1_delta_vs_a9": -0.004754,
+      "a9_7_f1_delta_vs_a9": -0.01233,
+      "a9_7_f1_delta_vs_a9_6": -0.007576
+    },
+    "Backdoor": {
+      "A9": {
+        "precision": 0.044875,
+        "recall": 0.16295,
+        "f1": 0.07037,
+        "support": 583
+      },
+      "A9.6": {
+        "precision": 0.035341,
+        "recall": 0.075472,
+        "f1": 0.04814,
+        "support": 583
+      },
+      "A9.7": {
+        "precision": 0.053405,
+        "recall": 0.137221,
+        "f1": 0.076886,
+        "support": 583
+      },
+      "a9_6_f1_delta_vs_a9": -0.02223,
+      "a9_7_f1_delta_vs_a9": 0.006515999999999994,
+      "a9_7_f1_delta_vs_a9_6": 0.028745999999999994
+    },
+    "Shellcode": {
+      "A9": {
+        "precision": 0.307937,
+        "recall": 0.769841,
+        "f1": 0.439909,
+        "support": 378
+      },
+      "A9.6": {
+        "precision": 0.236486,
+        "recall": 0.833333,
+        "f1": 0.368421,
+        "support": 378
+      },
+      "A9.7": {
+        "precision": 0.312048,
+        "recall": 0.685185,
+        "f1": 0.428808,
+        "support": 378
+      },
+      "a9_6_f1_delta_vs_a9": -0.071488,
+      "a9_7_f1_delta_vs_a9": -0.011100999999999972,
+      "a9_7_f1_delta_vs_a9_6": 0.060387000000000024
+    },
+    "Worms": {
+      "A9": {
+        "precision": 0.221374,
+        "recall": 0.659091,
+        "f1": 0.331429,
+        "support": 44
+      },
+      "A9.6": {
+        "precision": 0.243697,
+        "recall": 0.659091,
+        "f1": 0.355828,
+        "support": 44
+      },
+      "A9.7": {
+        "precision": 0.177914,
+        "recall": 0.659091,
+        "f1": 0.280193,
+        "support": 44
+      },
+      "a9_6_f1_delta_vs_a9": 0.024399000000000004,
+      "a9_7_f1_delta_vs_a9": -0.05123599999999995,
+      "a9_7_f1_delta_vs_a9_6": -0.07563499999999995
+    }
+  },
+  "rare_class_deltas_if_available": {
+    "Shellcode": {
+      "precision": {
+        "A9": 0.307937,
+        "A9.6": 0.236486,
+        "A9.7": 0.312048,
+        "a9_6_delta_vs_a9": -0.07145100000000001,
+        "a9_7_delta_vs_a9": 0.004110999999999976,
+        "a9_7_delta_vs_a9_6": 0.07556199999999999
+      },
+      "recall": {
+        "A9": 0.769841,
+        "A9.6": 0.833333,
+        "A9.7": 0.685185,
+        "a9_6_delta_vs_a9": 0.06349199999999999,
+        "a9_7_delta_vs_a9": -0.08465599999999995,
+        "a9_7_delta_vs_a9_6": -0.14814799999999995
+      },
+      "f1": {
+        "A9": 0.439909,
+        "A9.6": 0.368421,
+        "A9.7": 0.428808,
+        "a9_6_delta_vs_a9": -0.071488,
+        "a9_7_delta_vs_a9": -0.011100999999999972,
+        "a9_7_delta_vs_a9_6": 0.060387000000000024
+      }
+    },
+    "Worms": {
+      "precision": {
+        "A9": 0.221374,
+        "A9.6": 0.243697,
+        "A9.7": 0.177914,
+        "a9_6_delta_vs_a9": 0.02232300000000001,
+        "a9_7_delta_vs_a9": -0.04346,
+        "a9_7_delta_vs_a9_6": -0.06578300000000001
+      },
+      "recall": {
+        "A9": 0.659091,
+        "A9.6": 0.659091,
+        "A9.7": 0.659091,
+        "a9_6_delta_vs_a9": 0.0,
+        "a9_7_delta_vs_a9": 0.0,
+        "a9_7_delta_vs_a9_6": 0.0
+      },
+      "f1": {
+        "A9": 0.331429,
+        "A9.6": 0.355828,
+        "A9.7": 0.280193,
+        "a9_6_delta_vs_a9": 0.024399000000000004,
+        "a9_7_delta_vs_a9": -0.05123599999999995,
+        "a9_7_delta_vs_a9_6": -0.07563499999999995
+      }
+    },
+    "rare_class_macro_f1": {
+      "A9": 0.3856689342403628,
+      "A9.6": 0.3621246367452373,
+      "A9.7": 0.35450059186742167,
+      "a9_6_delta_vs_a9": -0.023544297495125488,
+      "a9_7_delta_vs_a9": -0.031168342372941138,
+      "a9_7_delta_vs_a9_6": -0.00762404487781565
+    }
+  },
+  "routing_deltas_if_available": {
+    "attack_detected_and_correctly_attributed": {
+      "A9": 32674,
+      "A9.6": 32237,
+      "A9.7": 32593,
+      "a9_6_delta_vs_a9": -437,
+      "a9_7_delta_vs_a9": -81,
+      "a9_7_delta_vs_a9_6": 356
+    },
+    "attack_detected_and_correctly_attributed_rate": {
+      "A9": 0.7207711991529162,
+      "A9.6": 0.7111312097414629,
+      "A9.7": 0.7189843818935852,
+      "a9_6_delta_vs_a9": -0.009639989411453276,
+      "a9_7_delta_vs_a9": -0.0017868172593310527,
+      "a9_7_delta_vs_a9_6": 0.007853172152122223
+    },
+    "attack_detected_wrong_family": {
+      "A9": 10348,
+      "A9.6": 10502,
+      "A9.7": 10201,
+      "a9_6_delta_vs_a9": 154,
+      "a9_7_delta_vs_a9": -147,
+      "a9_7_delta_vs_a9_6": -301
+    },
+    "attack_detected_wrong_family_rate": {
+      "A9": 0.22827141974763965,
+      "A9.6": 0.23166857848760258,
+      "A9.7": 0.22502867731403864,
+      "a9_6_delta_vs_a9": 0.0033971587399629355,
+      "a9_7_delta_vs_a9": -0.003242742433601009,
+      "a9_7_delta_vs_a9_6": -0.006639901173563945
+    },
+    "attack_missed_as_benign": {
+      "A9": 2310,
+      "A9.6": 2593,
+      "A9.7": 2538,
+      "a9_6_delta_vs_a9": 283,
+      "a9_7_delta_vs_a9": 228,
+      "a9_7_delta_vs_a9_6": -55
+    },
+    "attack_missed_as_benign_rate": {
+      "A9": 0.0509573810994441,
+      "A9.6": 0.05720021177093444,
+      "A9.7": 0.05598694079237625,
+      "a9_6_delta_vs_a9": 0.00624283067149034,
+      "a9_7_delta_vs_a9": 0.005029559692932145,
+      "a9_7_delta_vs_a9_6": -0.0012132709785581952
+    },
+    "attack_total": {
+      "A9": 45332,
+      "A9.6": 45332,
+      "A9.7": 45332,
+      "a9_6_delta_vs_a9": 0,
+      "a9_7_delta_vs_a9": 0,
+      "a9_7_delta_vs_a9_6": 0
+    },
+    "benign_correctly_stopped": {
+      "A9": 30814,
+      "A9.6": 32419,
+      "A9.7": 31331,
+      "a9_6_delta_vs_a9": 1605,
+      "a9_7_delta_vs_a9": 517,
+      "a9_7_delta_vs_a9_6": -1088
+    },
+    "benign_correctly_stopped_rate": {
+      "A9": 0.8328108108108108,
+      "A9.6": 0.8761891891891892,
+      "A9.7": 0.8467837837837838,
+      "a9_6_delta_vs_a9": 0.043378378378378435,
+      "a9_7_delta_vs_a9": 0.013972972972973063,
+      "a9_7_delta_vs_a9_6": -0.02940540540540537
+    },
+    "benign_flagged_as_attack": {
+      "A9": 6186,
+      "A9.6": 4581,
+      "A9.7": 5669,
+      "a9_6_delta_vs_a9": -1605,
+      "a9_7_delta_vs_a9": -517,
+      "a9_7_delta_vs_a9_6": 1088
+    },
+    "benign_flagged_as_attack_rate": {
+      "A9": 0.16718918918918918,
+      "A9.6": 0.12381081081081081,
+      "A9.7": 0.15321621621621623,
+      "a9_6_delta_vs_a9": -0.043378378378378366,
+      "a9_7_delta_vs_a9": -0.013972972972972952,
+      "a9_7_delta_vs_a9_6": 0.029405405405405413
+    },
+    "benign_total": {
+      "A9": 37000,
+      "A9.6": 37000,
+      "A9.7": 37000,
+      "a9_6_delta_vs_a9": 0,
+      "a9_7_delta_vs_a9": 0,
+      "a9_7_delta_vs_a9_6": 0
+    }
+  },
+  "success_criteria_results": [
+    {
+      "criterion": "Attack-family macro-F1 >= 0.530000",
+      "a9_reference": 0.5004290493995509,
+      "a9_7_value": 0.49366672940713396,
+      "required": ">= 0.530000",
+      "passed": false
+    },
+    {
+      "criterion": "Binary macro-F1 >= 0.884000",
+      "a9_reference": 0.8944882344898011,
+      "a9_7_value": 0.898347724134197,
+      "required": ">= 0.884000",
+      "passed": true
+    },
+    {
+      "criterion": "Binary F1 >= 0.905000",
+      "a9_reference": 0.9101332769198224,
+      "a9_7_value": 0.9125006663468203,
+      "required": ">= 0.905000",
+      "passed": true
+    },
+    {
+      "criterion": "Attack false negatives <= 2,450",
+      "a9_reference": 2310,
+      "a9_7_value": 2538,
+      "required": "<= 2,450",
+      "passed": false
+    },
+    {
+      "criterion": "Benign false positives <= 7,000",
+      "a9_reference": 6186,
+      "a9_7_value": 5669,
+      "required": "<= 7,000",
+      "passed": true
+    },
+    {
+      "criterion": "Rare-class macro-F1 >= 0.385669",
+      "a9_reference": 0.3856689342403628,
+      "a9_7_value": 0.35450059186742167,
+      "required": ">= 0.385669",
+      "passed": false
+    },
+    {
+      "criterion": "Shellcode F1 drop <= 0.030",
+      "a9_reference": 0.439909,
+      "a9_7_value": 0.428808,
+      "required": ">= 0.409909",
+      "passed": true
+    },
+    {
+      "criterion": "Worms F1 drop <= 0.050",
+      "a9_reference": 0.331429,
+      "a9_7_value": 0.280193,
+      "required": ">= 0.281429",
+      "passed": false
+    },
+    {
+      "criterion": "At least one of Analysis, Backdoor, or DoS improves",
+      "a9_reference": "weak-class F1",
+      "a9_7_value": "Analysis -0.012330; Backdoor +0.006516; DoS +0.020798",
+      "required": "any delta > 0",
+      "passed": true
+    },
+    {
+      "criterion": "No A9/A9.6 overwrite",
+      "a9_reference": "separate baseline paths",
+      "a9_7_value": "separate A9.7 paths",
+      "required": "true",
+      "passed": true
+    },
+    {
+      "criterion": "No test-set tuning or validation/test labels for weights",
+      "a9_reference": "clean safety flags",
+      "a9_7_value": "clean safety flags",
+      "required": "true",
+      "passed": true
+    }
+  ],
+  "failure_reasons": [
+    "A9.7 attack-family macro-F1 was 0.493667, below A9's 0.500429 and below the 0.530000 success gate.",
+    "A9.7 rare-class macro-F1 was 0.354501, below A9's 0.385669 success floor.",
+    "A9.7 attack false negatives rose to 2,538, exceeding the <= 2,450 safety gate.",
+    "Worms F1 fell to 0.280193, narrowly below the allowed 0.281429 floor.",
+    "Analysis F1 fell to 0.000000; Backdoor and DoS improved, but not enough to lift overall Head 2 macro-F1.",
+    "Best validation hierarchical score fell from A9's 0.762364 to A9.7's 0.752137, so the selected A9.7 model was not stronger by the validation objective."
+  ],
+  "diagnosis": [
+    "A9.6 proved that increasing global Head 2 loss pressure was too blunt: binary improved, but attack-family and rare-class macro-F1 declined.",
+    "A9.7 proved that adding a small non-linear Head 2 branch is not sufficient in a single seed to beat A9 on the main Head 2 target.",
+    "The Head 2 branch did produce mixed signals: attack-family accuracy was slightly higher than A9, wrong-family routing was slightly lower, and DoS/Backdoor F1 improved.",
+    "Those gains were outweighed by Analysis falling to zero, lower rare-class macro-F1, more attack false negatives, and a lower validation score.",
+    "UNSW family overlap, especially among Analysis, Backdoor, DoS, and Exploits, likely dominates simple capacity changes.",
+    "Head 2 capacity alone does not repair rare precision or weak-class boundaries; branch capacity may need multi-seed evaluation before a final architecture conclusion, but this A9.7 single run failed the gates."
+  ],
+  "next_professional_direction": "Stop experimentation and run a main-review decision on a formal multi-seed comparison plan before declaring Head 2 branch capacity failed or moving to another lever.",
+  "next_step_recommendation": "formal_multi_seed_a9_vs_a9_7_branch_capacity_comparison_before_any_new_strategy",
+  "training_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "a9_7_artifacts_modified": false,
+  "cicids_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "commands_run": [
+    "Get-Content pasted A9.7-review attachment",
+    "PowerShell Test-Path check for listed A9, A9.6, A9.7, and design/context artifacts",
+    "Python read-only extraction of A9/A9.6/A9.7 test metrics, per-class metrics, rare metrics, routing summaries, and validation fields",
+    "Python/PowerShell read-only inspection of manifests, training histories, model summaries, and training config snapshots",
+    "Select-String read-only inspection of A9.7 design and context documents",
+    "PowerShell Test-Path check for expected A9/A9.6/A9.7 comparison outputs",
+    "Created temporary _tmp_generate_a9_a96_a97_review.py generator script",
+    "Ran python _tmp_generate_a9_a96_a97_review.py to write the requested comparison docs/json/csv",
+    "Removed temporary _tmp_generate_a9_a96_a97_review.py generator script",
+    "PowerShell verification commands for generated outputs, JSON summary, checkpoints, and no CICIDS checkpoint"
+  ]
+}

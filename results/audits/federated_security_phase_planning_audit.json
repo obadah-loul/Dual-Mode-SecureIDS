@@ -1,0 +1,163 @@
+{
+  "audit_name": "federated_security_phase_planning_audit",
+  "task_type": "federated_security_phase_planning_only_no_implementation",
+  "generated_on": "2026-06-25",
+  "project_state": {
+    "cicids_final": {
+      "checkpoint": "models/final/final_cicids_hierarchical.pt",
+      "sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+      "status": "FINALIZED_PROMOTED_WITH_WARNINGS"
+    },
+    "unsw_final": {
+      "checkpoint": "models/final/final_unsw_hierarchical.pt",
+      "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+      "status": "A9_ACCEPTED_FROZEN_BASELINE"
+    },
+    "a11_status": "REJECTED_DIAGNOSTIC_ONLY_DO_NOT_USE_AS_FINAL"
+  },
+  "areas_inspected": [
+    "secureids/federated",
+    "secureids/security",
+    "secureids/aggregation",
+    "secureids/attacks",
+    "secureids/evaluation",
+    "secureids/training",
+    "secureids/models",
+    "configs/federated",
+    "docs",
+    "docs/experiments",
+    "docs/final",
+    "results/audits",
+    "results/federated",
+    "models/final",
+    "models/federated",
+    "V1 read-only reference for Week 5/7 security and attack concepts"
+  ],
+  "existing_capabilities_summary": {
+    "binary_fedavg_foundation": {
+      "status": "EXISTS_FOR_BINARY_ONLY",
+      "paths": [
+        "secureids/federated/config.py",
+        "secureids/federated/splitting.py",
+        "secureids/federated/fedavg.py",
+        "secureids/federated/dry_run.py",
+        "secureids/federated/training.py",
+        "configs/federated/unsw_nb15_fedavg.yaml",
+        "configs/federated/cicids2018_fedavg.yaml",
+        "models/federated/fedavg_unsw_binary.pt",
+        "models/federated/fedavg_cicids_binary.pt",
+        "docs/FEDERATED_LEARNING_REPORT.md"
+      ],
+      "notes": "Useful foundation evidence but not final hierarchical federated evidence."
+    },
+    "client_splitting": {
+      "status": "STRATIFIED_IID_EXISTS",
+      "paths": [
+        "secureids/federated/splitting.py",
+        "tests/test_federated_splitting.py"
+      ],
+      "notes": "Non-IID split is only noted as optional later in configs."
+    },
+    "fedavg_aggregation": {
+      "status": "WEIGHTED_FEDAVG_EXISTS",
+      "paths": [
+        "secureids/federated/fedavg.py",
+        "tests/test_federated_fedavg.py"
+      ],
+      "notes": "Weighted by sample count with deterministic unit tests."
+    },
+    "security_package": {
+      "status": "SKELETON_ONLY",
+      "paths": [
+        "secureids/security/__init__.py"
+      ],
+      "notes": "No V2 update-integrity or TLS implementation yet."
+    },
+    "attack_package": {
+      "status": "SKELETON_ONLY",
+      "paths": [
+        "secureids/attacks/__init__.py"
+      ],
+      "notes": "No V2 Byzantine attack transforms yet."
+    },
+    "aggregation_package": {
+      "status": "SKELETON_ONLY",
+      "paths": [
+        "secureids/aggregation/__init__.py"
+      ],
+      "notes": "Robust aggregation methods are not implemented in V2 package."
+    },
+    "v1_reference": {
+      "status": "READ_ONLY_CONCEPT_REFERENCE",
+      "paths": [
+        "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection/scripts/v5/gradient_security.py",
+        "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection/scripts/v5/attacks.py",
+        "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection/scripts/v5/generate_robust_aggregation_evidence.py",
+        "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection/scripts/v5/run_final_secure_federated_ids_grid.py"
+      ],
+      "notes": "Use concepts only. Do not copy messy scripts or old results as V2 final evidence."
+    }
+  },
+  "missing_capabilities_summary": {
+    "hierarchical_federated_configs": "Missing. Existing configs are binary SecureIDSNet configs and reference binary final checkpoints.",
+    "hierarchical_federated_training": "Missing. Existing runner is binary-task oriented and must not be used as final hierarchical evidence without a V2-native extension.",
+    "non_iid_partitioning": "Missing. Only stratified IID is implemented.",
+    "robust_aggregation": "Missing in V2. Trimmed mean median and optional Krum need implementation and tests.",
+    "byzantine_attacks": "Missing in V2. Sign-flip Gaussian noise and scaling need implementation and tests.",
+    "security_integrity": "Missing in V2. SHA-256 client update integrity and final hash registry need implementation.",
+    "tls_security_evidence": "Missing in V2. V1 has reference timing concepts only.",
+    "secure_aggregation": "Not implemented. Treat as optional or future work unless explicitly approved.",
+    "final_reporting": "Missing. Need centralized vs clean FedAvg vs attacked FedAvg vs robust defense tables."
+  },
+  "recommended_architecture": {
+    "shared_framework_dataset_specific_configs": true,
+    "dataset_specific_configs_required": true,
+    "centralized_final_checkpoints_reference_only": true,
+    "manual_heavy_runs_required": true,
+    "train_clean_fl_from_deterministic_initialization": true,
+    "warm_start_allowed_only_as_later_ablation": true
+  },
+  "recommended_implementation_sequence": [
+    "Implement scaffold-only robust aggregation Byzantine attack and SHA-256 integrity modules with deterministic tests.",
+    "Add hierarchical federated config schema and dry-run validation for CICIDS and UNSW without training.",
+    "Add IID client partitioning reports for binary and attack-family labels then add explicit non-IID split support.",
+    "Extend the FedAvg training loop to SecureIDSHierarchicalAdvancedNet with dataset-specific configs and guarded output paths.",
+    "Run clean hierarchical FedAvg manually after approval for CICIDS and UNSW.",
+    "Add client update integrity logging and checkpoint hash registry.",
+    "Run attacked FedAvg manually after approval with sign-flip Gaussian noise and scaling attacks.",
+    "Run robust aggregation defenses manually after approval using trimmed mean median and optional Krum.",
+    "Generate final comparison tables reports reproducibility commands and dashboard/XAI linkage later."
+  ],
+  "manual_runs_later": [
+    "Future hierarchical federated dry-run validation for CICIDS and UNSW.",
+    "Future clean hierarchical FedAvg for CICIDS.",
+    "Future clean hierarchical FedAvg for UNSW.",
+    "Future security integrity audit over client updates and final artifacts.",
+    "Future attacked FedAvg runs for sign-flip Gaussian noise and scaling.",
+    "Future robust aggregation defense runs for trimmed mean median and optional Krum.",
+    "Future final report generation and later XAI/dashboard linkage."
+  ],
+  "safety_rules": {
+    "no_training_now": true,
+    "no_evaluation_now": true,
+    "no_preprocessing_now": true,
+    "no_xai_now": true,
+    "no_streamlit_now": true,
+    "no_git_action": true,
+    "no_checkpoint_modification": true,
+    "no_models_final_modification": true,
+    "no_results_final_modification": true,
+    "no_v1_modification": true,
+    "no_a11_final_use": true,
+    "no_fake_metrics": true,
+    "no_test_tuning": true
+  },
+  "deliverables_created_by_this_task": [
+    "docs/experiments/FEDERATED_SECURITY_PHASE_PLANNING_AUDIT.md",
+    "docs/experiments/FEDERATED_SECURITY_IMPLEMENTATION_ROADMAP.md",
+    "results/audits/federated_security_phase_planning_audit.json",
+    "results/audits/federated_security_component_inventory.csv",
+    "results/audits/federated_security_required_outputs.csv"
+  ],
+  "next_main_control_decision": "approve_or_reject_federated_security_implementation_scaffold"
+}

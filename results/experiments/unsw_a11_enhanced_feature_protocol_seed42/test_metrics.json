@@ -1,0 +1,167 @@
+{
+  "attack_head_dim": 9,
+  "best_epoch": 23,
+  "best_val_hierarchical_score": 0.757436,
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\experiments\\unsw_a11_enhanced_feature_protocol_seed42.pt",
+  "checkpoint_selected_by": "validation_only (val_hierarchical_score = 0.5*val_binary_macro_f1 + 0.5*val_attack_family_macro_f1)",
+  "created_utc": "2026-06-25T18:36:11.164490+00:00",
+  "dataset": "unsw_nb15",
+  "input_dim": 192,
+  "model": "SecureIDSHierarchicalAdvancedNet",
+  "protocol": "A8.8 corrected UNSW benchmark protocol (train 175,341-row partition; test 82,332-row partition)",
+  "safety_notes": {
+    "checkpoint_not_selected_by_test_metrics": true,
+    "cicids_hierarchical_training_run": false,
+    "class_weights_train_only": true,
+    "no_fake_metrics": true,
+    "no_federated_training": true,
+    "no_security_or_attack_simulation": true,
+    "no_xai_or_dashboard": true,
+    "old_unsw_pre_correction_baselines_used_as_final": false,
+    "test_evaluated_once_after_best_validation_checkpoint": true,
+    "validation_or_test_labels_used_for_weights": false
+  },
+  "task": "hierarchical",
+  "test_metrics": {
+    "attack_family": {
+      "accuracy_on_attack_rows": 0.7609635577516985,
+      "attack_rows_evaluated": 45332,
+      "macro_f1_on_attack_rows": 0.49468487674349443,
+      "per_class": [
+        {
+          "class_id": 0,
+          "class_name": "Generic",
+          "f1": 0.9806357522888703,
+          "precision": 0.9999449217889403,
+          "recall": 0.962058184515924,
+          "support": 18871
+        },
+        {
+          "class_id": 1,
+          "class_name": "Exploits",
+          "f1": 0.691097829506134,
+          "precision": 0.8298917149332662,
+          "recall": 0.5920768954365793,
+          "support": 11132
+        },
+        {
+          "class_id": 2,
+          "class_name": "Fuzzers",
+          "f1": 0.7322312505837302,
+          "precision": 0.8439181916038752,
+          "recall": 0.6466512702078522,
+          "support": 6062
+        },
+        {
+          "class_id": 3,
+          "class_name": "DoS",
+          "f1": 0.42476238539826733,
+          "precision": 0.32371794871794873,
+          "recall": 0.6175103937393006,
+          "support": 4089
+        },
+        {
+          "class_id": 4,
+          "class_name": "Reconnaissance",
+          "f1": 0.8283752860411899,
+          "precision": 0.8283752860411899,
+          "recall": 0.8283752860411899,
+          "support": 3496
+        },
+        {
+          "class_id": 5,
+          "class_name": "Analysis",
+          "f1": 0.06583278472679394,
+          "precision": 0.05938242280285035,
+          "recall": 0.07385524372230429,
+          "support": 677
+        },
+        {
+          "class_id": 6,
+          "class_name": "Backdoor",
+          "f1": 0.04395604395604396,
+          "precision": 0.035269709543568464,
+          "recall": 0.058319039451114926,
+          "support": 583
+        },
+        {
+          "class_id": 7,
+          "class_name": "Shellcode",
+          "f1": 0.3400344629523262,
+          "precision": 0.21716801173881145,
+          "recall": 0.783068783068783,
+          "support": 378
+        },
+        {
+          "class_id": 8,
+          "class_name": "Worms",
+          "f1": 0.3452380952380952,
+          "precision": 0.23387096774193547,
+          "recall": 0.6590909090909091,
+          "support": 44
+        }
+      ]
+    },
+    "binary": {
+      "accuracy": 0.8991036292085702,
+      "attack_false_negatives": 1951,
+      "confusion_matrix": {
+        "fn": 1951,
+        "fp": 6356,
+        "tn": 30644,
+        "tp": 43381
+      },
+      "f1": 0.912621359223301,
+      "macro_f1": 0.8966296680447277,
+      "n_samples": 82332,
+      "precision": 0.8722078130968897,
+      "recall": 0.9569619694696903,
+      "threshold": 0.5
+    },
+    "hierarchical_routing": {
+      "attack_detected_and_correctly_attributed": 32871,
+      "attack_detected_and_correctly_attributed_rate": 0.7251169152033884,
+      "attack_detected_wrong_family": 10510,
+      "attack_detected_wrong_family_rate": 0.23184505426630195,
+      "attack_missed_as_benign": 1951,
+      "attack_missed_as_benign_rate": 0.04303803053030972,
+      "attack_total": 45332,
+      "benign_correctly_stopped": 30644,
+      "benign_correctly_stopped_rate": 0.8282162162162162,
+      "benign_flagged_as_attack": 6356,
+      "benign_flagged_as_attack_rate": 0.17178378378378378,
+      "benign_total": 37000
+    },
+    "rare_class": {
+      "per_rare_class": [
+        {
+          "class_name": "Shellcode",
+          "f1": 0.3400344629523262,
+          "precision": 0.21716801173881145,
+          "present": true,
+          "recall": 0.783068783068783,
+          "support": 378
+        },
+        {
+          "class_name": "Worms",
+          "f1": 0.3452380952380952,
+          "precision": 0.23387096774193547,
+          "present": true,
+          "recall": 0.6590909090909091,
+          "support": 44
+        }
+      ],
+      "rare_class_macro_f1": 0.34263627909521066,
+      "rare_classes": [
+        "Shellcode",
+        "Worms"
+      ]
+    }
+  },
+  "threshold": 0.5,
+  "validation_at_best_epoch": {
+    "val_attack_family_macro_f1": 0.5817916211132313,
+    "val_binary_macro_f1": 0.9330801615926818,
+    "val_hierarchical_score": 0.7574358913529566
+  }
+}

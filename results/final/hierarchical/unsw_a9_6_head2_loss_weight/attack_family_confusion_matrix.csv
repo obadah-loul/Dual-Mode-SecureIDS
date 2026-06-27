@@ -1,0 +1,10 @@
+true\pred,Generic,Exploits,Fuzzers,DoS,Reconnaissance,Analysis,Backdoor,Shellcode,Worms
+Generic,18177,381,136,113,7,0,12,37,8
+Exploits,1,7550,307,1634,358,393,487,336,66
+Fuzzers,0,506,3944,821,169,60,111,445,6
+DoS,1,1465,111,1539,38,393,457,81,4
+Reconnaissance,3,213,28,119,2900,49,71,107,6
+Analysis,0,181,3,428,0,6,59,0,0
+Backdoor,0,143,3,376,2,6,44,9,0
+Shellcode,0,5,24,0,30,0,4,315,0
+Worms,0,7,6,0,0,0,0,2,29

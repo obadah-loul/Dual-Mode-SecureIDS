@@ -1,0 +1,32 @@
+# NON-FINAL smoke-training plan for CICIDS2018 hierarchical model.
+# A6 prepares this config only. Do not report smoke outputs as model results.
+dataset: cicids2018
+task: hierarchical_smoke
+base_config: configs/training/cicids2018_hierarchical.yaml
+model_name: SecureIDSHierarchicalAdvancedNet
+hierarchical_data_dir: data/processed/cicids2018/hierarchical
+input_dim: 77
+attack_head_dim: 14
+smoke:
+  enabled: true
+  non_final: true
+  train_samples: 4096
+  val_samples: 2048
+  test_samples: 2048
+  batch_size: 512
+  max_epochs: 1
+  max_train_batches: 4
+  max_eval_batches: 2
+  save_checkpoint: false
+  final_metrics: false
+  output_json: results/audits/hierarchical_smoke_training_cicids2018.json
+  report_md: docs/HIERARCHICAL_SMOKE_TRAINING_CHECK.md
+safety:
+  no_final_checkpoint: true
+  no_final_metrics: true
+  no_results_final_outputs: true
+  no_test_set_tuning: true
+  no_full_training: true
+  do_not_report_as_final: true
+  no_hierarchical_fedavg: true
+  no_security_attack_xai_dashboard: true

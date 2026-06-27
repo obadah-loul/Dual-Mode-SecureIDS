@@ -1,0 +1,225 @@
+{
+  "audit_name": "unsw_hierarchical_improvement_audit",
+  "task_type": "unsw_improvement_planning_no_training",
+  "generated_on": "2026-06-25",
+  "current_status": {
+    "official_checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "accepted_identity": "A9 corrected-protocol hierarchical baseline",
+    "frozen_but_reopenable": true,
+    "training_run": false,
+    "checkpoint_modified": false,
+    "checkpoint_integrity": {
+      "bytes": 2077207,
+      "last_write_local": "2026-06-24T06:38:28.2844492+04:00",
+      "note": "Unchanged original A9 artifact; matches A9 created_utc 2026-06-24T02:38:28Z. Read-only stat only."
+    },
+    "selected_seed_for_frozen_checkpoint": 42
+  },
+  "a9_metrics": {
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669,
+    "verified_against_artifacts": true,
+    "supporting_values": {
+      "binary_accuracy": 0.896808,
+      "binary_f1": 0.910133,
+      "binary_precision": 0.874289,
+      "binary_recall": 0.949043,
+      "attack_family_accuracy_on_attack_rows": 0.766478,
+      "attack_rows_evaluated": 45332,
+      "attack_false_negatives": 2310,
+      "benign_false_positives": 6186,
+      "best_epoch": 35,
+      "epochs_run": 40,
+      "best_val_hierarchical_score": 0.762364,
+      "val_binary_macro_f1": 0.933090,
+      "val_attack_family_macro_f1": 0.591638,
+      "val_to_test_attack_family_gap": 0.091209
+    },
+    "a9_linear_multiseed_mean_std": {
+      "binary_macro_f1": {"mean": 0.893974, "std": 0.00236},
+      "attack_family_macro_f1": {"mean": 0.494965, "std": 0.014303},
+      "rare_class_macro_f1": {"mean": 0.360617, "std": 0.056629},
+      "note": "Frozen A9 (seed42) attack-family 0.500429 sits slightly ABOVE the 3-seed linear mean 0.494965 and inside the +/-0.0143 seed noise band; seed123 fell to 0.478736. Future promotion must compare 3-seed mean vs 3-seed mean, not against the favorable seed42 point."
+    }
+  },
+  "a9_artifacts": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15.json",
+    "freeze_record": "results/audits/unsw_a9_final_acceptance_freeze_record.json",
+    "freeze_summary_csv": "results/audits/unsw_a9_final_freeze_summary.csv",
+    "freeze_backup_checkpoint": "results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt",
+    "final_status_doc": "docs/final/UNSW_FINAL_MODEL_STATUS.md",
+    "result_dir": "results/final/hierarchical/unsw/",
+    "test_metrics_json": "results/final/hierarchical/unsw/test_metrics.json",
+    "training_history_csv": "results/final/hierarchical/unsw/training_history.csv",
+    "binary_confusion_matrix_csv": "results/final/hierarchical/unsw/binary_confusion_matrix.csv",
+    "attack_family_confusion_matrix_csv": "results/final/hierarchical/unsw/attack_family_confusion_matrix.csv",
+    "per_class_attack_metrics_csv": "results/final/hierarchical/unsw/per_class_attack_metrics.csv",
+    "rare_class_metrics_csv": "results/final/hierarchical/unsw/rare_class_metrics.csv",
+    "hierarchical_routing_summary": "results/final/hierarchical/unsw/hierarchical_routing_summary.json",
+    "class_weight_snapshot": "results/final/hierarchical/unsw/class_weight_snapshot.json",
+    "model_summary": "results/final/hierarchical/unsw/model_summary.json",
+    "training_config_snapshot": "results/final/hierarchical/unsw/training_config_snapshot.yaml",
+    "config_path": "configs/training/unsw_nb15_hierarchical.yaml",
+    "param_count": 513418,
+    "architecture": "SecureIDSHierarchicalAdvancedNet (input_dim 192, hidden 256/128/128, dropout 0.20, layernorm, embedding 128; Head 1 = single binary logit; Head 2 = linear(128->9))"
+  },
+  "corrected_protocol": {
+    "name": "A8.8 / A9 corrected UNSW-NB15 benchmark protocol",
+    "verified_from": ["results/audits/unsw_split_protocol_audit.json", "docs/UNSW_SPLIT_PROTOCOL_DECISION.md", "results/audits/hierarchical_training_manifest_unsw_nb15.json"],
+    "train_val_source_file": "data/raw/unsw_nb15/UNSW_NB15_testing-set.csv (175,341 rows = canonical TRAIN partition by row count)",
+    "test_source_file": "data/raw/unsw_nb15/UNSW_NB15_training-set.csv (82,332 rows = canonical TEST partition by row count)",
+    "note_on_protocol_string": "The manifest string 'train 175,341-row; test 82,332-row' refers to canonical partition ROW COUNTS, not file names. The local file names are swapped relative to the canonical Moustafa & Slay sizes; assignment is by row count. This matches the task's stated corrected protocol.",
+    "split_rows": {"train": 149039, "val": 26302, "test": 82332},
+    "val_construction": "85/15 stratified-on-binary split of the train source, random_seed=42",
+    "input_dim": 192,
+    "attack_head_dim": 9,
+    "feature_dim_before_after": "190 -> 192 (one-hot encoder, fit on the larger train partition, sees 2 extra categorical values; data-derived not hardcoded)",
+    "binary_label_mapping": {"0": "Normal/Benign", "1": "Attack"},
+    "attack_family_label_mapping": {"0": "Generic", "1": "Exploits", "2": "Fuzzers", "3": "DoS", "4": "Reconnaissance", "5": "Analysis", "6": "Backdoor", "7": "Shellcode", "8": "Worms"},
+    "rare_class_definition": ["Shellcode", "Worms"],
+    "rare_support_after_correction": {"Shellcode": {"train": 965, "val": 168, "test": 378}, "Worms": {"train": 109, "val": 21, "test": 44}},
+    "legacy_pre_correction_outputs_are_not_final": true,
+    "legacy_artifacts": ["models/final/final_unsw_binary.pt", "models/federated/fedavg_unsw_binary.pt", "results/final/centralized/unsw_*", "results/federated/unsw/*"],
+    "leakage_or_test_tuning_visible_in_evidence": false,
+    "leakage_controls_confirmed": ["scaler/imputer/one-hot fit on train only", "class weights from train only", "validation-only checkpoint selection", "single final test after best-validation checkpoint", "splits disjoint"]
+  },
+  "weak_class_findings": [
+    {"class": "Analysis", "test_f1": 0.012330, "precision": 0.037313, "recall": 0.007386, "support": 677, "profile": "near-total collapse; only 5/677 recalled; 479/677 absorbed into DoS, 109/677 into Backdoor", "is_macro_f1_killer": true},
+    {"class": "Backdoor", "test_f1": 0.070370, "precision": 0.044875, "recall": 0.162950, "support": 583, "profile": "near collapse; 409/583 absorbed into DoS; very low precision because many families are mislabeled Backdoor", "is_macro_f1_killer": true},
+    {"class": "DoS", "test_f1": 0.387737, "precision": 0.324080, "recall": 0.482514, "support": 4089, "profile": "garbage-collector class: low precision because Exploits/Fuzzers/Analysis/Backdoor are all mis-routed INTO DoS", "is_macro_f1_killer": true},
+    {"class": "Worms", "test_f1": 0.331429, "precision": 0.221374, "recall": 0.659091, "support": 44, "profile": "rare; high recall, low precision (over-predicted); fragile due to tiny support", "is_rare_class": true},
+    {"class": "Shellcode", "test_f1": 0.439909, "precision": 0.307937, "recall": 0.769841, "support": 378, "profile": "rare; high recall, low precision; confused with Recon/Fuzzers/Exploits", "is_rare_class": true},
+    {"class": "Exploits", "test_f1": 0.690720, "precision": 0.778353, "recall": 0.620823, "support": 11132, "profile": "moderate; recall loss to DoS/Backdoor/Fuzzers/Recon", "is_macro_f1_killer": false},
+    {"class": "Fuzzers", "test_f1": 0.767899, "precision": 0.836770, "recall": 0.709502, "support": 6062, "profile": "reasonable; recall loss mostly to DoS", "is_macro_f1_killer": false},
+    {"class": "Reconnaissance", "test_f1": 0.822659, "support": 3496, "profile": "strong/separable", "is_macro_f1_killer": false},
+    {"class": "Generic", "test_f1": 0.980808, "support": 18871, "profile": "near-perfect; cleanly separable", "is_macro_f1_killer": false}
+  ],
+  "confusion_findings": [
+    {"true": "Analysis", "pred": "DoS", "count": 479, "support": 677, "percent_of_true": 70.8, "comment": "Analysis is overwhelmingly absorbed by DoS"},
+    {"true": "Backdoor", "pred": "DoS", "count": 409, "support": 583, "percent_of_true": 70.2, "comment": "Backdoor is overwhelmingly absorbed by DoS"},
+    {"true": "DoS", "pred": "Exploits", "count": 1039, "support": 4089, "percent_of_true": 25.4, "comment": "DoS<->Exploits two-way overlap"},
+    {"true": "Exploits", "pred": "DoS", "count": 2076, "support": 11132, "percent_of_true": 18.6, "comment": "largest single off-diagonal mass; Exploits leak into DoS"},
+    {"true": "DoS", "pred": "Backdoor", "count": 775, "support": 4089, "percent_of_true": 19.0, "comment": "DoS leaks into Backdoor (mutual low-precision cluster)"},
+    {"true": "Fuzzers", "pred": "DoS", "count": 899, "support": 6062, "percent_of_true": 14.8, "comment": "Fuzzers recall loss to DoS"},
+    {"true": "Exploits", "pred": "Backdoor", "count": 771, "support": 11132, "percent_of_true": 6.9, "comment": "Exploits inflate Backdoor false positives"},
+    {"true": "Analysis", "pred": "Backdoor", "count": 109, "support": 677, "percent_of_true": 16.1, "comment": "Analysis also leaks into Backdoor"},
+    {"true": "Analysis", "pred": "Exploits", "count": 76, "support": 677, "percent_of_true": 11.2, "comment": "remainder of Analysis into Exploits"},
+    {"true": "Shellcode", "pred": "Reconnaissance", "count": 36, "support": 378, "percent_of_true": 9.5, "comment": "Shellcode<->Recon overlap"},
+    {"true": "Worms", "pred": "Exploits", "count": 7, "support": 44, "percent_of_true": 15.9, "comment": "tiny-support Worms confusion with Exploits"}
+  ],
+  "previous_experiments": {
+    "a9_6": {
+      "name": "head2_loss_weight",
+      "factor": "attack_loss_weight 1.0 -> 1.5 (config-only, one factor; binary_loss_weight kept 1.0)",
+      "result": {"binary_macro_f1": 0.911474, "attack_family_macro_f1": 0.485478, "rare_class_macro_f1": 0.362125, "attack_false_negatives": 2593, "benign_false_positives": 4581},
+      "delta_vs_a9": {"binary_macro_f1": 0.016986, "attack_family_macro_f1": -0.014951, "rare_class_macro_f1": -0.023544},
+      "not_promoted_reason": "Raising global Head 2 loss pressure improved binary (more conservative routing, fewer FP) but REGRESSED attack-family and rare macro-F1; DoS F1 0.388->0.338, Shellcode precision 0.308->0.236, Analysis/Backdoor stayed near zero, attack FN rose.",
+      "methodologically_clean": true,
+      "risk_observed": "minority over-prediction lowered rare precision (precision-collapse pattern)",
+      "lesson": "Global attack_loss_weight is a blunt lever; more minority pressure does not separate overlapping families and hurts rare precision."
+    },
+    "a9_7": {
+      "name": "head2_branch_capacity",
+      "factor": "Head 2 linear -> small non-linear MLP branch (param 513,418 -> 530,186); all loss/weights/optimizer/protocol identical",
+      "result_seed42": {"binary_macro_f1": 0.898348, "attack_family_macro_f1": 0.493667, "rare_class_macro_f1": 0.354501, "attack_false_negatives": 2538, "benign_false_positives": 5669},
+      "delta_vs_a9_seed42": {"binary_macro_f1": 0.003859, "attack_family_macro_f1": -0.006762, "rare_class_macro_f1": -0.031168},
+      "not_promoted_reason": "Single-seed attack-family macro-F1 0.493667 fell below A9's 0.500429 and below the 0.53 success gate; rare-class below floor; attack FN 2538 > 2450 gate; Worms F1 below floor; Analysis collapsed to 0.0; best validation score 0.752137 < A9's 0.762364. Mixed signal: DoS/Backdoor/Fuzzers F1 improved.",
+      "methodologically_clean": true,
+      "risk_observed": "single-seed within noise band; capacity alone did not repair rare precision or weak-class boundaries",
+      "lesson": "Adding Head 2 branch capacity is not sufficient to beat A9 in a single run."
+    },
+    "a9_8": {
+      "name": "multi_seed_A9_linear_vs_A9_7_branch (seeds 42/123/999)",
+      "a9_linear_mean_std": {"binary_macro_f1": "0.893974+/-0.00236", "attack_family_macro_f1": "0.494965+/-0.014303", "rare_class_macro_f1": "0.360617+/-0.056629"},
+      "a9_7_branch_mean_std": {"binary_macro_f1": "0.899914+/-0.00162", "attack_family_macro_f1": "0.499489+/-0.01044", "rare_class_macro_f1": "0.371887+/-0.038713"},
+      "mean_delta_branch_minus_linear": {"binary_macro_f1": 0.00594, "attack_family_macro_f1": 0.004524, "rare_class_macro_f1": 0.01127},
+      "not_promoted_reason": "Branch attack-family macro-F1 mean gain +0.004524 is below the approved promotion margin and well inside the +/-0.0143 seed noise band; A9 remains accepted.",
+      "methodologically_clean": true,
+      "decision": "Abandon Head 2 branch capacity as the next major UNSW improvement direction.",
+      "lesson": "Across 3 seeds the branch made small, non-promotable mean gains; attack-family macro-F1 carries ~0.014 seed std, so future promotion must be multi-seed and clear the noise band."
+    },
+    "a9_9": {
+      "name": "aggressive-but-honest improvement strategy (DESIGN ONLY, not implemented)",
+      "recommended_strategy": "attack_family_specialist (freeze A9 Head 1 as binary router; train a dedicated attack-only family classifier on attack rows)",
+      "ranked_above": ["two_stage_attack_only_fine_tuning", "attack_row_sampling", "head2_focal_loss", "hard_class_specialist", "feature_preprocessing_enhancement"],
+      "realistic_target": {"attack_family_macro_f1_short_term": "0.52-0.58", "stretch": "~0.60", "rare": "protect A9 range, modest gain", "binary": "~A9 (Head 1 unchanged)"},
+      "status": "design_only_not_implemented",
+      "main_review_decision_pending": "Approve or reject A9.9-prep (preparation first, not immediate training)."
+    }
+  },
+  "diagnosis": {
+    "why_attack_family_weak": "The 9-class macro-F1 is held near 0.50 by two near-zero classes (Analysis F1 0.0123, Backdoor F1 0.0704) plus a low-precision DoS (0.388). Analysis/Backdoor/DoS/Exploits form one mutually-confused cluster that overlaps in the 192-feature flow space by construction of UNSW-NB15: 70.8% of true Analysis and 70.2% of true Backdoor are absorbed into DoS, and Exploits<->DoS leak both ways (2076 + 1039). Because macro-F1 averages over the full fixed 9-class set, these collapsed classes each contribute ~0 and cap the mean. This is primarily an intrinsic feature-overlap + taxonomy property (RC1) compounded by severe imbalance (RC2), not a wiring, masking, or metric-inflation bug (independently verified clean in the A9.65 audit). The single linear Head 2 over a binary-dominated shared embedding (RC3) is the most actionable structural contributor, but A9.7/A9.8 showed capacity alone is within the noise band.",
+    "why_rare_class_weak": "Shellcode (378) and Worms (44) have tiny absolute support. The sqrt-inverse-frequency class weights (Worms 3.95, Shellcode 1.33) buy high recall (0.77 / 0.66) at the cost of precision (0.31 / 0.22) because the rare label is over-assigned to confusable neighbours (Shellcode<->Recon/Fuzzers/Exploits). The bottleneck is precision, not recall; A9.6 confirmed that adding minority pressure lowers rare precision further. Rare macro-F1 also has very high seed variance (+/-0.0566 across A9 seeds).",
+    "likely_bottlenecks": [
+      "RC1 (root cause): intrinsic Analysis/Backdoor/DoS/Exploits feature-space overlap; dominant macro-F1 limiter; largely not fixable by tuning.",
+      "RC2 (root cause): severe imbalance / tiny support for rare-hard families; low minority precision; high seed variance.",
+      "RC3 (most actionable structural): single linear Head 2 over a binary-dominated shared 128-d embedding; binary objective near-saturated while attack loss stays high.",
+      "RC4: official-partition prior shift (train/val benign 31.9% vs test 44.9%) inflates test binary FP and the val->test gap; intrinsic to the corrected protocol.",
+      "RC5: global attack_loss_weight is too blunt (explains A9.6); more minority pressure hurts precision without separating Analysis/Backdoor.",
+      "RC6: single-seed comparisons sit within a ~0.014 attack-family / ~0.057 rare noise band; require >=3 seeds.",
+      "Head 1 binary detector is already healthy (macro-F1 0.894, recall 0.949, only 5.1% attacks missed); it is NOT the primary bottleneck and end-to-end routed performance is capped mostly by Head 2 attribution, not Head 1 misses."
+    ],
+    "config_only_levers_status": "Effectively exhausted. attack_loss_weight is config-wired but A9.6 proved a sweep fails. class_weight_max_clip is config-readable but NON-BINDING (max weight Worms 3.95 < cap 10). The val selection blend 0.5/0.5 is HARDCODED in hierarchical_evaluation.py (code change to alter). No focal loss, no attack-row sampler, and no per-class weight temperature/exponent hook exist (all require code). Therefore any meaningful next improvement requires a controlled code change."
+  },
+  "recommended_next_experiment": {
+    "id": "A9.9 attack-family specialist router (prep first, then 1-seed screen, then 3-seed confirm)",
+    "idea": "Keep the frozen A9 Head 1 binary detector as the router. Train a separate, dedicated attack-family specialist classifier on UNSW training ATTACK ROWS ONLY (richer non-linear Head-2-style branch), with train-only attack-row class handling. Detected attacks are routed into the specialist; report routed end-to-end and oracle attack-row metrics separately.",
+    "reason": "It changes the task decomposition rather than re-pulling exhausted levers: it removes benign-vs-attack pressure from the family learner (addresses RC3), focuses capacity on the overlapping Analysis/Backdoor/DoS/Exploits boundaries, and protects the accepted binary detector (Head 1 frozen). The two cheap config levers (loss weight, capacity) already failed (A9.6/A9.7/A9.8); this is the highest-expected-value untried direction (A9.9 design rank 1) while staying honest about the ~0.60 intrinsic ceiling.",
+    "config_only": false,
+    "requires_code_change": true,
+    "manual_run_count": 4,
+    "manual_run_count_note": "4 minimum = 1 one-seed screen + 3-seed confirmation (42/123/999); up to ~6 if a second specialist variant (train-only attack-row class-balancing or a precision temperature) is also screened before the 3-seed confirm.",
+    "screening_strategy": "one_seed_screen_first_then_three_seed_confirm",
+    "screening_rationale": "A one-seed screen de-risks the new specialist code path and gives a directional read cheaply; promotion requires a >=3-seed mean+/-std that clears the ~0.0143 attack-family noise band AND predefined success gates. Never promote on a single seed.",
+    "target_metrics": ["attack_family_macro_f1_on_attack_rows", "rare_class_macro_f1", "per_class_f1_Analysis_Backdoor_DoS", "routed_correctly_attributed_rate"],
+    "expected_benefit": "Attack-family macro-F1 3-seed mean ~0.52-0.58 (stretch ~0.60); lift at least one of Analysis/Backdoor/DoS off the floor; protect rare macro-F1 (>=0.385669) and binary macro-F1 (~0.894, Head 1 unchanged).",
+    "expected_risk": "Specialist overfitting on fewer attack rows; class-balancing can distort priors/calibration; routed end-to-end still capped by Head 1's 2,310 missed attacks; routed-vs-oracle metrics can be confused if documentation is careless; extra specialist artifact adds model-management complexity. Intrinsic RC1 overlap caps the achievable ceiling near ~0.60.",
+    "promotion_gates": ["attack_family_macro_f1 3-seed mean - A9 linear 3-seed mean > noise band (>= ~+0.015 and predefined margin)", "rare_class_macro_f1 3-seed mean >= 0.385669", "rare-class precision floors not breached (Shellcode/Worms)", "binary macro-F1 not regressed (Head 1 frozen)", "no test-set tuning; validation-only selection/calibration; single final test"]
+  },
+  "candidate_rankings": [
+    {"rank": 1, "candidate_id": "C1", "candidate_name": "attack_family_specialist_frozen_head1", "status": "recommend_now", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": true, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Highest expected attack-family upside; decomposes the task, protects frozen Head 1; A9.9 design rank 1. Prep -> 1-seed screen -> 3-seed confirm."},
+    {"rank": 2, "candidate_id": "C2", "candidate_name": "two_stage_attack_only_fine_tuning", "status": "recommend_after_next", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": true, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Train shared model, freeze/partially freeze encoder, fine-tune Head 2 on attack rows. Backup to the specialist; harder to attribute and more overfit-prone."},
+    {"rank": 3, "candidate_id": "C3", "candidate_name": "attack_class_weight_precision_repair_temperature", "status": "recommend_after_next", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": true, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Flatten/temperature the minority weights to lift rare PRECISION (opposite of A9.6). Cap alone is non-binding, so needs a code hook. Pairs well with the specialist."},
+    {"rank": 4, "candidate_id": "C4", "candidate_name": "selection_objective_reweight_0p3_0p7", "status": "possible_later", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Bias validation selection toward Head 2 (0.3 binary / 0.7 attack). Formula is hardcoded (code change). Selection-only; benefit bounded by the best attack-F1 epoch actually produced."},
+    {"rank": 5, "candidate_id": "C5", "candidate_name": "head2_focal_loss_precision_gated", "status": "possible_later", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": true, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Focal loss on attack rows. Another minority/hard-pressure lever; A9.6 warns this risks rare-precision collapse. Only with strict precision-floor gates."},
+    {"rank": 6, "candidate_id": "C6", "candidate_name": "validation_only_threshold_calibration_head1", "status": "possible_later", "targets_attack_family_macro_f1": false, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": true, "requires_code_change": true, "config_only": false, "manual_run_count": 1, "reason": "Calibrate Head 1 threshold on validation only to trade FP/FN. Does NOT help attack-family macro-F1; benefit bounded by the val->test prior shift (RC4). Threshold is hardcoded 0.5."},
+    {"rank": 7, "candidate_id": "C7", "candidate_name": "attack_row_balanced_sampler_train_only", "status": "possible_later", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": true, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Train-only class-aware batching for minority exposure. Rare recall is already high; precision is the problem, so standalone benefit is weak/risky. Useful only INSIDE the specialist; project policy disables oversampling."},
+    {"rank": 8, "candidate_id": "C8", "candidate_name": "feature_preprocessing_enhancement_proto_pruning", "status": "needs_main_control_decision", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": true, "requires_code_change": true, "config_only": false, "manual_run_count": 6, "reason": "Prune/frequency-encode ultra-rare proto one-hots (133/192 features). Changes feature_dim, breaks direct A9 comparability, and carries leakage/reproducibility risk; full re-preprocessing required."},
+    {"rank": 9, "candidate_id": "C9", "candidate_name": "superclass_reporting_head_diagnostic_only", "status": "needs_main_control_decision", "targets_attack_family_macro_f1": false, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 4, "reason": "Optional grouped (Analysis/Backdoor/DoS/Exploits) reporting view to show separability ceiling. DIAGNOSTIC ONLY: must NOT replace the 9-class metric or relabel families to inflate numbers."},
+    {"rank": 10, "candidate_id": "C10", "candidate_name": "increase_attack_loss_weight_again", "status": "reject", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": false, "requires_code_change": false, "config_only": true, "manual_run_count": 0, "reason": "Already tested as A9.6 (1.5) and FAILED: attack-family and rare macro-F1 regressed. Do not repeat."},
+    {"rank": 11, "candidate_id": "C11", "candidate_name": "head2_branch_capacity_again", "status": "reject", "targets_attack_family_macro_f1": true, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": false, "requires_code_change": true, "config_only": false, "manual_run_count": 0, "reason": "Already tested as A9.7 and confirmed across 3 seeds (A9.8): +0.0045 attack-family mean, within noise. Officially abandoned as the next major direction."},
+    {"rank": 12, "candidate_id": "C12", "candidate_name": "keep_a9_and_move_to_federated_security", "status": "needs_main_control_decision", "targets_attack_family_macro_f1": false, "targets_rare_class_macro_f1": false, "may_hurt_binary_macro_f1": false, "requires_code_change": false, "config_only": false, "manual_run_count": 0, "reason": "Legitimate stop option: given the intrinsic ~0.60 ceiling (RC1), accept A9 as the final UNSW model and advance to federated/security/XAI scope. Choose if the specialist screen does not clear the noise band."}
+  ],
+  "one_seed_vs_multi_seed": {
+    "recommendation": "one_seed_screen_first_then_three_seed_confirm",
+    "reason": "Attack-family macro-F1 carries ~0.0143 seed std and rare macro-F1 ~0.0566 (A9.8). A one-seed screen de-risks the new specialist code and gives a directional read; promotion decisions require a >=3-seed (42/123/999) mean+/-std that clears the noise band and the predefined gates. Never promote on a single seed."
+  },
+  "scientific_safety": {
+    "no_training_run": true,
+    "no_test_tuning": true,
+    "no_fake_metrics": true,
+    "no_checkpoint_modification": true,
+    "no_preprocessing_rebuild": true,
+    "no_v1_modification": true,
+    "no_config_created": true,
+    "no_long_or_heavy_dataset_load": true,
+    "raw_csv_sizes_taken_from_audited_artifacts_not_reloaded": true,
+    "no_xai_streamlit_fedavg_git": true,
+    "existing_test_metrics_used_for_diagnosis_only": true,
+    "no_taxonomy_change_to_inflate": true,
+    "weak_classes_reported_not_hidden": true
+  },
+  "deliverables_created": [
+    "docs/experiments/UNSW_HIERARCHICAL_IMPROVEMENT_AUDIT.md",
+    "docs/experiments/UNSW_HIERARCHICAL_IMPROVEMENT_ROADMAP.md",
+    "results/audits/unsw_hierarchical_improvement_audit.json",
+    "results/audits/unsw_hierarchical_improvement_candidates.csv",
+    "results/audits/unsw_hierarchical_current_error_summary.csv"
+  ],
+  "deliverable_notes": {
+    "unsw_hierarchical_improvement_candidates_csv": "This canonical path previously held a stale A9.5-era 7-candidate list (columns candidate_id,name,category,exact_change,expected_benefit,main_risk,a9_5_decision). It has been refreshed to the requested post-A9.8/A9.9 schema and ranking. The superseded A9.5 content remains documented in this audit's previous_experiments history."
+  },
+  "next_main_control_decision": "approve_or_reject_next_unsw_improvement_experiment_preparation"
+}

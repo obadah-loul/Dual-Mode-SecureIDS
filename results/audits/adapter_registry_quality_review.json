@@ -1,0 +1,62 @@
+{
+  "audit_name": "adapter_registry_quality_review",
+  "task_type": "quality_review",
+  "generated_on": "2026-06-24",
+  "phase_a_result": "clean",
+  "serious_issue_found": false,
+  "reviewed_files": [
+    "secureids/datasets/schema_detector.py",
+    "secureids/datasets/router.py",
+    "secureids/datasets/adapter_contracts.py",
+    "secureids/datasets/adapter_registry.py",
+    "tests/test_schema_detector_router.py",
+    "tests/test_adapter_registry.py",
+    "docs/SCHEMA_DETECTOR_AND_ROUTER.md",
+    "docs/ADAPTER_INTERFACE_AND_PIPELINE_REGISTRY.md",
+    "results/audits/schema_detector_router_audit.json",
+    "results/audits/adapter_interface_registry_audit.json"
+  ],
+  "created_or_modified_files": [
+    "docs/ADAPTER_REGISTRY_QUALITY_REVIEW.md",
+    "results/audits/adapter_registry_quality_review.json"
+  ],
+  "checks": {
+    "schema_naming_clean": true,
+    "concept_separation_clean": true,
+    "no_fake_claims_found": true,
+    "detection_robustness_acceptable": true,
+    "registry_quality_acceptable": true,
+    "tests_lightweight_and_relevant": true
+  },
+  "issues": [],
+  "warnings": [
+    "Default python interpreter did not have pytest installed; the same narrow test selection passed in the project virtual environment.",
+    "Checkpoint existence is artifact status only and is not final accepted evidence.",
+    "models/final/final_cicids_hierarchical.pt remains missing or unconfirmed."
+  ],
+  "test_commands_run": [
+    {
+      "command": "python -m pytest tests/test_schema_detector_router.py tests/test_adapter_registry.py -q",
+      "result": "not_executed_default_python_missing_pytest",
+      "detail": "C:\\Python314\\python.exe: No module named pytest"
+    },
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_schema_detector_router.py tests/test_adapter_registry.py -q",
+      "result": "passed",
+      "detail": "20 passed in 0.26s"
+    }
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "result_files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_predictions_or_metrics_claimed": false
+  },
+  "continue_to_phase_b": true
+}

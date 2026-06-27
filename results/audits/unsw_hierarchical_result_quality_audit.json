@@ -1,0 +1,281 @@
+{
+  "status": "a9_5_audit_and_controlled_improvement_plan_created",
+  "task": "A9.5 UNSW hierarchical result-quality audit and controlled improvement plan",
+  "a9_checkpoint": "models/final/final_unsw_hierarchical.pt",
+  "a9_result_dir": "results/final/hierarchical/unsw/",
+  "corrected_unsw_protocol_confirmed": true,
+  "a9_valid_baseline": true,
+  "a9_acceptable_as_final": false,
+  "head1_summary": {
+    "assessment": "strong_binary_head_preserve_as_safety_anchor",
+    "accuracy": 0.896808,
+    "precision": 0.874289,
+    "recall": 0.949043,
+    "f1": 0.910133,
+    "macro_f1": 0.894488,
+    "tn": 30814,
+    "fp": 6186,
+    "fn": 2310,
+    "tp": 43022,
+    "attack_false_negatives": 2310,
+    "threshold_assessment": "attack_recall_is_acceptable_for_ids_baseline_false_positive_burden_is_visible_do_not_change_threshold_in_a9_6"
+  },
+  "head2_summary": {
+    "assessment": "limiting_component_needs_controlled_improvement",
+    "attack_rows_evaluated": 45332,
+    "attack_family_accuracy": 0.766478,
+    "attack_family_macro_f1": 0.500429,
+    "per_class_f1": {
+      "Generic": 0.980808,
+      "Exploits": 0.69072,
+      "Fuzzers": 0.767899,
+      "DoS": 0.387737,
+      "Reconnaissance": 0.822659,
+      "Analysis": 0.01233,
+      "Backdoor": 0.07037,
+      "Shellcode": 0.439909,
+      "Worms": 0.331429
+    }
+  },
+  "rare_class_summary": {
+    "rare_class_macro_f1": 0.385669,
+    "classes": {
+      "Shellcode": {
+        "precision": 0.307937,
+        "recall": 0.769841,
+        "f1": 0.439909,
+        "support": 378
+      },
+      "Worms": {
+        "precision": 0.221374,
+        "recall": 0.659091,
+        "f1": 0.331429,
+        "support": 44
+      }
+    },
+    "assessment": "class_weighting_likely_helped_rare_recall_but_precision_is_low"
+  },
+  "routing_summary": {
+    "benign_correctly_stopped": {
+      "count": 30814,
+      "total": 37000,
+      "rate": 0.8328
+    },
+    "benign_flagged_as_attack": {
+      "count": 6186,
+      "total": 37000,
+      "rate": 0.1672
+    },
+    "attack_detected_and_correctly_attributed": {
+      "count": 32674,
+      "total": 45332,
+      "rate": 0.7208
+    },
+    "attack_detected_but_wrong_family": {
+      "count": 10348,
+      "total": 45332,
+      "rate": 0.2283
+    },
+    "attack_missed_as_benign": {
+      "count": 2310,
+      "total": 45332,
+      "rate": 0.051
+    },
+    "assessment": "main_hierarchical_error_is_wrong_family_attribution_not_missed_attack_detection"
+  },
+  "weakest_classes": [
+    {
+      "class": "Analysis",
+      "f1": 0.01233,
+      "likely_issue": "extreme_overlap_and_class_imbalance"
+    },
+    {
+      "class": "Backdoor",
+      "f1": 0.07037,
+      "likely_issue": "extreme_overlap_and_class_imbalance"
+    },
+    {
+      "class": "Worms",
+      "f1": 0.331429,
+      "likely_issue": "rare_class_low_precision_despite_recall"
+    },
+    {
+      "class": "DoS",
+      "f1": 0.387737,
+      "likely_issue": "overlap_with_exploits_and_other_attack_traffic"
+    },
+    {
+      "class": "Shellcode",
+      "f1": 0.439909,
+      "likely_issue": "rare_class_precision_recall_tradeoff"
+    }
+  ],
+  "likely_failure_causes": [
+    "Head_2_must_solve_nine_way_attack_family_classification_with_imbalanced_support",
+    "UNSW_attack_family_feature_overlap_is_much_harder_than_binary_benign_vs_attack_detection",
+    "Analysis_Backdoor_DoS_and_Exploits_boundaries_are_likely_not_cleanly_separable_with_current_objective_pressure",
+    "Class_weighting_likely_improved_rare_recall_but_overpushes_some_rare_labels_causing_low_precision",
+    "Routing_is_secondary_because_missed_attack_rate_is_5_10_percent_while_wrong_family_rate_is_22_83_percent",
+    "Shared_encoder_and_validation_objective_may_still_be_too_dominated_by_the_easier_binary_head"
+  ],
+  "validation_test_gap_summary": {
+    "best_validation_epoch": 35,
+    "epochs_run": 40,
+    "best_validation_hierarchical_score": 0.762364,
+    "validation_binary_macro_f1": 0.93309,
+    "test_binary_macro_f1": 0.894488,
+    "binary_macro_f1_gap": -0.038602,
+    "validation_attack_family_macro_f1": 0.591638,
+    "test_attack_family_macro_f1": 0.500429,
+    "attack_family_macro_f1_gap": -0.091209,
+    "assessment": "gap_is_expected_under_corrected_unsw_protocol_but_head2_generalization_gap_is_large_enough_to_justify_one_controlled_improvement"
+  },
+  "class_weight_tradeoff_summary": {
+    "assessment": "rare_class_recall_is_reasonable_but_precision_is_low_indicating_class_weights_helped_detection_at_the_cost_of_over_assignment",
+    "do_not_change_first": "attack_class_weight_cap",
+    "reason": "changing_weight_cap_first_would_mix_rare_precision_recall_calibration_with_the_primary_question_of_head2_objective_pressure"
+  },
+  "improvement_candidates": [
+    {
+      "id": "A",
+      "name": "increase_attack_loss_weight",
+      "example_change": "binary_loss_weight_1_0_attack_loss_weight_1_5",
+      "benefit": "directly_increases_head2_training_pressure",
+      "risk": "could_hurt_head1_if_too_large",
+      "decision": "recommended"
+    },
+    {
+      "id": "B",
+      "name": "adjust_checkpoint_selection_toward_head2",
+      "example_change": "val_score_0_35_binary_macro_f1_0_65_attack_family_macro_f1",
+      "benefit": "may_select_better_head2_epoch",
+      "risk": "does_not_change_learned_boundaries",
+      "decision": "backup"
+    },
+    {
+      "id": "C",
+      "name": "head2_focal_loss_only",
+      "example_change": "attack_head_focal_loss_gamma_1_5_or_2_0",
+      "benefit": "focuses_hard_attack_family_examples",
+      "risk": "may_destabilize_rare_precision_when_combined_with_class_weights",
+      "decision": "backup"
+    },
+    {
+      "id": "D",
+      "name": "adjust_attack_class_weight_cap",
+      "example_change": "cap_6_8_or_12_instead_of_10",
+      "benefit": "changes_rare_precision_recall_balance",
+      "risk": "could_weaken_rare_recall_or_overpush_rare_labels",
+      "decision": "not_first"
+    },
+    {
+      "id": "E",
+      "name": "learning_rate_scheduler_or_schedule_change",
+      "example_change": "reduce_on_plateau_or_cosine_if_supported",
+      "benefit": "may_improve_convergence_without_objective_change",
+      "risk": "adds_complexity_without_targeting_head2_directly",
+      "decision": "not_first"
+    },
+    {
+      "id": "F",
+      "name": "longer_training_with_strict_validation_selection",
+      "example_change": "max_epochs_60_patience_8",
+      "benefit": "could_capture_late_head2_improvement",
+      "risk": "may_overfit_or_spend_time_for_small_gain",
+      "decision": "not_first"
+    },
+    {
+      "id": "G",
+      "name": "small_capacity_or_regularization_change",
+      "example_change": "slightly_larger_encoder_or_lower_dropout",
+      "benefit": "could_improve_hard_boundaries",
+      "risk": "higher_overfit_and_random_tuning_risk",
+      "decision": "not_first"
+    }
+  ],
+  "recommended_a9_6_experiment": "head2_loss_weight",
+  "recommended_a9_6_exact_changes": {
+    "experiment_name": "A9.6 head2_loss_weight",
+    "hypothesis": "moderately_increasing_attack_family_loss_weight_will_improve_head2_macro_f1_without_material_head1_regression",
+    "config_to_create_after_approval": "configs/training/unsw_nb15_hierarchical_a9_6_head2_loss_weight.yaml",
+    "start_from_config": "configs/training/unsw_nb15_hierarchical.yaml",
+    "binary_loss_weight": 1.0,
+    "attack_loss_weight": 1.5,
+    "keep_unchanged": [
+      "corrected_unsw_protocol",
+      "input_dim_192",
+      "attack_head_dim_9",
+      "model_family",
+      "binary_threshold",
+      "attack_class_weight_cap",
+      "class_weight_generation_method",
+      "focal_loss_disabled",
+      "architecture",
+      "optimizer_family",
+      "scheduler",
+      "max_epochs",
+      "early_stopping_policy"
+    ],
+    "checkpoint": "models/final/final_unsw_hierarchical_a9_6_head2_loss_weight.pt",
+    "result_dir": "results/final/hierarchical/unsw_a9_6_head2_loss_weight/",
+    "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15_a9_6_head2_loss_weight.json",
+    "manual_training_command_after_approval": "python -m secureids.training.train_hierarchical --config configs\\training\\unsw_nb15_hierarchical_a9_6_head2_loss_weight.yaml",
+    "command_note": "if_the_existing_A9_training_entrypoint_uses_a_project_script_reuse_that_entrypoint_and_change_only_the_config_path"
+  },
+  "recommended_a9_6_success_criteria": {
+    "attack_family_macro_f1_min": 0.535,
+    "attack_family_accuracy_min": 0.76,
+    "binary_macro_f1_min": 0.884,
+    "binary_f1_min": 0.905,
+    "attack_false_negatives_max": 2450,
+    "benign_false_positives_max": 7000,
+    "rare_class_macro_f1_min": 0.385669,
+    "shellcode_f1_min": 0.409909,
+    "worms_f1_min": 0.281429,
+    "weak_class_requirement": "at_least_one_of_Analysis_Backdoor_or_DoS_must_improve_without_rare_class_collapse"
+  },
+  "recommended_a9_6_failure_criteria": [
+    "binary_macro_f1_below_0_884",
+    "binary_f1_below_0_905",
+    "attack_false_negatives_above_2450",
+    "benign_false_positives_above_7000",
+    "attack_family_macro_f1_improves_by_less_than_0_020_absolute",
+    "head2_gain_comes_only_from_already_strong_classes_while_weak_classes_degrade",
+    "rare_class_macro_f1_below_0_385669",
+    "shellcode_precision_below_0_250000",
+    "worms_precision_below_0_180000",
+    "analysis_and_backdoor_remain_near_zero_while_other_classes_absorb_improvement",
+    "data_protocol_or_output_paths_change",
+    "required_metric_or_manifest_files_missing",
+    "nan_or_incomplete_training"
+  ],
+  "a9_6_should_train_now": false,
+  "training_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "a9_artifacts_modified": false,
+  "cicids_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "manual_commands_for_user": [
+    "Write-Host \"`n=== A9.5 result-quality audit outputs ===\"",
+    "Get-Item docs\\UNSW_HIERARCHICAL_RESULT_QUALITY_AUDIT.md",
+    "Get-Item docs\\UNSW_HIERARCHICAL_IMPROVEMENT_PLAN.md",
+    "Get-Item results\\audits\\unsw_hierarchical_result_quality_audit.json",
+    "Get-Item results\\audits\\unsw_hierarchical_improvement_candidates.csv -ErrorAction SilentlyContinue",
+    "Get-Item results\\audits\\unsw_hierarchical_error_profile.csv -ErrorAction SilentlyContinue",
+    "Write-Host \"`n=== A9.5 JSON summary ===\"",
+    "$a = Get-Content results\\audits\\unsw_hierarchical_result_quality_audit.json -Raw | ConvertFrom-Json",
+    "$a | Select-Object status,a9_valid_baseline,a9_acceptable_as_final,recommended_a9_6_experiment,a9_6_should_train_now,training_was_run,checkpoints_created,final_metrics_created,a9_artifacts_modified,cicids_started,fedavg_security_xai_dashboard_started,git_operations_run | Format-List",
+    "Write-Host \"`n=== A9.5 audit doc ===\"",
+    "Get-Content docs\\UNSW_HIERARCHICAL_RESULT_QUALITY_AUDIT.md -Raw",
+    "Write-Host \"`n=== A9.5 improvement plan ===\"",
+    "Get-Content docs\\UNSW_HIERARCHICAL_IMPROVEMENT_PLAN.md -Raw",
+    "Write-Host \"`n=== Confirm A9 checkpoint still exists and unchanged by A9.5 ===\"",
+    "Get-Item models\\final\\final_unsw_hierarchical.pt",
+    "Write-Host \"`n=== Confirm no A9.6 checkpoint was created ===\"",
+    "Get-ChildItem models\\final -Filter \"*a9_6*\" -ErrorAction SilentlyContinue | Select-Object Name,Length,LastWriteTime",
+    "Write-Host \"`n=== Confirm no A9.6 result folder was created ===\"",
+    "Get-ChildItem results\\final\\hierarchical -Directory -Filter \"*a9_6*\" -ErrorAction SilentlyContinue | Select-Object Name,LastWriteTime"
+  ]
+}

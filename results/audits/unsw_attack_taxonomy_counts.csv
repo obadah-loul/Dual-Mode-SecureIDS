@@ -1,0 +1,10 @@
+raw_label,mapped_attack_family,common_superclass,support_count,support_percent,is_rare
+Generic,Generic,Generic/Other,58871,35.750244,false
+Exploits,Exploits,Exploitation,44525,27.038434,false
+Fuzzers,Fuzzers,Exploitation,24246,14.723725,false
+DoS,DoS,DoS/DDoS,16353,9.93059,false
+Reconnaissance,Reconnaissance,Reconnaissance,13987,8.493803,false
+Analysis,Analysis,Reconnaissance,2677,1.625646,false
+Backdoor,Backdoor,Malware/Botnet,2329,1.414318,false
+Shellcode,Shellcode,Exploitation,1511,0.917576,true
+Worms,Worms,Malware/Botnet,174,0.105664,true

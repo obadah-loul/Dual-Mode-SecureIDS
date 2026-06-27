@@ -1,0 +1,98 @@
+{
+  "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\preprocessing\\unsw_nb15_binary.yaml",
+  "config_snapshot": {
+    "artifact_path": "models/final/preprocessors/unsw_nb15_binary_preprocessor.joblib",
+    "binary_mapping": {
+      "attack_value": 1,
+      "normal_value": 0
+    },
+    "categorical_columns": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "cleaning": {
+      "numeric_coerce": true,
+      "replace_inf_with_nan": true,
+      "strip_column_whitespace": true
+    },
+    "dataset": "unsw_nb15",
+    "drop_columns": [
+      "id",
+      "label",
+      "attack_cat"
+    ],
+    "encoding": {
+      "categorical_encoder": "onehot",
+      "fit_on": "train_only",
+      "handle_unknown": "ignore"
+    },
+    "imputation": {
+      "fit_on": "train_only",
+      "numeric_strategy": "median"
+    },
+    "output_dir": "data/processed/unsw_nb15/binary",
+    "scaling": {
+      "fit_on": "train_only",
+      "type": "standard"
+    },
+    "split": {
+      "random_seed": 42,
+      "strategy": "official_train_test_with_validation_from_train",
+      "val_size_from_train": 0.15
+    },
+    "target_column": "label",
+    "task": "binary",
+    "test_file": "data/raw/unsw_nb15/UNSW_NB15_testing-set.csv",
+    "train_file": "data/raw/unsw_nb15/UNSW_NB15_training-set.csv"
+  },
+  "dataset": "unsw_nb15",
+  "feature_count": 190,
+  "input_paths": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_training-set.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_testing-set.csv"
+  ],
+  "memory_strategy": "Official UNSW training/testing files processed in memory; validation split created only from official training data.",
+  "no_model_metrics_created": true,
+  "no_training_performed": true,
+  "output_paths": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_train.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_train.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_val.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_val.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_test.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_test.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\feature_names.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\label_mapping.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\split_summary.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\preprocessing_manifest.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\unsw_nb15_binary_preprocessor.joblib"
+  ],
+  "random_seed": 42,
+  "split_summary": {
+    "test": {
+      "label_distribution": {
+        "0": 56000,
+        "1": 119341
+      },
+      "rows": 175341
+    },
+    "total_rows": 257673,
+    "train": {
+      "label_distribution": {
+        "0": 31450,
+        "1": 38532
+      },
+      "rows": 69982
+    },
+    "val": {
+      "label_distribution": {
+        "0": 5550,
+        "1": 6800
+      },
+      "rows": 12350
+    }
+  },
+  "task": "binary",
+  "timestamp_utc": "2026-06-23T15:42:12.040685+00:00"
+}

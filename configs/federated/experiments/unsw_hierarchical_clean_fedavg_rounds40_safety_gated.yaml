@@ -1,0 +1,134 @@
+status: not_run_yet
+dataset: unsw_nb15
+task: hierarchical_federated
+protocol_label: unsw_hierarchical_clean_fedavg_rounds40_safety_gated
+protocol_identity: unsw_hierarchical_clean_fedavg_rounds40_safety_gated_from_scratch_v1
+
+improvement_notes:
+  - Isolated UNSW hierarchical federated clean FedAvg safety-gated rerun.
+  - "Training dynamics unchanged from rounds=40 improvement config."
+  - Uses verified 192-feature UNSW hierarchical artifacts.
+  - No legacy binary artifacts.
+  - Selection is validation-only and safety-gated on missed-as-benign rate.
+  - Do not overwrite baseline or prior rounds=40 partial result.
+
+acceptance_criteria:
+  test_missed_as_benign_rate_max: 0.067097
+  binary_macro_f1_min: 0.875000
+  attack_family_macro_f1_target: 0.491000
+  rare_class_macro_f1_min: 0.307115
+  rare_class_macro_f1_target: 0.340000
+  validation_only_selection: true
+  no_test_tuning: true
+  not_promoted_automatically: true
+
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  input_dim: 192
+  attack_head_dim: 9
+  hidden_dims: [256, 128, 128]
+  dropout: 0.20
+  normalization: layernorm
+  attack_head_type: linear
+
+hierarchical_data:
+  processed_dir: data/processed/unsw_nb15/hierarchical
+  feature_names: data/processed/unsw_nb15/hierarchical/feature_names.json
+  attack_family_label_mapping: data/processed/unsw_nb15/hierarchical/attack_family_label_mapping.json
+  preprocessing_manifest: data/processed/unsw_nb15/hierarchical/hierarchical_preprocessing_manifest.json
+
+centralized_reference:
+  checkpoint: models/final/final_unsw_hierarchical.pt
+  sha256: 5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA
+  status: A9_ACCEPTED_FROZEN_BASELINE
+  use: reference_only
+  warm_start_from_centralized: false
+  metrics:
+    binary_macro_f1: 0.894488
+    attack_family_macro_f1: 0.500429
+    rare_class_macro_f1: 0.385669
+
+initialization: from_scratch
+
+federation:
+  num_clients: 5
+  client_split: attack_family_aware_iid
+  min_attack_family_support_per_client: 1
+  non_iid_planned: true
+  seed: 42
+  rounds: 40
+  client_fraction: 1.0
+  local_epochs: 1
+  execute_gate_required: true
+
+training:
+  seed: 42
+  batch_size: 1024
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  threshold: 0.5
+
+loss:
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.0
+  ignore_index: -1
+
+aggregation:
+  strategy: fedavg
+
+attack:
+  enabled: false
+  type: none
+  malicious_fraction: 0.0
+  seed: 42
+
+selection:
+  strategy: safety_gated_hierarchical_score
+  safety_metric: val_attack_missed_as_benign_rate
+  relative_margin: 0.005
+  absolute_max_missed_as_benign: 0.067097
+  fallback: safest_round
+  save_per_round_checkpoints: true
+  per_round_checkpoint_dir: results/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg/round_checkpoints
+  tie_breakers:
+    - val_attack_family_macro_f1
+    - val_rare_class_macro_f1
+    - earliest_round
+
+integrity:
+  sha256_update_hashing: true
+  verify_before_aggregation: true
+  secure_aggregation: future_optional
+
+outputs:
+  checkpoint: models/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg.pt
+  result_dir: results/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg
+  round_history: results/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg/round_history.csv
+  client_distribution: results/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg/client_distribution.csv
+  test_metrics: results/experiments/federated_hierarchical_v2/unsw_safety_gated_rounds40_clean_fedavg/test_metrics.json
+  audit_json: results/audits/federated_hierarchical_v2_unsw_safety_gated_rounds40_clean_fedavg_manifest.json
+  report_md: docs/experiments/FEDERATED_HIERARCHICAL_V2_UNSW_SAFETY_GATED_ROUNDS40_CLEAN_FEDAVG_REPORT.md
+
+dataset_warnings:
+  - Weak attack-family macro-F1 remains a limitation.
+  - Weak rare-class macro-F1 remains a limitation.
+  - Analysis Backdoor DoS and Exploits confusion remains difficult.
+  - A11 is rejected diagnostic only and must not be used as final.
+  - Safety-gated run must not be promoted automatically.
+
+rare_classes:
+  - Shellcode
+  - Worms
+
+safety:
+  dry_run_writes_outputs: false
+  training_allowed_in_scaffold: false
+  evaluation_allowed_in_scaffold: false
+  no_final_path_writes: true
+  models_final_write_allowed: false
+  results_final_write_allowed: false
+  a11_excluded_as_final: true
+  a11_used_as_final: false
+  no_test_tuning: true
+  do_not_rerun_dataset_optimization: true

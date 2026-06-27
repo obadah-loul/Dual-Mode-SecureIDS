@@ -1,0 +1,62 @@
+{
+  "attack_class_weights": [
+    0.063296,
+    0.069073,
+    1.275454,
+    0.077189,
+    0.140041,
+    0.257372,
+    0.500323,
+    0.097952,
+    0.119262,
+    0.121105,
+    0.130359,
+    2.120485,
+    3.501122,
+    5.526966
+  ],
+  "attack_class_weights_by_name": {
+    "Bot": 0.097952,
+    "DDoS-HOIC": 0.063296,
+    "DDoS-LOIC-HTTP": 0.069073,
+    "DDoS-LOIC-UDP": 1.275454,
+    "DoS-GoldenEye": 0.257372,
+    "DoS-Hulk": 0.077189,
+    "DoS-SlowHTTPTest": 0.140041,
+    "DoS-Slowloris": 0.500323,
+    "FTP-BruteForce": 0.119262,
+    "Infilteration / Infiltration": 0.130359,
+    "SQL-Injection": 5.526966,
+    "SSH-Bruteforce": 0.121105,
+    "Web-BruteForce": 2.120485,
+    "Web-XSS": 3.501122
+  },
+  "binary_class_weights": {
+    "0": 0.571053,
+    "1": 1.428947
+  },
+  "binary_pos_weight": 2.502302,
+  "computed_from_train_only": true,
+  "created_utc": "2026-06-25T10:37:36.812701+00:00",
+  "dataset": "cicids2018",
+  "id_to_class": {
+    "0": "DDoS-HOIC",
+    "1": "DDoS-LOIC-HTTP",
+    "10": "Infilteration / Infiltration",
+    "11": "Web-BruteForce",
+    "12": "Web-XSS",
+    "13": "SQL-Injection",
+    "2": "DDoS-LOIC-UDP",
+    "3": "DoS-Hulk",
+    "4": "DoS-SlowHTTPTest",
+    "5": "DoS-GoldenEye",
+    "6": "DoS-Slowloris",
+    "7": "Bot",
+    "8": "FTP-BruteForce",
+    "9": "SSH-Bruteforce"
+  },
+  "source_split": "train",
+  "test_labels_used": false,
+  "validation_labels_used": false,
+  "weight_cap": 10.0
+}

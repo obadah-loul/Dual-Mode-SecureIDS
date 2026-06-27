@@ -1,0 +1,93 @@
+{
+  "audit_name": "train_hierarchical_cli_gate_fix",
+  "task_type": "focused_cli_gate_resolution",
+  "generated_on": "2026-06-24",
+  "created_or_modified_files": [
+    "secureids/cli.py",
+    "tests/test_train_hierarchical_cli_gate.py",
+    "docs/TRAIN_HIERARCHICAL_CLI_GATE_FIX.md",
+    "results/audits/train_hierarchical_cli_gate_fix.json"
+  ],
+  "inspected_files": [
+    "secureids/cli.py",
+    "configs/training/unsw_nb15_hierarchical.yaml",
+    "configs/training/cicids2018_hierarchical.yaml",
+    "configs/training/multiseed/unsw_a9_linear_seed42.yaml",
+    "tests/test_hierarchical_training_config.py",
+    "tests/test_hierarchical_trainer_safety.py",
+    "docs/CICIDS_HIERARCHICAL_TRAINING_READINESS.md",
+    "results/audits/cicids_hierarchical_training_readiness.json"
+  ],
+  "previous_blocker": "train-hierarchical CLI gate allowed UNSW/A9 only and blocked CICIDS hierarchical training.",
+  "gate_location": "secureids/cli.py handle_train_hierarchical previously rejected config.dataset != 'unsw_nb15' before trainer import.",
+  "gate_change": "Replaced the UNSW-only A9 check with a side-effect-free dataset alias and config pairing helper used before trainer import.",
+  "allowed_dataset_aliases": {
+    "unsw_nb15": [
+      "unsw",
+      "unsw_nb15",
+      "unsw-nb15"
+    ],
+    "cicids2018": [
+      "cicids",
+      "cicids2018",
+      "cicids-2018"
+    ]
+  },
+  "canonical_dataset_ids": {
+    "unsw": "unsw_nb15",
+    "unsw_nb15": "unsw_nb15",
+    "unsw-nb15": "unsw_nb15",
+    "cicids": "cicids2018",
+    "cicids2018": "cicids2018",
+    "cicids-2018": "cicids2018"
+  },
+  "config_pairing_rules": {
+    "unsw_nb15": "must use UNSW hierarchical training config",
+    "cicids2018": "must use CICIDS hierarchical training config"
+  },
+  "specific_config_rules": {
+    "unsw_nb15": "Allows UNSW hierarchical config names, including loaded hierarchical UNSW A9/A9.6/A9.7/A9.8 variants such as unsw_a9_*.",
+    "cicids2018": "Requires cicids2018_hierarchical.yaml."
+  },
+  "rejected_cases": [
+    "unsupported dataset names",
+    "CICIDS dataset with UNSW config",
+    "UNSW dataset with CICIDS config",
+    "binary configs for train-hierarchical",
+    "smoke configs for train-hierarchical",
+    "unrelated configs",
+    "non-hierarchical config task values",
+    "wrong dataset-specific input dimensions"
+  ],
+  "training_or_heavy_actions_performed": false,
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "existing_result_files_modified_except_this_audit": false,
+    "files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_predictions_or_metrics_claimed": false
+  },
+  "tests_added": [
+    "tests/test_train_hierarchical_cli_gate.py"
+  ],
+  "tests_run": false,
+  "test_run_note": "Tests were not run because the task explicitly said not to run tests unless approved.",
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "Get-Content \"results\\audits\\train_hierarchical_cli_gate_fix.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "risks": [
+    "Tests and JSON validation were prepared but not run in this task.",
+    "CICIDS hierarchical training still requires a fresh readiness audit and explicit controller approval before manual execution.",
+    "The CLI gate now permits CICIDS to reach trainer preconditions, but the trainer remains responsible for final overwrite and artifact safety."
+  ],
+  "next_step": "rerun_cicids_hierarchical_training_readiness_audit_before_manual_training"
+}

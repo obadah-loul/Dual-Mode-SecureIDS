@@ -1,0 +1,239 @@
+{
+  "checkpoint_created": false,
+  "config": {
+    "attack_head_dim": 14,
+    "base_config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\training\\cicids2018_hierarchical.yaml",
+    "final_metrics": false,
+    "hierarchical_data_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\hierarchical",
+    "input_dim": 77,
+    "model_name": "SecureIDSHierarchicalAdvancedNet",
+    "save_checkpoint": false,
+    "smoke_config_path": "configs\\training\\smoke_cicids2018_hierarchical.yaml"
+  },
+  "created_at_utc": "2026-06-24T00:17:22.441475+00:00",
+  "dataset": "cicids2018",
+  "do_not_report_as_final": true,
+  "final_checkpoint": false,
+  "final_metrics_created": false,
+  "final_results": false,
+  "full_training_run": false,
+  "non_final": true,
+  "planning": {
+    "attack_family_class_count": 14,
+    "checks_passed": true,
+    "feature_count": 77,
+    "status": "PASS"
+  },
+  "readiness": {
+    "readiness_json": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\hierarchical_preprocessing_readiness_cicids2018.json",
+    "ready_for_hierarchical_model_implementation": true,
+    "status": "PASS"
+  },
+  "safety": {
+    "checkpoint_created": false,
+    "device": "cuda",
+    "do_not_report_as_final": true,
+    "final_checkpoint": false,
+    "final_metrics_created": false,
+    "final_results": false,
+    "full_training_run": false,
+    "hierarchical_fedavg_started": false,
+    "model_weights_saved": false,
+    "non_final": true,
+    "security_attack_xai_dashboard_started": false,
+    "smoke_only": true
+  },
+  "sample_selection": {
+    "test": {
+      "X_shape": [
+        1443773,
+        77
+      ],
+      "attack_family_classes_seen": [
+        7
+      ],
+      "attack_rows": 1024,
+      "benign_or_normal_rows": 1024,
+      "binary_class_counts": {
+        "0": 1024,
+        "1": 1024
+      },
+      "max_index": 8947,
+      "min_index": 0,
+      "selected_rows": 2048,
+      "split": "test"
+    },
+    "train": {
+      "X_shape": [
+        6737603,
+        77
+      ],
+      "attack_family_classes_seen": [
+        7
+      ],
+      "attack_rows": 2048,
+      "benign_or_normal_rows": 2048,
+      "binary_class_counts": {
+        "0": 2048,
+        "1": 2048
+      },
+      "max_index": 39079,
+      "min_index": 0,
+      "selected_rows": 4096,
+      "split": "train"
+    },
+    "val": {
+      "X_shape": [
+        1443772,
+        77
+      ],
+      "attack_family_classes_seen": [
+        7
+      ],
+      "attack_rows": 1024,
+      "benign_or_normal_rows": 1024,
+      "binary_class_counts": {
+        "0": 1024,
+        "1": 1024
+      },
+      "max_index": 8939,
+      "min_index": 0,
+      "selected_rows": 2048,
+      "split": "val"
+    }
+  },
+  "schema_version": "task_a7_hierarchical_smoke_training_v1",
+  "smoke_diagnostics_non_final": {
+    "test": {
+      "attack_family": {
+        "attack_family_classes_seen_in_smoke": [
+          7
+        ],
+        "attack_family_predicted_classes_seen_in_smoke": [
+          7
+        ],
+        "attack_rows_evaluated": 511,
+        "smoke_attack_family_accuracy": 1.0,
+        "smoke_attack_family_macro_f1_if_possible": 1.0
+      },
+      "batches_evaluated": 2,
+      "binary": {
+        "binary_confusion_counts": {
+          "fn": 0,
+          "fp": 115,
+          "tn": 398,
+          "tp": 511
+        },
+        "n_samples": 1024,
+        "smoke_binary_accuracy": 0.8876953125,
+        "smoke_binary_f1": 0.8988566402814424,
+        "smoke_binary_macro_f1": 0.886310866792752,
+        "smoke_binary_precision": 0.8162939297124601,
+        "smoke_binary_recall": 1.0,
+        "threshold": 0.5
+      },
+      "do_not_report_as_final": true,
+      "non_final": true
+    },
+    "val": {
+      "attack_family": {
+        "attack_family_classes_seen_in_smoke": [
+          7
+        ],
+        "attack_family_predicted_classes_seen_in_smoke": [
+          7
+        ],
+        "attack_rows_evaluated": 520,
+        "smoke_attack_family_accuracy": 1.0,
+        "smoke_attack_family_macro_f1_if_possible": 1.0
+      },
+      "batches_evaluated": 2,
+      "binary": {
+        "binary_confusion_counts": {
+          "fn": 0,
+          "fp": 86,
+          "tn": 418,
+          "tp": 520
+        },
+        "n_samples": 1024,
+        "smoke_binary_accuracy": 0.916015625,
+        "smoke_binary_f1": 0.9236234458259325,
+        "smoke_binary_macro_f1": 0.9151739788782591,
+        "smoke_binary_precision": 0.858085808580858,
+        "smoke_binary_recall": 1.0,
+        "threshold": 0.5
+      },
+      "do_not_report_as_final": true,
+      "non_final": true
+    }
+  },
+  "smoke_only": true,
+  "status": "PASS",
+  "training": {
+    "attack_loss_finite_or_zero": true,
+    "backward_pass_ok": true,
+    "batch_progress": [
+      {
+        "attack_loss": 2.849534034729004,
+        "attack_rows": 248,
+        "batch": 1,
+        "binary_loss": 0.7133627533912659,
+        "total_loss": 3.562896728515625
+      },
+      {
+        "attack_loss": 0.703274130821228,
+        "attack_rows": 243,
+        "batch": 2,
+        "binary_loss": 0.5826177597045898,
+        "total_loss": 1.2858918905258179
+      },
+      {
+        "attack_loss": 0.23716102540493011,
+        "attack_rows": 255,
+        "batch": 3,
+        "binary_loss": 0.49368953704833984,
+        "total_loss": 0.7308505773544312
+      },
+      {
+        "attack_loss": 0.13065274059772491,
+        "attack_rows": 277,
+        "batch": 4,
+        "binary_loss": 0.39621779322624207,
+        "total_loss": 0.5268705487251282
+      }
+    ],
+    "batches_run": 4,
+    "binary_loss_finite": true,
+    "first_batch_shapes": {
+      "X": [
+        512,
+        77
+      ],
+      "attack_family_mask": [
+        512
+      ],
+      "y_attack_family": [
+        512
+      ],
+      "y_binary": [
+        512
+      ]
+    },
+    "first_output_shapes": {
+      "attack_logits": [
+        512,
+        14
+      ],
+      "binary_logit": [
+        512
+      ],
+      "embedding": [
+        512,
+        128
+      ]
+    },
+    "forward_pass_ok": true,
+    "loss_finite": true,
+    "optimizer_step_updated_parameters": true
+  }
+}

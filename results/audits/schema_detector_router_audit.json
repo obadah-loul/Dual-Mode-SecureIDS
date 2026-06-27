@@ -1,0 +1,66 @@
+{
+  "audit_name": "schema_detector_router_audit",
+  "task_type": "schema_detector_router_foundation",
+  "generated_on": "2026-06-24",
+  "project_root": "C:/IDS/IDS_V2/Secure-Distributed-Intrusion-Detection_V2",
+  "created_or_modified_files": [
+    "secureids/datasets/schema_detector.py",
+    "secureids/datasets/router.py",
+    "tests/test_schema_detector_router.py",
+    "docs/SCHEMA_DETECTOR_AND_ROUTER.md",
+    "results/audits/schema_detector_router_audit.json"
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "model_checkpoints_modified": false,
+    "existing_training_configs_modified": false,
+    "files_deleted": false,
+    "git_commit_or_push": false,
+    "fake_predictions_or_metrics_claimed": false
+  },
+  "supported_schema_routes": [
+    "cicids2018",
+    "unsw_nb15",
+    "unknown"
+  ],
+  "detector_method": {
+    "uses_column_normalization": true,
+    "uses_multi_column_scoring": true,
+    "uses_confidence_threshold": true,
+    "uses_ambiguity_margin": true,
+    "single_column_detection_only": false
+  },
+  "router_outputs": [
+    "schema_id",
+    "adapter_id",
+    "preprocessing_config",
+    "hierarchical_preprocessing_config",
+    "taxonomy_config",
+    "checkpoint_family",
+    "dashboard_label",
+    "confidence",
+    "reason"
+  ],
+  "unknown_schema_policy": "clear_error_when_require_supported_true_otherwise_return_unknown_route",
+  "manual_professor_model_selection_required": false,
+  "prediction_or_model_loading_performed": false,
+  "tests_added": [
+    "tests/test_schema_detector_router.py"
+  ],
+  "manual_test_commands_for_user": [
+    "python -m pytest tests/test_schema_detector_router.py -q",
+    "python -c \"from secureids.datasets.schema_detector import detect_schema; from secureids.datasets.router import route_schema; print(detect_schema(['dur','proto','service','state','spkts','dpkts','sbytes','dbytes','attack_cat','label'])); print(route_schema(['Flow Duration','Total Fwd Packets','Total Backward Packets','Flow Bytes/s','Flow Packets/s','Fwd Packet Length Max','Bwd Packet Length Max','Protocol','Label']))\""
+  ],
+  "risks": [
+    "Column-only detection cannot prove semantic traffic origin.",
+    "Very small or mixed column subsets may correctly return unknown.",
+    "Checkpoint family values are identifiers for later integration, not final checkpoint claims.",
+    "The tests were added but not executed by this task per project boundary."
+  ],
+  "next_step": "return_to_project_controller_chat_for_main_control_update_before_training_or_dashboard_integration"
+}

@@ -1,0 +1,125 @@
+{
+  "artifact_created": false,
+  "artifact_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\unsw_nb15_binary_preprocessor.joblib",
+  "categorical_column_status": {
+    "proto": "present",
+    "service": "present",
+    "state": "present"
+  },
+  "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\preprocessing\\unsw_nb15_binary.yaml",
+  "config_validation_errors": [],
+  "configured_drop_column_status": {
+    "attack_cat": "present",
+    "id": "present",
+    "label": "present"
+  },
+  "dataset": "unsw_nb15",
+  "detected_column_count": 45,
+  "detected_columns": [
+    "id",
+    "dur",
+    "proto",
+    "service",
+    "state",
+    "spkts",
+    "dpkts",
+    "sbytes",
+    "dbytes",
+    "rate",
+    "sttl",
+    "dttl",
+    "sload",
+    "dload",
+    "sloss",
+    "dloss",
+    "sinpkt",
+    "dinpkt",
+    "sjit",
+    "djit",
+    "swin",
+    "stcpb",
+    "dtcpb",
+    "dwin",
+    "tcprtt",
+    "synack",
+    "ackdat",
+    "smean",
+    "dmean",
+    "trans_depth",
+    "response_body_len",
+    "ct_srv_src",
+    "ct_state_ttl",
+    "ct_dst_ltm",
+    "ct_src_dport_ltm",
+    "ct_dst_sport_ltm",
+    "ct_dst_src_ltm",
+    "is_ftp_login",
+    "ct_ftp_cmd",
+    "ct_flw_http_mthd",
+    "ct_src_ltm",
+    "ct_srv_dst",
+    "is_sm_ips_ports",
+    "attack_cat",
+    "label"
+  ],
+  "file_checks": [
+    {
+      "column_count": 45,
+      "error": "",
+      "exists": true,
+      "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_training-set.csv",
+      "sample_rows_inspected": 5,
+      "status": "ok"
+    },
+    {
+      "column_count": 45,
+      "error": "",
+      "exists": true,
+      "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_testing-set.csv",
+      "sample_rows_inspected": 5,
+      "status": "ok"
+    }
+  ],
+  "file_count": 2,
+  "files_found": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_training-set.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_testing-set.csv"
+  ],
+  "manifest_preview": {
+    "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\preprocessing\\unsw_nb15_binary.yaml",
+    "dataset": "unsw_nb15",
+    "input_paths": [
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_training-set.csv",
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_testing-set.csv"
+    ],
+    "output_paths": [
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary",
+      "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\unsw_nb15_binary_preprocessor.joblib"
+    ],
+    "random_seed": 42,
+    "timestamp_utc": "2026-06-23T15:40:48.826623+00:00"
+  },
+  "next_step_recommendation": "Review this dry-run report, then approve the preprocessing implementation phase before running real preprocessing.",
+  "processed_output_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary",
+  "processed_output_dir_exists": false,
+  "processed_outputs_created": false,
+  "raw_input_paths_checked": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_training-set.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\unsw_nb15\\UNSW_NB15_testing-set.csv"
+  ],
+  "split_policy": {
+    "random_seed": 42,
+    "strategy": "official_train_test_with_validation_from_train",
+    "val_size_from_train": 0.15
+  },
+  "status": "ok",
+  "target_column_status": {
+    "column": "label",
+    "present": true,
+    "status": "present"
+  },
+  "target_leakage_check_on_configured_features": {
+    "leaked_columns": [],
+    "passed": true
+  }
+}

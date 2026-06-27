@@ -1,0 +1,371 @@
+{
+  "generated_at_utc": "2026-06-23T20:08:45.424168+00:00",
+  "status": "PASS",
+  "dataset": "unsw_nb15",
+  "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\federated\\unsw_nb15_fedavg.yaml",
+  "model": {
+    "architecture": "SecureIDSNet",
+    "output_dim": 1
+  },
+  "input_dim": 190,
+  "algorithm": "FedAvg",
+  "num_clients": 5,
+  "seed": 42,
+  "client_split": "stratified_iid",
+  "processed_paths_checked": {
+    "processed_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary",
+    "X_train": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_train.npy",
+    "y_train": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_train.npy",
+    "X_val": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_val.npy",
+    "y_val": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_val.npy",
+    "X_test": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_test.npy",
+    "y_test": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_test.npy",
+    "feature_names": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\feature_names.json",
+    "label_mapping": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\label_mapping.json",
+    "preprocessing_manifest": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\preprocessing_manifest.json"
+  },
+  "centralized_references_checked": {
+    "checkpoint": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_binary.pt",
+    "metrics": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_test_metrics.json",
+    "manifest": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_unsw_nb15.json"
+  },
+  "feature_count": 190,
+  "train_label_count": 69982,
+  "client_distribution": [
+    {
+      "client_id": "client_00",
+      "total_samples": 13997,
+      "class_0_count": 6290,
+      "class_1_count": 7707,
+      "class_0_fraction": 0.4493820104308066,
+      "class_1_fraction": 0.5506179895691934
+    },
+    {
+      "client_id": "client_01",
+      "total_samples": 13997,
+      "class_0_count": 6290,
+      "class_1_count": 7707,
+      "class_0_fraction": 0.4493820104308066,
+      "class_1_fraction": 0.5506179895691934
+    },
+    {
+      "client_id": "client_02",
+      "total_samples": 13996,
+      "class_0_count": 6290,
+      "class_1_count": 7706,
+      "class_0_fraction": 0.4494141183195199,
+      "class_1_fraction": 0.5505858816804802
+    },
+    {
+      "client_id": "client_03",
+      "total_samples": 13996,
+      "class_0_count": 6290,
+      "class_1_count": 7706,
+      "class_0_fraction": 0.4494141183195199,
+      "class_1_fraction": 0.5505858816804802
+    },
+    {
+      "client_id": "client_04",
+      "total_samples": 13996,
+      "class_0_count": 6290,
+      "class_1_count": 7706,
+      "class_0_fraction": 0.4494141183195199,
+      "class_1_fraction": 0.5505858816804802
+    }
+  ],
+  "output_paths_planned": {
+    "checkpoint": "models/federated/fedavg_unsw_binary.pt",
+    "round_history": "results/federated/unsw/fedavg_round_history.csv",
+    "client_distribution": "results/federated/unsw/fedavg_client_distribution.csv",
+    "client_logs": "results/federated/unsw/fedavg_client_logs.csv",
+    "test_metrics": "results/federated/unsw/fedavg_test_metrics.json",
+    "confusion_matrix": "results/federated/unsw/fedavg_confusion_matrix.csv",
+    "manifest": "results/audits/fedavg_manifest_unsw_nb15.json",
+    "report": "docs/FEDERATED_LEARNING_REPORT.md"
+  },
+  "checks": [
+    {
+      "name": "dataset_argument_matches_config",
+      "passed": true,
+      "detail": {
+        "argument": "unsw_nb15",
+        "config": "unsw_nb15"
+      }
+    },
+    {
+      "name": "task_binary",
+      "passed": true,
+      "detail": "binary"
+    },
+    {
+      "name": "model_architecture_secureidsnet",
+      "passed": true,
+      "detail": "SecureIDSNet"
+    },
+    {
+      "name": "input_dim_expected",
+      "passed": true,
+      "detail": {
+        "actual": 190,
+        "expected": 190
+      }
+    },
+    {
+      "name": "algorithm_fedavg",
+      "passed": true,
+      "detail": "FedAvg"
+    },
+    {
+      "name": "client_count_valid",
+      "passed": true,
+      "detail": 5
+    },
+    {
+      "name": "client_split_stratified_iid",
+      "passed": true,
+      "detail": "stratified_iid"
+    },
+    {
+      "name": "processed_dir_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary"
+    },
+    {
+      "name": "X_train_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_train.npy"
+    },
+    {
+      "name": "y_train_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_train.npy"
+    },
+    {
+      "name": "X_val_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_val.npy"
+    },
+    {
+      "name": "y_val_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_val.npy"
+    },
+    {
+      "name": "X_test_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\X_test.npy"
+    },
+    {
+      "name": "y_test_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\y_test.npy"
+    },
+    {
+      "name": "feature_names_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\feature_names.json"
+    },
+    {
+      "name": "label_mapping_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\label_mapping.json"
+    },
+    {
+      "name": "preprocessing_manifest_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\preprocessing_manifest.json"
+    },
+    {
+      "name": "feature_names_json_loads_as_feature_names_key",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\binary\\feature_names.json"
+    },
+    {
+      "name": "feature_count_matches_input_dim",
+      "passed": true,
+      "detail": {
+        "feature_count": 190,
+        "input_dim": 190
+      }
+    },
+    {
+      "name": "X_train_shape_matches_input_dim",
+      "passed": true,
+      "detail": [
+        69982,
+        190
+      ]
+    },
+    {
+      "name": "centralized_checkpoint_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_binary.pt"
+    },
+    {
+      "name": "centralized_metrics_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_test_metrics.json"
+    },
+    {
+      "name": "centralized_manifest_exists",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_unsw_nb15.json"
+    },
+    {
+      "name": "centralized_manifest_readable",
+      "passed": true,
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_unsw_nb15.json"
+    },
+    {
+      "name": "manifest_test_set_used_for_tuning",
+      "passed": true,
+      "detail": {
+        "actual": false,
+        "expected": false
+      }
+    },
+    {
+      "name": "manifest_preprocessing_safety_check_passed",
+      "passed": true,
+      "detail": {
+        "actual": true,
+        "expected": true
+      }
+    },
+    {
+      "name": "manifest_final_checkpoint",
+      "passed": true,
+      "detail": {
+        "actual": true,
+        "expected": true
+      }
+    },
+    {
+      "name": "manifest_no_federated_training",
+      "passed": true,
+      "detail": {
+        "actual": true,
+        "expected": true
+      }
+    },
+    {
+      "name": "manifest_no_attack_simulation",
+      "passed": true,
+      "detail": {
+        "actual": true,
+        "expected": true
+      }
+    },
+    {
+      "name": "manifest_no_xai",
+      "passed": true,
+      "detail": {
+        "actual": true,
+        "expected": true
+      }
+    },
+    {
+      "name": "planned_checkpoint_under_models_federated",
+      "passed": true,
+      "detail": "models/federated/fedavg_unsw_binary.pt"
+    },
+    {
+      "name": "planned_manifest_under_results_audits",
+      "passed": true,
+      "detail": "results/audits/fedavg_manifest_unsw_nb15.json"
+    },
+    {
+      "name": "planned_report_under_docs",
+      "passed": true,
+      "detail": "docs/FEDERATED_LEARNING_REPORT.md"
+    },
+    {
+      "name": "planned_round_history_is_csv",
+      "passed": true,
+      "detail": "results/federated/unsw/fedavg_round_history.csv"
+    },
+    {
+      "name": "planned_client_distribution_is_csv",
+      "passed": true,
+      "detail": "results/federated/unsw/fedavg_client_distribution.csv"
+    },
+    {
+      "name": "planned_client_logs_is_csv",
+      "passed": true,
+      "detail": "results/federated/unsw/fedavg_client_logs.csv"
+    },
+    {
+      "name": "planned_confusion_matrix_is_csv",
+      "passed": true,
+      "detail": "results/federated/unsw/fedavg_confusion_matrix.csv"
+    },
+    {
+      "name": "planned_test_metrics_is_json",
+      "passed": true,
+      "detail": "results/federated/unsw/fedavg_test_metrics.json"
+    },
+    {
+      "name": "client_sample_counts_sum_to_y_train",
+      "passed": true,
+      "detail": {
+        "planned_total": 69982,
+        "train_label_count": 69982
+      }
+    },
+    {
+      "name": "X_train_rows_match_y_train_count",
+      "passed": true,
+      "detail": {
+        "X_train_rows": 69982,
+        "train_label_count": 69982
+      }
+    },
+    {
+      "name": "client_distribution_tracked",
+      "passed": true,
+      "detail": {
+        "clients": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "no_test_labels_used_for_client_split",
+      "passed": true,
+      "detail": "y_train only"
+    },
+    {
+      "name": "no_training_executed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_checkpoint_created",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_final_metrics_generated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_test_evaluation_run",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_security_attack_robust_xai_dashboard",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "failed_checks": [],
+  "safety_confirmation": {
+    "training_run": false,
+    "checkpoint_created": false,
+    "metrics_created": false,
+    "test_evaluation_run": false,
+    "no_test_leakage": true,
+    "security_attack_xai_dashboard_started": false
+  }
+}

@@ -1,0 +1,25 @@
+artifact_type,path,created_now,created_after_preprocessing_run,overwrite_allowed,purpose,notes
+code_module,secureids/preprocessing/unsw_a11_config.py,true,false,false,A11 config validation,Created now; side-effect free.
+code_module,secureids/preprocessing/unsw_a11_preprocessor.py,true,false,false,A11 preprocessing support,Created now; execution path exists but was not run.
+code_module,secureids/cli.py,false,false,false,CLI command registration,Modified now to add prepare-unsw-a11.
+cli_command,prepare-unsw-a11,true,false,false,A11 dry-run or future execute gate,Without --execute writes nothing.
+preprocessing_config,configs/preprocessing/experiments/unsw_a11_enhanced_feature_protocol.yaml,false,false,false,A11 protocol config,Modified now to add proto min_frequency and preprocessor artifact path.
+processed_data_dir,data/processed/unsw_a11_enhanced/,false,true,false,A11 processed data root,Must be created only by future approved --execute run.
+processed_data_dir,data/processed/unsw_a11_enhanced/hierarchical,false,true,false,A11 hierarchical arrays and mappings,Must not overwrite A9 processed data.
+processed_data_dir,data/processed/unsw_a11_enhanced/binary,false,true,false,A11 binary-compatible arrays,Must remain A11-specific.
+feature_names,data/processed/unsw_a11_enhanced/hierarchical/feature_names.json,false,true,false,A11 feature order,Created only after future preprocessing run.
+preprocessor_artifact,models/experiments/preprocessors/unsw_a11_enhanced/unsw_a11_enhanced_preprocessor.joblib,false,true,false,Train-fitted A11 preprocessing objects,Experiment path only; not models/final.
+category_inventory,results/audits/unsw_a11_feature_protocol_category_inventory.csv,false,true,false,Train-only category grouping inventory,Created only after future preprocessing run.
+feature_inventory,results/audits/unsw_a11_feature_protocol_feature_inventory.csv,false,true,false,A11 feature group inventory,Created only after future preprocessing run.
+separability_diagnostics,results/audits/unsw_a11_feature_protocol_separability_diagnostics.csv,false,true,false,Protocol diagnostic summary,No model evaluation metrics.
+preprocessing_audit_json,results/audits/unsw_a11_enhanced_feature_protocol_preprocessing_audit.json,false,true,false,A11 preprocessing audit,Created only after future preprocessing run.
+seed42_training_config,configs/training/experiments/unsw_a11_enhanced_feature_protocol_seed42.yaml,false,false,false,Future A11 seed42 training config,Dry config exists from prep; not executed.
+seed42_checkpoint,models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt,false,true,false,Future seed42 model checkpoint,Created only after separate future training approval.
+seed42_results,results/experiments/unsw_a11_enhanced_feature_protocol_seed42/,false,true,false,Future seed42 results,Created only after separate future training approval.
+seed42_report,docs/experiments/UNSW_A11_ENHANCED_FEATURE_PROTOCOL_SEED42_REPORT.md,false,true,false,Future seed42 report,Created only after separate future training approval.
+build_report,docs/experiments/UNSW_A11_PREPROCESSING_IMPLEMENTATION_BUILD_REPORT.md,true,false,false,Implementation build report,Created now.
+build_audit_json,results/audits/unsw_a11_preprocessing_implementation_build.json,true,false,false,Implementation build audit,Created now.
+expected_outputs_csv,results/audits/unsw_a11_preprocessing_expected_outputs.csv,true,false,false,Expected output inventory,Created now.
+test,tests/test_unsw_a11_preprocessing_config.py,true,false,false,Config validation tests,Created now.
+test,tests/test_unsw_a11_preprocessor.py,true,false,false,Preprocessor helper tests,Created now.
+test,tests/test_unsw_a11_cli.py,true,false,false,CLI gate tests,Created now.

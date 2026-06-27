@@ -1,0 +1,47 @@
+{
+  "attack_class_weights": [
+    0.224043,
+    0.244637,
+    0.332211,
+    0.404906,
+    0.437587,
+    1.008789,
+    1.06424,
+    1.329059,
+    3.954528
+  ],
+  "attack_class_weights_by_name": {
+    "Analysis": 1.008789,
+    "Backdoor": 1.06424,
+    "DoS": 0.404906,
+    "Exploits": 0.244637,
+    "Fuzzers": 0.332211,
+    "Generic": 0.224043,
+    "Reconnaissance": 0.437587,
+    "Shellcode": 1.329059,
+    "Worms": 3.954528
+  },
+  "binary_class_weights": {
+    "0": 1.361241,
+    "1": 0.638759
+  },
+  "binary_pos_weight": 0.469248,
+  "computed_from_train_only": true,
+  "created_utc": "2026-06-24T13:30:59.314480+00:00",
+  "dataset": "unsw_nb15",
+  "id_to_class": {
+    "0": "Generic",
+    "1": "Exploits",
+    "2": "Fuzzers",
+    "3": "DoS",
+    "4": "Reconnaissance",
+    "5": "Analysis",
+    "6": "Backdoor",
+    "7": "Shellcode",
+    "8": "Worms"
+  },
+  "source_split": "train",
+  "test_labels_used": false,
+  "validation_labels_used": false,
+  "weight_cap": 10.0
+}

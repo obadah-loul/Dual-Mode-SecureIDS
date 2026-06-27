@@ -1,0 +1,224 @@
+{
+  "view": "routed",
+  "is_oracle": false,
+  "is_routed_deployment_metric": true,
+  "note": "Frozen A9 Head 1 routes attacks into the specialist; bounded by Head 1 recall.",
+  "attack_total": 45332,
+  "attack_detected_and_correctly_attributed": 32608,
+  "attack_detected_and_correctly_attributed_rate": 0.7193152739786465,
+  "attack_detected_wrong_family": 10414,
+  "attack_missed_as_benign": 2310,
+  "attack_missed_as_benign_rate": 0.0509573810994441,
+  "routed_attack_family_macro_f1": 0.4773641165189237,
+  "per_class": [
+    {
+      "class_id": 0,
+      "class_name": "Generic",
+      "precision": 0.9998348745046235,
+      "recall": 0.963353839626644,
+      "f1": 0.9812554019014693,
+      "support": 18856
+    },
+    {
+      "class_id": 1,
+      "class_name": "Exploits",
+      "precision": 0.7780177313025688,
+      "recall": 0.6223858883433352,
+      "f1": 0.6915538492624773,
+      "support": 10998
+    },
+    {
+      "class_id": 2,
+      "class_name": "Fuzzers",
+      "precision": 0.8126009693053312,
+      "recall": 0.5046400802608477,
+      "f1": 0.6226210738047346,
+      "support": 3987
+    },
+    {
+      "class_id": 3,
+      "class_name": "DoS",
+      "precision": 0.3381823635272945,
+      "recall": 0.5567901234567901,
+      "f1": 0.42078746034707964,
+      "support": 4050
+    },
+    {
+      "class_id": 4,
+      "class_name": "Reconnaissance",
+      "precision": 0.8306405077899596,
+      "recall": 0.8282508630609896,
+      "f1": 0.8294439642754249,
+      "support": 3476
+    },
+    {
+      "class_id": 5,
+      "class_name": "Analysis",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 668
+    },
+    {
+      "class_id": 6,
+      "class_name": "Backdoor",
+      "precision": 0.06353722143195828,
+      "recall": 0.23183391003460208,
+      "f1": 0.09973948641607741,
+      "support": 578
+    },
+    {
+      "class_id": 7,
+      "class_name": "Shellcode",
+      "precision": 0.25671140939597314,
+      "recall": 0.8360655737704918,
+      "f1": 0.392811296534018,
+      "support": 366
+    },
+    {
+      "class_id": 8,
+      "class_name": "Worms",
+      "precision": 0.24,
+      "recall": 0.27906976744186046,
+      "f1": 0.2580645161290322,
+      "support": 43
+    }
+  ],
+  "confusion_matrix": [
+    [
+      18165,
+      393,
+      118,
+      119,
+      6,
+      0,
+      7,
+      41,
+      7
+    ],
+    [
+      0,
+      6845,
+      231,
+      2427,
+      299,
+      69,
+      760,
+      346,
+      21
+    ],
+    [
+      0,
+      353,
+      2012,
+      842,
+      193,
+      0,
+      288,
+      295,
+      4
+    ],
+    [
+      2,
+      826,
+      88,
+      2255,
+      49,
+      26,
+      715,
+      86,
+      3
+    ],
+    [
+      1,
+      155,
+      7,
+      250,
+      2879,
+      0,
+      75,
+      106,
+      3
+    ],
+    [
+      0,
+      115,
+      0,
+      426,
+      1,
+      0,
+      126,
+      0,
+      0
+    ],
+    [
+      0,
+      83,
+      2,
+      349,
+      3,
+      0,
+      134,
+      7,
+      0
+    ],
+    [
+      0,
+      5,
+      15,
+      0,
+      36,
+      0,
+      4,
+      306,
+      0
+    ],
+    [
+      0,
+      23,
+      3,
+      0,
+      0,
+      0,
+      0,
+      5,
+      12
+    ]
+  ],
+  "class_names": [
+    "Generic",
+    "Exploits",
+    "Fuzzers",
+    "DoS",
+    "Reconnaissance",
+    "Analysis",
+    "Backdoor",
+    "Shellcode",
+    "Worms"
+  ],
+  "rare_class": {
+    "rare_classes": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_class_macro_f1": 0.3254379063315251,
+    "per_rare_class": [
+      {
+        "class_name": "Shellcode",
+        "present": true,
+        "precision": 0.25671140939597314,
+        "recall": 0.8360655737704918,
+        "f1": 0.392811296534018,
+        "support": 366
+      },
+      {
+        "class_name": "Worms",
+        "present": true,
+        "precision": 0.24,
+        "recall": 0.27906976744186046,
+        "f1": 0.2580645161290322,
+        "support": 43
+      }
+    ]
+  }
+}

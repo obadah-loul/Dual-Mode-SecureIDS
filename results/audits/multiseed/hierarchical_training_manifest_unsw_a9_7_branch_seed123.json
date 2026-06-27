@@ -1,0 +1,137 @@
+{
+  "attack_family_class_count": 9,
+  "attack_head_dim": 9,
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\multiseed\\unsw_a9_7_branch_seed123.pt",
+  "checkpoint_selection": {
+    "best_epoch": 25,
+    "best_val_hierarchical_score": 0.760457,
+    "epochs_run": 31,
+    "formula": "0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1",
+    "monitor": "val_hierarchical_score",
+    "select_by_test_metrics": false,
+    "use_validation_only": true
+  },
+  "class_distribution_train": {
+    "0": 47600,
+    "1": 101439
+  },
+  "class_weights": {
+    "attack_class_weights": [
+      0.224043,
+      0.244637,
+      0.332211,
+      0.404906,
+      0.437587,
+      1.008789,
+      1.06424,
+      1.329059,
+      3.954528
+    ],
+    "binary_pos_weight": 0.469248,
+    "computed_from_train_only": true,
+    "source_split": "train",
+    "test_labels_used": false,
+    "validation_labels_used": false,
+    "weight_cap": 10.0
+  },
+  "config_path": "configs\\training\\multiseed\\unsw_a9_7_branch_seed123.yaml",
+  "created_utc": "2026-06-24T13:30:10.359417+00:00",
+  "cuda_available": true,
+  "dataset": "unsw_nb15",
+  "device": "cuda",
+  "feature_count": 192,
+  "gpu_name": "NVIDIA GeForce RTX 4070 Ti",
+  "hierarchical_data_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical",
+  "input_dim": 192,
+  "model": "SecureIDSHierarchicalAdvancedNet",
+  "output_paths": {
+    "attack_family_confusion_matrix_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\attack_family_confusion_matrix.csv",
+    "binary_confusion_matrix_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\binary_confusion_matrix.csv",
+    "class_weight_snapshot": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\class_weight_snapshot.json",
+    "hierarchical_routing_summary": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\hierarchical_routing_summary.json",
+    "model_summary": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\model_summary.json",
+    "per_class_attack_metrics_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\per_class_attack_metrics.csv",
+    "rare_class_metrics_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\rare_class_metrics.csv",
+    "report_md": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\docs\\multiseed\\HIERARCHICAL_TRAINING_REPORT_UNSW_A9_7_BRANCH_SEED123.md",
+    "test_metrics_json": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\test_metrics.json",
+    "training_config_snapshot": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\training_config_snapshot.yaml",
+    "training_history_csv": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\hierarchical\\multiseed\\unsw_a9_7_branch_seed123\\training_history.csv"
+  },
+  "protocol": "A8.8 corrected UNSW benchmark protocol",
+  "safety": {
+    "checkpoint_selected_by_test_metrics": false,
+    "cicids_hierarchical_training_run": false,
+    "class_weights_train_only": true,
+    "final_checkpoint": true,
+    "no_federated_training": true,
+    "no_security_attack_trimmed_mean_xai_dashboard": true,
+    "old_unsw_pre_correction_baselines_used_as_final": false,
+    "test_set_used_for_tuning": false
+  },
+  "schema_version": "task_a9_hierarchical_training_manifest_v1",
+  "seed": 123,
+  "split_shapes": {
+    "test": {
+      "X": [
+        82332,
+        192
+      ],
+      "attack_family_mask": [
+        82332
+      ],
+      "y_attack_family": [
+        82332
+      ],
+      "y_binary": [
+        82332
+      ]
+    },
+    "train": {
+      "X": [
+        149039,
+        192
+      ],
+      "attack_family_mask": [
+        149039
+      ],
+      "y_attack_family": [
+        149039
+      ],
+      "y_binary": [
+        149039
+      ]
+    },
+    "val": {
+      "X": [
+        26302,
+        192
+      ],
+      "attack_family_mask": [
+        26302
+      ],
+      "y_attack_family": [
+        26302
+      ],
+      "y_binary": [
+        26302
+      ]
+    }
+  },
+  "task": "hierarchical",
+  "test_summary": {
+    "attack_family_macro_f1_on_attack_rows": 0.5115422765637812,
+    "binary_accuracy": 0.9016785696934363,
+    "binary_macro_f1": 0.8998095761430653,
+    "rare_class_macro_f1": 0.41624453142988715
+  },
+  "training_params": {
+    "batch_size": 1024,
+    "early_stopping_metric": "val_hierarchical_score",
+    "early_stopping_patience": 6,
+    "learning_rate": 0.001,
+    "max_epochs": 40,
+    "optimizer": "adamw",
+    "threshold": 0.5,
+    "weight_decay": 0.0001
+  }
+}

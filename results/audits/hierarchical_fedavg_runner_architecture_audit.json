@@ -1,0 +1,278 @@
+{
+  "audit_name": "hierarchical_fedavg_runner_architecture_audit",
+  "task_type": "architecture_planning_only_no_implementation",
+  "generated_on": "2026-06-25",
+  "current_state": {
+    "scaffold_completed": true,
+    "real_hierarchical_fedavg_runner_implemented": false,
+    "federated_training_run": false,
+    "evaluation_run": false
+  },
+  "official_references": {
+    "cicids": {
+      "checkpoint": "models/final/final_cicids_hierarchical.pt",
+      "sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+      "status": "FINALIZED_PROMOTED_WITH_WARNINGS"
+    },
+    "unsw": {
+      "checkpoint": "models/final/final_unsw_hierarchical.pt",
+      "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+      "status": "A9_ACCEPTED_FROZEN_BASELINE"
+    },
+    "a11_status": "REJECTED_DIAGNOSTIC_ONLY_DO_NOT_USE_AS_FINAL"
+  },
+  "centralized_baselines_for_comparison_only": {
+    "unsw_nb15": {
+      "binary_macro_f1": 0.894488,
+      "attack_family_macro_f1_on_attack_rows": 0.500429,
+      "rare_class_macro_f1": 0.385669,
+      "input_dim": 192,
+      "attack_head_dim": 9
+    },
+    "cicids2018": {
+      "binary_macro_f1": 0.974604,
+      "attack_family_macro_f1_on_attack_rows": 0.875094,
+      "rare_class_macro_f1": 0.780177,
+      "input_dim": 77,
+      "attack_head_dim": 14
+    },
+    "note": "These are read from results/final/hierarchical/*/test_metrics.json and are used ONLY as a fixed comparison baseline. The final checkpoints are never loaded as FL initialization and never modified."
+  },
+  "areas_inspected": [
+    "secureids/federated/fedavg.py (aggregate_state_dicts_weighted, sample-count weighting, lazy torch)",
+    "secureids/federated/training.py (real binary FedAvg runner: structural template for the hierarchical runner)",
+    "secureids/federated/splitting.py (plan_stratified_iid_client_indices: binary-only stratification today)",
+    "secureids/federated/robust_aggregation.py (aggregate_fedavg/trimmed_mean/median/krum hooks)",
+    "secureids/federated/byzantine_attacks.py (sign_flip/gaussian/scaling, select_malicious_clients)",
+    "secureids/federated/hierarchical_plan.py (config schema + dry-run validator; enforces reference_only + no warm start)",
+    "secureids/security/update_integrity.py (sha256_update, make/verify integrity records)",
+    "secureids/models/secureids_hierarchical_advanced_net.py (model + compute_hierarchical_loss masked multi-task loss)",
+    "secureids/training/hierarchical_trainer.py (fit_hierarchical, checkpoint payload, artifact/manifest writers)",
+    "secureids/training/hierarchical_evaluation.py (collect_hierarchical_outputs + evaluate_hierarchical; 0.5/0.5 selection score)",
+    "secureids/training/hierarchical_class_weights.py (build_train_only_class_weights: train-only, sqrt-inv-freq, capped)",
+    "secureids/training/hierarchical_config.py (HierarchicalTrainingConfig schema)",
+    "configs/federated/experiments/{unsw,cicids}_hierarchical_clean_fedavg.yaml (status not_run_yet)",
+    "secureids/cli.py (federated-plan / federated-train / federated-dry-run wiring)",
+    "data/processed/{unsw_nb15,cicids2018}/hierarchical (X/y_binary/y_attack_family/attack_family_mask per split present)",
+    "tests/test_*federated*/test_hierarchical_federated_plan/test_update_integrity (53 deterministic tests present)"
+  ],
+  "scaffold_status": {
+    "aggregation_primitive_ready": true,
+    "robust_aggregation_ready": true,
+    "byzantine_attacks_ready": true,
+    "sha256_update_integrity_ready": true,
+    "client_split_binary_stratified_ready": true,
+    "client_split_attack_family_aware": false,
+    "clean_hierarchical_fedavg_configs_present": true,
+    "clean_hierarchical_fedavg_runner_present": false,
+    "binary_fedavg_runner_present": true,
+    "dry_run_validation_cli_present": true,
+    "centralized_hierarchical_train_and_eval_reusable": true
+  },
+  "binary_vs_hierarchical_fedavg": {
+    "binary_fedavg_today": "secureids/federated/training.py trains SecureIDSNet (single binary logit) with BCEWithLogitsLoss, FedAvg over full state_dict by sample count, best round by val macro-F1, one final test, writes checkpoint/round_history/client_distribution/client_logs/test_metrics/confusion/manifest/report.",
+    "hierarchical_fedavg_required": "Train SecureIDSHierarchicalAdvancedNet (binary Head 1 + attack-family Head 2 + shared encoder) with the masked multi-task loss compute_hierarchical_loss, FedAvg over the full hierarchical state_dict by sample count, select best round by the SAME val_hierarchical_score (0.5*binary_macro_f1 + 0.5*attack_family_macro_f1) used centrally, evaluate the test split ONCE with evaluate_hierarchical, and emit the full hierarchical metric bundle plus FL-specific audits (client split, aggregation, optional integrity) and a centralized-vs-FL comparison.",
+    "key_reuse": "The hierarchical runner reuses build_model, compute_hierarchical_loss, build_train_only_class_weights, collect_hierarchical_outputs, evaluate_hierarchical, and aggregate_state_dicts_weighted unchanged. Only the round/client orchestration and the FL artifact writers are new.",
+    "key_differences": [
+      "Per-batch label tuple is (X, y_binary, y_attack_family, attack_family_mask), not (X, y).",
+      "Loss is masked multi-task (Head 2 only on attack rows), not BCE.",
+      "Round selection metric is the hierarchical 0.5/0.5 score, not binary macro-F1.",
+      "Class weights are train-only binary_pos_weight + attack_class_weights (per class id), computed globally from the train split, not a single BCE pos_weight.",
+      "Metric bundle adds attack-family, rare-class, and end-to-end routing views and two confusion matrices.",
+      "Client split should be attack-family-aware so rare families keep support on every client."
+    ]
+  },
+  "centralized_final_model_usage": {
+    "use": "reference_only",
+    "loaded_as_initialization": false,
+    "modified": false,
+    "comparison_role": "Fixed baseline numbers (binary/attack-family/rare macro-F1) read once for the FL-vs-centralized comparison table; the .pt is opened read-only for its sha256 only if a hash check is desired, never written.",
+    "enforced_by_scaffold": "secureids/federated/hierarchical_plan.py requires centralized_reference.use == 'reference_only' and warm_start_from_centralized == false."
+  },
+  "recommended_initialization": "from_scratch_deterministic_seed__centralized_checkpoint_reference_only",
+  "recommended_initialization_detail": {
+    "decision": "Initialize FL from scratch with deterministic seed-created weights; use the centralized final checkpoint as a comparison reference only (never as warm-start, never modified).",
+    "rejected_options": {
+      "fine_tune_from_centralized_checkpoint": "Rejected: warm-starting from the centralized final model would overclaim FL quality (it would inherit centralized performance), risks accidental modification of models/final, and breaks the scientific FL-vs-centralized comparison.",
+      "centralized_checkpoint_loaded_for_any_weights": "Rejected for the same reasons; the scaffold already forbids warm_start_from_centralized."
+    },
+    "why": [
+      "Fairness: FL and centralized both start from scratch on the same corrected protocol, so the delta measures federation, not a warm start.",
+      "Safety: never opening the final checkpoint for weights removes any path to modifying models/final.",
+      "Reproducibility: a fixed seed (42) makes the deterministic init, client split, and shuffling reproducible.",
+      "No overclaiming: any FL number is honestly attributable to federated training.",
+      "Consistency: matches the existing binary FedAvg runner and the clean-config safety flags."
+    ]
+  },
+  "recommended_first_dataset": "unsw_nb15",
+  "recommended_first_dataset_detail": {
+    "decision": "Run UNSW-NB15 clean hierarchical FedAvg first, then CICIDS2018 second.",
+    "why_unsw_first": [
+      "Speed/iteration: UNSW hierarchical fits in RAM (~149k train / 26k val / 82k test rows, input_dim 192) and trains in minutes, so it validates the whole runner + artifact + audit pipeline cheaply before the expensive CICIDS run (~6.7M rows, input_dim 77).",
+      "Existing precedent: the binary FedAvg runner and the clean configs already use UNSW seed 42; mirroring it minimizes surprises.",
+      "Frozen A9 baseline gives a clean, well-documented comparison reference for the first FL run.",
+      "The first run's purpose is runner validation; FL is judged by the FL-vs-centralized delta, so UNSW's weaker absolute attack-family metric does not block validating the pipeline."
+    ],
+    "why_cicids_second": [
+      "CICIDS centralized is stronger and more stable (attack-family 0.875, rare 0.780), making it the better confirmatory run for judging FL quality, but it is much larger and slower, so it should follow once the runner is proven on UNSW."
+    ],
+    "honest_counterpoint": "If main control prefers the cleanest signal of FL quality over iteration speed, CICIDS-first is defensible because its metrics are more stable; the recommendation here optimizes for proving the runner cheaply first."
+  },
+  "recommended_runner_design": {
+    "new_module": "secureids/federated/hierarchical_training.py",
+    "entry_point": "run_hierarchical_fedavg_training(dataset, config_path, project_root, execute, overwrite=False)",
+    "execute_gate": "Requires execute=True (CLI --execute); execute=False returns a read-only plan and writes nothing.",
+    "model": "SecureIDSHierarchicalAdvancedNet via the existing build_model contract (input_dim/attack_head_dim/hidden_dims (256,128,128)/dropout 0.20/layernorm/attack_head_type linear).",
+    "loss": "compute_hierarchical_loss (masked multi-task: BCEWithLogits Head 1 with binary_pos_weight on all rows; CrossEntropy Head 2 with attack_class_weights on attack rows only).",
+    "class_weights": "build_train_only_class_weights(dataset) computed ONCE from the global train split (binary_pos_weight + attack_class_weights by class id); the SAME global train-only weights are used by every client. Per-client weights are explicitly NOT used, to avoid leaking client-local label priors and to keep the loss comparable to centralized.",
+    "round_loop": [
+      "Broadcast the current global hierarchical state_dict to each client.",
+      "Each client copies the global model, runs local_epochs of AdamW on its shard with the masked multi-task loss and the global train-only weights, returns its full state_dict and sample count.",
+      "Server aggregates client state_dicts with aggregate_state_dicts_weighted (weighted by client sample count; non-floating buffers copied from client 0; strict identical key/order).",
+      "Server loads the aggregated state into the global model and evaluates the VALIDATION split with collect_hierarchical_outputs + evaluate_hierarchical.",
+      "Track best round by val_hierarchical_score = 0.5*val_binary_macro_f1 + 0.5*val_attack_family_macro_f1 (identical to centralized selection)."
+    ],
+    "final_test": "After all rounds, load the best-by-validation global state and evaluate the TEST split exactly once with evaluate_hierarchical. Test is never used for round selection.",
+    "checkpointing": "Save ONE federated checkpoint under models/experiments/federated_security/<name>.pt using the same payload shape as the centralized checkpoint (format_version, architecture, dataset, input_dim, attack_head_dim, model_state_dict=best_by_val, architecture_metadata, config_snapshot, feature_names, attack_family_label_mapping, class_weights, metrics_summary, fl_metadata={num_clients,rounds,best_round,aggregation,seed}, safety). Never write models/final.",
+    "preserve_dataset_dims_and_heads": "input_dim and attack_head_dim are read from the config and asserted against SUPPORTED_DATASETS (CICIDS 77/14, UNSW 192/9). The attack-family label space (id_to_class) is loaded from the dataset mapping; every client shares the same Head 2 label space. A wrong dim aborts before training.",
+    "report_and_audits": "Write the full hierarchical metric bundle (test_metrics.json), round_history.csv, client_distribution.csv, per-client metrics, client split audit, aggregation audit, optional update-integrity audit, a centralized-vs-FL comparison table, an FL manifest (results/audits), and a docs/experiments report."
+  },
+  "client_split_design": {
+    "iid_first": true,
+    "non_iid_later": true,
+    "num_clients": 5,
+    "client_fraction": 1.0,
+    "seed": 42,
+    "stratification": "attack_family_aware_stratified_iid",
+    "rationale": "The current plan_stratified_iid_client_indices stratifies only on the binary label {0,1}. For hierarchical FL the split must ALSO preserve attack-family support per client so rare families (UNSW Shellcode/Worms; CICIDS Web-XSS/SQL-Injection) are not starved on any client. Recommended: stratify benign rows by the binary label and attack rows by their family id (composite label), deterministically with seed 42.",
+    "boundaries": "Split ONLY the train split (X_train/y_*_train). Validation and test are global and never partitioned or used for splitting/training. Mirrors the binary runner which splits y_train only.",
+    "audits": [
+      "Per-client total samples, benign/attack counts, and per-family counts.",
+      "Class-balance check vs the global train distribution (IID tolerance).",
+      "Minimum class-support warnings: flag any (client, attack family) with support below a configurable floor.",
+      "Deterministic-split reproduction check (same seed -> identical indices)."
+    ],
+    "test_never_used": "A hard assertion that no validation/test array path is opened by the splitter; only y_*_train is read."
+  },
+  "aggregation_design": {
+    "object_aggregated": "full model state_dict (all trainable parameters: encoder, gate, binary_head, attack_head).",
+    "primitive": "secureids.federated.fedavg.aggregate_state_dicts_weighted",
+    "weighting": "weighted by client train sample count (FedAvg).",
+    "buffers_and_non_trainable": "Non-floating-point tensors and non-tensor values are copied from the reference client rather than averaged (matches the existing primitive). LayerNorm has no running buffers, so for this architecture all aggregated tensors are floating parameters.",
+    "optimizer_state": "NOT aggregated. Each client builds a fresh AdamW each round (matches the binary runner). Aggregating optimizer state is out of scope and would need explicit justification.",
+    "shape_safety": "Strict identical key set and order across clients; any mismatch raises before aggregation.",
+    "deterministic_ordering": "Clients are processed in fixed id order 0..N-1; aggregation is order-independent but ordering is fixed for reproducible logging and hashing.",
+    "no_final_artifact_aggregation": "Only in-memory client states are aggregated; no final checkpoint/metric file is ever read into aggregation.",
+    "robust_hook": "The robust phase swaps aggregate_state_dicts_weighted for secureids.federated.robust_aggregation.aggregate_trimmed_mean/median/krum behind the same (client_states, weights) interface, selected by config aggregation.strategy."
+  },
+  "metrics_design": {
+    "reused_evaluator": "secureids.training.hierarchical_evaluation.evaluate_hierarchical (identical to centralized) so FL and centralized metrics are computed the same way.",
+    "required_metrics": [
+      "binary_macro_f1 (Head 1)",
+      "attack_family_macro_f1_on_attack_rows (Head 2, all classes)",
+      "rare_class_macro_f1",
+      "attack_detected_and_correctly_attributed_rate (correctly attributed)",
+      "attack_missed_as_benign_rate (missed as benign)",
+      "benign_flagged_as_attack_rate (benign false alarm)",
+      "per_class attack precision/recall/f1/support",
+      "binary confusion matrix",
+      "attack_family confusion matrix",
+      "round-level validation metrics (per round in round_history.csv)",
+      "centralized-vs-FL comparison (deltas vs the frozen final baseline)"
+    ],
+    "round_level": "Each round logs val_binary_macro_f1, val_attack_family_macro_f1, val_hierarchical_score, val rare macro-F1, best_round_so_far.",
+    "labeling_rule": "FL metrics are labeled 'federated (clean FedAvg)' and compared to the centralized baseline as deltas. The runner must NOT claim FL superiority unless the FL test metric exceeds the centralized baseline beyond the documented seed-noise band, and never on a single seed. Default wording: 'comparable to' / 'within noise of' / 'below' centralized, with the delta shown."
+  },
+  "safety_gates": [
+    "--execute required; without it the runner returns a read-only plan and writes nothing.",
+    "No writes under models/final/ or results/final/ (path guard; reuses the FORBIDDEN_PATH_PREFIXES check).",
+    "No overwrite of an existing federated checkpoint or result unless --overwrite is explicitly passed.",
+    "Isolated experiment output paths only: models/experiments/federated_security/, results/experiments/federated_security/, results/audits/, docs/experiments/.",
+    "A11 must never be referenced as a final or as FL initialization (a11 token in any reference path aborts).",
+    "Centralized final checkpoint is reference_only and never warm-started or modified.",
+    "Test split evaluated once, after best-validation round selection; never used for round/checkpoint selection.",
+    "No fake metrics: all numbers come from evaluate_hierarchical on real model outputs.",
+    "No silent promotion: a federated checkpoint is an experiment artifact; promotion to final requires a separate explicit approval.",
+    "Class weights computed from the train split only (no validation/test labels).",
+    "Client split reads only y_*_train; validation/test are never partitioned.",
+    "No modification of V1.",
+    "seed123/seed999 multi-seed confirmation only after main-control approval; the first run is seed42 only.",
+    "Client-update SHA-256 integrity logging is optional and kept separate from the clean-FL baseline metrics.",
+    "Clean-FL results are stored separately from attacked/robust-defense results."
+  ],
+  "security_phase_connection": {
+    "phase_1_clean_fedavg": "Establish the honest federated baseline per dataset (this runner). Aggregation = fedavg, attack = none, integrity logging optional.",
+    "phase_2_attacked_fedavg": "Reuse the same runner with attack.enabled=true (sign_flip/gaussian/scaling via byzantine_attacks) under plain fedavg aggregation to quantify degradation. Outputs kept separate from clean results.",
+    "phase_3_robust_aggregation": "Swap aggregation.strategy to trimmed_mean/median/krum (robust_aggregation) under the same attack to show recovery vs phase 2. Same runner interface.",
+    "phase_4_sha256_integrity": "Per-round client-update SHA-256 records (update_integrity) logged as integrity evidence; detects tampering but does not by itself defend aggregation.",
+    "phase_5_tls_security_evidence": "TLS/transport and secure-aggregation remain documentation/integration evidence (future_optional), not a trained-model claim.",
+    "realistic_vs_not": {
+      "realistic_claims": [
+        "Clean FedAvg reaches metrics comparable to / within noise of / below centralized (with deltas), on the corrected protocol.",
+        "Byzantine attacks degrade plain FedAvg by a measured amount.",
+        "Robust aggregation recovers a measured fraction of that degradation.",
+        "SHA-256 integrity records detect modified client updates."
+      ],
+      "not_realistic_claims": [
+        "FL beats centralized as a general claim (requires multi-seed evidence beyond noise).",
+        "SHA-256 hashing provides confidentiality or secure aggregation.",
+        "Robust aggregation fully neutralizes strong/colluding attacks.",
+        "TLS/transport security improves model accuracy."
+      ]
+    }
+  },
+  "codex_next_implementation_tasks": [
+    "Add secureids/federated/hierarchical_training.py with run_hierarchical_fedavg_training (execute gate, from-scratch seeded init, per-client masked multi-task local training, sample-count FedAvg via aggregate_state_dicts_weighted, best-by-val selection on val_hierarchical_score, single final test via evaluate_hierarchical).",
+    "Add an attack-family-aware stratified IID split (extend secureids/federated/splitting.py or add a hierarchical splitter) that stratifies attack rows by family id and benign rows by binary label, reading only y_*_train, with per-client per-family support and minimum-support warnings.",
+    "Add FL artifact writers: round_history.csv, client_distribution.csv, per-client metrics CSV, client split audit JSON, aggregation audit JSON, optional update-integrity audit JSON, test_metrics.json (full hierarchical bundle), binary + attack-family confusion CSVs, centralized-vs-FL comparison table, FL manifest JSON (results/audits), and a docs/experiments report.",
+    "Extend the clean configs' outputs block with the new artifact keys (client_metrics, client_split_audit, aggregation_audit, integrity_audit, round_metrics, comparison_table) and extend hierarchical_plan.py _validate_outputs to require/validate them (still non-final paths).",
+    "Wire a CLI subcommand (federated-train-hierarchical) with --dataset/--config/--execute/--overwrite, refusing without --execute and printing a no-writes message.",
+    "Add deterministic tests: from-scratch init reproducibility, attack-family split support invariants + min-support warning, sample-count aggregation correctness on the hierarchical state_dict, end-to-end dry-run writes nothing, execute gate, no-final-path guard, oracle/routed separation preserved, comparison table sanity.",
+    "Create docs/experiments report template + results/audits manifest schema for clean hierarchical FedAvg."
+  ],
+  "manual_runs_future": [
+    {
+      "order": 1,
+      "dataset": "unsw_nb15",
+      "command": "python -m secureids.cli federated-train-hierarchical --dataset unsw --config configs/federated/experiments/unsw_hierarchical_clean_fedavg.yaml --execute",
+      "purpose": "First clean hierarchical FedAvg run; validate the runner end-to-end and produce the UNSW FL baseline vs A9.",
+      "requires_main_control_approval": true,
+      "seed": 42
+    },
+    {
+      "order": 2,
+      "dataset": "cicids2018",
+      "command": "python -m secureids.cli federated-train-hierarchical --dataset cicids --config configs/federated/experiments/cicids_hierarchical_clean_fedavg.yaml --execute",
+      "purpose": "Confirmatory clean hierarchical FedAvg on the stronger/larger dataset.",
+      "requires_main_control_approval": true,
+      "seed": 42
+    }
+  ],
+  "risks": [
+    "CICIDS hierarchical FedAvg is large (~6.7M rows); per-round cost is high. Mitigation: run UNSW first; size rounds/batch realistically.",
+    "Binary-only client stratification would starve rare attack families on some clients and depress attack-family/rare FL metrics for split reasons rather than FL reasons. Mitigation: attack-family-aware split + min-support warnings.",
+    "Temptation to warm-start from the centralized checkpoint to make FL look strong. Mitigation: from-scratch init enforced; scaffold forbids warm start.",
+    "Overclaiming FL superiority from a single seed. Mitigation: delta-vs-baseline labeling, noise-band wording, no single-seed promotion.",
+    "Accidental writes to models/final or results/final. Mitigation: path guards + experiment-only outputs + no-overwrite default.",
+    "Per-client class weights could leak client-local priors and break comparability. Mitigation: use global train-only weights for all clients.",
+    "Mixing clean and attacked/robust results. Mitigation: separate output trees and explicit result labeling.",
+    "Non-determinism across runs. Mitigation: fixed seed for init, split, and loaders; deterministic client ordering."
+  ],
+  "exact_next_decision": "approve_or_reject_codex_hierarchical_fedavg_runner_implementation",
+  "safety": {
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "checkpoint_modified": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "v1_modified": false,
+    "a11_used_as_final": false,
+    "fake_metrics": false,
+    "test_tuning": false
+  },
+  "next_main_control_decision": "approve_or_reject_codex_hierarchical_fedavg_runner_implementation"
+}

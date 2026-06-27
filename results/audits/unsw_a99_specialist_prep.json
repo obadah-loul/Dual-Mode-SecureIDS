@@ -1,0 +1,118 @@
+{
+  "audit_name": "unsw_a99_specialist_prep",
+  "task_type": "a99_specialist_router_preparation_no_training",
+  "generated_on": "2026-06-25",
+  "current_baseline": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "identity": "A9 corrected-protocol hierarchical baseline",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669,
+    "frozen_but_reopenable": true
+  },
+  "approved_direction": "A9.9 attack-family specialist router",
+  "training_run": false,
+  "evaluation_run": false,
+  "checkpoint_created": false,
+  "checkpoint_modified": false,
+  "final_a9_replaced": false,
+  "promotion_performed": false,
+  "design_summary": {
+    "freeze_a9_head1_router": true,
+    "specialist_training_scope": "UNSW training attack rows only",
+    "routed_metrics_required": true,
+    "oracle_metrics_required": true,
+    "test_tuning_forbidden": true
+  },
+  "planned_seed42": {
+    "config": "configs/training/experiments/unsw_a99_attack_family_specialist_seed42.yaml",
+    "checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+    "results": "results/experiments/unsw_a99_attack_family_specialist_seed42/",
+    "report": "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md",
+    "manual_run_only": true
+  },
+  "planned_confirmation": {
+    "seeds": [42, 123, 999],
+    "requires_main_control_approval_after_seed42": true
+  },
+  "promotion_rejection_criteria": {
+    "attack_family_macro_f1_baseline": 0.500429,
+    "rare_class_macro_f1_baseline": 0.385669,
+    "seed42_min_meaningful_attack_family_lift": 0.015,
+    "rare_class_must_not_drop": true,
+    "binary_router_must_remain_a9_based": true,
+    "oracle_not_equal_routed": true,
+    "no_single_seed_promotion": true
+  },
+  "process_rules": {
+    "do_not_overwrite_canonical_audit_files_without_approval": true,
+    "timestamp_or_experiment_specific_paths_if_existing": true,
+    "read_only_means_report_only": true,
+    "prep_means_no_training": true
+  },
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "checkpoint_modified": false,
+    "checkpoint_copied_or_replaced": false,
+    "final_model_modified": false,
+    "results_final_modified": false,
+    "cicids_modified": false,
+    "v1_modified": false,
+    "git_action": false,
+    "fake_metrics": false,
+    "test_tuning": false
+  },
+  "next_main_control_decision": "approve_or_reject_manual_seed42_training_run",
+  "prep_scope": "documentation_and_audit_only_no_code_no_config_created",
+  "deliverables_created_this_prep": [
+    "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_PREP_PLAN.md",
+    "docs/experiments/UNSW_A99_SPECIALIST_ROUTER_DESIGN.md",
+    "results/audits/unsw_a99_specialist_prep.json",
+    "results/audits/unsw_a99_expected_runs.csv"
+  ],
+  "overwrite_safety": {
+    "all_four_deliverable_paths_were_new": true,
+    "no_existing_file_overwritten": true,
+    "checked_globs": ["**/UNSW_A99*", "**/unsw_a99*"],
+    "note": "Honoring the new process rule after the prior candidates-CSV refresh: no canonical/existing file was overwritten in this prep."
+  },
+  "code_status": {
+    "code_or_config_created_this_prep": false,
+    "reason": "The specialist (frozen A9 Head 1 router + dedicated attack-only family classifier) is NOT implementable with the existing CLI/trainer, so a config alone would be non-runnable and potentially misleading. Code is deliberately deferred to a separately-approved build step.",
+    "existing_cli_subcommand": "train-hierarchical (flags: --config, --execute, optional --dataset, --overwrite)",
+    "why_existing_train_hierarchical_is_insufficient": [
+      "It trains the JOINT SecureIDSHierarchicalAdvancedNet (shared encoder + binary_head + attack_head) from scratch; it has no frozen-Head-1 + attack-only specialist mode.",
+      "Its CLI gate _validate_train_hierarchical_cli_gate would REJECT a config named 'unsw_a99_attack_family_specialist_seed42.yaml' for UNSW: the gate requires the config name to contain 'hierarchical' OR start with 'unsw_a9_' (note the trailing underscore). 'unsw_a99_' matches neither.",
+      "It writes joint-model artifacts, not specialist oracle/routed artifacts."
+    ],
+    "required_build_step_artifacts_if_approved": [
+      "secureids/models/attack_family_specialist.py (new isolated module)",
+      "secureids/training/attack_family_specialist_trainer.py (attack-rows-only trainer; train-only class weights; validation-only selection)",
+      "secureids/evaluation/attack_family_specialist_evaluation.py (separate ORACLE and ROUTED metric computation using a frozen A9 Head 1)",
+      "new CLI subcommand e.g. 'train-attack-family-specialist' wired into secureids/cli.py (does NOT alter existing train-hierarchical behavior)",
+      "configs/training/experiments/unsw_a99_attack_family_specialist_seed42.yaml (marked NOT RUN YET)",
+      "tests/test_attack_family_specialist.py (lightweight unit tests for the new code)"
+    ]
+  },
+  "next_main_control_decision_detail": "Immediate prerequisite is approve_or_reject the A9.9 specialist CODE BUILD (isolated module + new CLI subcommand + seed42 config + tests). Only after that build is approved and created can the manual seed42 training run be approved (approve_or_reject_manual_seed42_training_run). No training occurs in either step without explicit approval.",
+  "manual_seed42_command_status": "proposed_but_not_runnable_until_config_and_module_prep_is_approved_and_created",
+  "proposed_manual_seed42_command": "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2; .\\.venv\\Scripts\\python.exe -m secureids.cli train-attack-family-specialist --config configs\\training\\experiments\\unsw_a99_attack_family_specialist_seed42.yaml --execute",
+  "screening_strategy": "one_seed_screen_first_then_three_seed_confirm",
+  "metric_separation_required": {
+    "a9_binary_head1_metrics": "from frozen A9 (unchanged): macro-F1 0.894488, recall 0.949, attack_missed_as_benign 2310",
+    "specialist_oracle_attack_family_metrics": "specialist on TRUE attack rows (teacher-forced); apples-to-apples vs A9 attack-family macro-F1 0.500429",
+    "routed_end_to_end_metrics": "frozen A9 Head 1 routes detected attacks into the specialist; capped by Head 1 recall; comparable to A9 correct-attribution 0.7208"
+  },
+  "realistic_targets": {
+    "attack_family_macro_f1_short_term_3seed_mean": "0.52-0.58",
+    "attack_family_macro_f1_stretch": "~0.60",
+    "rare_class_macro_f1": ">= 0.385669 (do not regress)",
+    "binary_macro_f1": "~0.894488 (Head 1 frozen, unchanged)",
+    "macro_f1_above_0_9_realistic": false,
+    "why_not_0_9": "Analysis/Backdoor/DoS/Exploits overlap in the 192-feature space by construction of UNSW-NB15; >0.9 macro-F1 would require near-perfect separation of intrinsically-entangled families and is not achievable without changing the problem."
+  }
+}

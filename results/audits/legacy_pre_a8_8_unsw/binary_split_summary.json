@@ -1,0 +1,24 @@
+{
+  "test": {
+    "label_distribution": {
+      "0": 56000,
+      "1": 119341
+    },
+    "rows": 175341
+  },
+  "total_rows": 257673,
+  "train": {
+    "label_distribution": {
+      "0": 31450,
+      "1": 38532
+    },
+    "rows": 69982
+  },
+  "val": {
+    "label_distribution": {
+      "0": 5550,
+      "1": 6800
+    },
+    "rows": 12350
+  }
+}

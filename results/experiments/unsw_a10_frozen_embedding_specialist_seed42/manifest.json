@@ -1,0 +1,6 @@
+{
+  "experiment": "unsw_a10_frozen_embedding_specialist_seed42",
+  "selection": "validation_only",
+  "checkpoint": "models/experiments/unsw_a10_frozen_embedding_specialist_seed42.pt",
+  "test_tuning": false
+}

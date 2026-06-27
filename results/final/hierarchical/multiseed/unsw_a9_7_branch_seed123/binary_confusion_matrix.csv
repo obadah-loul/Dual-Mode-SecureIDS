@@ -1,0 +1,5 @@
+true_label,predicted_label,count
+0,0,31496
+0,1,5504
+1,0,2591
+1,1,42741

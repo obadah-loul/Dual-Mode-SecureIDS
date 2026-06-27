@@ -1,0 +1,179 @@
+{
+  "audit_name": "cicids_hierarchical_exp03_125_confirmation_prep",
+  "task_type": "controlled_confirmation_config_preparation",
+  "generated_on": "2026-06-25",
+  "experiment_id": "cicids_hierarchical_exp03_attack_loss_weight_125_confirmation",
+  "parent_experiment_id": "cicids_hierarchical_exp03_attack_loss_weight_conservative_sweep",
+  "selected_attack_loss_weight": 1.25,
+  "selection_basis": {
+    "selected_by": "validation_metrics_only",
+    "primary_metric": "best_val_hierarchical_score",
+    "formula": "0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1",
+    "screening_seed": 42,
+    "winner": "attack_loss_weight_1.25",
+    "loser": "attack_loss_weight_1.35",
+    "winner_best_val_hierarchical_score": 0.909871,
+    "loser_best_val_hierarchical_score": 0.901976,
+    "winner_val_attack_family_macro_f1": 0.847569,
+    "loser_val_attack_family_macro_f1": 0.828328,
+    "test_metrics_used_for_selection": false
+  },
+  "baseline": {
+    "checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "seed42_completed_reference": {
+    "seed": 42,
+    "config_path": "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.yaml",
+    "checkpoint_path": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42.pt",
+    "results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed42",
+    "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_125_SEED42_REPORT.md",
+    "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_125_seed42.json",
+    "test_metrics_recorded_for_audit_only": {
+      "binary_macro_f1": 0.972019,
+      "attack_family_macro_f1": 0.867881,
+      "rare_class_macro_f1": 0.765155,
+      "correct_attribution_rate": 0.909144,
+      "missed_as_benign_rate": 0.053081,
+      "benign_false_alarm_rate": 0.010484
+    }
+  },
+  "confirmation_configs": [
+    {
+      "seed": 123,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_125_SEED123_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_125_seed123.json"
+    },
+    {
+      "seed": 999,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_125_SEED999_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_125_seed999.json"
+    }
+  ],
+  "controlled_changes": {
+    "attack_loss_weight": 1.25,
+    "binary_loss_weight": 1.0,
+    "head2_architecture": "baseline_linear_head2",
+    "preprocessing_changed": false,
+    "taxonomy_changed": false,
+    "split_changed": false,
+    "test_tuning": false
+  },
+  "created_or_modified_files": [
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.yaml",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP03_125_CONFIRMATION_PREP_PLAN.md",
+    "results/audits/cicids_hierarchical_exp03_125_confirmation_prep.json",
+    "results/audits/cicids_hierarchical_exp03_125_confirmation_expected_runs.csv",
+    "tests/test_cicids_exp03_125_confirmation_preparation.py"
+  ],
+  "created_directories": [
+    "configs/training/experiments",
+    "models/experiments",
+    "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123",
+    "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999",
+    "docs/experiments"
+  ],
+  "code_changes_made": false,
+  "tests_added_or_updated": [
+    "tests/test_cicids_exp03_125_confirmation_preparation.py"
+  ],
+  "tests_run_by_agent": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp03_125_confirmation_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "result": "33 passed in 1.04s"
+    }
+  ],
+  "manual_training_commands": [
+    {
+      "seed": 123,
+      "attack_loss_weight": 1.25,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed123.yaml --execute"
+      ]
+    },
+    {
+      "seed": 999,
+      "attack_loss_weight": 1.25,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.yaml --execute"
+      ]
+    }
+  ],
+  "post_run_validation_plan": [
+    "After seed123, paste first 30-50 console lines and final 80-120 console lines.",
+    "After seed123, paste file existence checks, test_metrics.json, per_class_attack_metrics.csv, rare_class_metrics.csv, hierarchical_routing_summary.json, and training manifest JSON.",
+    "After seed999, paste first 30-50 console lines and final 80-120 console lines.",
+    "After seed999, paste file existence checks, test_metrics.json, per_class_attack_metrics.csv, rare_class_metrics.csv, hierarchical_routing_summary.json, and training manifest JSON.",
+    "After both confirmation runs, aggregate seed42 + seed123 + seed999.",
+    "Report mean and sample standard deviation for binary macro-F1, attack-family macro-F1, rare-class macro-F1, correct attribution, missed-as-benign, and benign false alarm.",
+    "Compare the EXP03 1.25 three-seed aggregate against the accepted baseline and the EXP02 three-seed mean.",
+    "Classify EXP03 1.25 as PROMOTE, REJECT_AS_IMPROVEMENT, DIAGNOSTIC_ONLY, or NEEDS_ADDITIONAL_ANALYSIS."
+  ],
+  "aggregation_plan": {
+    "seeds": [42, 123, 999],
+    "compare_against": ["accepted_baseline", "exp02_3seed_mean"],
+    "metrics": [
+      "binary_macro_f1",
+      "attack_family_macro_f1",
+      "rare_class_macro_f1",
+      "correct_attribution_rate",
+      "missed_as_benign_rate",
+      "benign_false_alarm_rate"
+    ],
+    "report_mean_and_std": true,
+    "std_type": "sample_standard_deviation_n_minus_1",
+    "automatic_promotion_allowed": false
+  },
+  "promotion_criteria": {
+    "attack_family": "mean attack-family macro-F1 improves meaningfully over baseline 0.849111",
+    "rare_class": "mean rare-class macro-F1 improves meaningfully over baseline 0.716987",
+    "routing": "mean correct attribution stays close to or above baseline 0.909008",
+    "missed_attacks": "mean missed-as-benign does not materially worsen from baseline 0.053807",
+    "binary": "binary macro-F1 stays strong",
+    "false_alarm": "benign false alarm rate stays acceptable",
+    "stability": "results are reasonably stable across seeds",
+    "safety": "no leakage, fake metrics, path contamination, or overwrite issue appears"
+  },
+  "rejection_criteria": [
+    "3-seed mean Head 2 improvement disappears",
+    "rare-class improvement collapses",
+    "correct attribution drops materially below baseline",
+    "missed-as-benign worsens materially",
+    "results are unstable across seeds",
+    "any leakage, fake metric, overwrite, or path contamination issue appears"
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "seed42_checkpoint_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false,
+    "test_tuning": false
+  },
+  "next_step": "main_control_approval_before_user_runs_exp03_125_confirmation_training"
+}

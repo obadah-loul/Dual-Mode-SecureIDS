@@ -1,0 +1,83 @@
+dataset: unsw_nb15
+task: hierarchical
+status: locked_for_task_a2_dry_run
+source_a1_taxonomy_counts_csv: results/audits/unsw_attack_taxonomy_counts.csv
+source_columns:
+  binary_label: label
+  attack_label: attack_cat
+  normal_values:
+    - 0
+  attack_values:
+    - 1
+binary_mapping:
+  normal_output: 0
+  attack_output: 1
+  attack_rule: rows_with_label_1_use_attack_cat_for_head2
+attack_family_mapping:
+  ignore_index: -1
+  mask_values:
+    benign_or_normal_rows: 0
+    attack_rows: 1
+rare_threshold:
+  rule: support_percent < 1.0
+  support_percent_lt: 1.0
+common_superclass:
+  reporting_only: true
+  training_target: false
+  note: Common superclasses are for reporting and dashboard comparison only.
+fake_shared_multiclass_label_list_created: false
+attack_labels:
+  - raw_label: Generic
+    mapped_attack_family: Generic
+    common_superclass: Generic/Other
+    support_count: 58871
+    support_percent: 35.750244
+    is_rare: false
+  - raw_label: Exploits
+    mapped_attack_family: Exploits
+    common_superclass: Exploitation
+    support_count: 44525
+    support_percent: 27.038434
+    is_rare: false
+  - raw_label: Fuzzers
+    mapped_attack_family: Fuzzers
+    common_superclass: Exploitation
+    support_count: 24246
+    support_percent: 14.723725
+    is_rare: false
+  - raw_label: DoS
+    mapped_attack_family: DoS
+    common_superclass: DoS/DDoS
+    support_count: 16353
+    support_percent: 9.93059
+    is_rare: false
+  - raw_label: Reconnaissance
+    mapped_attack_family: Reconnaissance
+    common_superclass: Reconnaissance
+    support_count: 13987
+    support_percent: 8.493803
+    is_rare: false
+  - raw_label: Analysis
+    mapped_attack_family: Analysis
+    common_superclass: Reconnaissance
+    support_count: 2677
+    support_percent: 1.625646
+    is_rare: false
+  - raw_label: Backdoor
+    mapped_attack_family: Backdoor
+    common_superclass: Malware/Botnet
+    support_count: 2329
+    support_percent: 1.414318
+    is_rare: false
+  - raw_label: Shellcode
+    mapped_attack_family: Shellcode
+    common_superclass: Exploitation
+    support_count: 1511
+    support_percent: 0.917576
+    is_rare: true
+  - raw_label: Worms
+    mapped_attack_family: Worms
+    common_superclass: Malware/Botnet
+    support_count: 174
+    support_percent: 0.105664
+    is_rare: true

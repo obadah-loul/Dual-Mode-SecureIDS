@@ -1,0 +1,2 @@
+field,value,note
+best_val_attack_family_macro_f1,0.5862711090268267,Reconstructed from checkpoint metadata; full per-epoch training history was not persisted by the original A9.9 seed42 run.

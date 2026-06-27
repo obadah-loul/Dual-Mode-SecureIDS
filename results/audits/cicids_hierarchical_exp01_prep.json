@@ -1,0 +1,160 @@
+{
+  "audit_name": "cicids_hierarchical_exp01_prep",
+  "task_type": "controlled_improvement_experiment_preparation",
+  "generated_on": "2026-06-25",
+  "baseline_checkpoint": "models/final/final_cicids_hierarchical.pt",
+  "baseline_acceptance_status": "ACCEPT_WITH_WARNINGS",
+  "baseline_metrics": {
+    "binary_head1_macro_f1": 0.972167,
+    "binary_accuracy": 0.977486,
+    "binary_precision": 0.974214,
+    "binary_recall": 0.946193,
+    "binary_f1": 0.960000,
+    "attack_family_head2_macro_f1": 0.849111,
+    "attack_family_accuracy_on_attack_rows": 0.961306,
+    "rare_class_macro_f1": 0.716987,
+    "end_to_end_attack_correctly_attributed_rate": 0.909008,
+    "attack_missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "experiment": {
+    "id": "cicids_hierarchical_exp01_head2_mlp_capacity",
+    "selected_idea": "modest Head 2 MLP capacity increase",
+    "selection_reason": "The code already supports a backward-compatible attack_head_type=mlp option, and the accepted CICIDS baseline weakness is Head 2 attack-family classification while Head 1 is already strong.",
+    "config_path": "configs/training/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.yaml",
+    "checkpoint_path": "models/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.pt",
+    "results_dir": "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity",
+    "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP01_HEAD2_MLP_CAPACITY_REPORT.md",
+    "controlled_variables_changed": [
+      "model.attack_head_type: linear -> mlp",
+      "model.attack_head_hidden_dim: 128",
+      "model.attack_head_norm: true",
+      "model.attack_head_dropout: 0.20",
+      "outputs isolated under models/experiments, results/experiments, and docs/experiments"
+    ],
+    "variables_preserved": [
+      "dataset cicids2018",
+      "task hierarchical",
+      "input_dim 77",
+      "attack_head_dim 14",
+      "processed train/validation/test artifact paths",
+      "shared encoder hidden_dims [256, 128, 128]",
+      "shared encoder dropout 0.20",
+      "binary head unchanged",
+      "binary_loss_weight 1.0",
+      "attack_loss_weight 1.0",
+      "train-only class weights",
+      "no oversampling",
+      "training seed 42",
+      "batch_size 4096",
+      "max_epochs 30",
+      "learning_rate 0.001",
+      "weight_decay 0.0001",
+      "validation-only checkpoint selection",
+      "test once after best validation checkpoint",
+      "threshold 0.5"
+    ]
+  },
+  "weak_classes_targeted": [
+    "Web-BruteForce",
+    "Web-XSS",
+    "DoS-SlowHTTPTest",
+    "FTP-BruteForce",
+    "SQL-Injection"
+  ],
+  "created_or_modified_files": [
+    "secureids/cli.py",
+    "secureids/training/hierarchical_config.py",
+    "configs/training/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.yaml",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP01_PLAN.md",
+    "results/audits/cicids_hierarchical_exp01_prep.json",
+    "results/audits/cicids_hierarchical_exp01_selection.csv",
+    "tests/test_train_hierarchical_cli_gate.py",
+    "tests/test_cicids_exp01_preparation.py"
+  ],
+  "created_directories": [
+    "configs/training/experiments",
+    "models/experiments",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity",
+    "docs/experiments"
+  ],
+  "code_changes_made": true,
+  "code_change_summary": [
+    "Added a narrow CICIDS experiment output validator for models/experiments, results/experiments, docs/experiments paths.",
+    "Added a narrow train-hierarchical CLI allowlist for configs/training/experiments/cicids_hierarchical_exp*.yaml.",
+    "Added attack_head_dim validation to the train-hierarchical CLI gate when the loaded config provides it."
+  ],
+  "tests_added_or_updated": [
+    "tests/test_cicids_exp01_preparation.py",
+    "tests/test_train_hierarchical_cli_gate.py"
+  ],
+  "tests_run_by_agent": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp01_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+      "result": "29 passed in 7.31s",
+      "notes": "Lightweight config and CLI-gate tests only; no training, preprocessing, full CICIDS array loading, checkpoint creation, or metric generation."
+    }
+  ],
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp01_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+    "Get-Content \"results\\audits\\cicids_hierarchical_exp01_prep.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "manual_training_command": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.yaml --execute"
+  ],
+  "expected_outputs": [
+    "models/experiments/cicids_hierarchical_exp01_head2_mlp_capacity.pt",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/training_history.csv",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/test_metrics.json",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/binary_confusion_matrix.csv",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/attack_family_confusion_matrix.csv",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/per_class_attack_metrics.csv",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/rare_class_metrics.csv",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/hierarchical_routing_summary.json",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/training_config_snapshot.yaml",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/class_weight_snapshot.json",
+    "results/experiments/cicids_hierarchical_exp01_head2_mlp_capacity/model_summary.json",
+    "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp01_head2_mlp_capacity.json",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP01_HEAD2_MLP_CAPACITY_REPORT.md"
+  ],
+  "promotion_criteria": {
+    "attack_family_macro_f1_minimum_meaningful_improvement": "improve over 0.849111 by a meaningful margin, preferably >= 0.01 absolute",
+    "rare_class_macro_f1": "improve over 0.716987 or at least not collapse",
+    "binary_head1_macro_f1": "should not drop badly from 0.972167; reject if below 0.965 unless Head 2 gain is exceptional and approved",
+    "end_to_end_correct_attribution": "should not drop badly from 0.909008",
+    "benign_false_alarm_rate": "should remain near baseline 0.010008; reject if materially worse without clear benefit",
+    "attack_missed_as_benign_rate": "should remain near or below baseline 0.053807"
+  },
+  "rejection_criteria": [
+    "Head 2 does not improve meaningfully.",
+    "Head 1 drops badly.",
+    "Rare-class macro-F1 collapses.",
+    "False alarms or missed attacks worsen materially.",
+    "Output paths overwrite baseline.",
+    "Any test leakage or fake-metric issue appears."
+  ],
+  "risks": [
+    "Extra Head 2 capacity may overfit rare classes.",
+    "Gains may be small because the current CICIDS baseline is already strong.",
+    "DoS-SlowHTTPTest may reflect feature overlap rather than capacity alone.",
+    "Single-seed results are not definitive.",
+    "CICIDS runtime remains large."
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "baseline_checkpoint_modified": false,
+    "old_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "next_step": "main_control_approval_before_user_runs_exp01_training"
+}

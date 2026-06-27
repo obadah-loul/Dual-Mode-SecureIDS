@@ -1,0 +1,13 @@
+id,severity,area,title,recommendation
+F1,HIGH,dataset_and_preprocessing,UNSW official train/test partition appears swapped; model trains on the smaller canonical-test split,Verify file provenance and either correct the partition assignment or explicitly document the non-standard split before the first real UNSW training
+F2,HIGH,loss_and_class_weighting,Masked loss cannot apply the A8.5-locked attack-family class weights,Extend compute_hierarchical_loss to accept and apply attack_class_weights and unit-test it in A9
+F3,MEDIUM,metrics_and_model_selection,Tiny rare-class validation support makes val attack-family macro-F1 unstable for checkpoint selection,Use stratified val with minimum rare counts and report rare-class val F1 with support; keep selection validation-only
+F4,MEDIUM,metrics,Final hierarchical metric computation not implemented (only smoke diagnostics),Implement final metrics over the full fixed class set and define the end-to-end hierarchical metric precisely
+F5,MEDIUM,loss_and_class_weighting,Two divergent definitions of sqrt inverse-frequency attack weights coexist,Treat the A8.5 lock JSON final_weights as the single source of truth in A9
+F6,MEDIUM,loss_and_class_weighting,Binary class-weight application path must match the locked strategy explicitly,Derive binary pos_weight from the A8.5 lock rather than raw neg/pos and assert they match
+F7,LOW,configs,Stale stage labels in hierarchical training configs,Update status/safety labels to A9-ready when A9 begins
+F8,LOW,dataset_and_preprocessing,UNSW one-hot encoder fit on smaller swapped train partition increases unknown-category encodings at test,Re-evaluate after deciding F1
+F9,LOW,configs,class_weight_min_clip mismatch between config (0.0) and readiness default (0.1),Document that min_clip is unused by the locked strategy or align values
+F10,INFO,artifact_safety_and_quality,Strong pipeline safety and no fake/leaked artifacts,Maintain guards through A9; new train command must guard overwrites
+F11,INFO,architecture_and_organization,Single final architecture with clean module layout and no competing or V1-dumped models,Keep new layers in dedicated modules; no parallel final models
+F12,INFO,training_readiness_and_cli,Hierarchical training implementation does not exist yet (expected A9 scope),Implement A9 trainer with execute/overwrite guards honoring validation-only selection

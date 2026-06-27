@@ -1,0 +1,19 @@
+item,value,notes
+official_checkpoint,models/final/final_unsw_hierarchical.pt,Existing A9 corrected-protocol hierarchical checkpoint frozen as official UNSW final/baseline
+accepted_model_identity,A9 corrected-protocol hierarchical baseline,Accepted UNSW hierarchical final/baseline
+checkpoint_sha256,5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA,Current final checkpoint hash
+backup_checkpoint,results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt,Rollback backup copy of existing checkpoint
+backup_sha256,5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA,Backup checkpoint hash
+hashes_match,True,Backup hash matches current final checkpoint hash
+manifest,results/audits/hierarchical_training_manifest_unsw_nb15.json,A9 final hierarchical training manifest
+binary_macro_f1,0.894488,Copied from existing A9 evidence
+attack_family_macro_f1,0.500429,Copied from existing A9 evidence
+rare_class_macro_f1,0.385669,Copied from existing A9 evidence
+a9_status,FROZEN_AS_OFFICIAL_UNSW_HIERARCHICAL_FINAL_BASELINE,Accepted corrected-protocol hierarchical baseline
+a9_6_status,did_not_replace_A9,Controlled experiment retained for evidence
+a9_7_status,did_not_replace_A9,Controlled experiment retained for evidence
+a9_8_status,confirmed_A9_remains_accepted,Multi-seed comparison complete
+a9_9_status,design_only_no_training,Next strategy only
+legacy_binary_status,legacy_pre_correction_not_official_hierarchical_final,Applies to final_unsw_binary and fedavg_unsw_binary
+rollback_target,results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt,Use this backup to restore the frozen A9 checkpoint if needed
+freeze_record,results/audits/unsw_a9_final_acceptance_freeze_record.json,Formal freeze record

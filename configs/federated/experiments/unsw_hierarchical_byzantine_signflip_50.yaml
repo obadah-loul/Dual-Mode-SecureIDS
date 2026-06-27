@@ -1,0 +1,88 @@
+status: not_run_yet
+dataset: unsw_nb15
+task: hierarchical_federated
+protocol_label: unsw_a9_hierarchical_byzantine_signflip_50_reference_frozen_baseline
+
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  input_dim: 192
+  attack_head_dim: 9
+
+hierarchical_data:
+  processed_dir: data/processed/unsw_nb15/hierarchical
+  feature_names: data/processed/unsw_nb15/hierarchical/feature_names.json
+  attack_family_label_mapping: data/processed/unsw_nb15/hierarchical/attack_family_label_mapping.json
+  preprocessing_manifest: data/processed/unsw_nb15/hierarchical/hierarchical_preprocessing_manifest.json
+
+centralized_reference:
+  checkpoint: models/final/final_unsw_hierarchical.pt
+  sha256: 5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA
+  status: A9_ACCEPTED_FROZEN_BASELINE
+  use: reference_only
+  warm_start_from_centralized: false
+
+initialization: from_scratch
+
+federation:
+  num_clients: 5
+  client_split: stratified_iid
+  non_iid_planned: true
+  seed: 42
+  rounds: 20
+  client_fraction: 1.0
+  local_epochs: 1
+  execute_gate_required: true
+
+training:
+  seed: 42
+  batch_size: 1024
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  threshold: 0.5
+
+loss:
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.0
+  ignore_index: -1
+
+aggregation:
+  strategy: fedavg
+
+attack:
+  enabled: true
+  type: sign_flip
+  malicious_fraction: 0.50
+  seed: 42
+  scale: -1.0
+
+integrity:
+  sha256_update_hashing: true
+  verify_before_aggregation: true
+  secure_aggregation: future_optional
+
+outputs:
+  checkpoint: models/experiments/federated_security/unsw_hierarchical_byzantine_signflip_50.pt
+  result_dir: results/experiments/federated_security/unsw_hierarchical_byzantine_signflip_50
+  round_history: results/experiments/federated_security/unsw_hierarchical_byzantine_signflip_50/round_history.csv
+  client_distribution: results/experiments/federated_security/unsw_hierarchical_byzantine_signflip_50/client_distribution.csv
+  test_metrics: results/experiments/federated_security/unsw_hierarchical_byzantine_signflip_50/test_metrics.json
+  audit_json: results/audits/federated_security_unsw_hierarchical_byzantine_signflip_50_manifest.json
+  report_md: docs/experiments/FEDERATED_SECURITY_UNSW_HIERARCHICAL_BYZANTINE_SIGNFLIP_50_REPORT.md
+
+dataset_warnings:
+  - Weak attack-family and rare-class macro-F1 remain limitations.
+  - A11 is rejected diagnostic only and must not be used as final.
+  - Attack results must remain separate from clean FedAvg.
+
+safety:
+  dry_run_writes_outputs: false
+  training_allowed_in_scaffold: false
+  evaluation_allowed_in_scaffold: false
+  no_final_path_writes: true
+  models_final_write_allowed: false
+  results_final_write_allowed: false
+  a11_excluded_as_final: true
+  a11_used_as_final: false
+  no_test_tuning: true
+  do_not_rerun_dataset_optimization: true

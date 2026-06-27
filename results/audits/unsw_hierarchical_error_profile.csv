@@ -1,0 +1,10 @@
+class,f1,precision,recall,support,profile,likely_cause,a9_6_expected_direction
+Generic,0.980808,,,,strong_head2_class,"large or cleanly separable family; not a priority target","maintain"
+Exploits,0.690720,,,,moderate_head2_class,"overlap with DoS Analysis Backdoor or other exploit-like traffic","maintain or modest improvement"
+Fuzzers,0.767899,,,,strong_head2_class,"reasonably separable family","maintain"
+DoS,0.387737,,,,weak_head2_class,"overlap with Exploits and other attack families; boundary pressure insufficient","improve without harming Head 1"
+Reconnaissance,0.822659,,,,strong_head2_class,"reasonably separable family","maintain"
+Analysis,0.012330,,,,failing_head2_class,"extreme overlap and imbalance; likely absorbed into neighboring families","improve from near-zero if feasible"
+Backdoor,0.070370,,,,failing_head2_class,"extreme overlap and imbalance; likely absorbed into neighboring families","improve from near-zero if feasible"
+Shellcode,0.439909,0.307937,0.769841,378,rare_recall_high_precision_low,"class weighting likely improves recall but over-assigns rare label","preserve recall while improving or stabilizing precision"
+Worms,0.331429,0.221374,0.659091,44,rare_recall_high_precision_low,"very small support; class weighting likely improves recall but precision is fragile","avoid precision collapse and preserve F1"

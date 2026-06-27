@@ -1,0 +1,224 @@
+{
+  "view": "routed",
+  "is_oracle": false,
+  "is_routed_deployment_metric": true,
+  "note": "Frozen A9 Head 1 routes attacks into the specialist; bounded by Head 1 recall.",
+  "attack_total": 45332,
+  "attack_detected_and_correctly_attributed": 32805,
+  "attack_detected_and_correctly_attributed_rate": 0.7236609900291185,
+  "attack_detected_wrong_family": 10217,
+  "attack_missed_as_benign": 2310,
+  "attack_missed_as_benign_rate": 0.0509573810994441,
+  "routed_attack_family_macro_f1": 0.4900054990859429,
+  "per_class": [
+    {
+      "class_id": 0,
+      "class_name": "Generic",
+      "precision": 0.999889819303658,
+      "recall": 0.9625583368689011,
+      "f1": 0.9808690012970168,
+      "support": 18856
+    },
+    {
+      "class_id": 1,
+      "class_name": "Exploits",
+      "precision": 0.789426118391324,
+      "recall": 0.635388252409529,
+      "f1": 0.7040806045340051,
+      "support": 10998
+    },
+    {
+      "class_id": 2,
+      "class_name": "Fuzzers",
+      "precision": 0.8050567973616709,
+      "recall": 0.5510408828693253,
+      "f1": 0.6542584871947588,
+      "support": 3987
+    },
+    {
+      "class_id": 3,
+      "class_name": "DoS",
+      "precision": 0.32174821002386633,
+      "recall": 0.5325925925925926,
+      "f1": 0.40115305932676215,
+      "support": 4050
+    },
+    {
+      "class_id": 4,
+      "class_name": "Reconnaissance",
+      "precision": 0.8340046029919448,
+      "recall": 0.8340046029919448,
+      "f1": 0.8340046029919448,
+      "support": 3476
+    },
+    {
+      "class_id": 5,
+      "class_name": "Analysis",
+      "precision": 0.056338028169014086,
+      "recall": 0.005988023952095809,
+      "f1": 0.010825439783491205,
+      "support": 668
+    },
+    {
+      "class_id": 6,
+      "class_name": "Backdoor",
+      "precision": 0.03909691629955947,
+      "recall": 0.12283737024221453,
+      "f1": 0.05931495405179616,
+      "support": 578
+    },
+    {
+      "class_id": 7,
+      "class_name": "Shellcode",
+      "precision": 0.2831050228310502,
+      "recall": 0.8469945355191257,
+      "f1": 0.42436687200547574,
+      "support": 366
+    },
+    {
+      "class_id": 8,
+      "class_name": "Worms",
+      "precision": 0.2283464566929134,
+      "recall": 0.6744186046511628,
+      "f1": 0.3411764705882353,
+      "support": 43
+    }
+  ],
+  "confusion_matrix": [
+    [
+      18150,
+      420,
+      136,
+      102,
+      5,
+      0,
+      9,
+      29,
+      5
+    ],
+    [
+      0,
+      6988,
+      263,
+      2254,
+      350,
+      42,
+      686,
+      337,
+      78
+    ],
+    [
+      0,
+      211,
+      2197,
+      1014,
+      154,
+      8,
+      185,
+      212,
+      6
+    ],
+    [
+      1,
+      955,
+      96,
+      2157,
+      33,
+      13,
+      700,
+      91,
+      4
+    ],
+    [
+      1,
+      175,
+      13,
+      189,
+      2899,
+      0,
+      90,
+      104,
+      5
+    ],
+    [
+      0,
+      56,
+      2,
+      533,
+      0,
+      4,
+      73,
+      0,
+      0
+    ],
+    [
+      0,
+      34,
+      4,
+      455,
+      2,
+      4,
+      71,
+      8,
+      0
+    ],
+    [
+      0,
+      5,
+      16,
+      0,
+      33,
+      0,
+      2,
+      310,
+      0
+    ],
+    [
+      0,
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      4,
+      29
+    ]
+  ],
+  "class_names": [
+    "Generic",
+    "Exploits",
+    "Fuzzers",
+    "DoS",
+    "Reconnaissance",
+    "Analysis",
+    "Backdoor",
+    "Shellcode",
+    "Worms"
+  ],
+  "rare_class": {
+    "rare_classes": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_class_macro_f1": 0.3827716712968555,
+    "per_rare_class": [
+      {
+        "class_name": "Shellcode",
+        "present": true,
+        "precision": 0.2831050228310502,
+        "recall": 0.8469945355191257,
+        "f1": 0.42436687200547574,
+        "support": 366
+      },
+      {
+        "class_name": "Worms",
+        "present": true,
+        "precision": 0.2283464566929134,
+        "recall": 0.6744186046511628,
+        "f1": 0.3411764705882353,
+        "support": 43
+      }
+    ]
+  }
+}

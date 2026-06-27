@@ -1,0 +1,270 @@
+{
+  "schema_version": "task_a9_65_unsw_deep_result_weakness_audit_v1",
+  "task": "A9.65",
+  "title": "Deep full-project result-weakness audit and improvement diagnosis (UNSW-NB15 hierarchical Head 2)",
+  "created_date": "2026-06-24",
+  "project_root": "C:/IDS/IDS_V2/Secure-Distributed-Intrusion-Detection_V2",
+  "status": "COMPLETE_ANALYSIS_ONLY",
+  "training_was_run": false,
+  "preprocessing_was_run": false,
+  "smoke_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "files_modified": [],
+  "files_created": [
+    "docs/UNSW_DEEP_RESULT_WEAKNESS_AUDIT.md",
+    "docs/UNSW_STRONG_RESULTS_IMPROVEMENT_ROADMAP.md",
+    "results/audits/unsw_deep_result_weakness_audit.json",
+    "results/audits/unsw_deep_result_weakness_findings.csv",
+    "results/audits/unsw_next_experiment_ranking.csv"
+  ],
+  "commands_run": [
+    "READ-ONLY content search (ripgrep) for stale '\\b190\\b' references across the repo",
+    "READ-ONLY file globs to enumerate results/final/hierarchical/** and results/audits/unsw_*",
+    "All other inspection was direct file reads (no code, training, preprocessing, or eval execution)"
+  ],
+  "a9_baseline_recap": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "best_epoch": 35,
+    "best_val_hierarchical_score": 0.762364,
+    "val_binary_macro_f1": 0.933090,
+    "val_attack_family_macro_f1": 0.591638,
+    "test_binary_macro_f1": 0.894488,
+    "test_binary_f1": 0.910133,
+    "test_attack_family_macro_f1_on_attack_rows": 0.500429,
+    "test_attack_family_accuracy_on_attack_rows": 0.766478,
+    "test_rare_class_macro_f1": 0.385669,
+    "attack_false_negatives": 2310,
+    "benign_false_positives": 6186,
+    "per_class_test_f1": {
+      "Generic": 0.980808,
+      "Exploits": 0.690720,
+      "Fuzzers": 0.767899,
+      "DoS": 0.387737,
+      "Reconnaissance": 0.822659,
+      "Analysis": 0.012330,
+      "Backdoor": 0.070370,
+      "Shellcode": 0.439909,
+      "Worms": 0.331429
+    }
+  },
+  "a9_6_recap": {
+    "factor_changed": "attack_loss_weight 1.0 -> 1.5 (one factor; binary_loss_weight kept 1.0)",
+    "best_epoch": 36,
+    "test_binary_macro_f1": 0.911474,
+    "test_attack_family_macro_f1_on_attack_rows": 0.485478,
+    "test_rare_class_macro_f1": 0.362125,
+    "attack_false_negatives": 2593,
+    "benign_false_positives": 4581,
+    "delta_attack_family_macro_f1": -0.014951,
+    "delta_rare_class_macro_f1": -0.023544,
+    "outcome": "FAILED as a Head 2 improvement: binary improved, attack-family macro-F1 and rare-class macro-F1 declined, attack FN rose."
+  },
+  "confirmed_bugs": [],
+  "no_bug_verifications": [
+    "Label/taxonomy mapping consistent: attack_family_label_mapping id_to_class (Generic0..Worms8) matches per_class_attack_metrics.csv class_id order and the confusion-matrix column order. No off-by-one.",
+    "split_summary.json per-class supports exactly match test_metrics.json per-class supports (e.g. Generic 18871, Analysis 677, Worms 44). No label drift.",
+    "Mask integrity verified in split_summary for all splits: y_attack_family == -1 exactly where mask == 0; mask_0_count == benign count; attack rows carry valid 0..8 labels.",
+    "Loss masking correct: Head 2 CrossEntropy is applied only to (mask==1 & y_attack!=ignore); benign rows excluded; all-benign batch returns a zero attack-loss tensor (no NaN).",
+    "Class-weight wiring correct: pos_weight applied to BCEWithLogits (Head 1); attack_class_weights applied to F.cross_entropy(weight=...) (Head 2), length-validated == attack_head_dim, ordered by class id.",
+    "attack_loss_weight genuinely scales the Head 2 term in total_loss; A9.6 truly used 1.5 (verified in config and trainer).",
+    "Metric computation not inflated: multiclass macro-F1 is over the FULL fixed 9-class set, so never-predicted classes correctly score 0 and drag the macro down.",
+    "Head 2 macro-F1 is evaluated on attack rows only (teacher-forced, Head-1-independent); the routed end-to-end view (0.7208 of attacks correctly attributed) is slightly harsher, so the 0.50 headline is not optimistic relative to deployment.",
+    "Binary macro-F1 0.894488 reconstructs exactly from the confusion matrix (benign-F1 0.8789, attack-F1 0.9101, mean 0.8945). Not inflated.",
+    "Class weights computed from train labels only (validation/test labels never read); no test-set tuning; checkpoint selected by validation only."
+  ],
+  "blocking_findings": [],
+  "high_findings": [
+    {
+      "id": "RC1",
+      "title": "Intrinsic feature-space overlap of Analysis / Backdoor / DoS (and partly Exploits)",
+      "classification": "confirmed_issue",
+      "is_root_cause": true,
+      "evidence": "Confusion matrix: true Analysis -> DoS 479/677 and -> Backdoor 109/677 (only 5 correct); true Backdoor -> DoS 409/583 (95 correct); true DoS -> Exploits 1039 and -> Backdoor 775 (1973 correct). These four families form one mutually-confused cluster.",
+      "affected_files": ["results/final/hierarchical/unsw/attack_family_confusion_matrix.csv", "data/raw/unsw_nb15 (label provenance)"],
+      "expected_impact": "Dominant limiter of attack-family macro-F1. Analysis F1 0.0123 and Backdoor F1 0.0704 alone hold the 9-class macro near 0.50.",
+      "fix_idea": "Largely not fixable by tuning; it is a UNSW label/feature property. Manage with realistic targets, optional super-class reporting head, and modest feature engineering. Do NOT promise separation that the data does not support.",
+      "risk_level": "n/a (data property)",
+      "fix_before_more_training": false,
+      "needs_controlled_experiment": false
+    },
+    {
+      "id": "RC2",
+      "title": "Severe imbalance and tiny absolute support for rare/hard families",
+      "classification": "confirmed_issue",
+      "is_root_cause": true,
+      "evidence": "Train attack-row support: Worms 109, Shellcode 965, Backdoor 1505, Analysis 1675 vs Generic 33959 / Exploits 28482. Worms = 0.107% of attack rows. Rare-class precision is low (Shellcode 0.308, Worms 0.221, Backdoor 0.045) while recall is high -> class weighting buys recall at precision cost.",
+      "affected_files": ["data/processed/unsw_nb15/hierarchical/split_summary.json", "results/final/hierarchical/unsw/rare_class_metrics.csv"],
+      "expected_impact": "High variance and low precision on minority families; drags macro-F1; also makes single-seed comparisons noisy.",
+      "fix_idea": "Target precision repair (class-weight cap/temperature) rather than more recall pressure; report multi-seed mean+/-std for these classes.",
+      "risk_level": "low",
+      "fix_before_more_training": false,
+      "needs_controlled_experiment": true
+    }
+  ],
+  "medium_findings": [
+    {
+      "id": "RC3",
+      "title": "Head 2 is a single linear layer over a binary-dominated shared embedding",
+      "classification": "likely_issue",
+      "is_root_cause": true,
+      "evidence": "Model code: attack_head = nn.Linear(128, 9) with no dedicated non-linear branch. Binary objective is near-saturated (train_binary_loss 0.077, val_binary_macro_f1 ~0.93 and flat) while train_attack_loss is far higher (0.69) and val attack macro-F1 plateaus ~0.59. The shared 128-d embedding is shaped mostly by the easy binary task.",
+      "affected_files": ["secureids/models/secureids_hierarchical_advanced_net.py"],
+      "expected_impact": "Limits Head 2 capacity to carve non-linear family boundaries out of the overlapping cluster. Most actionable structural lever.",
+      "fix_idea": "Add a dedicated 2-layer non-linear Head 2 branch (e.g. 128->128->9, GELU+dropout) while keeping the loss/weights/optimizer/protocol identical. One controlled factor (head depth). Avoids A9.6's failure mode (no extra minority loss pressure).",
+      "risk_level": "low_medium",
+      "fix_before_more_training": false,
+      "needs_controlled_experiment": true
+    },
+    {
+      "id": "RC4",
+      "title": "Official UNSW partition prior shift inflates binary FP on test and the val->test gap",
+      "classification": "confirmed_issue",
+      "is_root_cause": true,
+      "evidence": "Train+val benign fraction = 56000/175341 = 31.9% vs test benign fraction = 37000/82332 = 44.9%. Validation benign FP rate 0.0549 jumps to test 0.1672; val binary macro-F1 0.933 -> test 0.894; val attack macro-F1 0.592 -> test 0.500. This is the known official-protocol covariate/prior shift, not a bug.",
+      "affected_files": ["data/processed/unsw_nb15/hierarchical/split_summary.json", "results/final/hierarchical/unsw/hierarchical_routing_summary.json"],
+      "expected_impact": "Binary precision/FP penalty on test; part of the honest val->test gap. It is a property of the corrected benchmark protocol.",
+      "fix_idea": "Optional: validation-only decision-threshold calibration to trade FP/FN (benefit is bounded because val and test priors also differ). Report the gap explicitly; do not tune on test.",
+      "risk_level": "low",
+      "fix_before_more_training": false,
+      "needs_controlled_experiment": false
+    },
+    {
+      "id": "RC5",
+      "title": "Global attack_loss_weight is a blunt lever; more minority pressure lowers rare precision without separating Analysis/Backdoor",
+      "classification": "confirmed_issue",
+      "is_root_cause": true,
+      "evidence": "A9.6 (weight 1.5) dropped Shellcode precision 0.308->0.236, DoS F1 0.388->0.338, macro-F1 0.500->0.485; Analysis/Backdoor stayed on the floor. Increasing global Head 2 pressure pushed more over-prediction of already-recalled minorities.",
+      "affected_files": ["results/final/hierarchical/unsw_a9_6_head2_loss_weight/test_metrics.json"],
+      "expected_impact": "Explains why A9.6 failed and warns that focal-loss-with-class-weights (another minority/hard-pressure lever) risks the same precision-collapse pattern.",
+      "fix_idea": "Prefer capacity (RC3) and precision repair over more minority loss pressure. If focal loss is tried, gate strictly on rare-class precision floors.",
+      "risk_level": "medium",
+      "fix_before_more_training": false,
+      "needs_controlled_experiment": true
+    },
+    {
+      "id": "RC6",
+      "title": "Single-seed experiment comparisons are within run-to-run noise",
+      "classification": "confirmed_issue",
+      "is_root_cause": false,
+      "evidence": "Validation attack macro-F1 swings ~+/-0.02-0.03 epoch-to-epoch within each run; A9 vs A9.6 differ by only 0.014951 macro-F1 with N=1 seed each. A 0.01-0.02 difference cannot be distinguished from noise.",
+      "affected_files": ["results/final/hierarchical/unsw/training_history.csv", "results/final/hierarchical/unsw_a9_6_head2_loss_weight/training_history.csv"],
+      "expected_impact": "Risk of over-interpreting noise as signal; weakens the rigor of promote/reject decisions.",
+      "fix_idea": "Run every future experiment with >=3 seeds and report mean+/-std for the headline and rare-class metrics. Promote only on differences beyond the observed noise band.",
+      "risk_level": "low",
+      "fix_before_more_training": true,
+      "needs_controlled_experiment": false
+    }
+  ],
+  "low_findings": [
+    {
+      "id": "RC7",
+      "title": "Feature space is 69% ultra-rare protocol one-hots, standard-scaled",
+      "classification": "possible_issue",
+      "evidence": "feature_names.json: 133/192 features are proto_* one-hot dummies (most ultra-rare, e.g. proto_aris, proto_aes-sp3-d), 13 service + 7 state + 39 numeric. One-hot columns are StandardScaler-scaled, amplifying rare-category spikes.",
+      "affected_files": ["data/processed/unsw_nb15/hierarchical/feature_names.json", "configs/preprocessing/unsw_nb15_binary.yaml"],
+      "expected_impact": "Low-medium noise dilution; unlikely to be the dominant limiter because the easy classes (Generic 0.98, Recon 0.82) already score well with the same features.",
+      "fix_idea": "Later experiment: prune ultra-rare proto dummies / frequency-encode proto / leave one-hots unscaled. Changes feature_dim (breaks direct comparability) and needs careful re-preprocessing.",
+      "risk_level": "medium",
+      "needs_controlled_experiment": true
+    },
+    {
+      "id": "RC8",
+      "title": "No LR scheduler / no gradient clipping; constant LR 0.001; training hit max_epochs not early stop",
+      "classification": "unlikely_issue",
+      "evidence": "training_history.csv: learning_rate constant 0.001 for all 40 epochs; best epoch 35, ran to max 40 (patience 6 not triggered). Val attack macro-F1 had effectively plateaued by epoch ~19-25.",
+      "affected_files": ["secureids/training/hierarchical_trainer.py", "configs/training/unsw_nb15_hierarchical.yaml"],
+      "expected_impact": "Low. A cosine/step LR could marginally stabilize the plateau; longer training is unlikely to raise the ceiling.",
+      "fix_idea": "Optional cosine LR decay; low priority.",
+      "risk_level": "low",
+      "needs_controlled_experiment": false
+    },
+    {
+      "id": "RC9",
+      "title": "No class-balanced sampler for attack rows (Worms <1 sample/batch)",
+      "classification": "unlikely_issue",
+      "evidence": "batch_size 1024 over 149039 train rows -> ~0.75 Worms and ~6.6 Shellcode per batch. But rare recall is already high (Shellcode 0.77, Worms 0.66); the problem is precision, which a balanced sampler would not fix and could worsen.",
+      "affected_files": ["secureids/training/hierarchical_trainer.py"],
+      "expected_impact": "Low / possibly negative for macro-F1. Not recommended as a lever.",
+      "fix_idea": "Do not pursue balanced/oversampling for macro-F1; project policy already disables oversampling.",
+      "risk_level": "low",
+      "needs_controlled_experiment": false
+    },
+    {
+      "id": "RC10",
+      "title": "Validation objective weights binary 50% though binary is near-saturated",
+      "classification": "possible_issue",
+      "evidence": "val_binary_macro_f1 span ~0.013 vs val_attack_family_macro_f1 span ~0.12 across epochs. The 0.5/0.5 blend lets a near-flat binary term occupy half the selection signal.",
+      "affected_files": ["secureids/training/hierarchical_evaluation.py", "configs/training/unsw_nb15_hierarchical.yaml"],
+      "expected_impact": "Low. Selection-only; cannot exceed the best attack-F1 epoch actually produced (bounded by the plateau).",
+      "fix_idea": "Cheap companion experiment: reweight selection to 0.3*binary + 0.7*attack to bias toward better Head 2 epochs.",
+      "risk_level": "very_low",
+      "needs_controlled_experiment": true
+    },
+    {
+      "id": "RC11",
+      "title": "Stale '190' references in README, two dimension-agnostic smoke tests, and pytest cache",
+      "classification": "documentation_hygiene_not_a_results_bug",
+      "evidence": "README.md:46 still says UNSW '190'; tests/test_hierarchical_advanced_model.py uses input_dim=190 in synthetic forward smoke tests (model is dimension-agnostic, so tests still valid); .pytest_cache holds stale node ids. Active hierarchical training/preprocessing path correctly uses 192 (config, hierarchical_config.py, hierarchical_validation.py, and the trained artifacts all show 192).",
+      "affected_files": ["README.md", "tests/test_hierarchical_advanced_model.py", ".pytest_cache/"],
+      "expected_impact": "None on A9 results. Legacy binary/FedAvg configs intentionally keep 190 (documented in docs/UNSW_SPLIT_PROTOCOL_DECISION.md).",
+      "fix_idea": "Out of scope for this no-edit task; note for a later documentation pass.",
+      "risk_level": "negligible",
+      "needs_controlled_experiment": false
+    }
+  ],
+  "likely_root_causes": [
+    "RC1 intrinsic Analysis/Backdoor/DoS/Exploits feature-space overlap (dominant macro-F1 limiter)",
+    "RC2 severe imbalance / tiny absolute support for rare-hard families (low minority precision)",
+    "RC3 single-linear Head 2 over a binary-dominated shared embedding (most actionable structural lever)",
+    "RC4 official-partition prior shift (binary FP + val->test gap; intrinsic to the corrected protocol)",
+    "RC5 global attack_loss_weight is too blunt; more minority pressure hurt precision (explains A9.6)"
+  ],
+  "metric_and_evaluation_assessment": {
+    "macro_f1_over_full_class_set": true,
+    "head2_evaluated_on_attack_rows_only": true,
+    "head2_headline_is_teacher_forced_head1_independent": true,
+    "routed_end_to_end_view_is_slightly_harsher": true,
+    "binary_macro_f1_reconstructs_from_confusion_matrix": true,
+    "any_inflation_detected": false
+  },
+  "is_focal_loss_still_the_best_next_step": false,
+  "focal_loss_assessment": "Credible but NOT the clearly-best next step and NOT my primary recommendation. Focal loss combined with the existing class weights is another minority/hard-pressure lever, and the A9.6 evidence (RC5) shows added minority pressure lowered rare-class precision while leaving Analysis/Backdoor on the floor. Focal loss can reweight the loss landscape but cannot separate families that overlap in feature space (RC1). If run, it must be strictly gated on rare-class precision floors and reported across >=3 seeds.",
+  "next_experiment_recommendation": {
+    "primary": "A9.7 head2_branch_capacity: add a dedicated 2-layer non-linear Head 2 branch (e.g. 128->128->9, GELU + dropout) while keeping CrossEntropy, train-only class weights, attack_loss_weight=1.0, optimizer, LR, threshold, validation objective, and the corrected UNSW protocol unchanged. One controlled factor (Head 2 depth). Directly targets RC3 and avoids the A9.6 minority-pressure failure mode.",
+    "cheap_companion": "A9.8 selection_objective_reweight: change only the validation selection blend to 0.3*binary + 0.7*attack_family macro-F1 (selection-only, zero training-dynamics change).",
+    "precision_repair_option": "A9.9 attack_weight_cap_down: reduce the attack class-weight cap/temperature to lift rare-class precision (opposite direction to A9.6).",
+    "demoted_option": "head2_focal_loss (the prior A9.6-review recommendation): keep as a later, precision-gated alternative, not the next step.",
+    "must_use_methodology": ">=3 seeds with mean+/-std; keep A9 as the frozen baseline; separate output paths; promote only on differences beyond the noise band and the existing success gates; never select or tune on the test split."
+  },
+  "expected_realistic_improvement": {
+    "current_attack_family_macro_f1": 0.500429,
+    "after_one_experiment_est": "0.51 - 0.54 (3-seed mean)",
+    "after_two_to_three_experiments_est": "0.53 - 0.60",
+    "stretch_ceiling_official_protocol": "~0.60",
+    "rare_class_macro_f1_target": ">= 0.385669 (do not regress)",
+    "qualitative_goal": "Lift at least one of Analysis / Backdoor / DoS off the floor without collapsing Shellcode/Worms precision."
+  },
+  "is_attack_family_macro_f1_above_0_9_realistic": false,
+  "why_above_0_9_unrealistic": "On the corrected official UNSW-NB15 split, Analysis/Backdoor/DoS/Exploits overlap by construction; published 9-class work routinely reports near-zero Analysis/Backdoor F1 and macro-F1 in the ~0.45-0.60 band (high weighted-F1 ~0.75-0.80 is dominated by Generic/Exploits). A macro-F1 > 0.9 would require near-perfect separation of intrinsically-entangled families and is not achievable from these features without changing the problem (e.g. merging families or adding richer data).",
+  "safety_summary": {
+    "training_was_run": false,
+    "smoke_was_run": false,
+    "preprocessing_was_run": false,
+    "checkpoints_created": false,
+    "final_metrics_created": false,
+    "source_code_modified": false,
+    "configs_modified": false,
+    "a9_artifacts_modified": false,
+    "a9_6_artifacts_modified": false,
+    "v1_modified": false,
+    "v1_code_copied": false,
+    "git_operations_run": false,
+    "cicids_started": false,
+    "fedavg_started": false,
+    "security_attack_trimmed_mean_started": false,
+    "xai_started": false,
+    "dashboard_started": false,
+    "only_created_a9_65_audit_documents": true
+  }
+}

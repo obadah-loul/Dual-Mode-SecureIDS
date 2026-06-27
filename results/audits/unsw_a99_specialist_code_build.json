@@ -1,0 +1,108 @@
+{
+  "audit_name": "unsw_a99_specialist_code_build",
+  "task_type": "a99_specialist_router_code_build_no_training",
+  "generated_on": "2026-06-25",
+  "current_baseline": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "identity": "A9 corrected-protocol hierarchical baseline",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "build_scope": {
+    "specialist_model_module_added": true,
+    "specialist_trainer_added": true,
+    "specialist_evaluation_added": true,
+    "specialist_config_loader_added": true,
+    "cli_command_added": "train-attack-family-specialist",
+    "seed42_config_created": true,
+    "tests_added": [
+      "tests/test_attack_family_specialist_config.py",
+      "tests/test_attack_family_specialist_safety.py",
+      "tests/test_attack_family_specialist_cli.py",
+      "tests/test_attack_family_specialist_metrics.py"
+    ]
+  },
+  "code_files_added": [
+    "secureids/models/attack_family_specialist.py",
+    "secureids/training/attack_family_specialist_config.py",
+    "secureids/training/attack_family_specialist_trainer.py",
+    "secureids/training/attack_family_specialist_evaluation.py"
+  ],
+  "code_files_modified": [
+    "secureids/cli.py (additive: new train-attack-family-specialist subcommand + handler; train-hierarchical untouched)"
+  ],
+  "planned_seed42": {
+    "config": "configs/training/experiments/unsw_a99_attack_family_specialist_seed42.yaml",
+    "checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+    "results": "results/experiments/unsw_a99_attack_family_specialist_seed42/",
+    "report": "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md",
+    "manual_run_only": true,
+    "training_executed": false
+  },
+  "design": {
+    "router": "frozen A9 Head 1 (binary), loaded read-only, never retrained",
+    "specialist": "AttackFamilySpecialistNet — isolated attack-only 9-way classifier (own encoder, no binary head)",
+    "training_scope": "UNSW train attack rows only (attack_family_mask == 1 AND y != -1)",
+    "selection": "validation-only by val attack-family macro-F1; no test tuning",
+    "metric_views_separated": ["a9_binary_head1", "specialist_oracle_attack_family", "routed_end_to_end"],
+    "oracle_not_reported_as_routed": true,
+    "weak_classes_kept_visible": ["Analysis", "Backdoor", "DoS", "Shellcode", "Worms"],
+    "no_label_merging_to_inflate": true
+  },
+  "cli_dry_run_behavior": {
+    "without_execute": "prints a torch-free dry-run plan summary and exits 0 without training or writing",
+    "with_execute": "would run the real attack-only training (lazy torch); NOT invoked in this build",
+    "requires_config": true,
+    "refuses_unsafe_output_paths": true,
+    "refuses_checkpoint_overwrite_unless_overwrite_flag": true,
+    "overwrite_flag_documented_as_needing_main_control_approval": true,
+    "does_not_affect_train_hierarchical": true
+  },
+  "safety": {
+    "a9_checkpoint_modified": false,
+    "final_models_modified": false,
+    "results_final_modified": false,
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "manual_seed42_command": "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2; .\\.venv\\Scripts\\python.exe -m secureids.cli train-attack-family-specialist --config configs\\training\\experiments\\unsw_a99_attack_family_specialist_seed42.yaml --execute",
+  "manual_seed42_command_status": "DO_NOT_RUN_YET_requires_main_control_approval",
+  "a99_now_runnable": "scaffolding complete and dry-run verified; real training is runnable only after main-control approval (manual --execute)",
+  "expected_outputs": [
+    "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/oracle_attack_family_metrics.json",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/routed_end_to_end_metrics.json",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/per_class_attack_metrics.csv",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/rare_class_metrics.csv",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/attack_family_confusion_matrix.csv",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/hierarchical_routing_summary.json",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/training_history.csv",
+    "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md"
+  ],
+  "expected_outputs_created_now": false,
+  "tests_run": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_attack_family_specialist_config.py tests/test_attack_family_specialist_safety.py tests/test_attack_family_specialist_cli.py tests/test_attack_family_specialist_metrics.py -q",
+      "result": "19 passed in 2.39s"
+    }
+  ],
+  "overwrite_safety": {
+    "target_deliverables_checked_before_writing": [
+      "docs/experiments/UNSW_A99_SPECIALIST_CODE_BUILD_REPORT.md",
+      "results/audits/unsw_a99_specialist_code_build.json",
+      "results/audits/unsw_a99_specialist_build_expected_outputs.csv",
+      "configs/training/experiments/unsw_a99_attack_family_specialist_seed42.yaml"
+    ],
+    "all_were_new": true,
+    "no_existing_file_overwritten": true
+  },
+  "next_main_control_decision": "approve_or_reject_manual_seed42_training_run"
+}

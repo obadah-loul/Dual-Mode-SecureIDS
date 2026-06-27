@@ -1,0 +1,131 @@
+# UNSW A9.10 frozen-A9-embedding specialist (seed 42) - SCAFFOLDING CONFIG.
+# status: not_run_yet -> this config has NOT been trained.
+# Manual training requires a separate main-control approval:
+#   python -m secureids.cli train-frozen-embedding-specialist --config configs/training/experiments/unsw_a10_frozen_embedding_specialist_seed42.yaml --execute
+# Without --execute the CLI only prints a dry-run summary and writes nothing.
+
+dataset: unsw_nb15
+task: frozen_embedding_specialist
+status: not_run_yet
+experiment: unsw_a10_frozen_embedding_specialist_seed42
+model_name: FrozenEmbeddingSpecialistHead
+seed: 42
+input_dim: 192
+embedding_dim: 128
+num_attack_families: 9
+
+hierarchical_data_dir: data/processed/unsw_nb15/hierarchical
+attack_family_label_mapping_path: data/processed/unsw_nb15/hierarchical/attack_family_label_mapping.json
+
+frozen_a9:
+  checkpoint: models/final/final_unsw_hierarchical.pt
+  identity: A9 corrected-protocol hierarchical baseline
+  trainable: false
+  freeze_encoder: true
+  freeze_binary_router: true
+  binary_macro_f1: 0.894488
+
+protocol: "A8.8 corrected UNSW benchmark protocol; A9.10 uses frozen A9 encoder+gate embedding as fixed 128-dimensional features."
+
+training_data:
+  attack_rows_only: true
+  train_split: train
+  validation_split: val
+  test_split: test
+  row_selection: "attack_family_mask == 1 AND y_attack_family != -1"
+
+embedding:
+  source: a9_forward_embedding
+  extraction_point: "SecureIDSHierarchicalAdvancedNet.forward()['embedding'] after encoder + gate"
+  dim: 128
+  fixed_features: true
+  recompute_per_split: true
+  use_test_labels_for_training: false
+
+model:
+  architecture: FrozenEmbeddingSpecialistHead
+  head_type: shallow_mlp
+  hidden_dim: 64
+  dropout: 0.35
+
+loss:
+  type: cross_entropy_attack_rows_only
+  label_smoothing: 0.05
+  ignore_index: -1
+
+class_imbalance:
+  weighting: train_split_inverse_frequency_tempered_mean_normalized
+  compute_weights_from: train_only
+  allow_test_based_weights: false
+  temperature: 0.5
+  oversampling_enabled: false
+
+training:
+  seed: 42
+  batch_size: 1024
+  max_epochs: 40
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.001
+  early_stopping_metric: val_generalization_score
+  early_stopping_patience: 8
+
+checkpoint_selection:
+  monitor: val_generalization_score
+  use_validation_only: true
+  select_by_test_metrics: false
+  train_val_gap_penalty: 0.25
+  final_test_once_after_best_validation: true
+
+evaluation:
+  separate_oracle_and_routed: true
+  oracle_view: true_attack_rows_only
+  routed_view: frozen_a9_head1_routes_into_a10_head
+  do_not_report_oracle_as_routed: true
+  weak_classes_visible: true
+
+baselines:
+  a9_binary_macro_f1: 0.894488
+  a9_attack_family_macro_f1: 0.500429
+  a9_rare_class_macro_f1: 0.385669
+  seed42_oracle_attack_family_target: 0.515429
+
+rare_classes:
+  - Shellcode
+  - Worms
+
+weak_classes_must_remain_visible:
+  - Analysis
+  - Backdoor
+  - DoS
+  - Shellcode
+  - Worms
+
+outputs:
+  checkpoint: models/experiments/unsw_a10_frozen_embedding_specialist_seed42.pt
+  result_dir: results/experiments/unsw_a10_frozen_embedding_specialist_seed42
+  training_history_csv: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/training_history.csv
+  oracle_metrics_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/oracle_attack_family_metrics.json
+  routed_metrics_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/routed_end_to_end_metrics.json
+  per_class_attack_metrics_csv: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/per_class_attack_metrics.csv
+  rare_class_metrics_csv: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/rare_class_metrics.csv
+  attack_family_confusion_matrix_csv: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/attack_family_confusion_matrix.csv
+  routing_summary_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/hierarchical_routing_summary.json
+  training_config_snapshot_yaml: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/training_config_snapshot.yaml
+  class_weight_snapshot_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/class_weight_snapshot.json
+  model_summary_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/model_summary.json
+  manifest_json: results/experiments/unsw_a10_frozen_embedding_specialist_seed42/manifest.json
+  report_md: docs/experiments/UNSW_A10_FROZEN_EMBEDDING_SPECIALIST_SEED42_REPORT.md
+
+safety:
+  no_test_tuning: true
+  attack_rows_only: true
+  validation_only_selection: true
+  freeze_a9_encoder: true
+  freeze_a9_binary_router: true
+  no_final_overwrite: true
+  do_not_report_oracle_as_routed: true
+  do_not_replace_a9_without_approval: true
+  training_executed: false
+  allow_overwrite: false
+  checkpoint_created: false

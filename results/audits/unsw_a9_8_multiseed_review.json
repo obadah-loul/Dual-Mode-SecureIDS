@@ -1,0 +1,119 @@
+{
+  "status": "complete",
+  "task": "A9.8 official multi-seed A9 linear vs A9.7 branch-capacity review",
+  "aggregation_status": "complete",
+  "promote_a9_7_branch": false,
+  "current_accepted_unsw_baseline": "A9 linear Head 2",
+  "a9_linear_seed_results": [
+    {
+      "seed": 42,
+      "binary_macro_f1": 0.894488,
+      "attack_family_macro_f1": 0.500429,
+      "rare_class_macro_f1": 0.3856689342403628
+    },
+    {
+      "seed": 123,
+      "binary_macro_f1": 0.891399,
+      "attack_family_macro_f1": 0.478736,
+      "rare_class_macro_f1": 0.2957823129251701
+    },
+    {
+      "seed": 999,
+      "binary_macro_f1": 0.896035,
+      "attack_family_macro_f1": 0.505731,
+      "rare_class_macro_f1": 0.40039946737683085
+    }
+  ],
+  "a9_7_branch_seed_results": [
+    {
+      "seed": 42,
+      "binary_macro_f1": 0.898348,
+      "attack_family_macro_f1": 0.493667,
+      "rare_class_macro_f1": 0.35450059186742167
+    },
+    {
+      "seed": 123,
+      "binary_macro_f1": 0.89981,
+      "attack_family_macro_f1": 0.511542,
+      "rare_class_macro_f1": 0.41624453142988715
+    },
+    {
+      "seed": 999,
+      "binary_macro_f1": 0.901583,
+      "attack_family_macro_f1": 0.493259,
+      "rare_class_macro_f1": 0.344914478262462
+    }
+  ],
+  "a9_linear_mean_std": {
+    "binary_macro_f1": {
+      "mean": 0.893974,
+      "std": 0.00236
+    },
+    "attack_family_macro_f1": {
+      "mean": 0.494965,
+      "std": 0.014303
+    },
+    "rare_class_macro_f1": {
+      "mean": 0.360617,
+      "std": 0.056629
+    }
+  },
+  "a9_7_branch_mean_std": {
+    "binary_macro_f1": {
+      "mean": 0.899914,
+      "std": 0.00162
+    },
+    "attack_family_macro_f1": {
+      "mean": 0.499489,
+      "std": 0.01044
+    },
+    "rare_class_macro_f1": {
+      "mean": 0.371887,
+      "std": 0.038713
+    }
+  },
+  "mean_deltas_branch_minus_linear": {
+    "binary_macro_f1": 0.00594,
+    "attack_family_macro_f1": 0.004524,
+    "rare_class_macro_f1": 0.01127
+  },
+  "promotion_criteria": {
+    "approved_promotion_rule": "A9.7 branch must beat A9 linear by the approved promotion rule, including a sufficient attack-family macro-F1 mean gain."
+  },
+  "promotion_criteria_results": {
+    "approved_promotion_rule_passed": false,
+    "reason": "A9.7 branch attack-family macro-F1 mean gain was +0.004524, below the approved promotion margin."
+  },
+  "a9_7_should_replace_a9": false,
+  "head2_branch_capacity_direction": "abandon_as_next_major_unsw_improvement_direction",
+  "lessons_from_a9_6": "Increasing attack loss weight was not a reliable UNSW improvement path; it improved binary behavior but hurt attack-family and rare-class quality.",
+  "lessons_from_a9_7": "Adding MLP branch capacity to Head 2 can improve some signals, but the single-run result was not strong enough to replace A9.",
+  "lessons_from_a9_8": "Across three seeds, A9.7 branch was stable and made small mean gains, but the gains were too small for promotion.",
+  "official_decision": [
+    "A9.8 completed successfully.",
+    "A9.7 branch does not pass the approved promotion rule.",
+    "A9.7 branch should not replace A9.",
+    "A9 remains the accepted UNSW baseline.",
+    "Head 2 branch capacity should be abandoned as the next major UNSW improvement direction.",
+    "Stop for main-review."
+  ],
+  "next_safest_professional_decision": "Stop for main-review before any further UNSW improvement, CICIDS, focal-loss, class-weight, FedAvg, security, attack, XAI, dashboard, or next-experiment work.",
+  "training_was_run_by_this_task": false,
+  "checkpoints_created_by_this_task": false,
+  "final_metrics_created_by_this_task": false,
+  "training_code_modified": false,
+  "configs_modified": false,
+  "path_validation_modified": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "a9_7_artifacts_modified": false,
+  "a9_8_seed_artifacts_modified": false,
+  "cicids_started": false,
+  "focal_loss_started": false,
+  "class_weight_changes_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "fedavg_security_attacks_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "github_push_performed": false,
+  "next_experiment_prompt_prepared": false
+}

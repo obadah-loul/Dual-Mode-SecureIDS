@@ -1,0 +1,43 @@
+dataset: unsw_nb15
+task: binary
+# A8.8 UNSW split protocol correction (see docs/UNSW_SPLIT_PROTOCOL_DECISION.md).
+# The local raw file NAMES are swapped relative to the canonical UNSW-NB15 sizes:
+#   - local UNSW_NB15_testing-set.csv  has 175,341 rows == canonical TRAINING set
+#   - local UNSW_NB15_training-set.csv has  82,332 rows == canonical TESTING set
+# The standard benchmark protocol trains on the 175,341-row partition and tests
+# on the 82,332-row partition, so train_file/test_file are assigned by canonical
+# ROW COUNT, not by the (misleading) local file name.
+train_file: data/raw/unsw_nb15/UNSW_NB15_testing-set.csv   # 175,341 rows = canonical train
+test_file: data/raw/unsw_nb15/UNSW_NB15_training-set.csv    # 82,332 rows  = canonical test
+output_dir: data/processed/unsw_nb15/binary
+artifact_path: models/final/preprocessors/unsw_nb15_binary_preprocessor.joblib
+target_column: label
+drop_columns:
+  - id
+  - label
+  - attack_cat
+categorical_columns:
+  - proto
+  - service
+  - state
+binary_mapping:
+  normal_value: 0
+  attack_value: 1
+split:
+  strategy: official_train_test_with_validation_from_train
+  val_size_from_train: 0.15
+  random_seed: 42
+cleaning:
+  strip_column_whitespace: true
+  replace_inf_with_nan: true
+  numeric_coerce: true
+encoding:
+  categorical_encoder: onehot
+  handle_unknown: ignore
+  fit_on: train_only
+imputation:
+  numeric_strategy: median
+  fit_on: train_only
+scaling:
+  type: standard
+  fit_on: train_only

@@ -1,0 +1,97 @@
+{
+  "schema_version": "task_a8_8_pre_training_high_findings_resolution_v1",
+  "created_at_utc": "2026-06-24",
+  "task": "A8.8 - resolve pre-training HIGH findings F1 (UNSW split) and F2 (class-weight wiring)",
+  "status": "RESOLVED",
+
+  "f1_unsw_split_protocol_resolved": true,
+  "f1_decision": "Adopt the standard UNSW-NB15 benchmark protocol: train/val on the 175,341-row canonical training partition (local UNSW_NB15_testing-set.csv), final test on the 82,332-row canonical testing partition (local UNSW_NB15_training-set.csv). Local file names are swapped vs canonical row counts; files are assigned by canonical row count and raw files were not modified.",
+  "unsw_train_source_file": "data/raw/unsw_nb15/UNSW_NB15_testing-set.csv (175,341 rows = canonical train)",
+  "unsw_val_source": "85/15 split of the train source, stratified on the binary label, random_seed=42",
+  "unsw_test_source_file": "data/raw/unsw_nb15/UNSW_NB15_training-set.csv (82,332 rows = canonical test)",
+  "unsw_train_rows": 149039,
+  "unsw_val_rows": 26302,
+  "unsw_test_rows": 82332,
+  "unsw_feature_dim_before": 190,
+  "unsw_feature_dim_after": 192,
+  "unsw_rare_class_support_after": {
+    "Shellcode": {"train": 965, "val": 168, "test": 378},
+    "Worms": {"train": 109, "val": 21, "test": 44}
+  },
+
+  "old_unsw_artifacts_status": "legacy_pre_correction_preserved_not_deleted",
+  "old_unsw_artifacts_detail": {
+    "models/final/final_unsw_binary.pt": "legacy (190-dim, swapped protocol); preserved on disk",
+    "models/federated/fedavg_unsw_binary.pt": "legacy (190-dim, swapped protocol); preserved on disk",
+    "results/final/centralized/unsw_*": "legacy binary metrics; preserved",
+    "results/federated/unsw/*": "legacy FedAvg binary metrics; preserved",
+    "models/final/preprocessors/unsw_nb15_binary_preprocessor.joblib": "regenerated for corrected protocol; legacy copy archived under models/final/preprocessors/legacy_pre_a8_8/",
+    "legacy_snapshots_archived_under": "results/audits/legacy_pre_a8_8_unsw/"
+  },
+
+  "regenerated_unsw_artifacts": [
+    "data/processed/unsw_nb15/binary/ (corrected protocol, 192 features) + preprocessor joblib",
+    "data/processed/unsw_nb15/hierarchical/ (X copied from corrected binary, labels/masks rebuilt, 192 features)",
+    "results/audits/preprocessing_manifest_unsw_nb15.json",
+    "results/audits/preprocessing_audit_unsw_nb15.csv",
+    "results/audits/hierarchical_preprocessing_audit_unsw_nb15.json",
+    "results/audits/hierarchical_preprocessing_readiness_unsw_nb15.json",
+    "results/audits/hierarchical_class_weight_strategy_unsw_nb15.json",
+    "results/audits/hierarchical_full_training_readiness_unsw_nb15.json",
+    "results/audits/hierarchical_smoke_training_unsw_nb15.json (non-final)"
+  ],
+  "cicids_artifacts_modified": "none (CICIDS2018 untouched; its readiness/class-weight audits were re-emitted identically except timestamp by the all-dataset safe commands)",
+
+  "f2_class_weight_wiring_resolved": true,
+  "f2_detail": {
+    "compute_hierarchical_loss_now_accepts": ["pos_weight (binary Head 1)", "attack_class_weights (Head 2, length == attack_head_dim)"],
+    "attack_class_weights_applied_via": "F.cross_entropy(weight=...) on attack rows only",
+    "shape_validation": "attack_class_weights length must equal attack_head_dim, validated up front so a wrong shape raises ValueError even on an all-benign batch",
+    "device_handling": "both weight tensors moved to the logits device/dtype inside the loss",
+    "class_id_alignment": "build_train_only_class_weights returns attack_class_weights ordered by class id 0..N-1 aligned to id_to_class",
+    "empty_attack_mask_safe": "no attack rows => zero attack-loss tensor, never NaN",
+    "wired_into": [
+      "secureids/models/secureids_hierarchical_advanced_net.py (loss)",
+      "secureids/training/hierarchical_class_weights.py (build_train_only_class_weights)",
+      "secureids/training/hierarchical_readiness.py (forward/loss check now exercises weighted path)",
+      "secureids/training/hierarchical_smoke.py (smoke run applies locked weights, non-final)"
+    ]
+  },
+  "weighted_loss_tests_passed": true,
+  "weighted_loss_test_file": "tests/test_hierarchical_weighted_loss.py",
+  "class_weights_train_only": true,
+  "validation_labels_used_for_weights": false,
+  "test_labels_used_for_weights": false,
+
+  "tests": {
+    "compile_check": "PASS (compileall secureids tests)",
+    "full_suite": "102 passed",
+    "weighted_loss_suite": "PASS"
+  },
+  "readiness": {
+    "a4_hierarchical_preprocessing": "PASS (cicids2018, unsw_nb15)",
+    "a8_5_class_weight_lock": "PASS (max final attack weight: cicids 5.53, unsw 3.95)",
+    "a8_full_training_readiness": "PASS (cicids2018, unsw_nb15); weighted loss exercised",
+    "unsw_smoke_non_final": "PASS (input_dim 192, weighted loss applied)"
+  },
+
+  "full_training_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "hierarchical_fedavg_started": false,
+  "security_attack_trimmed_mean_xai_dashboard_started": false,
+  "git_operations_run": false,
+  "v1_modified": false,
+  "binary_baseline_checkpoints_preserved": true,
+
+  "remaining_blockers": [],
+  "remaining_high_issues": [],
+  "residual_notes": [
+    "F3 (rare-class validation stability) is substantially mitigated by the corrected protocol (Worms val 4 -> 21); A9 should still report per-class rare-class val F1 with support.",
+    "F4 (final hierarchical metric implementation) and the train-hierarchical CLI command remain A9 deliverables; A9 must compute metrics over the full fixed class set and apply the locked weights (now wired and proven).",
+    "Legacy UNSW binary/FedAvg configs/constants still say input_dim 190 by design (they describe the superseded baseline)."
+  ],
+
+  "ready_for_unsw_training": true,
+  "next_recommended_command": "Implement A9 (centralized hierarchical trainer + train-hierarchical CLI applying the locked weights), then: python -m secureids.cli train-hierarchical --dataset unsw --config configs/training/unsw_nb15_hierarchical.yaml --execute"
+}

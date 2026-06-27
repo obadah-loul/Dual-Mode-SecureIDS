@@ -1,0 +1,366 @@
+{
+  "schema_version": "task_a9_7_design_unsw_advanced_performance_engineering_plan_v1",
+  "task": "A9.7-design",
+  "title": "Advanced UNSW Hierarchical Performance Engineering Plan (design only)",
+  "created_date": "2026-06-24",
+  "project_root": "C:/IDS/IDS_V2/Secure-Distributed-Intrusion-Detection_V2",
+  "status": "DESIGN_ONLY_AWAITING_MAIN_REVIEW",
+  "training_was_run": false,
+  "smoke_was_run": false,
+  "preprocessing_was_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "files_modified": [],
+  "configs_modified": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "v1_modified": false,
+  "v1_code_copied": false,
+  "git_operations_run": false,
+  "files_created": [
+    "docs/UNSW_ADVANCED_PERFORMANCE_ENGINEERING_PLAN.md",
+    "docs/UNSW_NEXT_EXPERIMENT_DESIGN_DECISION.md",
+    "results/audits/unsw_advanced_performance_engineering_plan.json",
+    "results/audits/unsw_experiment_design_ranking.csv"
+  ],
+  "commands_run": [
+    "READ-ONLY: read results/final/hierarchical/unsw/model_summary.json for exact param_count (513418)",
+    "All other evidence reused from the A9.65 read-only audit (no new training/eval/preprocess executed)"
+  ],
+  "a9_recap": {
+    "binary_macro_f1": 0.894488,
+    "binary_f1": 0.910133,
+    "attack_recall": 0.949043,
+    "attack_false_negatives": 2310,
+    "benign_false_positives": 6186,
+    "attack_family_macro_f1": 0.500429,
+    "attack_family_accuracy": 0.766478,
+    "rare_class_macro_f1": 0.385669,
+    "best_epoch": 35,
+    "param_count": 513418,
+    "head2_param_count_estimate": 1161,
+    "head2_share_of_params_pct": 0.23
+  },
+  "a9_6_recap": {
+    "experiment": "head2_loss_weight (attack_loss_weight 1.0 -> 1.5)",
+    "binary_macro_f1": 0.911474,
+    "attack_family_macro_f1": 0.485478,
+    "rare_class_macro_f1": 0.362125,
+    "delta_attack_family_macro_f1": -0.014951,
+    "delta_rare_class_macro_f1": -0.023544,
+    "verdict": "Failed as a Head 2 improvement; binary up, Head 2 + rare down; do not replace A9."
+  },
+  "already_strong": [
+    "Binary Head 1 is strong and near-saturated: macro-F1 0.894, F1 0.910, attack recall 0.949, only 5.1% of attacks missed.",
+    "Pipeline is clean and leakage-free: train-only class weights, validation-only checkpoint selection, single final test, correct attack-row masking, ignore_index=-1.",
+    "Metrics are honest: macro-F1 over the full fixed 9-class set (never-predicted classes score 0), Head 2 scored on attack rows only, routed end-to-end view also reported. No inflation.",
+    "Strong families already: Generic 0.981, Reconnaissance 0.823, Fuzzers 0.768, Exploits 0.691.",
+    "Well-instrumented and reproducible: per-epoch history, confusion matrices, routing summary, manifest, class-weight snapshot, model summary."
+  ],
+  "weak_points": [
+    "Head 2 attack-family macro-F1 0.500, held down by Analysis (F1 0.012) and Backdoor (F1 0.070), and DoS (0.388).",
+    "Rare-class precision is low: Shellcode 0.308, Worms 0.221 (high recall, low precision from class weighting).",
+    "Wrong-family attribution is the dominant blocker: 22.8% of attacks are detected-but-wrong-family vs only 5.1% missed-as-benign.",
+    "Head 2 holds only ~0.23% of model parameters (single Linear(128,9)) on an embedding shaped mostly by the easy binary task."
+  ],
+  "do_not_change": [
+    "Binary Head 1 and binary BCE loss (strong; do not risk it).",
+    "Corrected UNSW protocol, input_dim 192, attack_head_dim 9, masking, ignore_index=-1.",
+    "Train-only class weights, validation-only selection, single final test, metric definitions.",
+    "A9 and A9.6 artifacts (frozen baselines).",
+    "Oversampling stays disabled (project policy + precision risk)."
+  ],
+  "findings": {
+    "model_architecture": {
+      "classification": "likely_issue",
+      "evidence": "Encoder ~512k params; Head 2 = single Linear(128,9) ~1,161 params (0.23%). Binary loss saturates early (train 0.077, val macro ~0.93 flat) while Head 2 val macro-F1 plateaus ~0.59.",
+      "expected_impact": "high (primary actionable lever)",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low_medium",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": true,
+      "before_more_training": true
+    },
+    "head2_capacity": {
+      "classification": "likely_issue",
+      "evidence": "Confusion matrix shows wrong-family attribution into DoS/Backdoor sinks; one linear layer cannot model non-linear family boundaries in a binary-dominated embedding.",
+      "expected_impact": "medium_high",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low_medium",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": true,
+      "before_more_training": true
+    },
+    "loss_design": {
+      "classification": "confirmed_issue",
+      "evidence": "Global attack_loss_weight is blunt; A9.6 (1.5) lowered rare precision (Shellcode 0.308->0.236) and did not separate Analysis/Backdoor -> macro down. Loss masking/weight wiring itself is correct.",
+      "expected_impact": "explains A9.6; warns focal+weights risks the same",
+      "implementation_complexity": "low",
+      "overfitting_risk": "n/a",
+      "scientific_validity_risk": "medium (precision collapse if pushed)",
+      "needs_controlled_experiment": true,
+      "before_more_training": false
+    },
+    "class_weight_strategy": {
+      "classification": "possible_issue",
+      "evidence": "sqrt-inverse-frequency mean-normalized cap=10 (max used 3.95 for Worms). Rare recall high, precision low -> cap/temperature may over-assign rare classes.",
+      "expected_impact": "low_medium (rare precision repair)",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": true,
+      "before_more_training": false
+    },
+    "sampler_batch_strategy": {
+      "classification": "unlikely_issue",
+      "evidence": "~0.75 Worms / 6.6 Shellcode per 1024-batch, but rare recall already high; problem is precision, not recall. Balanced sampling/oversampling would not help macro-F1 and could hurt precision.",
+      "expected_impact": "low_or_negative",
+      "implementation_complexity": "medium",
+      "overfitting_risk": "medium",
+      "scientific_validity_risk": "medium",
+      "needs_controlled_experiment": false,
+      "before_more_training": false
+    },
+    "validation_objective": {
+      "classification": "possible_issue",
+      "evidence": "val_binary span ~0.013 vs val_attack span ~0.12; the 0.5/0.5 blend lets a near-flat binary term occupy half the selection signal.",
+      "expected_impact": "low (selection-only, bounded by plateau)",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low",
+      "scientific_validity_risk": "low (validation-only; no test tuning)",
+      "needs_controlled_experiment": true,
+      "before_more_training": false
+    },
+    "optimizer_lr_earlystop": {
+      "classification": "unlikely_issue",
+      "evidence": "AdamW lr 1e-3 constant (no scheduler), no grad clip; best epoch 35, ran to max 40; val attack plateaued by ~epoch 19-25.",
+      "expected_impact": "low",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": false,
+      "before_more_training": false
+    },
+    "dropout_regularization": {
+      "classification": "not_enough_evidence",
+      "evidence": "dropout 0.20, weight_decay 1e-4. Head 2 appears to UNDERFIT (high train attack loss, plateaued val), not overfit, so a stronger Head 2 branch with its own dropout is the right direction.",
+      "expected_impact": "low_medium (paired with head capacity)",
+      "implementation_complexity": "low",
+      "overfitting_risk": "low_medium",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": true,
+      "before_more_training": false
+    },
+    "metric_evaluation": {
+      "classification": "confirmed_strength",
+      "evidence": "macro-F1 over full 9 classes; attack-row-only Head 2; teacher-forced headline + harsher routed view; binary macro reconstructs from CM. Professor-facing quality. No metric hides failures.",
+      "expected_impact": "n/a (keep as-is)",
+      "implementation_complexity": "n/a",
+      "overfitting_risk": "n/a",
+      "scientific_validity_risk": "low",
+      "needs_controlled_experiment": false,
+      "before_more_training": false
+    },
+    "feature_preprocessing": {
+      "classification": "possible_issue",
+      "evidence": "133/192 features are ultra-rare proto one-hots (StandardScaler-scaled). Dilutes signal but easy classes already strong, so not dominant. Changing features alters feature_dim and breaks comparability.",
+      "expected_impact": "low_medium",
+      "implementation_complexity": "medium_high (needs re-preprocessing + safety gates)",
+      "overfitting_risk": "low",
+      "scientific_validity_risk": "medium (comparability)",
+      "needs_controlled_experiment": true,
+      "before_more_training": false
+    },
+    "training_history_confusion": {
+      "classification": "confirmed_issue",
+      "evidence": "Analysis->DoS 479/677, Backdoor->DoS 409/583, DoS->Exploits 1039; DoS/Backdoor are over-predicted sinks. val->test gap: binary 0.933->0.894, attack 0.592->0.500 (official-partition prior shift, benign 31.9% train vs 44.9% test).",
+      "expected_impact": "explains the ceiling and the gap (largely intrinsic)",
+      "implementation_complexity": "n/a",
+      "overfitting_risk": "n/a",
+      "scientific_validity_risk": "n/a",
+      "needs_controlled_experiment": false,
+      "before_more_training": false
+    },
+    "single_seed_methodology": {
+      "classification": "confirmed_issue",
+      "evidence": "Per-epoch val attack macro-F1 swings +/-0.02-0.03; A9 vs A9.6 differ only 0.015 (N=1). Sub-noise differences are not interpretable.",
+      "expected_impact": "high for decision rigor",
+      "implementation_complexity": "low (run >=3 seeds)",
+      "overfitting_risk": "n/a",
+      "scientific_validity_risk": "n/a",
+      "needs_controlled_experiment": false,
+      "before_more_training": true
+    }
+  },
+  "ranked_options": [
+    {
+      "rank": 1,
+      "name": "A9.7 head2_branch_capacity",
+      "type": "architecture (Head 2 only)",
+      "factor": "Replace attack_head Linear(128,9) with Linear(128,128)+LayerNorm+GELU+Dropout(0.2)+Linear(128,9)",
+      "expected_attack_macro_f1_delta": "+0.01 to +0.04 (3-seed mean)",
+      "overfitting_risk": "low_medium",
+      "implementation_complexity": "low",
+      "scientific_validity_risk": "low",
+      "recommended": true
+    },
+    {
+      "rank": 2,
+      "name": "A9.8 selection_objective_reweight",
+      "type": "model selection (validation-only)",
+      "factor": "val score 0.3*binary + 0.7*attack_family macro-F1",
+      "expected_attack_macro_f1_delta": "0.00 to +0.01",
+      "overfitting_risk": "low",
+      "implementation_complexity": "low",
+      "scientific_validity_risk": "low",
+      "recommended": "cheap_companion"
+    },
+    {
+      "rank": 3,
+      "name": "A9.9 attack_weight_cap_down",
+      "type": "class-weight (precision repair)",
+      "factor": "Lower attack class-weight cap/temperature to reduce rare over-assignment",
+      "expected_attack_macro_f1_delta": "-0.01 to +0.02",
+      "overfitting_risk": "low",
+      "implementation_complexity": "low",
+      "scientific_validity_risk": "low",
+      "recommended": "secondary"
+    },
+    {
+      "rank": 4,
+      "name": "head2_focal_loss",
+      "type": "loss form",
+      "factor": "Focal loss (gamma 1.5-2.0) on attack rows, attack_loss_weight back to 1.0",
+      "expected_attack_macro_f1_delta": "-0.02 to +0.03 (uncertain)",
+      "overfitting_risk": "medium",
+      "implementation_complexity": "low_medium",
+      "scientific_validity_risk": "medium (rare precision collapse like A9.6)",
+      "recommended": "later_gated"
+    },
+    {
+      "rank": 5,
+      "name": "feature_cleanup",
+      "type": "preprocessing",
+      "factor": "Prune ultra-rare proto dummies / frequency-encode proto / leave one-hots unscaled",
+      "expected_attack_macro_f1_delta": "0.00 to +0.02",
+      "overfitting_risk": "low",
+      "implementation_complexity": "medium_high",
+      "scientific_validity_risk": "medium (changes feature_dim; needs separate safety gates)",
+      "recommended": "later"
+    },
+    {
+      "rank": 6,
+      "name": "two_stage_head2_finetune",
+      "type": "training protocol",
+      "factor": "Joint warmup -> freeze/partially fine-tune encoder -> train stronger Head 2 on attack rows",
+      "expected_attack_macro_f1_delta": "+0.01 to +0.04",
+      "overfitting_risk": "medium",
+      "implementation_complexity": "medium_high",
+      "scientific_validity_risk": "medium",
+      "recommended": "later_higher_complexity"
+    },
+    {
+      "rank": 7,
+      "name": "threshold_calibration",
+      "type": "routing (validation-only)",
+      "factor": "Calibrate binary decision threshold on validation",
+      "expected_attack_macro_f1_delta": "0.00 (binary FP/FN only)",
+      "overfitting_risk": "low",
+      "implementation_complexity": "low",
+      "scientific_validity_risk": "low",
+      "recommended": "optional"
+    },
+    {
+      "rank": 99,
+      "name": "oversampling_or_balanced_sampler",
+      "type": "sampler",
+      "factor": "Duplicate/synthesize or balance-sample minority attack rows",
+      "expected_attack_macro_f1_delta": "negative_or_flat",
+      "overfitting_risk": "high",
+      "implementation_complexity": "medium",
+      "scientific_validity_risk": "high",
+      "recommended": "avoid_for_now"
+    }
+  ],
+  "recommended_next_experiment": "A9.7 head2_branch_capacity",
+  "recommended_next_experiment_type": "architecture_head2_only_one_factor",
+  "selected_experiment_hypothesis": "Giving Head 2 its own small non-linear branch over the shared embedding (without adding minority loss pressure) lets it model the non-linear family boundaries that a single linear layer cannot, improving attack-family macro-F1 over A9 while keeping the strong binary head and rare-class precision stable.",
+  "exact_planned_changes": [
+    "Add a non-linear Head 2 branch: shared_embedding(128) -> Linear(128,128) -> LayerNorm -> GELU -> Dropout(p=model.dropout, default 0.2) -> Linear(128,9).",
+    "Keep binary_head as the existing single Linear(128,1).",
+    "Make the branch opt-in via a model config flag (e.g. model.head2_hidden_dims: [128]) so A9 behavior is the default when absent.",
+    "Run with >=3 seeds; report mean +/- std for headline and rare-class metrics."
+  ],
+  "unchanged_controls": [
+    "Loss: masked multi-task; CrossEntropy on attack rows; binary_loss_weight=1.0; attack_loss_weight=1.0",
+    "Train-only A8.5/A8.8 class weights and cap=10.0",
+    "Shared encoder (256,128,128), gated block, dropout 0.20, LayerNorm, residual_expansion 2",
+    "Binary head (single linear)",
+    "AdamW lr 1e-3, weight_decay 1e-4, batch 1024, max_epochs 40, early-stop patience 6",
+    "Validation objective 0.5*binary + 0.5*attack; threshold 0.5",
+    "Corrected UNSW protocol, input_dim 192, attack_head_dim 9, ignore_index -1",
+    "A9 and A9.6 output paths (frozen)"
+  ],
+  "expected_realistic_improvement": "Modest, honest lift on the overlapping cluster boundaries (DoS/Exploits/Backdoor); little movement expected on Analysis (intrinsic overlap).",
+  "is_attack_family_macro_f1_above_0_9_realistic": false,
+  "why_above_0_9_unrealistic": "Analysis/Backdoor/DoS/Exploits overlap by construction on the corrected official UNSW split; honest 9-class macro-F1 in the literature sits ~0.45-0.60. >0.9 would require near-perfect separation of intrinsically-entangled families and is not achievable from these features.",
+  "realistic_target_next_experiment": {
+    "attack_family_macro_f1_3seed_mean": "0.51 - 0.54",
+    "rare_class_macro_f1": ">= 0.385669 (no regression)",
+    "binary_macro_f1": ">= 0.884 (hold the strong binary head)"
+  },
+  "realistic_target_after_1_to_3_experiments": {
+    "attack_family_macro_f1": "0.53 - 0.60",
+    "headline_goal": "~0.55",
+    "stretch_ceiling": "~0.60",
+    "qualitative": "Lift at least one of Analysis/Backdoor/DoS off the floor without collapsing Shellcode/Worms precision."
+  },
+  "overfitting_risks": [
+    "A deeper Head 2 branch could memorize rare-class train rows (Worms 109). Mitigation: keep dropout/LayerNorm in the branch, keep the cap, validation-only selection, 3-seed reporting.",
+    "Encoder is left unchanged, so shared-representation overfitting risk is unchanged from A9."
+  ],
+  "scientific_validity_risks": [
+    "Single-seed promotion would be invalid (deltas within noise). Mitigation: >=3 seeds, promote only beyond the noise band.",
+    "Any test-set-informed selection/tuning would invalidate results. Mitigation: validation-only selection, one final test.",
+    "Feature changes would break comparability with A9/A9.6. Mitigation: keep features fixed for A9.7; gate feature work separately."
+  ],
+  "implementation_complexity": "low (additive Head 2 branch behind a config flag; trainer/eval/output writers unchanged)",
+  "success_criteria": [
+    "Attack-family macro-F1 (3-seed mean) >= 0.535 and beats A9 beyond the noise band (>= ~0.02 absolute).",
+    "Attack-family accuracy >= 0.760.",
+    "Binary macro-F1 >= 0.884 and binary F1 >= 0.905.",
+    "Attack false negatives <= 2,450; benign false positives <= 7,000.",
+    "Rare-class macro-F1 >= 0.385669; Shellcode F1 >= 0.4099 (precision >= 0.25); Worms F1 >= 0.2814 (precision >= 0.18).",
+    "At least one of Analysis/Backdoor/DoS improves over A9 without rare-class collapse.",
+    "Training stable, complete, no NaN; A9/A9.6 artifacts untouched; separate output paths used."
+  ],
+  "failure_criteria": [
+    "Attack-family macro-F1 fails to beat A9 beyond noise or stays < 0.535 (3-seed mean).",
+    "Any binary safety gate fails (macro-F1 < 0.884, F1 < 0.905, FN > 2,450, FP > 7,000).",
+    "Rare-class macro-F1 < 0.385669, or Shellcode/Worms precision collapses below floors.",
+    "Analysis, Backdoor, and DoS all remain stagnant while strong classes absorb gains.",
+    "Training unstable/incomplete/NaN, or any A9/A9.6 artifact overwritten, or non-separate output paths used."
+  ],
+  "next_task_prompt_summary": "After main-review approval: implement Task A9.7 = add an opt-in non-linear Head 2 branch (128->128->9, GELU+LayerNorm+Dropout) behind a model config flag; create configs/training/unsw_nb15_hierarchical_a9_7_head2_branch.yaml (one factor vs A9); train UNSW only with >=3 seeds; write to separate A9.7 output paths; keep A9 frozen; evaluate test once per seed after validation-only selection; compare 3-seed mean +/- std against A9 gates.",
+  "safety_summary": {
+    "training_was_run": false,
+    "smoke_was_run": false,
+    "preprocessing_was_run": false,
+    "checkpoints_created": false,
+    "final_metrics_created": false,
+    "source_code_modified": false,
+    "configs_modified": false,
+    "a9_artifacts_modified": false,
+    "a9_6_artifacts_modified": false,
+    "v1_modified": false,
+    "v1_code_copied": false,
+    "git_operations_run": false,
+    "cicids_started": false,
+    "fedavg_started": false,
+    "security_attack_trimmed_mean_started": false,
+    "xai_started": false,
+    "dashboard_started": false,
+    "next_experiment_config_created": false,
+    "only_created_a9_7_design_documents": true
+  }
+}

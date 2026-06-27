@@ -1,0 +1,287 @@
+{
+  "checkpoint_created": false,
+  "config": {
+    "attack_head_dim": 9,
+    "base_config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\training\\unsw_nb15_hierarchical.yaml",
+    "final_metrics": false,
+    "hierarchical_data_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical",
+    "input_dim": 192,
+    "model_name": "SecureIDSHierarchicalAdvancedNet",
+    "save_checkpoint": false,
+    "smoke_config_path": "configs\\training\\smoke_unsw_nb15_hierarchical.yaml"
+  },
+  "created_at_utc": "2026-06-24T02:13:50.806752+00:00",
+  "dataset": "unsw_nb15",
+  "do_not_report_as_final": true,
+  "final_checkpoint": false,
+  "final_metrics_created": false,
+  "final_results": false,
+  "full_training_run": false,
+  "non_final": true,
+  "planning": {
+    "attack_family_class_count": 9,
+    "checks_passed": true,
+    "feature_count": 192,
+    "status": "PASS"
+  },
+  "readiness": {
+    "readiness_json": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\hierarchical_preprocessing_readiness_unsw_nb15.json",
+    "ready_for_hierarchical_model_implementation": true,
+    "status": "PASS"
+  },
+  "safety": {
+    "checkpoint_created": false,
+    "device": "cuda",
+    "do_not_report_as_final": true,
+    "final_checkpoint": false,
+    "final_metrics_created": false,
+    "final_results": false,
+    "full_training_run": false,
+    "hierarchical_fedavg_started": false,
+    "model_weights_saved": false,
+    "non_final": true,
+    "security_attack_xai_dashboard_started": false,
+    "smoke_only": true
+  },
+  "sample_selection": {
+    "test": {
+      "X_shape": [
+        82332,
+        192
+      ],
+      "attack_family_classes_seen": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "attack_rows": 1805,
+      "benign_or_normal_rows": 243,
+      "binary_class_counts": {
+        "0": 243,
+        "1": 1805
+      },
+      "max_index": 2047,
+      "min_index": 0,
+      "selected_rows": 2048,
+      "split": "test"
+    },
+    "train": {
+      "X_shape": [
+        149039,
+        192
+      ],
+      "attack_family_classes_seen": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "attack_rows": 2803,
+      "benign_or_normal_rows": 1293,
+      "binary_class_counts": {
+        "0": 1293,
+        "1": 2803
+      },
+      "max_index": 4095,
+      "min_index": 0,
+      "selected_rows": 4096,
+      "split": "train"
+    },
+    "val": {
+      "X_shape": [
+        26302,
+        192
+      ],
+      "attack_family_classes_seen": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "attack_rows": 1401,
+      "benign_or_normal_rows": 647,
+      "binary_class_counts": {
+        "0": 647,
+        "1": 1401
+      },
+      "max_index": 2047,
+      "min_index": 0,
+      "selected_rows": 2048,
+      "split": "val"
+    }
+  },
+  "schema_version": "task_a7_hierarchical_smoke_training_v1",
+  "smoke_diagnostics_non_final": {
+    "test": {
+      "attack_family": {
+        "attack_family_classes_seen_in_smoke": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "attack_family_predicted_classes_seen_in_smoke": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "attack_rows_evaluated": 907,
+        "smoke_attack_family_accuracy": 0.5832414553472988,
+        "smoke_attack_family_macro_f1_if_possible": 0.23334927547029577
+      },
+      "batches_evaluated": 2,
+      "binary": {
+        "binary_confusion_counts": {
+          "fn": 157,
+          "fp": 114,
+          "tn": 3,
+          "tp": 750
+        },
+        "n_samples": 1024,
+        "smoke_binary_accuracy": 0.7353515625,
+        "smoke_binary_f1": 0.846979107848673,
+        "smoke_binary_macro_f1": 0.4343198788340838,
+        "smoke_binary_precision": 0.8680555555555556,
+        "smoke_binary_recall": 0.8269018743109151,
+        "threshold": 0.5
+      },
+      "do_not_report_as_final": true,
+      "non_final": true
+    },
+    "val": {
+      "attack_family": {
+        "attack_family_classes_seen_in_smoke": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "attack_family_predicted_classes_seen_in_smoke": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "attack_rows_evaluated": 700,
+        "smoke_attack_family_accuracy": 0.7028571428571428,
+        "smoke_attack_family_macro_f1_if_possible": 0.30643826897446863
+      },
+      "batches_evaluated": 2,
+      "binary": {
+        "binary_confusion_counts": {
+          "fn": 68,
+          "fp": 70,
+          "tn": 254,
+          "tp": 632
+        },
+        "n_samples": 1024,
+        "smoke_binary_accuracy": 0.865234375,
+        "smoke_binary_f1": 0.9015691868758916,
+        "smoke_binary_macro_f1": 0.8439734479271099,
+        "smoke_binary_precision": 0.9002849002849003,
+        "smoke_binary_recall": 0.9028571428571428,
+        "threshold": 0.5
+      },
+      "do_not_report_as_final": true,
+      "non_final": true
+    }
+  },
+  "smoke_only": true,
+  "status": "PASS",
+  "training": {
+    "attack_class_weights_applied": true,
+    "attack_loss_finite_or_zero": true,
+    "backward_pass_ok": true,
+    "batch_progress": [
+      {
+        "attack_loss": 2.3827896118164062,
+        "attack_rows": 337,
+        "batch": 1,
+        "binary_loss": 0.4371582269668579,
+        "total_loss": 2.8199477195739746
+      },
+      {
+        "attack_loss": 1.7541899681091309,
+        "attack_rows": 357,
+        "batch": 2,
+        "binary_loss": 0.3180322051048279,
+        "total_loss": 2.0722222328186035
+      },
+      {
+        "attack_loss": 1.560189962387085,
+        "attack_rows": 356,
+        "batch": 3,
+        "binary_loss": 0.27264976501464844,
+        "total_loss": 1.8328397274017334
+      },
+      {
+        "attack_loss": 1.3379820585250854,
+        "attack_rows": 358,
+        "batch": 4,
+        "binary_loss": 0.2640451192855835,
+        "total_loss": 1.602027177810669
+      }
+    ],
+    "batches_run": 4,
+    "binary_loss_finite": true,
+    "binary_pos_weight_applied": true,
+    "first_batch_shapes": {
+      "X": [
+        512,
+        192
+      ],
+      "attack_family_mask": [
+        512
+      ],
+      "y_attack_family": [
+        512
+      ],
+      "y_binary": [
+        512
+      ]
+    },
+    "first_output_shapes": {
+      "attack_logits": [
+        512,
+        9
+      ],
+      "binary_logit": [
+        512
+      ],
+      "embedding": [
+        512,
+        128
+      ]
+    },
+    "forward_pass_ok": true,
+    "loss_finite": true,
+    "optimizer_step_updated_parameters": true
+  }
+}

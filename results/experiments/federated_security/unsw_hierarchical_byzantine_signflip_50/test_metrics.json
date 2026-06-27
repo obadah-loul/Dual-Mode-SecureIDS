@@ -1,0 +1,270 @@
+{
+  "dataset": "unsw_nb15",
+  "task": "hierarchical_federated",
+  "protocol_label": "unsw_a9_hierarchical_byzantine_signflip_50_reference_frozen_baseline",
+  "best_round": 1,
+  "test_metrics": {
+    "binary": {
+      "accuracy": 0.7661541077588301,
+      "precision": 0.7019905506932074,
+      "recall": 0.9996691079149387,
+      "f1": 0.8247927416345884,
+      "macro_f1": 0.7366565530105504,
+      "confusion_matrix": {
+        "tp": 45317,
+        "fp": 19238,
+        "fn": 15,
+        "tn": 17762
+      },
+      "attack_false_negatives": 15,
+      "n_samples": 82332,
+      "threshold": 0.5
+    },
+    "attack_family": {
+      "accuracy_on_attack_rows": 0.7264846024883085,
+      "macro_f1_on_attack_rows": 0.36763723547287097,
+      "attack_rows_evaluated": 45332,
+      "per_class": [
+        {
+          "class_id": 0,
+          "class_name": "Generic",
+          "precision": 0.9922914818101154,
+          "recall": 0.9481744475650469,
+          "f1": 0.9697314581470341,
+          "support": 18871
+        },
+        {
+          "class_id": 1,
+          "class_name": "Exploits",
+          "precision": 0.78255873340143,
+          "recall": 0.5505749191519943,
+          "f1": 0.6463826197004852,
+          "support": 11132
+        },
+        {
+          "class_id": 2,
+          "class_name": "Fuzzers",
+          "precision": 0.7076338928856915,
+          "recall": 0.5841306499505113,
+          "f1": 0.6399783119465028,
+          "support": 6062
+        },
+        {
+          "class_id": 3,
+          "class_name": "DoS",
+          "precision": 0.32371250707413696,
+          "recall": 0.6994375152849107,
+          "f1": 0.4425874342308882,
+          "support": 4089
+        },
+        {
+          "class_id": 4,
+          "class_name": "Reconnaissance",
+          "precision": 0.48544819557625146,
+          "recall": 0.715675057208238,
+          "f1": 0.5784971098265896,
+          "support": 3496
+        },
+        {
+          "class_id": 5,
+          "class_name": "Analysis",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 677
+        },
+        {
+          "class_id": 6,
+          "class_name": "Backdoor",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 583
+        },
+        {
+          "class_id": 7,
+          "class_name": "Shellcode",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 378
+        },
+        {
+          "class_id": 8,
+          "class_name": "Worms",
+          "precision": 0.017278617710583154,
+          "recall": 0.18181818181818182,
+          "f1": 0.03155818540433925,
+          "support": 44
+        }
+      ],
+      "confusion_matrix": [
+        [
+          17893,
+          358,
+          184,
+          63,
+          356,
+          0,
+          0,
+          0,
+          17
+        ],
+        [
+          40,
+          6129,
+          714,
+          3156,
+          832,
+          12,
+          0,
+          0,
+          249
+        ],
+        [
+          50,
+          160,
+          3541,
+          1280,
+          957,
+          0,
+          0,
+          0,
+          74
+        ],
+        [
+          19,
+          765,
+          195,
+          2860,
+          212,
+          0,
+          0,
+          0,
+          38
+        ],
+        [
+          2,
+          306,
+          267,
+          342,
+          2502,
+          0,
+          0,
+          0,
+          77
+        ],
+        [
+          14,
+          54,
+          4,
+          605,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          17,
+          10,
+          510,
+          32,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          23,
+          82,
+          18,
+          255,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          20,
+          7,
+          1,
+          8,
+          0,
+          0,
+          0,
+          8
+        ]
+      ],
+      "class_names": [
+        "Generic",
+        "Exploits",
+        "Fuzzers",
+        "DoS",
+        "Reconnaissance",
+        "Analysis",
+        "Backdoor",
+        "Shellcode",
+        "Worms"
+      ]
+    },
+    "rare_class": {
+      "rare_classes": [],
+      "rare_class_macro_f1": null,
+      "per_rare_class": []
+    },
+    "hierarchical_routing": {
+      "benign_total": 37000,
+      "attack_total": 45332,
+      "benign_correctly_stopped": 17762,
+      "benign_correctly_stopped_rate": 0.48005405405405405,
+      "benign_flagged_as_attack": 19238,
+      "benign_flagged_as_attack_rate": 0.5199459459459459,
+      "attack_detected_and_correctly_attributed": 32929,
+      "attack_detected_and_correctly_attributed_rate": 0.7263963645989588,
+      "attack_detected_wrong_family": 12388,
+      "attack_detected_wrong_family_rate": 0.2732727433159799,
+      "attack_missed_as_benign": 15,
+      "attack_missed_as_benign_rate": 0.00033089208506132534
+    },
+    "selection": {
+      "val_binary_macro_f1": 0.7366565530105504,
+      "val_attack_family_macro_f1": 0.36763723547287097,
+      "val_hierarchical_score": 0.5521468942417107
+    }
+  },
+  "centralized_reference_metrics": null,
+  "attack": {
+    "enabled": true,
+    "type": "sign_flip",
+    "configured_type": "sign_flip",
+    "malicious_fraction": 0.5,
+    "seed": 42,
+    "parameters": {
+      "scale": -1.0
+    },
+    "malicious_client_ids": [
+      "client_00",
+      "client_04"
+    ]
+  },
+  "aggregation": {
+    "strategy": "fedavg",
+    "trim_ratio": null,
+    "sample_count_weighted": true
+  },
+  "integrity": {
+    "sha256_update_hashing": true,
+    "verify_before_aggregation": true,
+    "all_rounds_verified": true
+  },
+  "safety": {
+    "centralized_checkpoint_reference_only": true,
+    "initialization": "from_scratch",
+    "test_evaluated_once_after_best_validation_round": true,
+    "final_checkpoint": false
+  }
+}

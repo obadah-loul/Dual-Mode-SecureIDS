@@ -1,0 +1,63 @@
+{
+  "audit_name": "unsw_a9_final_acceptance_freeze",
+  "task_type": "final_acceptance_freeze_existing_checkpoint_no_retraining",
+  "generated_on": "2026-06-25",
+  "official_final_checkpoint": "models/final/final_unsw_hierarchical.pt",
+  "accepted_model_identity": "A9 corrected-protocol hierarchical baseline",
+  "status": "FROZEN_AS_OFFICIAL_UNSW_HIERARCHICAL_FINAL_BASELINE",
+  "checkpoint_sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "backup_checkpoint_path": "results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt",
+  "backup_checkpoint_sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "hashes_match": true,
+  "known_metrics": {
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "manifest": "results/audits/hierarchical_training_manifest_unsw_nb15.json",
+  "experiment_history": {
+    "a9": "accepted corrected-protocol hierarchical baseline",
+    "a9_6": "controlled experiment; did not replace A9",
+    "a9_7": "controlled experiment; did not replace A9",
+    "a9_8": "multi-seed comparison; confirmed A9 remains accepted",
+    "a9_9": "design-only next strategy; no training"
+  },
+  "legacy_artifacts": {
+    "final_unsw_binary": "legacy/pre-correction; not official final hierarchical model",
+    "fedavg_unsw_binary": "legacy/pre-correction; not official final hierarchical model",
+    "fedavg_unsw_hierarchical": "not found"
+  },
+  "rollback_target": "results/audits/unsw_freeze_backups/unsw_a9_final_freeze_20260625_171733/models_final/final_unsw_hierarchical.pt",
+  "conflicting_documentation_found": [
+    "results/final/centralized/unsw_test_metrics.json still marks final_unsw_binary.pt with final_checkpoint=true; this is superseded by the corrected-protocol UNSW documents that classify old binary outputs as legacy/pre-correction and not official hierarchical final.",
+    "results/audits/training_manifest_unsw_nb15.json still marks final_unsw_binary.pt with final_checkpoint=true; this is legacy/pre-correction binary metadata and not the official hierarchical final manifest.",
+    "results/federated/unsw/fedavg_test_metrics.json still marks fedavg_unsw_binary.pt with final_checkpoint=true; this is superseded by the corrected-protocol UNSW documents that classify FedAvg binary outputs as legacy/pre-correction and not official hierarchical final.",
+    "results/audits/fedavg_manifest_unsw_nb15.json still marks fedavg_unsw_binary.pt with final_checkpoint=true; this is legacy/pre-correction FedAvg binary metadata and not the official hierarchical final."
+  ],
+  "conflict_search_summary": {
+    "a9_6_replaced_a9_found": false,
+    "a9_7_replaced_a9_found": false,
+    "a9_8_replaced_a9_found": false,
+    "a9_9_trained_or_replaced_found": false,
+    "a9_not_accepted_found": false,
+    "unsw_final_unclear_found": false
+  },
+  "no_fake_results_statement": "No metrics were invented or recomputed; known A9 metrics were copied from existing project evidence.",
+  "no_training_statement": "No training/evaluation/preprocessing/XAI/Streamlit/Git action was performed.",
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "checkpoint_modified": false,
+    "checkpoint_replaced": false,
+    "different_checkpoint_promoted": false,
+    "cicids_modified": false,
+    "v1_modified": false,
+    "results_deleted_moved_or_archived": false,
+    "git_action": false,
+    "fake_metrics": false,
+    "test_tuning": false
+  }
+}

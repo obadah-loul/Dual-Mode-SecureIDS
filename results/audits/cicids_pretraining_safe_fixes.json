@@ -1,0 +1,69 @@
+{
+  "audit_name": "cicids_pretraining_safe_fixes",
+  "task_type": "focused_pretraining_safe_fixes",
+  "generated_on": "2026-06-24",
+  "created_or_modified_files": [
+    "configs/training/cicids2018_hierarchical.yaml (modified - H1)",
+    "secureids/training/hierarchical_trainer.py (modified - H2 + M1)",
+    "tests/test_cicids_pretraining_safe_fixes.py (created)",
+    "docs/CICIDS_PRETRAINING_SAFE_FIXES.md (created)",
+    "results/audits/cicids_pretraining_safe_fixes.json (created)"
+  ],
+  "h1_report_path_collision_fix": {
+    "implemented": true,
+    "old_path": "docs/HIERARCHICAL_TRAINING_REPORT.md",
+    "new_path": "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+    "unsw_report_preserved": true,
+    "note": "Only the CICIDS config report_md was changed. The UNSW config and the existing UNSW report file were not touched, moved, deleted, or archived."
+  },
+  "h2_dataset_aware_output_fix": {
+    "implemented": true,
+    "hardcoded_unsw_strings_removed_for_cicids": true,
+    "unsw_behavior_preserved": true,
+    "metric_computation_changed": false,
+    "mechanism": "Added _dataset_report_metadata(config) helper returning dataset-aware title/status/protocol/scope/safety wording. _build_test_metrics_payload, _build_manifest, and _write_report now use it. UNSW branch keeps the exact prior UNSW-NB15/A8.8 wording; CICIDS branch emits CICIDS2018 wording with no UNSW/A8.8 mention; a generic fallback covers any future dataset. Rare-class report header now derives names from the rare_class bundle instead of hardcoded 'Shellcode, Worms'.",
+    "fixed_locations": [
+      "_build_test_metrics_payload: protocol + dataset-specific safety_notes",
+      "_write_report: title, status, scope bullets, 'not started yet' line, rare-class header, safety-confirmation bullets",
+      "_build_manifest: protocol + dataset-specific safety block"
+    ]
+  },
+  "m1_float64_memory_micro_fix": {
+    "implemented": true,
+    "deferred": false,
+    "reason": "Small and safe: _validate_split_labels previously ran np.isfinite(np.asarray(X, dtype=np.float64)) which upcast the whole feature array to float64 (~4 GB transient for CICIDS ~6.7M x 77). Now uses np.asarray(X) and only scans np.isfinite for floating dtypes (integer/bool arrays are inherently finite). Finite-validation behavior is preserved (NaN/Inf still flagged for float features); no float64 upcast.",
+    "risk_level": "low"
+  },
+  "out_of_scope_left_unchanged": {
+    "a8_8_unsw_precondition_gate": "validate_execute_preconditions still requires docs/UNSW_SPLIT_PROTOCOL_DECISION.md + pre_training_high_findings_resolution.json (ready_for_unsw_training=true). It currently PASSES for CICIDS because those A8.8 files exist. This is a latent cross-dataset coupling, NOT one of the approved H1/H2/M1 fixes, and changing a safety gate was out of scope, so it was intentionally left untouched and is recorded as a follow-up item.",
+    "module_comments": "Module docstring/comments still mention 'UNSW-NB15 first' / 'UNSW fits in RAM' (internal comments only, not emitted artifacts)."
+  },
+  "tests_added_or_updated": [
+    "tests/test_cicids_pretraining_safe_fixes.py (new): H1 report-path assertions; H2 dataset-aware payload/manifest/report text (CICIDS has no UNSW/A8.8, UNSW keeps its wording); M1 float32-safe finite check (NaN/Inf flagged, integer features handled)."
+  ],
+  "tests_run_by_agent": [],
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_pretraining_safe_fixes.py tests/test_train_hierarchical_cli_gate.py tests/test_adapter_registry.py tests/test_schema_detector_router.py -q",
+    "Get-Content \"results\\audits\\cicids_pretraining_safe_fixes.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "full_cicids_training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "old_result_files_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "remaining_risks": [
+    "The A8.8/UNSW precondition gate is still applied to CICIDS (passes only because the A8.8 files exist). Recommend generalizing it in a future approved task; not changed here to avoid weakening a safety check.",
+    "Tests were not executed by the agent; the user must run the manual pytest command to confirm green before any training.",
+    "Module-level docstring/comments still reference UNSW; cosmetic only (not part of any emitted report/metrics/manifest)."
+  ],
+  "next_step": "rerun_cicids_hierarchical_readiness_audit_after_safe_fixes_before_manual_training"
+}

@@ -1,0 +1,220 @@
+{
+  "view": "oracle",
+  "is_oracle": true,
+  "is_routed_deployment_metric": false,
+  "note": "Teacher-forced on true attack rows; assumes perfect routing. NOT a deployment metric.",
+  "attack_rows_evaluated": 45332,
+  "attack_family_accuracy": 0.7691917409335569,
+  "attack_family_macro_f1": 0.5011550605016061,
+  "per_class": [
+    {
+      "class_id": 0,
+      "class_name": "Generic",
+      "precision": 0.999889819303658,
+      "recall": 0.9617932277038843,
+      "f1": 0.9804715987359209,
+      "support": 18871
+    },
+    {
+      "class_id": 1,
+      "class_name": "Exploits",
+      "precision": 0.7866964784795976,
+      "recall": 0.6321415738411786,
+      "f1": 0.7010011455894806,
+      "support": 11132
+    },
+    {
+      "class_id": 2,
+      "class_name": "Fuzzers",
+      "precision": 0.8665564965916133,
+      "recall": 0.6920158363576377,
+      "f1": 0.7695129780794276,
+      "support": 6062
+    },
+    {
+      "class_id": 3,
+      "class_name": "DoS",
+      "precision": 0.3221046355641675,
+      "recall": 0.5284910736121301,
+      "f1": 0.40025930727912573,
+      "support": 4089
+    },
+    {
+      "class_id": 4,
+      "class_name": "Reconnaissance",
+      "precision": 0.8331422018348624,
+      "recall": 0.8312356979405034,
+      "f1": 0.832187857961054,
+      "support": 3496
+    },
+    {
+      "class_id": 5,
+      "class_name": "Analysis",
+      "precision": 0.06666666666666667,
+      "recall": 0.0103397341211226,
+      "f1": 0.017902813299232736,
+      "support": 677
+    },
+    {
+      "class_id": 6,
+      "class_name": "Backdoor",
+      "precision": 0.03903243540406817,
+      "recall": 0.12178387650085763,
+      "f1": 0.05911740216486262,
+      "support": 583
+    },
+    {
+      "class_id": 7,
+      "class_name": "Shellcode",
+      "precision": 0.2731239092495637,
+      "recall": 0.828042328042328,
+      "f1": 0.410761154855643,
+      "support": 378
+    },
+    {
+      "class_id": 8,
+      "class_name": "Worms",
+      "precision": 0.2283464566929134,
+      "recall": 0.6590909090909091,
+      "f1": 0.3391812865497076,
+      "support": 44
+    }
+  ],
+  "confusion_matrix": [
+    [
+      18150,
+      423,
+      146,
+      102,
+      5,
+      2,
+      9,
+      29,
+      5
+    ],
+    [
+      0,
+      7037,
+      322,
+      2255,
+      350,
+      67,
+      686,
+      337,
+      78
+    ],
+    [
+      0,
+      233,
+      4195,
+      1014,
+      159,
+      8,
+      188,
+      259,
+      6
+    ],
+    [
+      1,
+      967,
+      116,
+      2161,
+      33,
+      16,
+      700,
+      91,
+      4
+    ],
+    [
+      1,
+      177,
+      23,
+      189,
+      2906,
+      1,
+      90,
+      104,
+      5
+    ],
+    [
+      0,
+      59,
+      5,
+      533,
+      0,
+      7,
+      73,
+      0,
+      0
+    ],
+    [
+      0,
+      36,
+      6,
+      455,
+      2,
+      4,
+      71,
+      9,
+      0
+    ],
+    [
+      0,
+      5,
+      25,
+      0,
+      33,
+      0,
+      2,
+      313,
+      0
+    ],
+    [
+      0,
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      4,
+      29
+    ]
+  ],
+  "class_names": [
+    "Generic",
+    "Exploits",
+    "Fuzzers",
+    "DoS",
+    "Reconnaissance",
+    "Analysis",
+    "Backdoor",
+    "Shellcode",
+    "Worms"
+  ],
+  "rare_class": {
+    "rare_classes": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_class_macro_f1": 0.3749712207026753,
+    "per_rare_class": [
+      {
+        "class_name": "Shellcode",
+        "present": true,
+        "precision": 0.2731239092495637,
+        "recall": 0.828042328042328,
+        "f1": 0.410761154855643,
+        "support": 378
+      },
+      {
+        "class_name": "Worms",
+        "present": true,
+        "precision": 0.2283464566929134,
+        "recall": 0.6590909090909091,
+        "f1": 0.3391812865497076,
+        "support": 44
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "audit_name": "unsw_a11_preprocessing_implementation_build",
+  "task_type": "a11_preprocessing_code_build_no_execution",
+  "generated_on": "2026-06-25",
+  "status": "IMPLEMENTED_NOT_RUN",
+  "protocol_name": "UNSW A11 Enhanced Feature Protocol",
+  "baseline_a9": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "build_scope": {
+    "config_loader_added_or_extended": true,
+    "a11_preprocessor_added": true,
+    "leakage_guards_added": true,
+    "cli_command_added": "prepare-unsw-a11",
+    "tests_added": [
+      "tests/test_unsw_a11_preprocessing_config.py",
+      "tests/test_unsw_a11_preprocessor.py",
+      "tests/test_unsw_a11_cli.py"
+    ]
+  },
+  "planned_paths": {
+    "preprocessing_config": "configs/preprocessing/experiments/unsw_a11_enhanced_feature_protocol.yaml",
+    "processed_data_dir": "data/processed/unsw_a11_enhanced/",
+    "training_config_seed42": "configs/training/experiments/unsw_a11_enhanced_feature_protocol_seed42.yaml",
+    "seed42_checkpoint": "models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt",
+    "seed42_results": "results/experiments/unsw_a11_enhanced_feature_protocol_seed42/",
+    "seed42_report": "docs/experiments/UNSW_A11_ENHANCED_FEATURE_PROTOCOL_SEED42_REPORT.md"
+  },
+  "safety": {
+    "preprocessing_run": false,
+    "training_run": false,
+    "evaluation_run": false,
+    "checkpoint_created": false,
+    "checkpoint_modified": false,
+    "final_results_modified": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "a9_replaced": false,
+    "v1_modified": false,
+    "git_action": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "manual_preprocessing_command": "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2; .\\.venv\\Scripts\\python.exe -m secureids.cli prepare-unsw-a11 --config configs\\preprocessing\\experiments\\unsw_a11_enhanced_feature_protocol.yaml --execute",
+  "tests_run": [
+    {
+      "command": "$env:PYTHONDONTWRITEBYTECODE = \"1\"; .\\.venv\\Scripts\\python.exe -m pytest tests/test_unsw_a11_preprocessing_config.py tests/test_unsw_a11_preprocessor.py tests/test_unsw_a11_cli.py -q",
+      "result": "13 passed in 3.76s"
+    }
+  ],
+  "dry_run_validation": {
+    "command": ".\\.venv\\Scripts\\python.exe -m secureids.cli prepare-unsw-a11 --config configs\\preprocessing\\experiments\\unsw_a11_enhanced_feature_protocol.yaml",
+    "writes_outputs": false,
+    "requires_execute_for_writes": true
+  },
+  "next_main_control_decision": "approve_or_reject_manual_a11_preprocessing_run"
+}

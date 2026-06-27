@@ -1,0 +1,439 @@
+{
+  "dataset": "cicids2018",
+  "task": "hierarchical_federated",
+  "protocol_label": "cicids_hierarchical_robust_trimmed_mean_reference_final_exp03_125_seed999",
+  "best_round": 14,
+  "test_metrics": {
+    "binary": {
+      "accuracy": 0.976958289149333,
+      "precision": 0.9725688148900035,
+      "recall": 0.9459823984319662,
+      "f1": 0.9590913953834405,
+      "macro_f1": 0.9715270141856656,
+      "confusion_matrix": {
+        "tp": 389968,
+        "fp": 10999,
+        "fn": 22268,
+        "tn": 1020538
+      },
+      "attack_false_negatives": 22268,
+      "n_samples": 1443773,
+      "threshold": 0.5
+    },
+    "attack_family": {
+      "accuracy_on_attack_rows": 0.9457907606322592,
+      "macro_f1_on_attack_rows": 0.8410404712714747,
+      "attack_rows_evaluated": 412236,
+      "per_class": [
+        {
+          "class_id": 0,
+          "class_name": "DDoS-HOIC",
+          "precision": 0.9997371623266001,
+          "recall": 0.999902636600849,
+          "f1": 0.9998198926170575,
+          "support": 102708
+        },
+        {
+          "class_id": 1,
+          "class_name": "DDoS-LOIC-HTTP",
+          "precision": 0.9997101799299601,
+          "recall": 0.9581602064790917,
+          "f1": 0.9784943059257377,
+          "support": 86401
+        },
+        {
+          "class_id": 2,
+          "class_name": "DDoS-LOIC-UDP",
+          "precision": 0.6966580976863753,
+          "recall": 1.0,
+          "f1": 0.8212121212121213,
+          "support": 271
+        },
+        {
+          "class_id": 3,
+          "class_name": "DoS-Hulk",
+          "precision": 0.9856056953229146,
+          "recall": 0.999784216129125,
+          "f1": 0.9926443282772017,
+          "support": 69514
+        },
+        {
+          "class_id": 4,
+          "class_name": "DoS-SlowHTTPTest",
+          "precision": 0.7483043837882547,
+          "recall": 0.4320233035671649,
+          "f1": 0.5477884411613333,
+          "support": 20941
+        },
+        {
+          "class_id": 5,
+          "class_name": "DoS-GoldenEye",
+          "precision": 0.9974718008556982,
+          "recall": 0.8371144116206953,
+          "f1": 0.9102848522495341,
+          "support": 6127
+        },
+        {
+          "class_id": 6,
+          "class_name": "DoS-Slowloris",
+          "precision": 0.9719570405727923,
+          "recall": 0.9920828258221681,
+          "f1": 0.9819168173598554,
+          "support": 1642
+        },
+        {
+          "class_id": 7,
+          "class_name": "Bot",
+          "precision": 0.913948866202909,
+          "recall": 0.947304351897371,
+          "f1": 0.9303277275183062,
+          "support": 42717
+        },
+        {
+          "class_id": 8,
+          "class_name": "FTP-BruteForce",
+          "precision": 0.6851214735616366,
+          "recall": 0.8949115044247787,
+          "f1": 0.7760889768264532,
+          "support": 28928
+        },
+        {
+          "class_id": 9,
+          "class_name": "SSH-Bruteforce",
+          "precision": 1.0,
+          "recall": 0.9998589164785553,
+          "f1": 0.9999294532627865,
+          "support": 28352
+        },
+        {
+          "class_id": 10,
+          "class_name": "Infilteration / Infiltration",
+          "precision": 0.9123059993169658,
+          "recall": 0.9817469067744702,
+          "f1": 0.9457535108768341,
+          "support": 24489
+        },
+        {
+          "class_id": 11,
+          "class_name": "Web-BruteForce",
+          "precision": 0.6288659793814433,
+          "recall": 0.6354166666666666,
+          "f1": 0.6321243523316062,
+          "support": 96
+        },
+        {
+          "class_id": 12,
+          "class_name": "Web-XSS",
+          "precision": 1.0,
+          "recall": 0.4473684210526316,
+          "f1": 0.6181818181818182,
+          "support": 38
+        },
+        {
+          "class_id": 13,
+          "class_name": "SQL-Injection",
+          "precision": 0.6153846153846154,
+          "recall": 0.6666666666666666,
+          "f1": 0.64,
+          "support": 12
+        }
+      ],
+      "confusion_matrix": [
+        [
+          102698,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          82786,
+          118,
+          0,
+          0,
+          0,
+          0,
+          3495,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          271,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          69499,
+          0,
+          12,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          9047,
+          0,
+          0,
+          0,
+          11894,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          995,
+          0,
+          5129,
+          2,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1629,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          40466,
+          0,
+          0,
+          2250,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          3040,
+          0,
+          0,
+          0,
+          25888,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          28348,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          27,
+          23,
+          0,
+          20,
+          2,
+          1,
+          45,
+          287,
+          3,
+          0,
+          24042,
+          34,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0,
+          22,
+          61,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          14,
+          0,
+          0,
+          6,
+          1,
+          17,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          2,
+          1,
+          0,
+          8
+        ]
+      ],
+      "class_names": [
+        "DDoS-HOIC",
+        "DDoS-LOIC-HTTP",
+        "DDoS-LOIC-UDP",
+        "DoS-Hulk",
+        "DoS-SlowHTTPTest",
+        "DoS-GoldenEye",
+        "DoS-Slowloris",
+        "Bot",
+        "FTP-BruteForce",
+        "SSH-Bruteforce",
+        "Infilteration / Infiltration",
+        "Web-BruteForce",
+        "Web-XSS",
+        "SQL-Injection"
+      ]
+    },
+    "rare_class": {
+      "rare_classes": [],
+      "rare_class_macro_f1": null,
+      "per_rare_class": []
+    },
+    "hierarchical_routing": {
+      "benign_total": 1031537,
+      "attack_total": 412236,
+      "benign_correctly_stopped": 1020538,
+      "benign_correctly_stopped_rate": 0.9893372705002341,
+      "benign_flagged_as_attack": 10999,
+      "benign_flagged_as_attack_rate": 0.010662729499765884,
+      "attack_detected_and_correctly_attributed": 370456,
+      "attack_detected_and_correctly_attributed_rate": 0.898650287699279,
+      "attack_detected_wrong_family": 19512,
+      "attack_detected_wrong_family_rate": 0.0473321107326871,
+      "attack_missed_as_benign": 22268,
+      "attack_missed_as_benign_rate": 0.05401760156803385
+    },
+    "selection": {
+      "val_binary_macro_f1": 0.9715270141856656,
+      "val_attack_family_macro_f1": 0.8410404712714747,
+      "val_hierarchical_score": 0.9062837427285702
+    }
+  },
+  "centralized_reference_metrics": null,
+  "attack": {
+    "enabled": true,
+    "type": "sign_flip",
+    "configured_type": "sign_flip",
+    "malicious_fraction": 0.25,
+    "seed": 42,
+    "parameters": {
+      "scale": -1.0
+    },
+    "malicious_client_ids": [
+      "client_00"
+    ]
+  },
+  "aggregation": {
+    "strategy": "trimmed_mean",
+    "trim_ratio": 0.2,
+    "sample_count_weighted": false
+  },
+  "integrity": {
+    "sha256_update_hashing": true,
+    "verify_before_aggregation": true,
+    "all_rounds_verified": true
+  },
+  "safety": {
+    "centralized_checkpoint_reference_only": true,
+    "initialization": "from_scratch",
+    "test_evaluated_once_after_best_validation_round": true,
+    "final_checkpoint": false
+  }
+}

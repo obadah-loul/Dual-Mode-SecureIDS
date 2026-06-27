@@ -1,0 +1,184 @@
+{
+  "status": "design_only_not_implemented",
+  "task": "A9.9 aggressive but honest UNSW attack-family improvement strategy design",
+  "current_accepted_baseline": "A9 linear Head 2 hierarchical UNSW baseline",
+  "a9_metrics": {
+    "accepted_seed42": {
+      "binary_macro_f1": 0.894488,
+      "attack_family_macro_f1": 0.500429,
+      "rare_class_macro_f1": 0.385669
+    },
+    "a9_linear_multiseed_mean_std": {
+      "binary_macro_f1": {
+        "mean": 0.893974,
+        "std": 0.00236
+      },
+      "attack_family_macro_f1": {
+        "mean": 0.494965,
+        "std": 0.014303
+      },
+      "rare_class_macro_f1": {
+        "mean": 0.360617,
+        "std": 0.056629
+      }
+    },
+    "a9_7_branch_multiseed_mean_std": {
+      "binary_macro_f1": {
+        "mean": 0.899914,
+        "std": 0.00162
+      },
+      "attack_family_macro_f1": {
+        "mean": 0.499489,
+        "std": 0.01044
+      },
+      "rare_class_macro_f1": {
+        "mean": 0.371887,
+        "std": 0.038713
+      }
+    },
+    "a9_7_branch_minus_a9_linear_mean": {
+      "binary_macro_f1": 0.00594,
+      "attack_family_macro_f1": 0.004524,
+      "rare_class_macro_f1": 0.01127
+    }
+  },
+  "a9_6_lesson": "Simply increasing Head 2 loss pressure from attack_loss_weight 1.0 to 1.5 was not enough and hurt attack-family or rare-class quality.",
+  "a9_7_lesson": "Changing Head 2 from linear to an MLP branch provided some signal but failed single-run replacement.",
+  "a9_8_lesson": "Formal multi-seed comparison showed A9.7 branch was slightly better on average but not enough for promotion; simple branch capacity should not be the next major UNSW direction.",
+  "strategies_evaluated": [
+    {
+      "strategy_name": "attack_family_specialist",
+      "summary": "Keep A9 Head 1 as binary router and train a separate attack-only classifier for attack-family prediction.",
+      "assessment": "Highest chance of meaningful attack-family macro-F1 improvement while preserving a clean hierarchical IDS story."
+    },
+    {
+      "strategy_name": "two_stage_attack_only_fine_tuning",
+      "summary": "Train shared model normally, then freeze or partially freeze encoder and fine-tune attack-family branch on attack rows.",
+      "assessment": "Potentially useful backup, but attribution and overfitting risks are higher than a separate specialist."
+    },
+    {
+      "strategy_name": "attack_row_sampling",
+      "summary": "Use train-only attack-family sampling or class-aware batching to improve minority-family exposure.",
+      "assessment": "Useful as part of specialist training, but weaker and riskier as a standalone experiment."
+    },
+    {
+      "strategy_name": "head2_focal_loss",
+      "summary": "Apply focal loss to Head 2 attack-family learning.",
+      "assessment": "Not recommended as the next major experiment because A9.6 already showed loss pressure alone can be unsafe."
+    },
+    {
+      "strategy_name": "hard_class_specialist",
+      "summary": "Add auxiliary hard-class heads or one-vs-rest specialists for Analysis, Backdoor, DoS, Shellcode, and Worms.",
+      "assessment": "Potentially useful diagnostically, but too complex and messy for the next controlled professor-facing step."
+    },
+    {
+      "strategy_name": "feature_preprocessing_enhancement",
+      "summary": "Add categorical or interaction features using train-fitted transforms only.",
+      "assessment": "Possible future direction, but late-stage leakage and reproducibility risk make it less suitable than the specialist."
+    }
+  ],
+  "strategy_ranking": [
+    {
+      "rank": 1,
+      "strategy_name": "attack_family_specialist",
+      "recommended_or_not": true,
+      "reason": "Best balance of expected attack-family macro-F1 improvement, rare-class protection, clean hierarchy, and professor-facing clarity."
+    },
+    {
+      "rank": 2,
+      "strategy_name": "two_stage_attack_only_fine_tuning",
+      "recommended_or_not": false,
+      "reason": "Reasonable backup but harder to explain and more prone to overfitting or attribution ambiguity."
+    },
+    {
+      "rank": 3,
+      "strategy_name": "attack_row_sampling",
+      "recommended_or_not": false,
+      "reason": "Useful inside the specialist protocol but not strong enough as the main standalone strategy."
+    },
+    {
+      "rank": 4,
+      "strategy_name": "head2_focal_loss",
+      "recommended_or_not": false,
+      "reason": "Loss-only change is less compelling after A9.6 and may worsen rare-class precision."
+    },
+    {
+      "rank": 5,
+      "strategy_name": "hard_class_specialist",
+      "recommended_or_not": false,
+      "reason": "Could become too complex with too many competing models and unclear professor-facing presentation."
+    },
+    {
+      "rank": 6,
+      "strategy_name": "feature_preprocessing_enhancement",
+      "recommended_or_not": false,
+      "reason": "Potentially useful but higher leakage and reproducibility burden this late."
+    }
+  ],
+  "recommended_next_strategy": "attack_family_specialist",
+  "recommended_next_experiment_name": "A9.9 attack-family specialist router",
+  "why_recommended": [
+    "It directly targets attack-family boundaries instead of adding another small loss or capacity tweak.",
+    "It keeps A9 Head 1 fixed, protecting the accepted binary detector.",
+    "It matches the hierarchical IDS story: binary detector routes detected attacks into an attack-family specialist.",
+    "It can use train-only attack-row sampling without contaminating the binary detector.",
+    "It separates routed end-to-end performance from oracle attack-row diagnostic performance."
+  ],
+  "why_stronger_than_focal_loss_alone": "Focal loss alone changes the loss shape but leaves the mixed hierarchical training problem intact. The specialist removes benign-vs-attack pressure from the attack-family learner, focuses capacity on attack-family boundaries, and can use train-only sampling while preserving A9 Head 1.",
+  "why_stronger_than_head2_branch_capacity": "A9.7 and A9.8 showed simple Head 2 branch capacity only produced a small attack-family macro-F1 mean gain of +0.004524. The specialist changes the task decomposition and training distribution rather than merely increasing branch size.",
+  "realistic_target_range": {
+    "attack_family_macro_f1_short_term": "0.52-0.58",
+    "attack_family_macro_f1_strong_but_realistic": "around 0.60",
+    "rare_class_macro_f1": "protect A9/A9.8 range and seek modest improvement",
+    "binary_macro_f1": "remain close to A9 because A9 Head 1 is unchanged"
+  },
+  "unrealistic_claims_rejected": [
+    "Do not claim attack-family macro-F1 above 0.9 is realistic for this corrected UNSW setup.",
+    "Do not claim the specialist works before training and evaluation.",
+    "Do not claim focal loss, branch capacity, or sampling will solve rare classes without controlled validation."
+  ],
+  "professor_facing_story": "A secure hierarchical IDS first detects whether traffic is benign or attack. Detected attacks are then routed to a dedicated attack-family specialist trained only to separate attack families.",
+  "leakage_controls": [
+    "Train specialist only on UNSW training attack rows.",
+    "Compute any class weights or sampling probabilities from training attack labels only.",
+    "Use validation attack rows only for selection and optional calibration.",
+    "Use test labels only once after all choices are frozen.",
+    "Do not use validation or test labels for sampling, weights, or preprocessing decisions.",
+    "Keep A9 Head 1 fixed for specialist-only evaluation.",
+    "Report routed and oracle attack-row metrics separately."
+  ],
+  "test_tuning_controls": [
+    "Predefine promotion criteria before final test evaluation.",
+    "Use validation metrics for model selection and calibration.",
+    "Do not repeat test evaluation to choose hyperparameters.",
+    "Record all planned artifact paths and commands before training."
+  ],
+  "expected_files_if_approved_later": [
+    "configs/training/unsw_nb15_attack_family_specialist_a9_9.yaml",
+    "secureids/models/attack_family_specialist.py",
+    "secureids/training/attack_family_specialist_trainer.py",
+    "secureids/evaluation/evaluate_attack_family_specialist.py",
+    "docs/UNSW_A9_9_ATTACK_FAMILY_SPECIALIST_PLAN.md",
+    "results/audits/unsw_a9_9_specialist_prep.json"
+  ],
+  "expected_risks": [
+    "Specialist overfitting because attack-only training has fewer rows.",
+    "Class-balanced sampling may distort class priors or calibration.",
+    "End-to-end routed performance remains limited by A9 Head 1 false negatives.",
+    "Routed and oracle attack-row metrics can be confused if documentation is careless.",
+    "Additional specialist artifact adds model-management complexity."
+  ],
+  "main_review_decision_needed_next": "Approve or reject A9.9-prep for the attack-family specialist strategy. Approval should be for preparation only first, not immediate training.",
+  "training_was_run": false,
+  "tests_were_run": false,
+  "python_commands_run": false,
+  "checkpoints_created": false,
+  "final_metrics_created": false,
+  "a9_artifacts_modified": false,
+  "a9_6_artifacts_modified": false,
+  "a9_7_artifacts_modified": false,
+  "a9_8_artifacts_modified": false,
+  "cicids_started": false,
+  "fedavg_security_xai_dashboard_started": false,
+  "git_operations_run": false
+}

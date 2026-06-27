@@ -1,0 +1,135 @@
+dataset: cicids2018
+task: hierarchical
+status: task_cicids_hierarchical_exp03_screening_prep_not_run
+experiment: cicids_hierarchical_exp03_attack_loss_weight_135_seed42
+experiment_group: cicids_hierarchical_exp03_attack_loss_weight_conservative_sweep
+baseline_reference: configs/training/cicids2018_hierarchical.yaml
+baseline_checkpoint: models/final/final_cicids_hierarchical.pt
+model_name: SecureIDSHierarchicalAdvancedNet
+hierarchical_data_dir: data/processed/cicids2018/hierarchical
+feature_names_path: data/processed/cicids2018/hierarchical/feature_names.json
+attack_family_label_mapping_path: data/processed/cicids2018/hierarchical/attack_family_label_mapping.json
+preprocessing_manifest_path: data/processed/cicids2018/hierarchical/hierarchical_preprocessing_manifest.json
+readiness_json: results/audits/hierarchical_preprocessing_readiness_cicids2018.json
+taxonomy_config: configs/taxonomy/cicids2018_attack_taxonomy.yaml
+input_dim: 77
+attack_head_dim: 14
+model:
+  architecture: SecureIDSHierarchicalAdvancedNet
+  hidden_dims:
+  - 256
+  - 128
+  - 128
+  dropout: 0.2
+  normalization: layernorm
+  binary_output_dim: 1
+  attack_output_dim: 14
+loss:
+  type: masked_multi_task
+  binary_loss_weight: 1.0
+  attack_loss_weight: 1.35
+  ignore_index: -1
+  binary_loss: BCEWithLogitsLoss
+  attack_family_loss: CrossEntropyLoss_on_attack_rows_only
+class_imbalance:
+  binary_class_weighting: train_split_balanced_mean_normalized
+  attack_family_class_weighting: train_split_sqrt_inverse_frequency_mean_normalized_capped
+  class_weight_max_clip: 10.0
+  class_weight_min_clip: 0.0
+  compute_weights_from: train_only
+  allow_test_based_weights: false
+  oversampling_enabled: false
+class_weights:
+  binary:
+    enabled: true
+    source_split: train
+    method: balanced
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+  attack_family:
+    enabled: true
+    source_split: train_attack_rows_only
+    method: sqrt_inverse_frequency
+    normalize_mean: true
+    max_weight: 10.0
+    use_validation_labels: false
+    use_test_labels: false
+    oversampling: false
+training:
+  seed: 42
+  batch_size: 4096
+  max_epochs: 30
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  early_stopping_metric: val_hierarchical_score
+  early_stopping_patience: 5
+checkpoint_selection:
+  monitor: val_hierarchical_score
+  formula: 0.5 * val_binary_macro_f1 + 0.5 * val_attack_family_macro_f1
+  use_validation_only: true
+  select_by_test_metrics: false
+  final_test_once_after_best_validation: true
+metrics:
+  binary:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - macro_f1
+  - confusion_matrix
+  - false_negative_attack_count
+  attack_family:
+  - attack_family_accuracy_on_attack_rows
+  - attack_family_macro_f1_on_attack_rows
+  - per_class_precision_recall_f1_support
+  - rare_class_macro_f1
+  - weak_hard_class_report
+  - attack_family_confusion_matrix
+  - validation_vs_test_gap_report
+  hierarchical_end_to_end:
+  - benign_correctly_stopped
+  - attack_detected_and_correctly_attributed
+  - attack_detected_wrong_family
+  - attack_missed_as_benign
+  - end_to_end_hierarchical_macro_f1_if_clearly_defined
+rare_classes:
+- DDoS-LOIC-UDP
+- DoS-Slowloris
+- Web-BruteForce
+- Web-XSS
+- SQL-Injection
+weak_hard_classes:
+- FTP-BruteForce
+- Infilteration / Infiltration
+- DoS-SlowHTTPTest
+outputs:
+  checkpoint: models/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42.pt
+  result_dir: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42
+  training_history_csv: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/training_history.csv
+  test_metrics_json: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/test_metrics.json
+  binary_confusion_matrix_csv: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/binary_confusion_matrix.csv
+  attack_family_confusion_matrix_csv: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/attack_family_confusion_matrix.csv
+  per_class_attack_metrics_csv: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/per_class_attack_metrics.csv
+  rare_class_metrics_csv: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/rare_class_metrics.csv
+  hierarchical_routing_summary_json: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/hierarchical_routing_summary.json
+  training_config_snapshot_yaml: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/training_config_snapshot.yaml
+  class_weight_snapshot_json: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/class_weight_snapshot.json
+  model_summary_json: results/experiments/cicids_hierarchical_exp03_attack_loss_weight_135_seed42/model_summary.json
+  manifest_json: results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_135_seed42.json
+  report_md: docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_135_SEED42_REPORT.md
+safety:
+  exp03_screening_preparation_only: true
+  full_training_run_in_exp03_prep: false
+  final_checkpoint_created_in_exp03_prep: false
+  final_metrics_created_in_exp03_prep: false
+  no_test_set_tuning: true
+  no_scaler_encoder_refit_on_test: true
+  overwrite_baseline_checkpoint: false
+  overwrite_baseline_results: false
+  overwrite_exp01_artifacts: false
+  overwrite_exp02_artifacts: false
+  hierarchical_fedavg_started: false
+  security_attack_xai_dashboard_started: false

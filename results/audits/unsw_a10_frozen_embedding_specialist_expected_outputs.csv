@@ -1,0 +1,17 @@
+artifact_type,path,created_now,created_after_training,overwrite_allowed,purpose,notes
+code_module,secureids/models/frozen_embedding_specialist.py,true,false,false,A9.10 frozen A9 embedding extractor and trainable head,New A9.10-specific module; does not modify A9 checkpoints
+code_module,secureids/training/frozen_embedding_specialist_config.py,true,false,false,Torch-free config and path safety validation,Rejects final paths/test tuning/trainable A9/overwrite flags
+code_module,secureids/training/frozen_embedding_specialist_trainer.py,true,false,false,Dry-run and future execute training entry point,Dry-run writes nothing; execute requires --execute
+code_module,secureids/training/frozen_embedding_specialist_evaluation.py,true,false,false,Oracle/routed metric separation helpers,Oracle metrics are not routed/deployed metrics
+cli_command,train-frozen-embedding-specialist,true,false,false,A9.10 dry-run and future execute command,Requires --config; training requires --execute
+seed42_config,configs/training/experiments/unsw_a10_frozen_embedding_specialist_seed42.yaml,true,false,false,Manual seed42 training config,status not_run_yet; outputs under experiments only
+seed42_checkpoint,models/experiments/unsw_a10_frozen_embedding_specialist_seed42.pt,false,true,false,Future approved seed42 A9.10 checkpoint,Must not be created during prep
+seed42_results_dir,results/experiments/unsw_a10_frozen_embedding_specialist_seed42/,false,true,false,Future approved seed42 result artifacts,Must not be created during prep
+seed42_report,docs/experiments/UNSW_A10_FROZEN_EMBEDDING_SPECIALIST_SEED42_REPORT.md,false,true,false,Future approved seed42 report,Must not be created during prep
+code_build_report,docs/experiments/UNSW_A10_FROZEN_EMBEDDING_SPECIALIST_CODE_BUILD_REPORT.md,true,false,false,Documentation of A9.10 prep build,Created by this prep task
+code_build_audit_json,results/audits/unsw_a10_frozen_embedding_specialist_code_build.json,true,false,false,Machine-readable no-training build audit,Created by this prep task
+expected_outputs_csv,results/audits/unsw_a10_frozen_embedding_specialist_expected_outputs.csv,true,false,false,Expected artifact inventory,Created by this prep task
+tests,tests/test_frozen_embedding_specialist_config.py,true,false,false,Config validation coverage,Lightweight targeted test
+tests,tests/test_frozen_embedding_specialist_cli.py,true,false,false,CLI gate and dry-run no-write coverage,Lightweight targeted test
+tests,tests/test_frozen_embedding_specialist_model.py,true,false,false,Frozen A9 no-gradient and embedding-shape coverage,Lightweight targeted test
+tests,tests/test_frozen_embedding_specialist_metrics.py,true,false,false,Metric separation/class-weight/label-smoothing coverage,Lightweight targeted test

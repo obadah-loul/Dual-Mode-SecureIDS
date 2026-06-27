@@ -1,0 +1,7 @@
+class_name,precision,recall,f1,support
+DDoS-LOIC-UDP,0.711286,1.0,0.831288,271
+DoS-Slowloris,0.971377,0.992083,0.981621,1642
+Web-BruteForce,0.897059,0.635417,0.743902,96
+Web-XSS,1.0,0.447368,0.618182,38
+SQL-Injection,0.529412,0.75,0.62069,12
+rare_class_macro_f1,,,0.759137,2059

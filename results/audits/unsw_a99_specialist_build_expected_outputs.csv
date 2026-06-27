@@ -1,0 +1,19 @@
+artifact_type,path,created_now,created_after_training,overwrite_allowed,purpose,notes
+code_module,secureids/models/attack_family_specialist.py,yes,no,no,Isolated attack-only family classifier (AttackFamilySpecialistNet; no binary head),Separate from SecureIDSHierarchicalAdvancedNet; does not affect CICIDS or hierarchical behavior
+code_module,secureids/training/attack_family_specialist_config.py,yes,no,no,Torch-free config loader/validator with output-path safety,Rejects final paths/test-based weights/test selection; requires status not_run_yet
+code_module,secureids/training/attack_family_specialist_trainer.py,yes,no,no,Dry-run plan + attack-row selection + lazily-torch execute path,execute path NOT invoked in build; no checkpoint written now
+code_module,secureids/training/attack_family_specialist_evaluation.py,yes,no,no,Oracle vs routed metric assembly (NumPy) + lazy torch predictors,Enforces separation; weak classes stay visible; oracle never reported as routed
+cli_command,train-attack-family-specialist (secureids/cli.py),yes,no,no,New CLI subcommand; dry-run without --execute,Additive; train-hierarchical unchanged; refuses unsafe paths; refuses overwrite without flag
+seed42_config,configs/training/experiments/unsw_a99_attack_family_specialist_seed42.yaml,yes,no,no,Seed42 specialist config marked status: not_run_yet,Isolated experiment output paths; references frozen A9 router; no training on creation
+test,tests/test_attack_family_specialist_config.py,yes,no,no,Config loading/validation tests,Passed
+test,tests/test_attack_family_specialist_safety.py,yes,no,no,Path-safety + attack-row selection + model-build tests,Passed
+test,tests/test_attack_family_specialist_cli.py,yes,no,no,CLI gate + dry-run + train-hierarchical-unchanged tests,Passed
+test,tests/test_attack_family_specialist_metrics.py,yes,no,no,Oracle vs routed metric-separation tests,Passed
+code_build_report,docs/experiments/UNSW_A99_SPECIALIST_CODE_BUILD_REPORT.md,yes,no,no,Human-readable build report,Documentation deliverable
+code_build_audit_json,results/audits/unsw_a99_specialist_code_build.json,yes,no,no,Machine-readable build audit,Validated with python -m json.tool
+code_build_expected_outputs_csv,results/audits/unsw_a99_specialist_build_expected_outputs.csv,yes,no,no,This expected-outputs table,Distinguishes build-now vs after-training artifacts
+seed42_checkpoint,models/experiments/unsw_a99_attack_family_specialist_seed42.pt,no,yes,no,Specialist checkpoint (best validation-selected),Created ONLY by an approved manual --execute run; not created now
+seed42_results_dir,results/experiments/unsw_a99_attack_family_specialist_seed42/,no,yes,no,Specialist oracle/routed metrics + per-class/rare/confusion/routing,Created ONLY after approved training/evaluation; not created now
+seed42_oracle_metrics,results/experiments/unsw_a99_attack_family_specialist_seed42/oracle_attack_family_metrics.json,no,yes,no,Oracle attack-family metrics on true attack rows,Compared apples-to-apples vs A9 0.500429; not created now
+seed42_routed_metrics,results/experiments/unsw_a99_attack_family_specialist_seed42/routed_end_to_end_metrics.json,no,yes,no,Routed end-to-end metrics via frozen A9 Head 1,Deployment view bounded by Head 1 recall; not created now
+seed42_report,docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md,no,yes,no,Seed42 run report,Created ONLY after an approved run; not created now

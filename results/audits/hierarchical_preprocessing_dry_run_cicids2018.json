@@ -1,0 +1,102 @@
+{
+  "dataset": "cicids2018",
+  "status": "PASS",
+  "timestamp": "2026-06-24T02:26:13.2863132+04:00",
+  "task": "Task A2 taxonomy config lock and hierarchical preprocessing dry-run preparation",
+  "taxonomy_config_path": "configs/taxonomy/cicids2018_attack_taxonomy.yaml",
+  "preprocessing_config_path": "configs/preprocessing/cicids2018_hierarchical.yaml",
+  "source_a1_taxonomy_counts_csv": "results/audits/cicids_attack_taxonomy_counts.csv",
+  "expected_feature_dim": 77,
+  "detected_feature_dim": 77,
+  "feature_dim_match": true,
+  "observed_attack_labels_count": 14,
+  "taxonomy_labels_count": 14,
+  "unmapped_attack_labels": [],
+  "extra_taxonomy_labels_not_observed": [],
+  "rare_labels": [
+    "DoS attacks-Slowloris",
+    "DDOS attack-LOIC-UDP",
+    "Brute Force -Web",
+    "Brute Force -XSS",
+    "SQL Injection"
+  ],
+  "ignore_index": -1,
+  "benign_rows_head2_mask_value": 0,
+  "attack_rows_head2_mask_value": 1,
+  "binary_label_design_valid": true,
+  "attack_family_label_design_valid": true,
+  "attack_family_mask_design_valid": true,
+  "common_superclass_reporting_only": true,
+  "fake_shared_multiclass_label_list_created": false,
+  "planned_output_directory": "data/processed/cicids2018/hierarchical",
+  "planned_output_files": [
+    "X_train.npy",
+    "X_val.npy",
+    "X_test.npy",
+    "y_binary_train.npy",
+    "y_binary_val.npy",
+    "y_binary_test.npy",
+    "y_attack_family_train.npy",
+    "y_attack_family_val.npy",
+    "y_attack_family_test.npy",
+    "attack_family_mask_train.npy",
+    "attack_family_mask_val.npy",
+    "attack_family_mask_test.npy",
+    "feature_names.json",
+    "binary_label_mapping.json",
+    "attack_family_label_mapping.json",
+    "common_attack_superclass_mapping.json",
+    "split_summary.json",
+    "hierarchical_preprocessing_manifest.json"
+  ],
+  "hierarchical_arrays_created": false,
+  "model_code_created": false,
+  "training_or_evaluation_run": false,
+  "checkpoints_created": false,
+  "security_attack_xai_dashboard_started": false,
+  "centralized_compatibility": {
+    "status": "PASS",
+    "reason": "Future centralized training can consume the CICIDS2018 hierarchical directory with input_dim 77, binary labels, attack-family labels, and attack-family masks."
+  },
+  "fedavg_compatibility": {
+    "status": "PASS",
+    "reason": "Future FedAvg can run within CICIDS2018 only, using the same input dimension and the same dataset-specific attack-family head on all clients."
+  },
+  "checks": [
+    {
+      "name": "a1_taxonomy_counts_available",
+      "status": "PASS",
+      "detail": "results/audits/cicids_attack_taxonomy_counts.csv is the source for locked labels."
+    },
+    {
+      "name": "taxonomy_covers_all_observed_attack_labels",
+      "status": "PASS",
+      "detail": "All 14 observed CICIDS2018 attack labels are represented."
+    },
+    {
+      "name": "feature_names_format",
+      "status": "PASS",
+      "detail": "data/processed/cicids2018/binary/feature_names.json contains feature_names with 77 entries."
+    },
+    {
+      "name": "head2_ignore_and_mask_contract",
+      "status": "PASS",
+      "detail": "Benign rows use ignore_index -1 and mask 0; attack rows use mask 1."
+    },
+    {
+      "name": "common_superclass_reporting_only",
+      "status": "PASS",
+      "detail": "Common superclass is not a training target."
+    },
+    {
+      "name": "no_fake_shared_multiclass_target",
+      "status": "PASS",
+      "detail": "CICIDS2018 keeps its own attack-family taxonomy."
+    },
+    {
+      "name": "planned_outputs_only",
+      "status": "PASS",
+      "detail": "No hierarchical arrays, model code, training, checkpoints, or final metrics were created by Task A2."
+    }
+  ]
+}

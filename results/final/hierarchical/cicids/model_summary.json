@@ -1,0 +1,31 @@
+{
+  "architecture": "SecureIDSHierarchicalAdvancedNet",
+  "architecture_metadata": {
+    "architecture": "SecureIDSHierarchicalAdvancedNet",
+    "attack_head": {
+      "dropout": 0.0,
+      "hidden_dim": null,
+      "norm": false,
+      "type": "linear"
+    },
+    "attack_head_dim": 14,
+    "dropout": 0.2,
+    "embedding_dim": 128,
+    "heads": {
+      "attack_family": "dataset-aware attack-family logits",
+      "binary": "single raw logit for Benign/Normal vs Attack"
+    },
+    "hidden_dims": [
+      256,
+      128,
+      128
+    ],
+    "input_dim": 77,
+    "normalization": "layernorm",
+    "residual_expansion": 2
+  },
+  "attack_head_dim": 14,
+  "created_utc": "2026-06-25T10:37:36.812701+00:00",
+  "input_dim": 77,
+  "param_count": 484623
+}

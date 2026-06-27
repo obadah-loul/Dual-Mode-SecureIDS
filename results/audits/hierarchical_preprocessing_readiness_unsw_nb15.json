@@ -1,0 +1,963 @@
+{
+  "all_attack_family_classes_present_or_documented": true,
+  "attack_family_distribution": {
+    "absent_attack_family_classes": [],
+    "by_split": {
+      "test": {
+        "Analysis": 677,
+        "Backdoor": 583,
+        "DoS": 4089,
+        "Exploits": 11132,
+        "Fuzzers": 6062,
+        "Generic": 18871,
+        "Reconnaissance": 3496,
+        "Shellcode": 378,
+        "Worms": 44
+      },
+      "train": {
+        "Analysis": 1675,
+        "Backdoor": 1505,
+        "DoS": 10397,
+        "Exploits": 28482,
+        "Fuzzers": 15445,
+        "Generic": 33959,
+        "Reconnaissance": 8902,
+        "Shellcode": 965,
+        "Worms": 109
+      },
+      "val": {
+        "Analysis": 325,
+        "Backdoor": 241,
+        "DoS": 1867,
+        "Exploits": 4911,
+        "Fuzzers": 2739,
+        "Generic": 6041,
+        "Reconnaissance": 1589,
+        "Shellcode": 168,
+        "Worms": 21
+      }
+    },
+    "total_by_id": {
+      "0": 58871,
+      "1": 44525,
+      "2": 24246,
+      "3": 16353,
+      "4": 13987,
+      "5": 2677,
+      "6": 2329,
+      "7": 1511,
+      "8": 174
+    },
+    "total_by_name": {
+      "Analysis": 2677,
+      "Backdoor": 2329,
+      "DoS": 16353,
+      "Exploits": 44525,
+      "Fuzzers": 24246,
+      "Generic": 58871,
+      "Reconnaissance": 13987,
+      "Shellcode": 1511,
+      "Worms": 174
+    }
+  },
+  "attack_family_labels_valid": true,
+  "binary_distribution": {
+    "test": {
+      "0": 37000,
+      "1": 45332
+    },
+    "train": {
+      "0": 47600,
+      "1": 101439
+    },
+    "val": {
+      "0": 8400,
+      "1": 17902
+    }
+  },
+  "binary_labels_valid": true,
+  "blocking_issues": [],
+  "checkpoints_created": false,
+  "checks": [
+    {
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\unsw_nb15\\hierarchical",
+      "name": "hierarchical_folder_exists",
+      "status": "PASS"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "all_expected_files_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=192, expected=192",
+      "name": "feature_names_count_matches_expected_dim",
+      "status": "PASS"
+    },
+    {
+      "detail": "Head 1 mapping is 0=benign/normal, 1=attack",
+      "name": "binary_label_mapping_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "class_count=9",
+      "name": "attack_family_label_mapping_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "common superclass is reporting-only and not training target",
+      "name": "common_superclass_mapping_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "-1",
+      "name": "ignore_index_recorded_as_minus_one",
+      "status": "PASS"
+    },
+    {
+      "detail": "unsw_nb15",
+      "name": "dataset_name_recorded_in_attack_mapping",
+      "status": "PASS"
+    },
+    {
+      "detail": "unsw_nb15",
+      "name": "manifest_dataset_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "hierarchical_preprocessing",
+      "name": "manifest_task_type_hierarchical",
+      "status": "PASS"
+    },
+    {
+      "detail": "configs/taxonomy/unsw_nb15_attack_taxonomy.yaml",
+      "name": "manifest_taxonomy_config_path_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "configs/preprocessing/unsw_nb15_hierarchical.yaml",
+      "name": "manifest_preprocessing_config_path_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "feature_dim=192, expected=192",
+      "name": "manifest_input_dim_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_no_test_set_tuning",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_no_scaler_encoder_refit_on_test",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "manifest_common_superclass_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "manifest_no_fake_shared_multiclass",
+      "status": "PASS"
+    },
+    {
+      "detail": "[149039, 192]",
+      "name": "train_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[149039], ya=[149039]",
+      "name": "train_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[149039]",
+      "name": "train_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[149039, 192], yb=[149039], ya=[149039], mask=[149039]",
+      "name": "train_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=192, expected=192",
+      "name": "train_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "train_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "train_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8]",
+      "name": "train_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "train_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "train_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "train_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "train_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[149039, 192], new X=[149039, 192], y match=True",
+      "name": "train_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "[26302, 192]",
+      "name": "val_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[26302], ya=[26302]",
+      "name": "val_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[26302]",
+      "name": "val_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[26302, 192], yb=[26302], ya=[26302], mask=[26302]",
+      "name": "val_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=192, expected=192",
+      "name": "val_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "val_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "val_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8]",
+      "name": "val_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "val_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "val_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "val_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "val_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[26302, 192], new X=[26302, 192], y match=True",
+      "name": "val_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "[82332, 192]",
+      "name": "test_X_arrays_are_2d",
+      "status": "PASS"
+    },
+    {
+      "detail": "yb=[82332], ya=[82332]",
+      "name": "test_y_arrays_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "[82332]",
+      "name": "test_masks_are_1d",
+      "status": "PASS"
+    },
+    {
+      "detail": "X=[82332, 192], yb=[82332], ya=[82332], mask=[82332]",
+      "name": "test_lengths_match_X_rows",
+      "status": "PASS"
+    },
+    {
+      "detail": "detected=192, expected=192",
+      "name": "test_feature_dim_matches",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "test_binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[0, 1]",
+      "name": "test_mask_values_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "unique=[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8]",
+      "name": "test_attack_family_ids_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 0 rows have y_attack_family=-1",
+      "name": "test_mask0_rows_have_ignore_index",
+      "status": "PASS"
+    },
+    {
+      "detail": "mask 1 rows have non-negative attack-family ids",
+      "name": "test_mask1_rows_nonnegative",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 0 rows have mask 0",
+      "name": "test_binary0_rows_have_mask0",
+      "status": "PASS"
+    },
+    {
+      "detail": "binary label 1 rows have mask 1",
+      "name": "test_binary1_rows_have_mask1",
+      "status": "PASS"
+    },
+    {
+      "detail": "old X=[82332, 192], new X=[82332, 192], y match=True",
+      "name": "test_matches_existing_binary_split",
+      "status": "PASS"
+    },
+    {
+      "detail": "split_summary.json matches inspected arrays",
+      "name": "split_summary_matches_arrays",
+      "status": "PASS"
+    },
+    {
+      "detail": "train/val/test all contain rows",
+      "name": "no_split_empty",
+      "status": "PASS"
+    },
+    {
+      "detail": "absent=[]",
+      "name": "all_attack_family_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "Rare raw labels are preserved in mapping metadata. Counts from A3 arrays are available at the mapped attack-family level.",
+      "name": "rare_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_processed_outputs_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_final_checkpoints_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "existing_binary_fedavg_checkpoints_still_exist",
+      "status": "PASS"
+    },
+    {
+      "detail": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\secureids\\models\\secureids_hierarchical_advanced_net.py",
+      "name": "advanced_hierarchical_model_code_present_expected_from_a5",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_hierarchical_checkpoints",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_hierarchical_training_metrics",
+      "status": "PASS"
+    },
+    {
+      "detail": "[]",
+      "name": "no_security_attack_xai_dashboard_outputs",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "feature_dim_match",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "label_mask_consistency",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "binary_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "attack_family_labels_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "masks_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "ignore_index_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "split_summary_matches_arrays",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "all_attack_family_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "rare_classes_present_or_documented",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "common_superclass_reporting_only",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "fake_shared_multiclass_label_list_created",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "no_test_set_tuning",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "no_scaler_encoder_refit_on_test",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_binary_outputs_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_binary_checkpoints_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "True",
+      "name": "existing_fedavg_checkpoints_preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": "model_code_created=True (approved and implemented at A5)",
+      "name": "advanced_model_code_present_expected_from_a5",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "training_or_evaluation_run",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "checkpoints_created",
+      "status": "PASS"
+    },
+    {
+      "detail": "False",
+      "name": "security_attack_xai_dashboard_started",
+      "status": "PASS"
+    }
+  ],
+  "common_superclass_reporting_only": true,
+  "created_at_utc": "2026-06-24T02:12:49.094538+00:00",
+  "dataset": "unsw_nb15",
+  "detected_feature_dim": 192,
+  "existing_binary_checkpoints_preserved": true,
+  "existing_binary_outputs_preserved": true,
+  "existing_fedavg_checkpoints_preserved": true,
+  "expected_feature_dim": 192,
+  "expected_files_count": 18,
+  "fake_shared_multiclass_label_list_created": false,
+  "feature_dim_match": true,
+  "ignore_index_valid": true,
+  "label_mask_consistency": true,
+  "manifest_summary": {
+    "common_superclass_reporting_only": true,
+    "creation_command": "python -m secureids.cli preprocess-hierarchical --dataset unsw --execute --overwrite",
+    "creation_command_recorded": true,
+    "dataset": "unsw_nb15",
+    "expected_creation_command": "python -m secureids.cli preprocess-hierarchical --dataset all --execute",
+    "expected_input_dim": 192,
+    "fake_shared_multiclass_label_list_created": false,
+    "input_dim": 192,
+    "no_scaler_encoder_refit_on_test": true,
+    "no_test_set_tuning": true,
+    "preprocessing_config_path": "configs/preprocessing/unsw_nb15_hierarchical.yaml",
+    "status": "PASS",
+    "task": "hierarchical_preprocessing",
+    "taxonomy_config_path": "configs/taxonomy/unsw_nb15_attack_taxonomy.yaml"
+  },
+  "mapping_summary": {
+    "attack_family_class_count": 9,
+    "attack_family_class_to_id": {
+      "Analysis": 5,
+      "Backdoor": 6,
+      "DoS": 3,
+      "Exploits": 1,
+      "Fuzzers": 2,
+      "Generic": 0,
+      "Reconnaissance": 4,
+      "Shellcode": 7,
+      "Worms": 8
+    },
+    "binary_class_to_id": {
+      "Attack": 1,
+      "Benign / Normal": 0
+    },
+    "common_superclass_reporting_only": true,
+    "dataset": "unsw_nb15",
+    "fake_shared_multiclass_label_list_created": false,
+    "id_to_class": {
+      "0": "Generic",
+      "1": "Exploits",
+      "2": "Fuzzers",
+      "3": "DoS",
+      "4": "Reconnaissance",
+      "5": "Analysis",
+      "6": "Backdoor",
+      "7": "Shellcode",
+      "8": "Worms"
+    },
+    "id_to_class_int": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "ignore_index": -1,
+    "rare_raw_labels": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_threshold": {
+      "rule": "support_percent < 1.0",
+      "support_percent_lt": 1.0
+    },
+    "raw_label_to_attack_family": {
+      "Analysis": "Analysis",
+      "Backdoor": "Backdoor",
+      "DoS": "DoS",
+      "Exploits": "Exploits",
+      "Fuzzers": "Fuzzers",
+      "Generic": "Generic",
+      "Reconnaissance": "Reconnaissance",
+      "Shellcode": "Shellcode",
+      "Worms": "Worms"
+    },
+    "raw_label_to_attack_family_id": {
+      "Analysis": 5,
+      "Backdoor": 6,
+      "DoS": 3,
+      "Exploits": 1,
+      "Fuzzers": 2,
+      "Generic": 0,
+      "Reconnaissance": 4,
+      "Shellcode": 7,
+      "Worms": 8
+    }
+  },
+  "masks_valid": true,
+  "missing_files": [],
+  "model_code_created": true,
+  "no_scaler_encoder_refit_on_test": true,
+  "no_test_set_tuning": true,
+  "rare_class_summary": {
+    "note": "Rare raw labels are preserved in mapping metadata. Counts from A3 arrays are available at the mapped attack-family level.",
+    "rare_classes": [
+      {
+        "attack_family_id": 7,
+        "family_total_count_in_hierarchical_arrays": 1511,
+        "mapped_attack_family": "Shellcode",
+        "present_or_documented": true,
+        "raw_label": "Shellcode",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 378,
+          "train": 965,
+          "val": 168
+        }
+      },
+      {
+        "attack_family_id": 8,
+        "family_total_count_in_hierarchical_arrays": 174,
+        "mapped_attack_family": "Worms",
+        "present_or_documented": true,
+        "raw_label": "Worms",
+        "raw_label_has_unique_family_class": true,
+        "split_family_counts": {
+          "test": 44,
+          "train": 109,
+          "val": 21
+        }
+      }
+    ],
+    "rare_classes_present_or_documented": true,
+    "rare_raw_labels": [
+      "Shellcode",
+      "Worms"
+    ],
+    "rare_threshold": {
+      "rule": "support_percent < 1.0",
+      "support_percent_lt": 1.0
+    }
+  },
+  "rare_classes_present_or_documented": true,
+  "ready_for_hierarchical_model_implementation": true,
+  "safety_summary": {
+    "advanced_model_code_exists": true,
+    "advanced_model_code_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\secureids\\models\\secureids_hierarchical_advanced_net.py",
+    "binary_fedavg_checkpoints": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/federated/fedavg_cicids_binary.pt"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/federated/fedavg_unsw_binary.pt"
+      }
+    ],
+    "binary_final_checkpoints": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/final/final_cicids_binary.pt"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "models/final/final_unsw_binary.pt"
+      }
+    ],
+    "binary_outputs": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/X_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/cicids2018/binary/y_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/X_test.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_train.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_val.npy"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "data/processed/unsw_nb15/binary/y_test.npy"
+      }
+    ],
+    "hierarchical_checkpoints": [
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/final/final_cicids_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/final/final_unsw_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/federated/fedavg_cicids_hierarchical.pt"
+      },
+      {
+        "exists": false,
+        "is_dir": false,
+        "is_file": false,
+        "path": "models/federated/fedavg_unsw_hierarchical.pt"
+      }
+    ],
+    "hierarchical_training_metric_files": [],
+    "later_layer_outputs": [
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/security"
+      },
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/attacks"
+      },
+      {
+        "exists": false,
+        "file_count": 0,
+        "files": [],
+        "is_dir": false,
+        "is_file": false,
+        "path": "results/robust"
+      },
+      {
+        "exists": true,
+        "file_count": 0,
+        "files": [],
+        "is_dir": true,
+        "is_file": false,
+        "path": "results/xai"
+      }
+    ],
+    "preexisting_future_layer_scaffolds_not_modified_by_a4": [
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "dashboard/app.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/security/__init__.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/attacks/__init__.py"
+      },
+      {
+        "exists": true,
+        "is_dir": false,
+        "is_file": true,
+        "path": "secureids/xai/__init__.py"
+      }
+    ]
+  },
+  "security_attack_xai_dashboard_started": false,
+  "shape_summary": {
+    "test": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    },
+    "train": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    },
+    "val": {
+      "X_is_2d": true,
+      "feature_dim_match": true,
+      "mask_is_1d": true,
+      "row_lengths_match": true,
+      "sizes_match_existing_binary": true,
+      "split_is_nonempty": true,
+      "y_arrays_are_1d": true
+    }
+  },
+  "split_shapes": {
+    "test": {
+      "X": [
+        82332,
+        192
+      ],
+      "attack_family_mask": [
+        82332
+      ],
+      "existing_binary_X": [
+        82332,
+        192
+      ],
+      "existing_binary_y": [
+        82332
+      ],
+      "y_attack_family": [
+        82332
+      ],
+      "y_binary": [
+        82332
+      ]
+    },
+    "train": {
+      "X": [
+        149039,
+        192
+      ],
+      "attack_family_mask": [
+        149039
+      ],
+      "existing_binary_X": [
+        149039,
+        192
+      ],
+      "existing_binary_y": [
+        149039
+      ],
+      "y_attack_family": [
+        149039
+      ],
+      "y_binary": [
+        149039
+      ]
+    },
+    "val": {
+      "X": [
+        26302,
+        192
+      ],
+      "attack_family_mask": [
+        26302
+      ],
+      "existing_binary_X": [
+        26302,
+        192
+      ],
+      "existing_binary_y": [
+        26302
+      ],
+      "y_attack_family": [
+        26302
+      ],
+      "y_binary": [
+        26302
+      ]
+    }
+  },
+  "split_summary_matches_arrays": true,
+  "status": "PASS",
+  "training_or_evaluation_run": false,
+  "warnings": []
+}

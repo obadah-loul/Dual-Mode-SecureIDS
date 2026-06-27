@@ -1,0 +1,247 @@
+{
+  "generated_at_utc": "2026-06-23T19:24:05.703975+00:00",
+  "overall_status": "PASS",
+  "datasets": [
+    {
+      "dataset": "unsw_nb15",
+      "display_name": "UNSW-NB15",
+      "expected": {
+        "task": "binary",
+        "model": "SecureIDSNet",
+        "input_dim": 190
+      },
+      "artifacts": {
+        "checkpoint": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_binary.pt",
+        "metrics": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_test_metrics.json",
+        "history": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_training_history.csv",
+        "confusion_matrix": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_confusion_matrix.csv",
+        "manifest": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_unsw_nb15.json"
+      },
+      "artifact_checks": [
+        {
+          "name": "checkpoint_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_unsw_binary.pt",
+          "passed": true
+        },
+        {
+          "name": "metrics_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_test_metrics.json",
+          "passed": true
+        },
+        {
+          "name": "history_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_training_history.csv",
+          "passed": true
+        },
+        {
+          "name": "confusion_matrix_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\unsw_confusion_matrix.csv",
+          "passed": true
+        },
+        {
+          "name": "manifest_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_unsw_nb15.json",
+          "passed": true
+        }
+      ],
+      "manifest_checks": [
+        {
+          "name": "dataset",
+          "actual": "unsw_nb15",
+          "expected": "unsw_nb15",
+          "passed": true
+        },
+        {
+          "name": "task",
+          "actual": "binary",
+          "expected": "binary",
+          "passed": true
+        },
+        {
+          "name": "model",
+          "actual": "SecureIDSNet",
+          "expected": "SecureIDSNet",
+          "passed": true
+        },
+        {
+          "name": "input_dim",
+          "actual": 190,
+          "expected": 190,
+          "passed": true
+        },
+        {
+          "name": "test_set_used_for_tuning",
+          "actual": false,
+          "expected": false,
+          "passed": true
+        },
+        {
+          "name": "preprocessing_safety_check_passed",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_federated_training",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_attack_simulation",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_xai",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "final_checkpoint",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "dataset": "cicids2018",
+      "display_name": "CICIDS2018",
+      "expected": {
+        "task": "binary",
+        "model": "SecureIDSNet",
+        "input_dim": 77
+      },
+      "artifacts": {
+        "checkpoint": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_cicids_binary.pt",
+        "metrics": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_test_metrics.json",
+        "history": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_training_history.csv",
+        "confusion_matrix": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_confusion_matrix.csv",
+        "manifest": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_cicids2018.json"
+      },
+      "artifact_checks": [
+        {
+          "name": "checkpoint_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\final_cicids_binary.pt",
+          "passed": true
+        },
+        {
+          "name": "metrics_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_test_metrics.json",
+          "passed": true
+        },
+        {
+          "name": "history_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_training_history.csv",
+          "passed": true
+        },
+        {
+          "name": "confusion_matrix_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\final\\centralized\\cicids_confusion_matrix.csv",
+          "passed": true
+        },
+        {
+          "name": "manifest_exists",
+          "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\training_manifest_cicids2018.json",
+          "passed": true
+        }
+      ],
+      "manifest_checks": [
+        {
+          "name": "dataset",
+          "actual": "cicids2018",
+          "expected": "cicids2018",
+          "passed": true
+        },
+        {
+          "name": "task",
+          "actual": "binary",
+          "expected": "binary",
+          "passed": true
+        },
+        {
+          "name": "model",
+          "actual": "SecureIDSNet",
+          "expected": "SecureIDSNet",
+          "passed": true
+        },
+        {
+          "name": "input_dim",
+          "actual": 77,
+          "expected": 77,
+          "passed": true
+        },
+        {
+          "name": "test_set_used_for_tuning",
+          "actual": false,
+          "expected": false,
+          "passed": true
+        },
+        {
+          "name": "preprocessing_safety_check_passed",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_federated_training",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_attack_simulation",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "no_xai",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        },
+        {
+          "name": "final_checkpoint",
+          "actual": true,
+          "expected": true,
+          "passed": true
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "training_report_check": {
+    "path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\docs\\CENTRALIZED_TRAINING_REPORT.md",
+    "exists": true,
+    "contains_unsw": true,
+    "contains_cicids": true,
+    "contains_completion_language": true,
+    "status": "PASS"
+  },
+  "safety_confirmation": {
+    "training_run": false,
+    "retraining_run": false,
+    "evaluation_run": false,
+    "checkpoints_modified": false,
+    "metrics_modified": false,
+    "histories_modified": false,
+    "confusion_matrices_modified": false,
+    "training_manifests_modified": false,
+    "raw_data_modified": false,
+    "processed_arrays_modified": false,
+    "preprocessing_artifacts_modified": false,
+    "model_architecture_modified": false,
+    "thresholds_modified": false,
+    "federated_security_attack_xai_dashboard_started": false,
+    "git_commit_or_push": false
+  },
+  "outputs": {
+    "json": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\audits\\centralized_baseline_validation.json",
+    "markdown": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\docs\\CENTRALIZED_BASELINE_VALIDATION.md"
+  }
+}

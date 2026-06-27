@@ -1,0 +1,7 @@
+strategy_name,expected_impact,implementation_complexity,overfitting_risk,leakage_risk,professor_facing_clarity,final_architecture_compatibility,requires_new_dependencies,messiness_risk,recommended_priority,recommended_or_not,reason
+attack_family_specialist,high,medium,medium,low_if_controls_followed,high,high,no,medium,1,yes,"Best balance of attack-family macro-F1 upside, rare-class protection, clean hierarchy, and professor-facing clarity."
+two_stage_attack_only_fine_tuning,medium_high,medium_high,medium_high,low_if_controls_followed,medium,medium_high,no,medium,2,no,"Useful backup but harder to attribute cleanly and more likely to overfit than a separate specialist."
+attack_row_sampling,medium,low_medium,medium,low_if_train_only,medium,medium_high,no,medium,3,no,"Useful inside specialist training, but weaker as a standalone strategy and may distort class priors."
+head2_focal_loss,low_medium,low,medium_high,low,medium,medium_high,no,low,4,no,"Loss-only change is less compelling after A9.6 and can overfocus noisy rare examples."
+hard_class_specialist,medium,high,high,medium,low_medium,medium,no,high,5,no,"Too many competing heads/models for the next controlled professor-facing step."
+feature_preprocessing_enhancement,uncertain,medium_high,medium,medium_high,medium,medium,maybe,medium_high,6,no,"Potentially useful later, but leakage and reproducibility burden are too high for the immediate next step."

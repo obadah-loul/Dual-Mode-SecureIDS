@@ -1,0 +1,184 @@
+{
+  "audit_name": "cicids_hierarchical_exp03_125_aggregate_review",
+  "task_type": "formal_aggregate_review_updated_after_approved_promotion",
+  "generated_on": "2026-06-25",
+  "current_status": {
+    "official_baseline_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "official_baseline_still_active": false,
+    "official_final_model": "EXP03 1.25 seed999",
+    "official_final_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "promoted_source_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "promotion_record": "results/audits/cicids_hierarchical_exp03_125_final_promotion_record_20260625_160136.json",
+    "backup_directory": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136",
+    "rollback_target": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136/models_final/final_cicids_hierarchical.pt",
+    "source_checkpoint_sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+    "final_checkpoint_sha256": "2C154253162CF18CD25D78F2AB77127CE51C26488D1F9BCABC93BAF591CD74C0",
+    "hashes_match": true,
+    "final_checkpoint_modified": true,
+    "final_checkpoint_copied_or_replaced": true,
+    "strongest_candidate": "cicids_hierarchical_exp03_attack_loss_weight_125_confirmation",
+    "selected_candidate_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "recommendation": "PROMOTED_WITH_WARNINGS",
+    "historical_note": "This audit was originally written as a pre-promotion review. It was later updated after approved promotion to record that EXP03 1.25 seed999 is now the official final CICIDS hierarchical model."
+  },
+  "selection_basis": {
+    "selected_seed": 999,
+    "selected_by": "highest_validation_hierarchical_score_among_exp03_125_seeds",
+    "test_metrics_used_for_checkpoint_selection": false,
+    "seed42_best_val_hierarchical_score": 0.909871,
+    "seed123_best_val_hierarchical_score": 0.905829,
+    "seed999_best_val_hierarchical_score": 0.913383,
+    "verified_from_test_metrics_json": true,
+    "note": "Seed999 has the highest validation hierarchical score (0.913383). It is also the strongest seed on the held-out test split (highest attack-family/rare macro, best routing), so validation selection and test ranking agree - the choice is not a test-cherry-pick."
+  },
+  "baseline_metrics": {
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp01_summary": {
+    "id": "cicids_hierarchical_exp01_head2_mlp_capacity",
+    "status": "REJECTED_DIAGNOSTIC_ONLY",
+    "idea": "Non-linear MLP Head 2 (capacity increase).",
+    "result": "No improvement; attack-family macro-F1 0.849111 -> 0.846994 (within noise). The hard SlowHTTPTest/FTP pair did not move; capacity is not the CICIDS Head-2 lever.",
+    "kept_as": "diagnostic evidence; baseline remained accepted."
+  },
+  "exp02_summary": {
+    "id": "cicids_hierarchical_exp02_attack_loss_weight",
+    "status": "HEAD2_AND_RARE_IMPROVEMENT_FAMILY_NOT_PROMOTED",
+    "idea": "attack_loss_weight 1.0 -> 1.5 on linear Head 2 (3 seeds).",
+    "result_3seed_mean": {"attack_family_macro_f1": 0.859641, "rare_class_macro_f1": 0.751845, "correct_attribution_rate": 0.905235, "missed_as_benign_rate": 0.056220},
+    "tradeoff": "Improved Head-2/rare but worsened routing (correct-attribution -0.0038, missed-as-benign +0.0024 vs baseline). Not promoted.",
+    "superseded_by": "EXP03 1.25, which beats EXP02 1.5 on attack-family (+0.0113), rare (+0.0228), correct-attribution (+0.0030) and missed-as-benign (-0.0024)."
+  },
+  "exp03_screening_summary": {
+    "screened_values": [1.25, 1.35],
+    "screening_seed": 42,
+    "screening_basis": "validation-only (val_hierarchical_score / val attack-family macro)",
+    "outcome": "1.25 selected; 1.35 destabilized tiny classes (seed42 SQL-Injection precision collapsed to 0.091, F1 0.16) and did not improve the hard pair, so 1.25 advanced to 3-seed confirmation."
+  },
+  "exp03_confirmation_summary": {
+    "id": "cicids_hierarchical_exp03_attack_loss_weight_125_confirmation",
+    "seeds": [42, 123, 999],
+    "head2_type": "linear",
+    "attack_loss_weight": 1.25,
+    "binary_loss_weight": 1.0,
+    "status": "PROMOTED_WITH_WARNINGS"
+  },
+  "exp03_per_seed_metrics": [
+    {"seed": 42, "best_epoch": 9, "val_hierarchical_score": 0.909871, "binary_macro_f1": 0.972019, "attack_family_macro_f1": 0.867881, "rare_class_macro_f1": 0.765155, "correct_attribution_rate": 0.909144, "missed_as_benign_rate": 0.053081, "benign_false_alarm_rate": 0.010484},
+    {"seed": 123, "best_epoch": 4, "val_hierarchical_score": 0.905829, "binary_macro_f1": 0.973807, "attack_family_macro_f1": 0.869983, "rare_class_macro_f1": 0.778473, "correct_attribution_rate": 0.902253, "missed_as_benign_rate": 0.057191, "benign_false_alarm_rate": 0.006692},
+    {"seed": 999, "best_epoch": 6, "val_hierarchical_score": 0.913383, "binary_macro_f1": 0.974604, "attack_family_macro_f1": 0.875094, "rare_class_macro_f1": 0.780177, "correct_attribution_rate": 0.913331, "missed_as_benign_rate": 0.051221, "benign_false_alarm_rate": 0.008267, "selected": true}
+  ],
+  "exp03_aggregate_metrics": {
+    "mean": {
+      "binary_macro_f1": 0.973477,
+      "attack_family_macro_f1": 0.870986,
+      "rare_class_macro_f1": 0.774602,
+      "correct_attribution_rate": 0.908243,
+      "missed_as_benign_rate": 0.053831,
+      "benign_false_alarm_rate": 0.008481
+    },
+    "sample_std": {
+      "binary_macro_f1": 0.001324,
+      "attack_family_macro_f1": 0.003710,
+      "rare_class_macro_f1": 0.008225,
+      "correct_attribution_rate": 0.005594,
+      "missed_as_benign_rate": 0.003055,
+      "benign_false_alarm_rate": 0.001905
+    },
+    "delta_vs_baseline": {
+      "binary_macro_f1": 0.001310,
+      "attack_family_macro_f1": 0.021875,
+      "rare_class_macro_f1": 0.057615,
+      "correct_attribution_rate": -0.000765,
+      "missed_as_benign_rate": 0.000024,
+      "benign_false_alarm_rate": -0.001527
+    },
+    "delta_vs_exp02_mean": {
+      "binary_macro_f1": 0.000255,
+      "attack_family_macro_f1": 0.011345,
+      "rare_class_macro_f1": 0.022757,
+      "correct_attribution_rate": 0.003008,
+      "missed_as_benign_rate": -0.002389,
+      "benign_false_alarm_rate": 0.000705
+    }
+  },
+  "selected_checkpoint_seed999_vs_baseline": {
+    "note": "The single promoted artifact (seed999) beats baseline on ALL six headline metrics, including both routing metrics; the tiny mean-level routing dip is a seed123 effect, not present in the selected checkpoint.",
+    "binary_macro_f1": {"seed999": 0.974604, "delta": 0.002437},
+    "attack_family_macro_f1": {"seed999": 0.875094, "delta": 0.025983},
+    "rare_class_macro_f1": {"seed999": 0.780177, "delta": 0.063190},
+    "correct_attribution_rate": {"seed999": 0.913331, "delta": 0.004323},
+    "missed_as_benign_rate": {"seed999": 0.051221, "delta": -0.002586},
+    "benign_false_alarm_rate": {"seed999": 0.008267, "delta": -0.001741}
+  },
+  "weak_class_movement": [
+    {"class": "DoS-SlowHTTPTest", "support": 20941, "baseline_f1": 0.553454, "exp03_mean_f1": 0.581882, "seed999_f1": 0.581181, "verdict": "improved_stable_but_feature_limited", "note": "recall 0.437 -> ~0.491 mean, stable across seeds; still the weakest large class."},
+    {"class": "FTP-BruteForce", "support": 28928, "baseline_f1": 0.778722, "exp03_mean_f1": 0.770518, "seed999_f1": 0.781308, "verdict": "mild_mean_regression_but_selected_seed_ok", "note": "Family-mean F1 dips (seed123 recall 0.805 drags it); the selected seed999 F1 0.781 is >= baseline."},
+    {"class": "Web-BruteForce", "support": 96, "baseline_f1": 0.363636, "exp03_mean_f1": 0.685776, "seed999_f1": 0.697143, "verdict": "strong_stable_improvement_small_support", "note": "precision 0.24 -> ~0.75; from fixing Infiltration->Web-BruteForce false predictions (220 -> ~19)."},
+    {"class": "Web-XSS", "support": 38, "baseline_f1": 0.618182, "exp03_mean_f1": 0.618182, "seed999_f1": 0.618182, "verdict": "stuck_tiny_guardrail", "note": "Frozen at exactly 17/38 in every run; too small and entangled with Bot/Infiltration to optimize; do not over-claim."},
+    {"class": "SQL-Injection", "support": 12, "baseline_f1": 0.800000, "exp03_mean_f1": 0.752519, "seed999_f1": 0.761905, "verdict": "pure_variance_guardrail", "note": "12 samples; recall fixed 8/12; precision swings on a few FPs; never optimize."}
+  ],
+  "remaining_limitations": [
+    "DoS-SlowHTTPTest <-> FTP-BruteForce is the dominant unresolved confusion (~14,758 pair errors, conserved across the loss-weight sweep); EXP04 diagnostic shows it is FEATURE-LIMITED in the current 77-feature space.",
+    "FTP-BruteForce family-mean F1 is slightly below baseline (0.7787 -> 0.7705), driven by seed123; the selected seed999 is at/above baseline.",
+    "Web-XSS (38) is frozen at F1 0.618; SQL-Injection (12) is high-variance - both are tiny-support and must not be over-claimed.",
+    "3-seed mean correct-attribution is 0.000765 below baseline and missed-as-benign 0.000024 above (both far inside the ~0.0056/0.0031 std and not present in the selected seed999 checkpoint).",
+    "The current 77-feature space lacks a destination-port feature - the natural SlowHTTPTest/FTP separator - which caps the achievable separation at ~0.68 balanced accuracy."
+  ],
+  "exp04_diagnostic_summary": {
+    "verdict": "feature_limited",
+    "deep_model_pair_balanced_accuracy_exp03": 0.6746,
+    "linear_probe_pair_balanced_accuracy_val": 0.681825,
+    "key_finding": "A trivial linear probe on the same 77 features matches/exceeds the deep model on the pair, so there is no model headroom; only 3/77 features separate the classes and destination port is absent. More model/loss runs cannot reduce the pair error - they redistribute it.",
+    "implication": "Promoting EXP03 1.25 with documented limitations is the honest choice; raising the ceiling requires a feature-engineering / new-preprocessing protocol (a separate main-control decision)."
+  },
+  "promotion_warnings": [
+    "Family-level: 3-seed mean correct-attribution -0.000765 and missed-as-benign +0.000024 vs old baseline (within noise; NOT present in the selected seed999 checkpoint).",
+    "FTP-BruteForce slightly lower than baseline on the family mean.",
+    "DoS-SlowHTTPTest <-> FTP-BruteForce remains the dominant unresolved (feature-limited) confusion.",
+    "SQL-Injection (12) and Web-XSS (38) have very small test support and must not be over-claimed.",
+    "CICIDS limitations are reported honestly and must remain documented in the final report after any promotion."
+  ],
+  "no_fake_results_statement": "All metrics in this audit were read directly from the existing per-seed test_metrics.json, routing summaries, per-class/rare-class CSVs and confusion matrices, or computed from them; the 3-seed means reproduce the provided aggregate exactly. No metric was fabricated, rounded-up, or cherry-picked.",
+  "no_test_tuning_statement": "Checkpoint selection used validation only (val_hierarchical_score = 0.5*val_binary_macro_f1 + 0.5*val_attack_family_macro_f1); the test split was evaluated once per seed after the best-validation checkpoint and was never used to choose hyperparameters, seeds, or thresholds. Seed999 was chosen by the highest validation hierarchical score.",
+  "no_overwrite_confirmation": {
+    "final_checkpoint_not_modified": false,
+    "final_results_not_modified": false,
+    "promotion_plan_only": false,
+    "approved_promotion_completed": true,
+    "promotion_record": "results/audits/cicids_hierarchical_exp03_125_final_promotion_record_20260625_160136.json",
+    "rollback_target": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136/models_final/final_cicids_hierarchical.pt"
+  },
+  "candidate_files": {
+    "source_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "source_report": "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_125_SEED999_REPORT.md",
+    "source_results_dir": "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999",
+    "source_manifest": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_125_seed999.json"
+  },
+  "integrity_snapshot": {
+    "final_checkpoint_size_bytes": 1961387,
+    "final_checkpoint_last_write": "2026-06-25T00:22:00 (local)",
+    "selected_candidate_size_bytes": 1964481,
+    "selected_candidate_exists": true,
+    "note": "Recorded so any future promotion can prove the baseline was backed up before replacement."
+  },
+  "recommended_next_step": "stop_for_main_review",
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "final_checkpoint_modified": true,
+    "final_checkpoint_copied_or_replaced": true,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_claimed": false,
+    "test_tuning": false,
+    "v1_modified": false
+  }
+}

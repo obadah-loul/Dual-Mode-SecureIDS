@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-06-24T13:27:39.524420+00:00",
+  "dataset": "unsw_nb15",
+  "definitions": {
+    "attack_detected_and_correctly_attributed": "true attack predicted attack and Head 2 family correct",
+    "attack_detected_wrong_family": "true attack predicted attack but Head 2 family wrong",
+    "attack_missed_as_benign": "true attack predicted benign by Head 1",
+    "benign_correctly_stopped": "true benign predicted benign by Head 1"
+  },
+  "test_routing": {
+    "attack_detected_and_correctly_attributed": 32955,
+    "attack_detected_and_correctly_attributed_rate": 0.7269699108797317,
+    "attack_detected_wrong_family": 10019,
+    "attack_detected_wrong_family_rate": 0.22101385334862791,
+    "attack_missed_as_benign": 2358,
+    "attack_missed_as_benign_rate": 0.05201623577164034,
+    "attack_total": 45332,
+    "benign_correctly_stopped": 30980,
+    "benign_correctly_stopped_rate": 0.8372972972972973,
+    "benign_flagged_as_attack": 6020,
+    "benign_flagged_as_attack_rate": 0.1627027027027027,
+    "benign_total": 37000
+  },
+  "validation_routing_at_best_epoch": {
+    "attack_detected_and_correctly_attributed": 12594,
+    "attack_detected_and_correctly_attributed_rate": 0.7034968159982125,
+    "attack_detected_wrong_family": 4052,
+    "attack_detected_wrong_family_rate": 0.2263434253156072,
+    "attack_missed_as_benign": 1256,
+    "attack_missed_as_benign_rate": 0.07015975868618031,
+    "attack_total": 17902,
+    "benign_correctly_stopped": 7951,
+    "benign_correctly_stopped_rate": 0.9465476190476191,
+    "benign_flagged_as_attack": 449,
+    "benign_flagged_as_attack_rate": 0.05345238095238095,
+    "benign_total": 8400
+  }
+}

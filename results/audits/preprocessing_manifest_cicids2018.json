@@ -1,0 +1,114 @@
+{
+  "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\preprocessing\\cicids2018_binary.yaml",
+  "config_snapshot": {
+    "artifact_path": "models/final/preprocessors/cicids2018_binary_preprocessor.joblib",
+    "binary_mapping": {
+      "attack_rule": "all_non_benign_are_attack",
+      "benign_values": [
+        "BENIGN",
+        "Benign",
+        "benign"
+      ]
+    },
+    "cleaning": {
+      "numeric_coerce": true,
+      "replace_inf_with_nan": true,
+      "strip_column_whitespace": true
+    },
+    "dataset": "cicids2018",
+    "drop_columns": [
+      "Flow ID",
+      "Src IP",
+      "Dst IP",
+      "Dst Port",
+      "Destination Port",
+      "Dest Port",
+      "Src Port",
+      "Source Port",
+      "Sport",
+      "Dport",
+      "Timestamp",
+      "Label"
+    ],
+    "imputation": {
+      "fit_on": "train_only",
+      "numeric_strategy": "median"
+    },
+    "output_dir": "data/processed/cicids2018/binary",
+    "raw_dir": "data/raw/cicids2018",
+    "scaling": {
+      "fit_on": "train_only",
+      "type": "standard"
+    },
+    "split": {
+      "random_seed": 42,
+      "strategy": "stratified_random",
+      "test_size": 0.15,
+      "train_size": 0.7,
+      "val_size": 0.15
+    },
+    "target_column": "Label",
+    "task": "binary"
+  },
+  "dataset": "cicids2018",
+  "feature_count": 77,
+  "input_paths": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\Bot.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\Brute Force -Web.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\Brute Force -XSS.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DDOS attack-HOIC.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DDOS attack-LOIC-UDP.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DDoS attacks-LOIC-HTTP.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DoS attacks-GoldenEye.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DoS attacks-Hulk.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DoS attacks-SlowHTTPTest.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\DoS attacks-Slowloris.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\FTP-BruteForce.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\Infilteration.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\SQL Injection.csv",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\raw\\cicids2018\\SSH-Bruteforce.csv"
+  ],
+  "memory_strategy": "Chunked CSV reading with .npy memmap outputs; train-fitted median imputation and standard scaling applied in place.",
+  "no_model_metrics_created": true,
+  "no_training_performed": true,
+  "output_paths": [
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_train.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_train.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_val.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_val.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\X_test.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\y_test.npy",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\feature_names.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\label_mapping.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\split_summary.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\data\\processed\\cicids2018\\binary\\preprocessing_manifest.json",
+    "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\final\\preprocessors\\cicids2018_binary_preprocessor.joblib"
+  ],
+  "random_seed": 42,
+  "split_summary": {
+    "test": {
+      "label_distribution": {
+        "0": 1031537,
+        "1": 412236
+      },
+      "rows": 1443773
+    },
+    "total_rows": 9625148,
+    "train": {
+      "label_distribution": {
+        "0": 4813839,
+        "1": 1923764
+      },
+      "rows": 6737603
+    },
+    "val": {
+      "label_distribution": {
+        "0": 1031537,
+        "1": 412235
+      },
+      "rows": 1443772
+    }
+  },
+  "task": "binary",
+  "timestamp_utc": "2026-06-23T16:17:22.446491+00:00"
+}

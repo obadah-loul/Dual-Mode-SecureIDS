@@ -1,0 +1,153 @@
+{
+  "test": {
+    "X_shape": [
+      175341,
+      190
+    ],
+    "attack_family_class_counts_excluding_ignore": {
+      "0": 40000,
+      "1": 33393,
+      "2": 18184,
+      "3": 12264,
+      "4": 10491,
+      "5": 2000,
+      "6": 1746,
+      "7": 1133,
+      "8": 130
+    },
+    "attack_family_class_counts_excluding_ignore_named": {
+      "Analysis": 2000,
+      "Backdoor": 1746,
+      "DoS": 12264,
+      "Exploits": 33393,
+      "Fuzzers": 18184,
+      "Generic": 40000,
+      "Reconnaissance": 10491,
+      "Shellcode": 1133,
+      "Worms": 130
+    },
+    "attack_family_mask_shape": [
+      175341
+    ],
+    "attack_rows_count": 119341,
+    "benign_or_normal_rows_count": 56000,
+    "binary_class_counts": {
+      "0": 56000,
+      "1": 119341
+    },
+    "ignore_index_count": 56000,
+    "mask_0_count": 56000,
+    "mask_0_count_equals_binary_benign_or_normal_count": true,
+    "mask_1_count": 119341,
+    "mask_1_count_equals_binary_attack_count": true,
+    "y_attack_family_ignore_exactly_where_mask_0": true,
+    "y_attack_family_nonnegative_where_mask_1": true,
+    "y_attack_family_shape": [
+      175341
+    ],
+    "y_binary_shape": [
+      175341
+    ]
+  },
+  "total_rows": 257673,
+  "train": {
+    "X_shape": [
+      69982,
+      190
+    ],
+    "attack_family_class_counts_excluding_ignore": {
+      "0": 16077,
+      "1": 9470,
+      "2": 5086,
+      "3": 3474,
+      "4": 3003,
+      "5": 578,
+      "6": 488,
+      "7": 316,
+      "8": 40
+    },
+    "attack_family_class_counts_excluding_ignore_named": {
+      "Analysis": 578,
+      "Backdoor": 488,
+      "DoS": 3474,
+      "Exploits": 9470,
+      "Fuzzers": 5086,
+      "Generic": 16077,
+      "Reconnaissance": 3003,
+      "Shellcode": 316,
+      "Worms": 40
+    },
+    "attack_family_mask_shape": [
+      69982
+    ],
+    "attack_rows_count": 38532,
+    "benign_or_normal_rows_count": 31450,
+    "binary_class_counts": {
+      "0": 31450,
+      "1": 38532
+    },
+    "ignore_index_count": 31450,
+    "mask_0_count": 31450,
+    "mask_0_count_equals_binary_benign_or_normal_count": true,
+    "mask_1_count": 38532,
+    "mask_1_count_equals_binary_attack_count": true,
+    "y_attack_family_ignore_exactly_where_mask_0": true,
+    "y_attack_family_nonnegative_where_mask_1": true,
+    "y_attack_family_shape": [
+      69982
+    ],
+    "y_binary_shape": [
+      69982
+    ]
+  },
+  "val": {
+    "X_shape": [
+      12350,
+      190
+    ],
+    "attack_family_class_counts_excluding_ignore": {
+      "0": 2794,
+      "1": 1662,
+      "2": 976,
+      "3": 615,
+      "4": 493,
+      "5": 99,
+      "6": 95,
+      "7": 62,
+      "8": 4
+    },
+    "attack_family_class_counts_excluding_ignore_named": {
+      "Analysis": 99,
+      "Backdoor": 95,
+      "DoS": 615,
+      "Exploits": 1662,
+      "Fuzzers": 976,
+      "Generic": 2794,
+      "Reconnaissance": 493,
+      "Shellcode": 62,
+      "Worms": 4
+    },
+    "attack_family_mask_shape": [
+      12350
+    ],
+    "attack_rows_count": 6800,
+    "benign_or_normal_rows_count": 5550,
+    "binary_class_counts": {
+      "0": 5550,
+      "1": 6800
+    },
+    "ignore_index_count": 5550,
+    "mask_0_count": 5550,
+    "mask_0_count_equals_binary_benign_or_normal_count": true,
+    "mask_1_count": 6800,
+    "mask_1_count_equals_binary_attack_count": true,
+    "y_attack_family_ignore_exactly_where_mask_0": true,
+    "y_attack_family_nonnegative_where_mask_1": true,
+    "y_attack_family_shape": [
+      12350
+    ],
+    "y_binary_shape": [
+      12350
+    ]
+  }
+}

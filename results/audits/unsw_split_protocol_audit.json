@@ -1,0 +1,59 @@
+{
+  "schema_version": "task_a8_8_unsw_split_protocol_audit_v1",
+  "created_at_utc": "2026-06-24",
+  "dataset": "unsw_nb15",
+  "finding": "A8.75 HIGH F1 - UNSW train/test protocol was swapped (trained on the smaller partition).",
+  "verification": {
+    "local_files": {
+      "UNSW_NB15_training-set.csv": {
+        "data_rows": 82332,
+        "label_0_normal": 37000,
+        "label_1_attack": 45332,
+        "canonical_role_by_row_count": "canonical TESTING set (82,332)",
+        "attack_cat_counts": {
+          "Normal": 37000, "Generic": 18871, "Exploits": 11132, "Fuzzers": 6062,
+          "DoS": 4089, "Reconnaissance": 3496, "Analysis": 677, "Backdoor": 583,
+          "Shellcode": 378, "Worms": 44
+        }
+      },
+      "UNSW_NB15_testing-set.csv": {
+        "data_rows": 175341,
+        "label_0_normal": 56000,
+        "label_1_attack": 119341,
+        "canonical_role_by_row_count": "canonical TRAINING set (175,341)",
+        "attack_cat_counts": {
+          "Normal": 56000, "Generic": 40000, "Exploits": 33393, "Fuzzers": 18184,
+          "DoS": 12264, "Reconnaissance": 10491, "Analysis": 2000, "Backdoor": 1746,
+          "Shellcode": 1133, "Worms": 130
+        }
+      }
+    },
+    "canonical_reference": "Official UNSW-NB15 partition: training-set = 175,341 records, testing-set = 82,332 records (Moustafa & Slay). The local file NAMES are swapped relative to canonical row counts.",
+    "conclusion": "The local file names do not match canonical sizes. By canonical ROW COUNT, the 175,341-row partition is the benchmark training set and the 82,332-row partition is the benchmark test set."
+  },
+  "decision": "Correct to the standard UNSW-NB15 protocol: train/val from the 175,341-row partition (local UNSW_NB15_testing-set.csv); final test on the 82,332-row partition (local UNSW_NB15_training-set.csv).",
+  "implementation": "Swapped train_file/test_file in configs/preprocessing/unsw_nb15_binary.yaml (assigned by canonical row count, with explanatory comments); raw files were NOT renamed or modified.",
+  "corrected_split": {
+    "train_source_file": "data/raw/unsw_nb15/UNSW_NB15_testing-set.csv (175,341 rows = canonical train)",
+    "val_source": "85/15 stratified-on-binary split of the train source (random_seed=42)",
+    "test_source_file": "data/raw/unsw_nb15/UNSW_NB15_training-set.csv (82,332 rows = canonical test)",
+    "train_rows": 149039,
+    "val_rows": 26302,
+    "test_rows": 82332,
+    "train_binary": {"normal": 47600, "attack": 101439},
+    "val_binary": {"normal": 8400, "attack": 17902},
+    "test_binary": {"normal": 37000, "attack": 45332},
+    "feature_dim_before": 190,
+    "feature_dim_after": 192
+  },
+  "rare_class_support_after_correction": {
+    "Shellcode": {"train": 965, "val": 168, "test": 378},
+    "Worms": {"train": 109, "val": 21, "test": 44},
+    "note": "Before correction Worms had train=40/val=4; the corrected protocol raises Worms to train=109/val=21, removing the <50 very-low-support warning and stabilizing validation macro-F1."
+  },
+  "no_leakage": true,
+  "no_test_set_tuning": true,
+  "splits_disjoint": true,
+  "scaler_encoder_imputer_fit_on": "train_only",
+  "status": "RESOLVED"
+}

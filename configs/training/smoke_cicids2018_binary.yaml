@@ -1,0 +1,20 @@
+# NON-FINAL smoke-training config for CICIDS2018.
+# This config drives a tiny technical training check on small subsets only.
+# It does NOT produce final metrics, final checkpoints, or results/final outputs.
+dataset: cicids2018
+base_config: configs/training/cicids2018_binary.yaml
+processed_dir: data/processed/cicids2018/binary
+input_dim: 77
+smoke:
+  enabled: true
+  non_final: true
+  max_train_samples: 4096
+  max_val_samples: 2048
+  max_test_samples: 2048
+  batch_size: 512
+  max_epochs: 1
+  max_batches_per_epoch: 4
+  evaluation_batches: 2
+  save_checkpoint: false
+  output_json: results/audits/centralized_smoke_check.json
+  report_md: docs/CENTRALIZED_TRAINING_SMOKE_CHECK.md

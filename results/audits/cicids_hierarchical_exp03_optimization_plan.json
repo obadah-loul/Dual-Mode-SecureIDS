@@ -1,0 +1,209 @@
+{
+  "audit_name": "cicids_hierarchical_exp03_optimization_plan",
+  "task_type": "next_controlled_optimization_plan_only",
+  "generated_on": "2026-06-25",
+  "current_status": {
+    "accepted_baseline_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "exp01_status": "REJECTED_DIAGNOSTIC_ONLY",
+    "exp02_status": "HEAD2_AND_RARE_CLASS_IMPROVEMENT_FAMILY_NOT_PROMOTED",
+    "current_final_model_changed": false
+  },
+  "baseline_metrics": {
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp02_aggregate": {
+    "seed_count": 3,
+    "seeds": [42, 123, 999],
+    "attack_loss_weight": 1.5,
+    "head2_type": "linear",
+    "binary_loss_weight": 1.0,
+    "mean_metrics": {
+      "binary_macro_f1": 0.973222,
+      "attack_family_macro_f1": 0.859641,
+      "rare_class_macro_f1": 0.751845,
+      "correct_attribution_rate": 0.905235,
+      "missed_as_benign_rate": 0.056220,
+      "benign_false_alarm_rate": 0.007776
+    },
+    "std_metrics": {
+      "std_type": "population_std_n3",
+      "binary_macro_f1": 0.001065,
+      "attack_family_macro_f1": 0.006148,
+      "rare_class_macro_f1": 0.006462,
+      "correct_attribution_rate": 0.002834,
+      "missed_as_benign_rate": 0.001520,
+      "benign_false_alarm_rate": 0.001869
+    },
+    "deltas_vs_baseline": {
+      "binary_macro_f1": 0.001055,
+      "attack_family_macro_f1": 0.010530,
+      "rare_class_macro_f1": 0.034858,
+      "correct_attribution_rate": -0.003773,
+      "missed_as_benign_rate": 0.002413,
+      "benign_false_alarm_rate": -0.002232
+    },
+    "main_gain": "Rare-class macro-F1 +0.0349 and attack-family macro-F1 +0.0105. The CONSISTENT driver across all 3 seeds is Web-BruteForce (baseline F1 0.3636 precision 0.24 -> EXP02 0.678/0.744/0.693, precision 0.73/0.90/0.76), i.e. rare-class precision recovery, NOT the hard pair.",
+    "main_tradeoff": "Head-1 conservatism: missed-as-benign +0.0024 and correct-attribution -0.0038 (3-seed mean). Benign-false-alarm fell on the 3-seed mean (-0.0022) but rose on seed42 (0.0104), so routing has real seed variance.",
+    "hard_pair_finding": "attack_loss_weight 1.5 did NOT reliably fix DoS-SlowHTTPTest<->FTP-BruteForce. Only seed42 moved it (SlowHTTPTest recall 0.437->0.522, F1 0.553->0.597). Seed123 (0.431) and seed999 (0.445) stayed at baseline. The pair is feature-limited, as the EXP01 failure analysis predicted.",
+    "fragility_note": "attack-family macro-F1 mean gain (+0.0105) is only ~1.7x the population std (0.0061); seed999 (0.8509) is barely above baseline (0.8491). The gain is real but fragile and partly carried by one seed."
+  },
+  "exp03_goal": "keep_head2_and_rare_class_gains_while_recovering_routing_and_missed_attack_behavior",
+  "recommended_exp03": {
+    "id": "cicids_hierarchical_exp03_attack_loss_weight_conservative_sweep",
+    "idea": "Conservative attack_loss_weight reduction sweep {1.25, 1.35} on the baseline LINEAR Head 2, binary_loss_weight held at 1.0.",
+    "description": "EXP02 (attack_loss_weight 1.5) bought a fragile Head-2/rare-class gain at the cost of Head-1 conservatism (more missed-as-benign, lower correct-attribution). The single lever responsible is the attack-vs-binary loss balance. Backing off from 1.5 toward a knee (1.25, 1.35) should retain most of the consistent Web-BruteForce rare-class precision gain while reducing the conservative Head-1 drift that hurt routing. One factor vs baseline; config-only; no code, no preprocessing, no taxonomy, no model change; binary_loss_weight stays 1.0 to preserve one-factor discipline.",
+    "screening_design": "one_seed_validation_only_screen_then_3seed_confirm: screen {1.25, 1.35} at seed42 choosing the winner ONLY on validation metrics (val attack-family macro-F1 to confirm gain retention + val routing missed-as-benign/correct-attribution to confirm recovery); then run the single winner at seeds 42/123/999 and decide promotion on the 3-seed TEST mean.",
+    "manual_run_count": 4,
+    "manual_run_count_range": "4_to_6",
+    "candidate_values": [1.25, 1.35],
+    "candidate_values_rejected_now": {"1.15": "too close to baseline; likely loses the Web-BruteForce rare gain", "1.75": "too aggressive; 1.5 already raised missed-as-benign and moved the pair in only 1/3 seeds; more weight worsens routing with no reliable Head-2 payoff (A9.6 precedent)"},
+    "selected_seed_strategy": "screen at seed42 (validation-only choice, so seed42's optimistic test pair-movement does not drive the decision); confirm the winner at seeds 42/123/999; promote only on the 3-seed test mean beyond the EXP02 noise band; report mean +/- std.",
+    "expected_benefit": "Recover correct-attribution toward >=0.909 and missed-as-benign toward <=0.0538 while keeping attack-family macro-F1 >= ~0.855 and rare-class macro-F1 >= ~0.74 (mostly Web-BruteForce). Best case: a config that beats baseline on Head-2/rare AND does not regress routing -> promotable final.",
+    "expected_risk": "The knee may not exist: lowering the weight could give back the rare-class gain proportionally to the routing recovery (a Pareto wash), leaving baseline still un-beaten on the combined criteria. The hard pair will remain unfixed (feature-limited).",
+    "requires_code_change": false,
+    "requires_config_only": true,
+    "requires_threshold_calibration_code": false,
+    "requires_main_control_approval_before_config_creation": true
+  },
+  "why_selected": [
+    "It directly targets the EXP03 goal with the single lever proven responsible: the attack-vs-binary loss balance is what bought the Head-2/rare gain AND caused the Head-1 conservatism, so tuning it down is the most direct route to keep one and recover the other.",
+    "Config-only, no code change: attack_loss_weight is already wired (hierarchical_trainer.py:266 -> compute_hierarchical_loss); fully reproducible, lowest implementation risk.",
+    "Cheapest controlled next step: a 2-value screen + 3-seed confirm (4-6 runs) before committing to any code-change experiment.",
+    "Evidence-based: the consistent EXP02 gain is Web-BruteForce rare precision (all 3 seeds), which a smaller weight is likely to retain; the hard pair did not move reliably, so capacity/per-pair tricks are not the lever.",
+    "Preserves controlled-experiment discipline: one factor, baseline frozen, isolated paths, >=3 seeds, no test tuning."
+  ],
+  "why_not_selected_now": {
+    "validation_only_binary_threshold_calibration": "Strong and principled for the missed-as-benign regression, but threshold is hardcoded at 0.5 (hierarchical_trainer.py:242, hierarchical_metrics.py default) so it needs CODE; do it AFTER the cheap config-only sweep and apply it to the chosen final loss config, not a moving target. -> recommend_after_exp03 (EXP04).",
+    "head2_focal_loss": "Targets the hard pair, but EXP02 showed the pair is feature-limited (moved in only 1/3 seeds); focal needs loss code and risks collapsing rare precision (UNSW A9.7-design). -> recommend_after_exp03 / possible_later.",
+    "validation_selection_metric_adjustment": "The 0.5/0.5 formula is hardcoded (code change); the EXP01 failure analysis showed baseline and EXP01 both already select their max-val-attack epoch, so re-weighting is unlikely to change the selected epoch for CICIDS. -> possible_later, low priority.",
+    "binary_loss_weight_change": "Would add a second moving factor; breaks one-factor discipline. Keep binary_loss_weight=1.0 in EXP03; revisit as a separate experiment only if reducing attack_loss_weight alone does not recover routing.",
+    "targeted_or_slowhttptest_focused_class_weights": "Per-class hacking / model-zoo-style tuning with high overfit risk and low reliability given the pair is feature-limited. -> needs_main_control_decision.",
+    "attack_only_sampler": "The hard pair is NOT rare, so limited upside; oversampling risks overfit/optimism (project disables oversampling by default). -> possible_later.",
+    "class_balanced_effective_number_loss": "A reweighting variant unlikely to break a feature-overlap pair. -> possible_later.",
+    "specialist_module": "Model-zoo risk; the project requires one organized final system. -> reject.",
+    "feature_engineering": "The only real fix for the feature-limited pair, but it is a NEW preprocessing protocol that breaks comparability and is not a quick experiment. -> needs_main_control_decision, only after loss levers are exhausted.",
+    "keep_exp02_and_move_on": "EXP02 is not routing-clean, so it is not final-ready as-is; revisit only if EXP03 cannot recover routing without giving back the Head-2/rare gain (then main control weighs the trade)."
+  },
+  "candidate_rankings": [
+    {"rank": 1, "option_id": "exp03_attack_loss_weight_conservative_sweep", "classification": "recommend_now", "config_only": true, "code_change_needed": false, "may_improve_head2": "maybe", "may_recover_routing": "yes", "runs": "4_to_6"},
+    {"rank": 2, "option_id": "validation_only_binary_threshold_calibration", "classification": "recommend_after_exp03", "config_only": false, "code_change_needed": true, "may_improve_head2": "no", "may_recover_routing": "yes", "runs": "3_to_4"},
+    {"rank": 3, "option_id": "attack_loss_weight_broad_sweep_incl_1p15_1p75", "classification": "possible_later", "config_only": true, "code_change_needed": false, "may_improve_head2": "maybe", "may_recover_routing": "maybe", "runs": "6_plus"},
+    {"rank": 4, "option_id": "head2_focal_loss", "classification": "recommend_after_exp03", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "no", "runs": "3_to_6"},
+    {"rank": 5, "option_id": "validation_selection_metric_adjustment", "classification": "possible_later", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "maybe", "runs": "3"},
+    {"rank": 6, "option_id": "class_balanced_effective_number_loss", "classification": "possible_later", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "no", "runs": "3"},
+    {"rank": 7, "option_id": "targeted_class_weights_confused_pair", "classification": "needs_main_control_decision", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "no", "runs": "3"},
+    {"rank": 8, "option_id": "slowhttptest_focused_weighting", "classification": "needs_main_control_decision", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "no", "runs": "3"},
+    {"rank": 9, "option_id": "attack_only_sampler", "classification": "possible_later", "config_only": false, "code_change_needed": true, "may_improve_head2": "no", "may_recover_routing": "no", "runs": "3"},
+    {"rank": 10, "option_id": "keep_exp02_and_move_on", "classification": "possible_later", "config_only": true, "code_change_needed": false, "may_improve_head2": "no", "may_recover_routing": "no", "runs": "0"},
+    {"rank": 11, "option_id": "attack_family_specialist_module", "classification": "reject", "config_only": false, "code_change_needed": true, "may_improve_head2": "maybe", "may_recover_routing": "no", "runs": "n/a"}
+  ],
+  "proposed_files_if_approved": [
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_1p25_seed42.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_1p35_seed42.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_<winner>_seed123.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_<winner>_seed999.yaml",
+    "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_<value>_seed<seed>.pt",
+    "results/experiments/cicids_hierarchical_exp03_attack_loss_weight_<value>_seed<seed>/ (test_metrics.json, training_history.csv, per_class_attack_metrics.csv, rare_class_metrics.csv, binary_confusion_matrix.csv, attack_family_confusion_matrix.csv, hierarchical_routing_summary.json, training_config_snapshot.yaml, class_weight_snapshot.json, model_summary.json)",
+    "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp03_attack_loss_weight_<value>_seed<seed>.json",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP03_ATTACK_LOSS_WEIGHT_<VALUE>_SEED<SEED>_REPORT.md",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP03_3SEED_PREP_PLAN.md (mirroring the EXP02 prep doc)",
+    "results/audits/cicids_hierarchical_exp03_3seed_prep.json",
+    "results/audits/cicids_hierarchical_exp03_3seed_expected_runs.csv"
+  ],
+  "must_not_overwrite": [
+    "models/final/final_cicids_hierarchical.pt",
+    "results/final/hierarchical/cicids/",
+    "results/audits/hierarchical_training_manifest_cicids2018.json",
+    "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+    "any EXP01 or EXP02 experiment artifact"
+  ],
+  "proposed_manual_command_templates_if_approved": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_1p25_seed42.yaml --execute",
+    ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp03_attack_loss_weight_1p35_seed42.yaml --execute",
+    "# then run the validation-chosen winner at seeds 123 and 999 via per-seed config copies"
+  ],
+  "promotion_criteria": {
+    "decision_basis": "3-seed (42/123/999) TEST mean of the single validation-chosen winner; report mean +/- std.",
+    "attack_family_macro_f1_3seed_mean": ">= 0.855 (baseline 0.849 + margin beyond the ~+/-0.006 noise band); must hold without losing the Web-BruteForce rare gain",
+    "rare_class_macro_f1_3seed_mean": ">= 0.740 (retain most of the EXP02 rare gain; no rare class -> ~0)",
+    "correct_attribution_rate_3seed_mean": ">= 0.909008 (recovered to baseline or better) -- the core EXP03 objective",
+    "missed_as_benign_rate_3seed_mean": "<= 0.053807 (recovered to baseline or better) -- the core EXP03 objective",
+    "binary_macro_f1_3seed_mean": ">= 0.970",
+    "benign_false_alarm_rate_3seed_mean": "<= 0.012",
+    "robustness": "no single seed may regress correct-attribution below ~0.900 or missed-as-benign above ~0.058 (avoid lucky-seed promotion)",
+    "safety": "no baseline/EXP01/EXP02 overwrite; validation-only checkpoint selection; train-only class weights; single final test per seed; no test tuning"
+  },
+  "rejection_criteria": [
+    "Routing not recovered: correct-attribution still below baseline and missed-as-benign still above baseline on the 3-seed mean.",
+    "Head-2/rare gain given back: attack-family macro-F1 < ~0.855 or rare-class macro-F1 < ~0.740 (the reduction simply reverted EXP02).",
+    "No knee exists: every candidate is a Pareto wash (gain recovered only in proportion to routing lost) -> stop the loss-weight line, escalate to threshold calibration (EXP04).",
+    "Binary macro-F1 < 0.970, or instability/NaN.",
+    "Any factor changed beyond attack_loss_weight; any test tuning; any baseline/EXP01/EXP02 artifact overwritten."
+  ],
+  "binary_routing_protection_decision": {
+    "protect_head1_more": true,
+    "method": "primarily by NOT over-upweighting attack loss (reduce 1.5 -> 1.25/1.35), keeping binary_loss_weight at 1.0",
+    "change_binary_loss_weight_now": false,
+    "change_validation_selection_metric_now": false,
+    "add_routing_guardrail_metric": true,
+    "routing_guardrail_definition": "promotion requires correct-attribution >= baseline and missed-as-benign <= baseline on the 3-seed mean (documentation/decision-criteria only; routing summary already reports both -- no code needed)",
+    "keep_binary_loss_weight_1p0_and_adjust_attack_loss_weight_only": true
+  },
+  "threshold_calibration_design_if_later_approved": {
+    "status": "design_only_recommend_after_exp03_as_exp04_requires_code",
+    "currently_hardcoded": "threshold = 0.5 (hierarchical_trainer.py:242; hierarchical_metrics.py default)",
+    "validation_metric_to_select_threshold": "maximize validation end-to-end correct-attribution (equivalently minimize validation missed-as-benign) subject to validation benign-false-alarm <= 0.012",
+    "candidate_thresholds": [0.30, 0.35, 0.40, 0.45, 0.50],
+    "freeze_procedure": "compute the grid on the VALIDATION split at the already validation-selected best checkpoint, pick the winning threshold, write it to the manifest BEFORE evaluating test",
+    "test_procedure": "apply the frozen threshold to the test split exactly once and report",
+    "leakage_prevention": "grid never computed on test; checkpoint selected on validation; threshold selected on validation; single final test; threshold recorded in manifest",
+    "sequencing": "after the EXP03 attack_loss_weight sweep, applied to the chosen final loss config (not a moving target)"
+  },
+  "slowhttptest_ftp_pair_finding": {
+    "exp02_reduced_pair": "partially_and_inconsistently",
+    "per_seed_slowhttptest_recall": {"baseline": 0.436703, "seed42": 0.522372, "seed123": 0.431498, "seed999": 0.444917},
+    "per_seed_slowhttptest_f1": {"baseline": 0.553454, "seed42": 0.596863, "seed123": 0.549852, "seed999": 0.555874},
+    "interpretation": "Only seed42 moved the pair; the 3-seed mean is essentially baseline. The pair is feature-limited.",
+    "should_exp03_directly_target_pair": false,
+    "reason": "Direct per-pair weighting/sampling is model-zoo-style hacking with high overfit risk and low reliability given the pair is feature-limited; the real fix is feature engineering (new preprocessing protocol, needs_main_control), NOT taxonomy/weight tricks.",
+    "no_taxonomy_change_to_inflate_metrics": true
+  },
+  "multi_seed_design": {
+    "recommendation": "one_seed_validation_only_screen_then_3seed_confirm",
+    "screening_seed": 42,
+    "screening_decision_basis": "validation metrics only (val attack-family macro-F1 + val routing); NOT seed42 test, because seed42 was the optimistic seed for the hard pair",
+    "confirmation_seeds": [42, 123, 999],
+    "expected_runs": 4,
+    "expected_runs_range": "4_to_6",
+    "runs_justification": "2 one-seed screens (1.25, 1.35) + run the winner at the 2 remaining seeds (123, 999); the seed42 screen run's once-computed test reused for the 3-seed mean since the screening choice used validation only. Up to 6 if both candidates merit full 3-seed confirmation.",
+    "avoid_lucky_seed": "promotion decided on the 3-seed test mean with a per-seed robustness floor; screening uses validation only; report mean +/- std; require gain beyond the ~+/-0.006 attack-family noise band"
+  },
+  "safety_rules": {
+    "no_training_run": true,
+    "no_test_tuning": true,
+    "no_config_created_yet": true,
+    "no_checkpoint_modified": true,
+    "no_final_model_changed": true
+  },
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_claimed": false,
+    "test_tuning": false,
+    "v1_modified": false
+  },
+  "next_main_control_decision": "approve_or_reject_exp03_config_preparation"
+}

@@ -1,0 +1,128 @@
+{
+  "audit_name": "unsw_a99_seed42_output_repair",
+  "task_type": "repair_missing_seed42_outputs_from_existing_checkpoint_no_training_rerun",
+  "generated_on": "2026-06-25",
+  "root_cause": "The A9.9 execute path (attack_family_specialist_trainer._execute_training) saved only the specialist checkpoint via torch.save and returned a summary. It had NO post-training evaluation/artifact-writer call: report generation was not implemented and result_dir was never created. So the checkpoint was written but results/experiments/unsw_a99_attack_family_specialist_seed42/ and the seed42 report were never produced. Fixed by adding an isolated artifact writer (attack_family_specialist_artifacts.py) and calling it from _execute_training after the checkpoint is saved; the same writer regenerated the missing artifacts from the existing checkpoint with no retraining.",
+  "existing_specialist_checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+  "existing_specialist_checkpoint_sha256_before": "E6F72328F70D498800DD62AA9853D104EA5C61F17AF292B7F9DF8E97649E3A0B",
+  "existing_specialist_checkpoint_sha256_after": "E6F72328F70D498800DD62AA9853D104EA5C61F17AF292B7F9DF8E97649E3A0B",
+  "a9_router_checkpoint": "models/final/final_unsw_hierarchical.pt",
+  "a9_router_sha256_before": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "a9_router_sha256_after": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+  "training_rerun": false,
+  "checkpoint_modified": false,
+  "checkpoint_promoted": false,
+  "results_dir_created": "results/experiments/unsw_a99_attack_family_specialist_seed42/",
+  "report_created": "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md",
+  "oracle_metrics_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/oracle_attack_family_metrics.json",
+  "routed_metrics_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/routed_end_to_end_metrics.json",
+  "per_class_metrics_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/per_class_attack_metrics.csv",
+  "rare_class_metrics_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/rare_class_metrics.csv",
+  "confusion_matrix_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/attack_family_confusion_matrix.csv",
+  "routing_summary_path": "results/experiments/unsw_a99_attack_family_specialist_seed42/hierarchical_routing_summary.json",
+  "other_artifacts": [
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/training_history.csv",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/training_config_snapshot.yaml",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/class_weight_snapshot.json",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/model_summary.json",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/unsw_a99_seed42_artifact_manifest.json"
+  ],
+  "evaluation_protocol": {
+    "checkpoint_selection": "validation_only (best val attack-family macro-F1 = 0.586271, from checkpoint metadata)",
+    "test_evaluated_once_for_reporting_only": true,
+    "test_used_for_selection_or_tuning": false,
+    "router_frozen_a9_head1": true,
+    "training_history_note": "Full per-epoch history was not persisted by the original seed42 run; training_history.csv records the checkpoint's best validation score with an explanatory note."
+  },
+  "seed42_metrics": {
+    "oracle_attack_family_macro_f1": 0.474716,
+    "routed_attack_family_macro_f1": 0.477364,
+    "rare_class_macro_f1": 0.285025,
+    "binary_router_macro_f1": 0.894488,
+    "oracle_attack_family_accuracy": 0.754015,
+    "oracle_attack_rows_evaluated": 45332,
+    "routed_correctly_attributed_rate": 0.719315,
+    "routed_missed_as_benign": 2310,
+    "routed_missed_as_benign_rate": 0.050957,
+    "best_val_attack_family_macro_f1": 0.586271,
+    "val_to_test_oracle_gap": 0.111555,
+    "per_class_oracle_f1": {
+      "Generic": 0.980847,
+      "Exploits": 0.686186,
+      "Fuzzers": 0.692256,
+      "DoS": 0.419205,
+      "Reconnaissance": 0.823666,
+      "Analysis": 0.0,
+      "Backdoor": 0.100179,
+      "Shellcode": 0.314721,
+      "Worms": 0.255319
+    }
+  },
+  "a9_baseline": {
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "comparison_vs_a9": {
+    "oracle_attack_family_macro_f1_delta": -0.025713,
+    "rare_class_macro_f1_delta": -0.100644,
+    "binary_router_macro_f1_delta": 0.0,
+    "note": "Binary router reproduces A9 exactly (router frozen). Specialist is BELOW A9 on both oracle attack-family and rare-class macro-F1 on test; large val->test gap indicates overfitting / official-partition prior shift."
+  },
+  "screen_gate_result": {
+    "oracle_attack_family_gate": "fail",
+    "oracle_attack_family_threshold": 0.515429,
+    "rare_class_gate": "fail",
+    "rare_class_threshold": 0.385669,
+    "binary_router_unchanged": true,
+    "oracle_routed_separation": true,
+    "single_seed_promotion_allowed": false,
+    "overall_seed42_screen": "FAIL_SCREEN_DIAGNOSTIC_ONLY"
+  },
+  "tests_run": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_attack_family_specialist_config.py tests/test_attack_family_specialist_safety.py tests/test_attack_family_specialist_cli.py tests/test_attack_family_specialist_metrics.py tests/test_attack_family_specialist_artifacts.py -q",
+      "result": "26 passed"
+    }
+  ],
+  "validation_checks": [
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/ exists",
+    "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md exists",
+    "all 6 result JSON files parse",
+    "all 4 result CSV files import; training_config_snapshot.yaml parses",
+    "outputs isolated under results/experiments and docs/experiments",
+    "specialist checkpoint SHA256 unchanged (E6F72328...E3A0B)",
+    "A9 final checkpoint SHA256 unchanged (5FE688BF...CBEA)",
+    "binary router macro-F1 recomputed = 0.894488 == A9 (router frozen/unchanged)",
+    "results/final newest mtime unchanged (2026-06-24T06:38:28)"
+  ],
+  "files_created": [
+    "secureids/training/attack_family_specialist_artifacts.py",
+    "tests/test_attack_family_specialist_artifacts.py",
+    "results/experiments/unsw_a99_attack_family_specialist_seed42/ (11 files)",
+    "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md",
+    "results/audits/unsw_a99_seed42_output_repair.json"
+  ],
+  "files_modified": [
+    "secureids/training/attack_family_specialist_trainer.py (_execute_training now calls the artifact writer after saving the checkpoint)",
+    "tests/test_attack_family_specialist_cli.py (dry-run test updated to assert checkpoint untouched instead of absent)"
+  ],
+  "forbidden_actions_confirmed": {
+    "training_rerun": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "a9_checkpoint_modified": false,
+    "specialist_checkpoint_overwritten": false,
+    "checkpoint_promoted": false,
+    "results_final_modified": false,
+    "models_final_modified": false,
+    "cicids_modified": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "recommendation": "reject_or_adjust_a99_seed42 — seed42 fails both screen gates (oracle attack-family 0.474716 < 0.515429 and below A9 0.500429; rare 0.285025 < 0.385669). Large val->test gap (0.586 -> 0.475) indicates specialist overfitting. Do NOT proceed to 3-seed confirmation as configured.",
+  "next_main_control_decision": "approve_3_seed_confirmation_or_reject_adjust_a99_after_seed42_review"
+}

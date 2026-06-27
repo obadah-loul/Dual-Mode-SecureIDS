@@ -1,0 +1,4010 @@
+{
+  "schema_version": "hierarchical_fedavg_manifest_v1",
+  "created_at_utc": "2026-06-26T17:35:59.240708+00:00",
+  "dataset": "unsw_nb15",
+  "config_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\configs\\federated\\experiments\\unsw_hierarchical_clean_fedavg_rounds40.yaml",
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\experiments\\federated_hierarchical_v2\\unsw_improved_rounds40_clean_fedavg.pt",
+  "result_dir": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\results\\experiments\\federated_hierarchical_v2\\unsw_improved_rounds40_clean_fedavg",
+  "best_round": 38,
+  "rounds_run": 40,
+  "client_distribution_warnings": [],
+  "attack_config": {
+    "enabled": false,
+    "type": "none",
+    "configured_type": "none",
+    "malicious_fraction": 0.0,
+    "seed": 42,
+    "parameters": {},
+    "malicious_client_ids": []
+  },
+  "attack_audit": [
+    {
+      "round": 1,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 2,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 3,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 4,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 5,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 6,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 7,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 8,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 9,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 10,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 11,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 12,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 13,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 14,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 15,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 16,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 17,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 18,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 19,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 20,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 21,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 22,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 23,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 24,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 25,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 26,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 27,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 28,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 29,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 30,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 31,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 32,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 33,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 34,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 35,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 36,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 37,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 38,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 39,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    },
+    {
+      "round": 40,
+      "enabled": false,
+      "type": "none",
+      "configured_type": "none",
+      "malicious_fraction": 0.0,
+      "seed": 42,
+      "parameters": {},
+      "malicious_client_indices": [],
+      "malicious_client_ids": [],
+      "attack_applied": false,
+      "warnings": []
+    }
+  ],
+  "aggregation_config": {
+    "strategy": "fedavg",
+    "trim_ratio": null,
+    "sample_count_weighted": true
+  },
+  "aggregation_audit": [
+    {
+      "round": 1,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 2,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 3,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 4,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 5,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 6,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 7,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 8,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 9,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 10,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 11,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 12,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 13,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 14,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 15,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 16,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 17,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 18,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 19,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 20,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 21,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 22,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 23,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 24,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 25,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 26,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 27,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 28,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 29,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 30,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 31,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 32,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 33,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 34,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 35,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 36,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 37,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 38,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 39,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    },
+    {
+      "round": 40,
+      "algorithm": "fedavg",
+      "strategy": "fedavg",
+      "trim_ratio": null,
+      "sample_count_weighted": true,
+      "client_ids": [
+        "client_00",
+        "client_01",
+        "client_02",
+        "client_03",
+        "client_04"
+      ],
+      "sample_counts": [
+        29810,
+        29810,
+        29807,
+        29807,
+        29805
+      ],
+      "total_samples": 149039,
+      "integrity_verified": true,
+      "attack_type": "none",
+      "attack_applied": false,
+      "malicious_client_ids": []
+    }
+  ],
+  "update_integrity_records": [
+    {
+      "client_id": "client_00",
+      "round_id": "1",
+      "update_hash": "B3C1B8AD3820D45DEDC2A0DF71E1EA0AF875ED0AB92FE1A547330DAB6CDE8CDD",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "1",
+      "update_hash": "5C557008D006081CD52C5B0EB2C5B4C796F81C7C29CB62C4B233D741A4AC8DA1",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "1",
+      "update_hash": "DF5C13217F5181B9A1F0DF4594E7FBFD637350A0E03912799DDF203C3555B2A5",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "1",
+      "update_hash": "ED3E2BE74DC69CB68197CF3BCD6877212503D2AD4A6C4E246C854FA48AFD1D68",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "1",
+      "update_hash": "C33B9368C257D7D08C59B949C1D39F245D776F3930B89CF92E15D20517969543",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "2",
+      "update_hash": "CADD36F1E99A84A0CE1D636D687ED180F916D6A0AEFA7F09011FA6C07A52EFBC",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "2",
+      "update_hash": "3E735A7F5F49AE1D00EDE6658C538BD4302ADB7BB7372AFDFFE2EC4610381A72",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "2",
+      "update_hash": "FF88A0F4F39A8D3DFC5B0B2FF55896245212249826A6F20D6003ED186D17AF73",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "2",
+      "update_hash": "07ADAAD1FF169BA6C53E9ADA6ACCE945B10E0FAA16FD1236CEDE51E00C193B7E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "2",
+      "update_hash": "97F4C3DB24CDED5F9399463320AF1E3752FE6BACD18159AC857E334F2A7DCC33",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "3",
+      "update_hash": "CA70C7E0A1845A3BB21A5BF12DC5156A4BD0CF0F47C3CF96AB1D873163C68D22",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "3",
+      "update_hash": "5AE553AE6B9836BA3388A10BE752EF7B4D074E846622499527F473D6BCDC0C42",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "3",
+      "update_hash": "319727310136899BDF6AEEA1665ED0B4A4346FD909E9BDF32BCEB6A451926D25",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "3",
+      "update_hash": "91F56C9A3379F0B438354517430161C4D1BBD66B9B93997D2089C29848CC2EE0",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "3",
+      "update_hash": "0573BB8AAB19277429972D96500FE4C8D409699F1C58318F439C0CDA17435FF2",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "4",
+      "update_hash": "6A2D737AE40FF5A69EE03BCCF3E854CCB00346C27074251684EE7139218B56DB",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "4",
+      "update_hash": "D3D5F0C32AB82C66B19DD4F08F299C7FD3EE2A3F46C1E606C176124ACB57CD2D",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "4",
+      "update_hash": "3C3A669D952B80A7882FE12B4489227EB85A8FFEAC327804A7E67376C2F233E8",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "4",
+      "update_hash": "27E1A1F0EB1B0EC53BF33D28A55772392DEAF1E2E3B490E662F745C7C3806B35",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "4",
+      "update_hash": "98B1B31913CF7996098E5E1A0C9306BF6D9547A27DDC606D552E63AB453BD6FF",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "5",
+      "update_hash": "481749B037B41940EE540317B7AF220E1960D4F4DE02037FBD21E219CBABC35C",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "5",
+      "update_hash": "F59FE46046E1BE7D80758CD1C75894ECE2F795C5DE06ECF8467C11E4CCF38A76",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "5",
+      "update_hash": "90F556A2C7EAB51DFD7699EB3938358265FD06B28ACCDD3D3722FA743CBA0110",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "5",
+      "update_hash": "07D391AD0AA9BECD0973D2DE2DCC4933EF7CF5FEE4268BAA27A72BB5A1D3AB39",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "5",
+      "update_hash": "A9C6C0EF90ED7883A01541EB18C8F19AB57622F393E31FCC97BF40548D20E0AF",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "6",
+      "update_hash": "9F8ACFB075932BFD4583EB58B38E17AD20E4B09946F8B482283C46843C6D9562",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "6",
+      "update_hash": "54986649A70A1A5DAAE47C7C9A28E8A4DDFED9D01C1A60461A5DF53F4945A834",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "6",
+      "update_hash": "156E64FD2582DE6E347B3D10EACEAEE4857F05D5DF39A4E6C752F1A57BF59DE9",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "6",
+      "update_hash": "AAD6994E2D03CC0BC258CECD33ADF869A487CEB19DE0E0206FFABE7D174DAB83",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "6",
+      "update_hash": "9DCD70A17D188F430231289C62590F2FB4F1AD251DC7FC5E92F4390B466CCFF6",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "7",
+      "update_hash": "6CF75130E7C80A2B3A9EADD186A8C7BC5BE29415F7D4929818C01246A6F9453B",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "7",
+      "update_hash": "7D25BF6A793E6EBBBAED0B3ECC43945FDA43683AE544D50CC6C61F26CC4698E9",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "7",
+      "update_hash": "2AEFE128CBB5ECC17BF6EEF622AE495ED64EF023073D1D493F3B3938FFC0DC25",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "7",
+      "update_hash": "9188094B2F18B121E4C80610DF47631DA837B2266D352CBDB39905E0EF2D7046",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "7",
+      "update_hash": "136B991746771B6B5ABCEBA39852B7554B5AE70DCD2FCDE5B3C67EA9D0337CA7",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "8",
+      "update_hash": "8881505F4F44D828AB0DB3A250665A4D52868F7CABBC645746D2C8A17461496C",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "8",
+      "update_hash": "B020BBCF1C382641D49828FE1AE5464ECE15F982D1AD80113DDC0B0CF9590DB3",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "8",
+      "update_hash": "4AE9D1C2B9B27BCF40468249EA0DCA8B0E131F053E4FA21344B1107FB54E9643",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "8",
+      "update_hash": "1045219EB89C5F3698325126A34F48AD71607F5FAC0EE848107CA3E387B22AAF",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "8",
+      "update_hash": "25417003B573C50EDD4F74A577AEA41C89D5168B258A5F3130F59DEC3EDB64A4",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "9",
+      "update_hash": "B22ACE8D3CF746FE9BD6B6F5DECBEE28F879EFE6F643FE060FF9511EDB28C30D",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "9",
+      "update_hash": "C42665E574960B05785CDCBE12A7A7B09BE1D6A701C9F0264DE279684A5261FF",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "9",
+      "update_hash": "15608DECC234FF39177E2AA471DAF5103E4D9F7FA13CAE510A542521EF40A142",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "9",
+      "update_hash": "CCCEB014294223FCA9A1AC37CFDFCBE638EBC7A8FD3E57E622FB69ED65EC9BB2",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "9",
+      "update_hash": "0EE3106CACEEF2880B5BD6E22885805763BDA04AD3943AA25622EEC029128DCB",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "10",
+      "update_hash": "8B285AD65498CDAFBBAE14A3519E8DBFE1E34BC9391F3B95E18ADD6A4DB3D0F0",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "10",
+      "update_hash": "2B495A045B2CA831D03CAA995BDD33EEB4C4967125138B7CD05A41727F90E9B6",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "10",
+      "update_hash": "CDBDBE2904A7B1CB8F3A412590C040DAE199354F25AE7CD4105A134410B5EF8C",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "10",
+      "update_hash": "AE77AFE5F024A27F0E26820F656249A595E3A350F071A5AD1CD29DF351369FFF",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "10",
+      "update_hash": "B8FF6587CD1D5ED3E5F2B345F3C2BDF2CAAD4D29970A6408674C345567305BC8",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "11",
+      "update_hash": "3BBC91C38EC05E0C044CA1CEBE0864BBE54A9474F896C70C58D2E29BB9AF39A0",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "11",
+      "update_hash": "BA745B217C32236DE6056219E1A0197B8C827D729545451B829A53DB5FB7E535",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "11",
+      "update_hash": "F7CF61313C9EBF3BD911CB35728FC95277AF4C4D8926B15639D5C9661EA4AE57",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "11",
+      "update_hash": "B93D955F01DF02BE969D2EADA6DF7AA343F3AC3FCF7D4E6E38201CE480046631",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "11",
+      "update_hash": "5FECC8B36B58E3E80023179EEA7CAA2052283AFB9E3E255F298136902D3C1845",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "12",
+      "update_hash": "87B9B83FFE22756D86D2533260C33B1DA82B2587946CF6A2B63E7DD003C0BF6F",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "12",
+      "update_hash": "E710ECFBA86AE0AC91FAAD574D002BB23B0368C85416D7375BDF999885D7084E",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "12",
+      "update_hash": "2C78EDA1D542823533CFE3F659569DC5AE59E635C669E5B1111FAA493C50BA51",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "12",
+      "update_hash": "C0AED2F14B3CE94ACA53615ECBBB23BACFC2322174EC454A59A13CA7C1645594",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "12",
+      "update_hash": "1513C8D98B5FE20D1C4986C1766CF9E176AC9CDECB7825A436B9CEC89489968F",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "13",
+      "update_hash": "06E3FB15180D54FF63336AA5529D97BEC8EB9EA1CF6B7511A24B9DBCE141FCC4",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "13",
+      "update_hash": "CFE9077F68FE91004906687D8B2BD6B5EB1E0D6E4BC3DD70214F13DC243CFB48",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "13",
+      "update_hash": "33A25360BA4175965501B18CE67D83F5CD046D229BF44F318C516707281E8C82",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "13",
+      "update_hash": "09F5EBE47C802AAE332CF9A1F2E2A3698523B34CF8690408A46C3CF70849075B",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "13",
+      "update_hash": "B3043E19C93FC2E6C7ED94822556ABF801566B8AE776C2FB2C4F04A7D35DB67B",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "14",
+      "update_hash": "3195EFE6004BBADE2D9EC9BFC22FB6C07D61F8275560585EE5849B23A0D210B9",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "14",
+      "update_hash": "5662E41BD8C0D4A44D415717BDD27A8A5143FEE3A39313CE6A0D909FF7850DED",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "14",
+      "update_hash": "B7C73EEDC864397A27AD815FE4F7F8EE2653EA0B7C3188BD1D3856189BD61A21",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "14",
+      "update_hash": "5437F51E350C072FCE756A2358DBA2580E9731325FA538ED7B0796B7B87F1991",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "14",
+      "update_hash": "BAD343EDEAB1292DFF5CD7BC01107BFCD877F99D5A06D4709CDC1589E7434465",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "15",
+      "update_hash": "975850900333269B66274586716048FE37F4685EF4127B1BC7082D41AF53B80A",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "15",
+      "update_hash": "A1E7A42DC681B66E9F785E4B770845AC225D361001A4FEC96EF526075F75A1B4",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "15",
+      "update_hash": "13B8EF981256D0721403D1D3E601D8ECEEA70C92EA6D4EC823BE8CD30D76946B",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "15",
+      "update_hash": "35A45C158548942BD4DEFFDFBD2C8E27D472A6773FE416977E7417CEBF6C4653",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "15",
+      "update_hash": "D9F2E191B08F13DD81B705B22713722B58148C2D8FE4C2E1BCD1E7065DACC7BC",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "16",
+      "update_hash": "F08831A145005B0EA66C95EE4BC821E0FAD5868763BBE643DB0A80A004D25972",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "16",
+      "update_hash": "F9FC6177B96E7A902CF711CDC09154C84B3987952821DE0D264B8B0E8D51654F",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "16",
+      "update_hash": "88B1255163830965C326A91EC7A3890E964A4DACDE2FB3B5959CB0BE744F3C48",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "16",
+      "update_hash": "CA61D67B1922B6A41A24EE7CCE247587B6BB6EFE038D827A103A50728A014BA2",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "16",
+      "update_hash": "AD8825359408B543856767C19482A3F996FB1FAF77946B35AE6F23E6D9AEE233",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "17",
+      "update_hash": "86E5F58461F8EF4714D6C01356248E74C23D676272E73DA0B85F5F6A0F618170",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "17",
+      "update_hash": "42FC04A9FC755939F763314A33A1629A8CA6DD1F9B8C6F49B74CE61202C5E3BF",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "17",
+      "update_hash": "9BE4E314824F7DF3F3FCA8C83E04F825EAD5FCD14FC5BBCE4B853C39A519BB4D",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "17",
+      "update_hash": "81CCE1CEA0E414909EB86F5A8E3BBD85F90EFD3C32F264181F625E2534F5D93F",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "17",
+      "update_hash": "FF48F1294FEC65DC94A5C3F6EAC69B4F1DCBADB669F28DC8F97ACDBE1FF0163C",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "18",
+      "update_hash": "D776AF6C17461BA1BEA101C7EBAA5ACB240E82A94B1A94EC4ECF1534E1CADD7F",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "18",
+      "update_hash": "5025CEA0CC1BC090A3E248695F81A4F3297148D9E6D9A016C0D87B5141B2A78A",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "18",
+      "update_hash": "0C61961EFC5F6D8F7AB543473D1635D9B066B66DBE62722D787C2EA5798B34D3",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "18",
+      "update_hash": "E411E9FA0575B54F6C394AB864E182784DD70C04D3850F6D54C5D7B1D5ED5B1D",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "18",
+      "update_hash": "D6789830ECED583AE43BF79FF37B7A6ACD50DCB76B48D6752455518DEE6207C1",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "19",
+      "update_hash": "20811DA4260BB6F94844513B35409FE5D674E5259B48B768D0E96924A778DE2D",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "19",
+      "update_hash": "B58141965904F0DA0CD5C6B94E4A428993013C64EDF1B2776983558C720D80A1",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "19",
+      "update_hash": "1C9B5CAC3C694F96AA04DCA724134F421A99838AFB0C833D9DA9283205565051",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "19",
+      "update_hash": "8421FEC76133AF388F7BD99CDFEAF56E7964334BA87A2F8582F3C21F983CFE79",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "19",
+      "update_hash": "E18C002FE39535C6378A57143C533EB3BB382DE2C98D976B4DFABC7F7F572C0D",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "20",
+      "update_hash": "5328B076E9CAC2E2AD2AFF50E49E83ADCBDE9B8F80E75D146CC11E8D5075BF4A",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "20",
+      "update_hash": "0E4749E5CC66D4D5A87578F2E4ED65ECD008888214BB43A901F82FB26C16E3A1",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "20",
+      "update_hash": "C78781F48595C37EB9C410613A8A9F00098A62E97C7705973C3D022399FA1F20",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "20",
+      "update_hash": "5CF2DA05637C375A834E34699514E93273603BE5DA42110006C02BEEA3722706",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "20",
+      "update_hash": "EC2A736F6FB8559B80603EE6BF37C35B89C83825EBDE06551AFB0054FCD3C914",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "21",
+      "update_hash": "1EC77FDAFCC3281FD852D751A287B9A9ADD0435044BE1993F6FD63E7C9E60E5A",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "21",
+      "update_hash": "F23A84CE6618C8F2F8614C1AD1E43F0CFC76FDDCAB1E1FC18185F00EBA5EF6B6",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "21",
+      "update_hash": "DCFB4946CD58160E0F488B24D72E1D9F6393DCF0A4315558C19DF8BF63F578AF",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "21",
+      "update_hash": "F4A8053D2997BD382CA4685CE9BDD06B8AEA97371AB6CEF68B16949DF16F1531",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "21",
+      "update_hash": "590D8FA09D53BE101700ACCB827786F678AAC79EE65707E70FFA619A00BB765E",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "22",
+      "update_hash": "927DC5F6977AEBDBBEE1712A37DCEF541F69FCB9056E2633C4CDE30F70E3FA2A",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "22",
+      "update_hash": "0ED361007BE69199CBD70C6289393628BBF005CBE5A78201BDCB191BAD303B29",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "22",
+      "update_hash": "3876FC0CA4863BBD0037669144D804BF59AC50301581167EACA5336288F57932",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "22",
+      "update_hash": "0DC50919939EA69DC828AA54B1D4A7D8FC357DA3501BC5BC6E9CEA3EF3019FB8",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "22",
+      "update_hash": "0B6CD5D8932ADF4F691D87BC0A2A408D8A9CBBAD37DB422B0581FA04E64E06D7",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "23",
+      "update_hash": "EBFFF198B6F7073FDE7E93B9A0FF7AF45A89E5415AFCDCE90949A2D79CADBF88",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "23",
+      "update_hash": "8521C5DF4D350B3E91742773FF2E332B613A3E094DB6F71C5E9707D2144877C0",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "23",
+      "update_hash": "ACD15661EA0F39035ED476BE31DC0F3B59FA4717DDFFB6BD0AC62C4C47F870B0",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "23",
+      "update_hash": "DA26B7E680FEFE0619334F2F8D53133A03A7DB161DCAB08A20CAA3B44FD24BF7",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "23",
+      "update_hash": "B39635F82FABDBE2F9F0BBDF6B0F8F563D1A4A21114923BF17AB16DD4D01DF83",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "24",
+      "update_hash": "5F061421774A097B3DAFFD4762958F8E9929213979465D1B4883A59377ACA552",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "24",
+      "update_hash": "C0971A068AA4A55A7B36E4A74E4DF52083A43B45CD9B499D42F41BACBBB65BD9",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "24",
+      "update_hash": "D2A4B35C24EAB9EFE9140A0C864F961B8F3A29EDFB4CB9ECDDB5EE48FAA35BF3",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "24",
+      "update_hash": "9712CB530805165719D3327B5F5B1DFBD53F1EED825EBEF419068C0DD233838E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "24",
+      "update_hash": "E8F7600608EAD84F9C326482FE547901C031ABAD25BC1D22BB41F389F3054944",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "25",
+      "update_hash": "FED227BD57B5D1BC59341F3ADA8202A13FB52A1C92408942553E960EAD07F630",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "25",
+      "update_hash": "A3C3DE8F633E6FBA7DA809A51214F28D54462788725A8498F01950E4D14DCED2",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "25",
+      "update_hash": "8C63E74AB154A212B6EE3B6A17B3A9F3EF462B6C00E473D5A954624163AB9A12",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "25",
+      "update_hash": "A9B4C8600C1F7133611A8B2516369C960F0EAA032AAA7C9D26156FACCD599766",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "25",
+      "update_hash": "9E0CBEFEA9BB61B0787CA97BB62427EA19AAF050A647DC057A38457B92277AE5",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "26",
+      "update_hash": "4FB38BD6693761BDD6E4E785635A6971A09EFA509FE281C745CC9DB0B6A7FCCD",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "26",
+      "update_hash": "56D3A7B6D043FC372EECA96055790105E99C932129E2A07B0A70C68871DA77C8",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "26",
+      "update_hash": "EFDF395BF155110D123714E78CE948958B753A7EB835D5E6843F8E43482D71F7",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "26",
+      "update_hash": "8619B056AE3FE3D6713620FCAFF6F301CC64C6073001927B96C43B0AFB013275",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "26",
+      "update_hash": "144540D40F54A45D96D31A8035B8D3013CA125D11D90E49ECCA39006C62CD029",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "27",
+      "update_hash": "469251A366682042C98B041C46FEBC61AF0795374A9A1F147B97384C3DA26483",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "27",
+      "update_hash": "DAF23A433F0354A93A5A2EC09F3DF7B0642702868C3960E012C6BCE90529DBE1",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "27",
+      "update_hash": "46A99D63D169BC501D3B104D1B8070F30F1898E7D82B2B83D9C3E0BF78AC4B4E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "27",
+      "update_hash": "D52890A6117E5402D1501316970709D470A70CB7A500B0709D889EEEFE990B04",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "27",
+      "update_hash": "B75484A3B15E34E2137D5FD784A9CD983AA64E9D400496DC7FA4352B65EB51EE",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "28",
+      "update_hash": "9E5BCA2606A917727F7A77B592DE18753089307D685EBE670F53AB1FEEBA1B40",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "28",
+      "update_hash": "353CDD153A79C840665918198A535DA55D0DF01683A9975A34FEBD4FA03DE037",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "28",
+      "update_hash": "A98D29FF0B0EFF98CF9AB6D420823404A2A7385999FD1D244121E74EAF1F8A73",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "28",
+      "update_hash": "80A1BA5613FC7645A9330E877AEDF6B550256B6E435AB0B2E33635974CEF15FB",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "28",
+      "update_hash": "E08B96801160FF2612A1E74C20AC9A3728BDAA24949ABEE0376A3FAFE644CB20",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "29",
+      "update_hash": "30DCA9C0FF20F073437546ACDA5DF0D972D8068D52922D4E65C4B761C3AC459B",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "29",
+      "update_hash": "DDBB89B9ADF8EE964F8310C5CC0A0C81C06E5C949F05FE936364AFB2284ADFAE",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "29",
+      "update_hash": "97007BB56A3C63A9FC2A78AA947AF244E91E3B39B7DDF0F0DB3D3D05FF0FFC6E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "29",
+      "update_hash": "05DE8A504C665469E4FD680D7EDC2D69635564AD4BF959C6800BA1FA8CCE9901",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "29",
+      "update_hash": "274332053205CA5A67E280EC830FA287DDDEEABD0BDACE114EC3FAE87AB53FDD",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "30",
+      "update_hash": "55FCD541101C097767BC0601754FC03F053A88B89D6106A3AA3AE180325FA8EC",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "30",
+      "update_hash": "559CA37957FC152D82169DFCF3CEA5011111B28A4136708704E94E8DD6C20C21",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "30",
+      "update_hash": "B1FE2EA7BB6F177675A08785BCDCC41688DD09F4B5A5A345A444B1E91C01EE01",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "30",
+      "update_hash": "6056546FDC2EF51C260037A10854C2BA73454F37CAEA275C43642AAC3AE1D048",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "30",
+      "update_hash": "09CE5CE156077C2A43C8524F9BBFCF957E7FE7D773A9FAA9C5978C53A1435E51",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "31",
+      "update_hash": "3BFF212BB1D7438134BC31826CBB5AEDAD15861869ECBF401BAA2EEF289999AE",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "31",
+      "update_hash": "380FDF61AC2B3E6CDBD86122D64B331D2E5638A9939ABDED8FC24AF5F9AB0A82",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "31",
+      "update_hash": "12764D0D17E7D713FCF0C769A82EA86E85E2A5838E28902E00B3CABA26185064",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "31",
+      "update_hash": "9156FE76E20813529DF0456A77EBFE940049A4044184AE032880B94D7D532D47",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "31",
+      "update_hash": "013B77F0BFFC32708706279DDE91837983E8A803570CDCEF0D834073F27CD44B",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "32",
+      "update_hash": "AF78A2F8431E2E69B370EA416216AB27AF72677C33C572C659890F8F5D3D91FE",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "32",
+      "update_hash": "A5B6C0C4E1754FA103D12D4BB0E96811D8F33210A45104414F5FDD274B7E14C7",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "32",
+      "update_hash": "C59CD54891D1AC9CD13FD755DFD036374E6B88B9850ECB6B8485E5EC8514CF3E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "32",
+      "update_hash": "671EB74F676505658C505927B176C560CCDC1766DA5CAA0A74EE9B3D7DE1130F",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "32",
+      "update_hash": "FD06DEBF6B3A822E8A98E1708BF3619EAF95817ABE9585B50A06127C0548AB1C",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "33",
+      "update_hash": "259D0D0AE51CF8CC1EB88EEFBFD8EA8F5D7A57B34AAC302A8CF69AB71DF00090",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "33",
+      "update_hash": "1BD699EE481892A5CEC1C53C716BBE6607C5C0F91E4D69542B1B04A355307B8B",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "33",
+      "update_hash": "743C45569F8A80AE1AC555F3EA2AAD0D3A83610DA8A45335D5352C20A48B7BEE",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "33",
+      "update_hash": "7F113CBE190D0C6688CEE015BD9499B47F2E04429B25DE57ED7E91B230FBCFB9",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "33",
+      "update_hash": "EE215AC7FFA1810DD8EEA3393238D70A258AEBC1018B39FFBE74F0BFF7DF84F3",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "34",
+      "update_hash": "1D81F594510FB1C495C979DAE7E37C519FFD92DBAD2A11A552318C5937230368",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "34",
+      "update_hash": "C17BB10041CEC4085BB7CC7B96B44BFDF6333B6AB92DA713EDBACE0AE5BF4576",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "34",
+      "update_hash": "3668B340AE8A895EB95C69B021ED1D38B526D4A593D7ECA7D902A1E1503C5F48",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "34",
+      "update_hash": "E298D7DE72A9A881F7F70087820D026FA8BF6CF1CD47E1A09FABB83B554028B4",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "34",
+      "update_hash": "95782B4A042C89F0830EAF2330EE8906AB9E0534A4F0C62191E1C84A3955F952",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "35",
+      "update_hash": "2CAA41B272967E0C10EF18A447DE31110F6E8959BE7BC0F94873423FA265815C",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "35",
+      "update_hash": "61F9DF79272112F1081EBE27A019D9DEBB52A7F56BD071822967C2FD16E14E2B",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "35",
+      "update_hash": "DC8379EB5362ACF5BAD2ECA4DF728E0F6B5D94611050776D4380EA98BACDFE15",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "35",
+      "update_hash": "BA57C4FEB40BEF46266B841DA07C0344ED93E462A94ED815ACFD33BD16C74398",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "35",
+      "update_hash": "B5012B29C4707C719C51AD1F26CA2E7F2A8D3A429011CAFAAC049F08917C29D9",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "36",
+      "update_hash": "BABC726949484547F85A535054446D352C669D30EBAE133962E9B7AA7A5B1928",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "36",
+      "update_hash": "1C3F55BA9804059D7DACA9066F3F3E8AD0732F613A2E303AC58F3657DBF3CD72",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "36",
+      "update_hash": "2713EE7EA8AEB72495CF2EAAC31B3BBD367C9B45C60A84574A127314ADEC9B05",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "36",
+      "update_hash": "DA2F6CDFD9AB14555F13235EA036E9BD9B4E9DD9E213BC0CD9DF1F5C01080F27",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "36",
+      "update_hash": "41BA00BDA18DADAD6B292003585BAE030775F5F9B7AD6460D31A114DD206477C",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "37",
+      "update_hash": "C67DE6B3D9B63A771C7B73716288F03129CC0A77608261CE24D5D9FBC04B7995",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "37",
+      "update_hash": "0E7E20B63D8A6EB5583B11AA9D478DB120EBA7A7C9F49C8CE0551C9FB1E266FE",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "37",
+      "update_hash": "798CEC420F6A8F540652ADAE3C54B12212BD2458DBF419954876F698C188FFA8",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "37",
+      "update_hash": "9F222CEDE43DD261BF5852D41FF091505D1AAF4F043167BA3A517EA89BC52A5B",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "37",
+      "update_hash": "490553FD6396B1559ADCFB0701CC8B02BB08F87E6E2489884030CA3A603733A8",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "38",
+      "update_hash": "B4A213464F9B6EBBB35FD2DEA2C6CB69EA5377A6486F5611BBBA736C60A1B8FC",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "38",
+      "update_hash": "2D7F2FF4C3AADA73332C95953E7F0E6C4929907C8F1AEC4DC82A9476A0D86767",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "38",
+      "update_hash": "C890AA631364E2A0972BD0399195E24387F9D0F96509B7D601B21AAC62230450",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "38",
+      "update_hash": "062C9277F7068161A0BD823423FBF2EECF393827893CB618F530372EB2AEA072",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "38",
+      "update_hash": "E51D845C9AA55BBB9E5B056AD1B885152CC8D0C105B4A73FEE38CB673B577CDA",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "39",
+      "update_hash": "048FA8B1E6366BD22377E51B4C0F3E77353CDEB6E2EBDCA55889800CF4F2AF74",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "39",
+      "update_hash": "39E6A4EA0F021DEF5E856FC087BE7BDEEDD47930444216F85C67030618F96C5D",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "39",
+      "update_hash": "0DD0627EAC88A14C00193A1A110E00AC276F8F5DBECA13FA83D048CBE69C233F",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "39",
+      "update_hash": "C0D91DB853E9DB65BE3700B77893710465723817C99367BA088EFA9B26E09F8E",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "39",
+      "update_hash": "7DD06445A6E62DCBCC3D72EE5CEFD799EF4BF7820A24CC6E23D3A4B01F89AC97",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_00",
+      "round_id": "40",
+      "update_hash": "B604E9F7212A79B58B08768096ABCF18E6E4A06B10014F29C3BD8D65D8B0846B",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_01",
+      "round_id": "40",
+      "update_hash": "A4B74BAD13848B3C2F6DF6D2445CB5ED436CC767ED3270ED5E18F6BC1D985EF0",
+      "metadata": {
+        "sample_count": 29810,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_02",
+      "round_id": "40",
+      "update_hash": "A0C5663139CEF70C4ED45D6FB2F1E4580CB46B371767B681F40D62CFEF3D5B29",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_03",
+      "round_id": "40",
+      "update_hash": "703F28F47306F2BFA7A8EB6F63B2B5F4508706B3D5C9AC7BA1FD0CED023D5B45",
+      "metadata": {
+        "sample_count": 29807,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    },
+    {
+      "client_id": "client_04",
+      "round_id": "40",
+      "update_hash": "F3222A5BC7C04509FE4B4327482B68043BCB5720FAFF5AD9817A0AB1D2A817E3",
+      "metadata": {
+        "sample_count": 29805,
+        "aggregation_strategy": "fedavg",
+        "attack_type": "none",
+        "attack_applied": false,
+        "malicious_client": false
+      }
+    }
+  ],
+  "centralized_reference": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA",
+    "status": "A9_ACCEPTED_FROZEN_BASELINE",
+    "use": "reference_only",
+    "warm_start_from_centralized": false,
+    "metrics": {
+      "binary_macro_f1": 0.894488,
+      "attack_family_macro_f1": 0.500429,
+      "rare_class_macro_f1": 0.385669
+    }
+  },
+  "initialization": "from_scratch",
+  "safety": {
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "a11_used_as_final": false,
+    "fake_metrics": false
+  }
+}

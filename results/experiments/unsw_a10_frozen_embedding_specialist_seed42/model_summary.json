@@ -1,0 +1,15 @@
+{
+  "architecture_metadata": {
+    "architecture": "FrozenEmbeddingSpecialistHead",
+    "role": "a10_attack_family_head_on_frozen_a9_embedding",
+    "embedding_dim": 128,
+    "num_attack_families": 9,
+    "head_type": "shallow_mlp",
+    "hidden_dim": 64,
+    "dropout": 0.35,
+    "trainable_component": "specialist_head_only",
+    "frozen_embedding_source": "A9 SecureIDSHierarchicalAdvancedNet forward()['embedding']",
+    "has_binary_head": false
+  },
+  "best_score": 0.5884520879037998
+}

@@ -1,0 +1,86 @@
+{
+  "audit_name": "cicids_hierarchical_exp01_failure_analysis",
+  "task_type": "deep_failure_analysis_existing_outputs_only",
+  "generated_on": "2026-06-25",
+  "experiment_id": "cicids_hierarchical_exp01_head2_mlp_capacity",
+  "failure_summary": "EXP01 added a non-linear MLP Head 2 to raise attack-family macro-F1 but did not, because the CICIDS Head 2 bottleneck is NOT head capacity. It is (a) one large feature-overlap confusion pair, DoS-SlowHTTPTest <-> FTP-BruteForce (~96% of wrong-family error mass), and (b) tiny-support rare classes (SQL-Injection 12, Web-XSS 38, Web-BruteForce 96) whose F1 is single-sample noise. The MLP could not separate the overlapping pair (the information is missing from the shared embedding, not the head) and only reshuffled the noisy rare classes. The selected EXP01 epoch also produced a more conservative Head 1 (fewer false alarms, more missed attacks), slightly worsening end-to-end attribution. Net within-noise; rejected.",
+  "likely_causes": [
+    "Feature/representation overlap between DoS-SlowHTTPTest and FTP-BruteForce (confirmed primary): true SlowHTTPTest -> FTP = 11796/20941 (56%); pair = ~96% of wrong-family errors.",
+    "Rare-class variance (confirmed primary): SQL-Injection (12), Web-XSS (38), Web-BruteForce (96) dominate macro-F1 noise (+/-0.05-0.08 per sample).",
+    "Loss balance / Head-1 conservatism (likely, untested training lever): binary-dominated shared encoder; 0.5/0.5 selection rewards near-ceiling binary; EXP01 drifted conservative and lost attack recall.",
+    "Head-2 capacity (rejected): EXP01 MLP left the hard pair unchanged."
+  ],
+  "head1_effect": {
+    "binary_macro_f1": "0.972167 -> 0.974419 (up, near ceiling)",
+    "precision": "0.974214 -> 0.984628 (up)",
+    "recall": "0.946193 -> 0.942557 (down)",
+    "fp": "10324 -> 6066 (fewer false alarms)",
+    "fn": "22181 -> 23680 (+1499 missed attacks)",
+    "interpretation": "More conservative Head 1 from a different selected epoch + shared-encoder perturbation; traded attack recall for benign precision."
+  },
+  "head2_effect": {
+    "attack_family_macro_f1": "0.849111 -> 0.846994 (down, within noise)",
+    "accuracy_on_attack_rows": "0.961306 -> 0.962228 (up slightly; support-weighted, driven by big classes)",
+    "hard_pair_unchanged": {
+      "DoS-SlowHTTPTest_recall": "0.437 -> 0.431",
+      "FTP-BruteForce_precision": "0.688 -> 0.686",
+      "DoS-SlowHTTPTest_predicted_as_FTP_baseline": "11796 of 20941 (56%)"
+    },
+    "interpretation": "MLP head cannot separate classes already entangled in the shared embedding; macro drop is rare-class noise, not real Head-2 degradation."
+  },
+  "rare_class_effect": {
+    "rare_class_macro_f1": "0.716987 -> 0.709622 (-0.007365)",
+    "dominant_driver": "SQL-Injection 0.80 -> 0.72 (12 samples; 1-sample swing)",
+    "offset": "Web-BruteForce 0.3636 -> 0.4131 (96 samples)",
+    "interpretation": "Pure variance; rare-class macro-F1 is not reliably measurable single-seed at these supports."
+  },
+  "routing_effect": {
+    "end_to_end_correct_attribution": "0.909008 -> 0.906020 (down)",
+    "attack_missed_as_benign_rate": "0.053807 -> 0.057443 (up)",
+    "wrong_family_count": "15329 -> 15062 (down)",
+    "interpretation": "End-to-end regression is a Head-1 miss effect, not worse Head-2 attribution among detected attacks."
+  },
+  "validation_test_gap": {
+    "val_attack_family_macro_f1": "0.817354 -> 0.819922 (up)",
+    "test_attack_family_macro_f1": "0.849111 -> 0.846994 (down)",
+    "interpretation": "Small reverse val/test gap (MLP fit minor validation noise that did not transfer); magnitude ~0.002-0.003 is within rare-class noise.",
+    "selection_metric_note": "Both runs already selected their max-val-attack epoch (baseline epoch3=0.8174, EXP01 epoch5=0.8199); a 0.3/0.7 re-weighting would NOT have changed the selected epoch -> selection-metric tuning is low priority for CICIDS."
+  },
+  "class_level_findings": [
+    {"class": "DoS-SlowHTTPTest", "support": 20941, "f1": "0.5535 -> 0.5498", "type": "reliable_hard_class", "issue": "56% confused into FTP-BruteForce (recall 0.437); the real opportunity", "moved": false},
+    {"class": "FTP-BruteForce", "support": 28928, "f1": "0.7787 -> 0.7788", "type": "reliable_hard_class", "issue": "precision 0.688 hurt by SlowHTTPTest false positives", "moved": false},
+    {"class": "SQL-Injection", "support": 12, "f1": "0.80 -> 0.72", "type": "noise_rare", "issue": "1-sample swing drives the macro drop", "moved": "noise"},
+    {"class": "Web-BruteForce", "support": 96, "f1": "0.3636 -> 0.4131", "type": "noise_rare", "issue": "improved within noise", "moved": "noise"},
+    {"class": "Web-XSS", "support": 38, "f1": "0.6182 -> 0.6182", "type": "noise_rare", "issue": "unchanged", "moved": false},
+    {"class": "ten_large_classes", "support": "large", "f1": ">=0.985", "type": "ceiling", "issue": "no room", "moved": false}
+  ],
+  "root_cause_hypotheses_ranked": [
+    "1. Feature overlap of DoS-SlowHTTPTest <-> FTP-BruteForce (confirmed primary, ~96% of error mass).",
+    "2. Rare-class variance from <100-sample classes (confirmed primary for macro noise).",
+    "3. Loss balance / Head-1 conservatism (likely; the untested training lever for EXP02).",
+    "4. Head-2 capacity (rejected by EXP01).",
+    "5. Validation selection-metric mismatch (minor; both runs picked max-val-attack epoch)."
+  ],
+  "next_experiment_implications": [
+    "Revert to baseline linear Head 2 (capacity is not the lever).",
+    "Optimize the reliable signal (DoS-SlowHTTPTest recall / FTP precision); treat rare-class macro-F1 as a guardrail, not the target.",
+    "Test the loss-balance hypothesis: a moderate attack_loss_weight increase (config-only, single factor) to shift the shared encoder toward attack-family discrimination and counter Head-1 conservatism.",
+    "Use >=3 seeds; promote only beyond the noise band.",
+    "If loss balance does not move the pair, escalate to focal loss (targeted hard examples), then feature engineering (new preprocessing protocol; not a quick experiment)."
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false,
+    "test_data_tuning": false,
+    "weak_classes_hidden": false
+  },
+  "next_step": "exp02_planning"
+}

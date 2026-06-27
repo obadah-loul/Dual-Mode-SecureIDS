@@ -1,0 +1,78 @@
+{
+  "audit_name": "unsw_a10_frozen_embedding_specialist_code_build",
+  "task_type": "a10_frozen_embedding_specialist_code_build_no_training",
+  "generated_on": "2026-06-25",
+  "baseline_a9": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "identity": "A9 corrected-protocol hierarchical baseline",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "a99_status": "rejected_as_configured_fail_screen",
+  "a10_direction": "frozen_a9_embedding_regularized_attack_family_head",
+  "build_scope": {
+    "model_head_added": true,
+    "embedding_extractor_added": true,
+    "trainer_added": true,
+    "evaluation_artifacts_supported": true,
+    "cli_command_added": "train-frozen-embedding-specialist",
+    "seed42_config_created": true,
+    "tests_added": [
+      "tests/test_frozen_embedding_specialist_config.py",
+      "tests/test_frozen_embedding_specialist_cli.py",
+      "tests/test_frozen_embedding_specialist_model.py",
+      "tests/test_frozen_embedding_specialist_metrics.py"
+    ]
+  },
+  "planned_seed42": {
+    "config": "configs/training/experiments/unsw_a10_frozen_embedding_specialist_seed42.yaml",
+    "checkpoint": "models/experiments/unsw_a10_frozen_embedding_specialist_seed42.pt",
+    "results": "results/experiments/unsw_a10_frozen_embedding_specialist_seed42/",
+    "report": "docs/experiments/UNSW_A10_FROZEN_EMBEDDING_SPECIALIST_SEED42_REPORT.md",
+    "manual_run_only": true,
+    "training_executed": false
+  },
+  "screen_gates": {
+    "oracle_attack_family_macro_f1_baseline": 0.500429,
+    "oracle_attack_family_macro_f1_target": 0.515429,
+    "rare_class_macro_f1_baseline": 0.385669,
+    "rare_class_must_not_drop": true,
+    "binary_router_must_remain_a9_based": true,
+    "oracle_routed_separated": true,
+    "no_single_seed_promotion": true
+  },
+  "safety": {
+    "training_run": false,
+    "evaluation_run": false,
+    "preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "final_checkpoint_modified": false,
+    "checkpoint_created": false,
+    "checkpoint_promoted": false,
+    "results_final_modified": false,
+    "models_final_modified": false,
+    "test_tuning": false,
+    "fake_metrics": false
+  },
+  "manual_seed42_command": ".\\.venv\\Scripts\\python.exe -m secureids.cli train-frozen-embedding-specialist --config configs\\training\\experiments\\unsw_a10_frozen_embedding_specialist_seed42.yaml --execute",
+  "dry_run_command": ".\\.venv\\Scripts\\python.exe -m secureids.cli train-frozen-embedding-specialist --config configs\\training\\experiments\\unsw_a10_frozen_embedding_specialist_seed42.yaml",
+  "dry_run_result": {
+    "exit_code": 0,
+    "training_executed": false,
+    "writes": "none",
+    "planned_checkpoint_created": false,
+    "planned_results_dir_created": false,
+    "planned_report_created": false
+  },
+  "tests_run": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_frozen_embedding_specialist_config.py tests/test_frozen_embedding_specialist_cli.py tests/test_frozen_embedding_specialist_model.py tests/test_frozen_embedding_specialist_metrics.py tests/test_attack_family_specialist_cli.py tests/test_attack_family_specialist_config.py tests/test_train_hierarchical_cli_gate.py -q",
+      "result": "41 passed in 2.31s"
+    }
+  ],
+  "next_main_control_decision": "approve_or_reject_manual_a10_seed42_training_run"
+}

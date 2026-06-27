@@ -1,0 +1,70 @@
+dataset: unsw_nb15
+task: binary
+
+model:
+  architecture: SecureIDSNet
+  input_dim: 190
+  hidden_dims: [256, 128, 64]
+  dropout: 0.2
+  output_dim: 1
+
+centralized_reference:
+  checkpoint: models/final/final_unsw_binary.pt
+  metrics: results/final/centralized/unsw_test_metrics.json
+  manifest: results/audits/training_manifest_unsw_nb15.json
+
+data:
+  processed_dir: data/processed/unsw_nb15/binary
+  train_split:
+    x: X_train.npy
+    y: y_train.npy
+  val_split:
+    x: X_val.npy
+    y: y_val.npy
+  test_split:
+    x: X_test.npy
+    y: y_test.npy
+  no_test_leakage: true
+
+federation:
+  algorithm: FedAvg
+  num_clients: 5
+  client_split: stratified_iid
+  optional_later_client_split: label_skew_non_iid
+  seed: 42
+  rounds: 20
+  client_fraction: 1.0
+  local_epochs: 1
+  aggregation_weighting: sample_count
+  track_client_class_distribution: true
+  best_round_metric: val_macro_f1
+
+training:
+  batch_size: 1024
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  loss: BCEWithLogitsLoss
+  use_pos_weight: true
+  threshold: 0.5
+  early_stopping_metric: val_macro_f1
+  final_test_after_best_round_only: true
+
+outputs:
+  checkpoint: models/federated/fedavg_unsw_binary.pt
+  round_history: results/federated/unsw/fedavg_round_history.csv
+  client_distribution: results/federated/unsw/fedavg_client_distribution.csv
+  client_logs: results/federated/unsw/fedavg_client_logs.csv
+  test_metrics: results/federated/unsw/fedavg_test_metrics.json
+  confusion_matrix: results/federated/unsw/fedavg_confusion_matrix.csv
+  manifest: results/audits/fedavg_manifest_unsw_nb15.json
+  report: docs/FEDERATED_LEARNING_REPORT.md
+
+scope_flags:
+  fedavg_baseline_only: true
+  secure_communication_enabled: false
+  gradient_integrity_enabled: false
+  byzantine_attacks_enabled: false
+  robust_aggregation_enabled: false
+  xai_enabled: false
+  dashboard_demo_enabled: false

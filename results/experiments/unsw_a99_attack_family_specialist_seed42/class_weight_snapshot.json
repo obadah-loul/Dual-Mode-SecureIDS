@@ -1,0 +1,18 @@
+{
+  "attack_family_class_weights_by_name": {
+    "Generic": 0.224043,
+    "Exploits": 0.244637,
+    "Fuzzers": 0.332211,
+    "DoS": 0.404906,
+    "Reconnaissance": 0.437587,
+    "Analysis": 1.008789,
+    "Backdoor": 1.06424,
+    "Shellcode": 1.329059,
+    "Worms": 3.954528
+  },
+  "method": "sqrt_inverse_frequency_mean_normalized",
+  "source_split": "train",
+  "computed_from_train_only": true,
+  "test_labels_used": false,
+  "validation_labels_used": false
+}

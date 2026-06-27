@@ -1,0 +1,115 @@
+{
+  "audit_name": "cicids_hierarchical_exp02_plan",
+  "task_type": "next_controlled_experiment_plan",
+  "generated_on": "2026-06-25",
+  "recommended_exp02": {
+    "id": "cicids_hierarchical_exp02_attack_loss_weight",
+    "idea": "Moderate attack-family loss-weight increase (attack_loss_weight 1.0 -> 1.5) on the baseline LINEAR Head 2 (revert EXP01 MLP). One factor vs baseline; config-only.",
+    "reason": "EXP01 disproved Head-2 capacity as the lever. The remaining training lever is loss balance: more attack_loss_weight shifts the SHARED encoder toward attack-family discrimination (where the DoS-SlowHTTPTest<->FTP-BruteForce separation must come from) and counters the binary-conservative drift EXP01 showed. A head-only change cannot reach this.",
+    "target_metrics": [
+      "test attack-family macro-F1 (primary), judged on reliable classes",
+      "DoS-SlowHTTPTest F1/recall (baseline 0.553/0.437) -- the real signal",
+      "FTP-BruteForce precision (baseline 0.688)",
+      "rare-class macro-F1 as a GUARDRAIL (noisy, not the target)",
+      "binary macro-F1, end-to-end attribution, missed-attack rate as guardrails"
+    ],
+    "expected_benefit": "Small and uncertain: ~+0.00 to +0.02 attack-family macro-F1 if pressure helps the SlowHTTPTest/FTP pair; real win = SlowHTTPTest recall rising.",
+    "risk": "A9.6 precedent (attack_loss_weight 1.5 hurt UNSW Head 2 + rare precision); blunt global lever; the pair may be feature-limited (no loss trick fixes it); rare-class precision dip. Hence a controlled test with explicit rejection criteria.",
+    "requires_code_change": false,
+    "requires_config_only": true,
+    "recommended_seeds": 3
+  },
+  "metric_to_optimize_answer": "test attack-family macro-F1, decided on the RELIABLE large-support classes (esp. DoS-SlowHTTPTest recall / FTP precision). Rare-class macro-F1 is a guardrail not a target (12-96 sample noise). Routed attribution + missed-attack are Head-1 guardrails. Keep 0.5/0.5 validation selection (both runs already pick max-val-attack epoch). Never tune on test.",
+  "why_not_repeat_exp01": [
+    "EXP01 (MLP capacity) left the DoS-SlowHTTPTest<->FTP-BruteForce pair unchanged (recall 0.437->0.431, FTP precision 0.688->0.686).",
+    "The 10 large classes are already at F1>=0.985 (no headroom); the macro is gated by the hard pair + noisy rare classes.",
+    "Repeating a disproved hypothesis wastes a controlled-experiment slot."
+  ],
+  "why_not_bigger_head2_now": [
+    "A bigger head only re-draws boundaries inside the existing shared embedding; if SlowHTTPTest/FTP are entangled there, no head size separates them.",
+    "EXP01 already showed MLP head adds variance (noisy rare-class reshuffle) without moving the reliable hard pair.",
+    "Capacity is rejected by direct evidence; the next lever must change the shared-encoder objective (loss), not the head."
+  ],
+  "proposed_paths": {
+    "config": "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight.yaml",
+    "checkpoint": "models/experiments/cicids_hierarchical_exp02_attack_loss_weight.pt",
+    "results_dir": "results/experiments/cicids_hierarchical_exp02_attack_loss_weight/",
+    "manifest": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp02_attack_loss_weight.json",
+    "report": "docs/experiments/CICIDS_HIERARCHICAL_EXP02_ATTACK_LOSS_WEIGHT_REPORT.md",
+    "must_not_overwrite": [
+      "models/final/final_cicids_hierarchical.pt",
+      "results/final/hierarchical/cicids/",
+      "results/audits/hierarchical_training_manifest_cicids2018.json",
+      "docs/CICIDS_HIERARCHICAL_TRAINING_REPORT.md",
+      "any models/experiments or results/experiments EXP01 path"
+    ]
+  },
+  "promotion_criteria": {
+    "attack_family_macro_f1_3seed_mean": ">= 0.855 (baseline 0.849 + margin beyond ~+/-0.003 noise)",
+    "dos_slowhttptest_f1": ">= 0.62 with recall >= 0.55 (reliable signal moved)",
+    "rare_class_macro_f1": ">= 0.700 (no collapse; no rare class -> ~0)",
+    "binary_macro_f1": ">= 0.965",
+    "end_to_end_correct_attribution": ">= 0.905",
+    "attack_missed_as_benign_rate": "<= 0.057",
+    "safety": "no baseline/EXP01 overwrite; validation-only selection; train-only weights; single final test"
+  },
+  "rejection_criteria": [
+    "Attack-family macro-F1 not beyond the noise band, or DoS-SlowHTTPTest unchanged (pair not separated).",
+    "Rare-class precision collapse (A9.6 pattern) or any rare class -> ~0.",
+    "Binary macro-F1 < 0.965, missed-attack rate materially worse, or end-to-end attribution worse.",
+    "Any factor changed beyond attack_loss_weight; any test tuning; NaN/unstable; baseline/EXP01 overwritten."
+  ],
+  "roadmap_exp03_to_exp10": [
+    "EXP03 head2_focal_loss (gamma ~1.5-2.0, linear head): recommend_after_exp02; code change; targets hard SlowHTTPTest/FTP examples; gate on rare precision floors.",
+    "EXP04 targeted train-only class-weight emphasis on confused pair/weak_hard_classes: needs_main_control_decision (per-class hacking/model-zoo risk).",
+    "EXP05 two-stage fine-tuning (warmup -> partial encoder fine-tune): possible_later; code change; frozen encoder can't separate an entangled pair.",
+    "EXP06 validation-only Head-1 threshold calibration: possible_later; helps routing/recall not Head-2 macro; never tune on test.",
+    "EXP07 feature engineering to separate SlowHTTPTest/FTP: needs_main_control_decision; NEW preprocessing protocol, breaks comparability; only if EXP02/03 prove feature-limited.",
+    "EXP08 attack-only balanced sampler: possible_later; hard pair is not rare so limited upside; rare oversampling risks overfit/optimism.",
+    "EXP09 class-balanced (effective-number) loss: possible_later; unlikely to break the pair.",
+    "EXP10 accept baseline and stop: recommend if EXP02/03 do not beat baseline beyond noise (0.849 macro / 0.972 binary is already strong and largely ceiling-bound)."
+  ],
+  "candidate_rankings": [
+    {"experiment": "attack_loss_weight increase (EXP02)", "classification": "recommend_now", "config_only": true, "code_change_needed": false},
+    {"experiment": "head2_focal_loss (EXP03)", "classification": "recommend_after_exp02", "config_only": false, "code_change_needed": true},
+    {"experiment": "stronger/bigger Head 2 branch", "classification": "reject", "config_only": false, "code_change_needed": true},
+    {"experiment": "targeted class-weight tuning on confused pair", "classification": "needs_main_control_decision", "config_only": false, "code_change_needed": true},
+    {"experiment": "two-stage fine-tuning", "classification": "possible_later", "config_only": false, "code_change_needed": true},
+    {"experiment": "validation-only Head-1 calibration", "classification": "possible_later", "config_only": false, "code_change_needed": true},
+    {"experiment": "attack-only balanced sampler", "classification": "possible_later", "config_only": false, "code_change_needed": true},
+    {"experiment": "class-balanced (effective number) loss", "classification": "possible_later", "config_only": false, "code_change_needed": true},
+    {"experiment": "separate attack-family specialist", "classification": "reject", "config_only": false, "code_change_needed": true},
+    {"experiment": "feature engineering (new preprocessing protocol)", "classification": "needs_main_control_decision", "config_only": false, "code_change_needed": true},
+    {"experiment": "stop and keep baseline", "classification": "possible_later", "config_only": true, "code_change_needed": false}
+  ],
+  "v1_v6_reference_notes": {
+    "safe_reusable_ideas": [
+      "Confusion-driven, weak-class-explicit reporting (already practiced).",
+      "Validation-only threshold calibration (EXP06; never on test).",
+      "Per-class / rare-class transparent reporting."
+    ],
+    "unsafe_or_defer": [
+      "Multi-checkpoint model-zoo / many competing finals (reject; keep one accepted final + isolated experiment checkpoints).",
+      "Separate specialist classifiers wired ad hoc (needs_main_control; model-zoo risk).",
+      "Copying V1 code directly (do not)."
+    ],
+    "method": "Conceptual reuse from prior V1/V6 idea-extraction docs; V1 not re-read or modified in this task."
+  },
+  "multi_seed_requirement": "All CICIDS experiments must use >=3 seeds and decide on 3-seed means; single-seed deltas (EXP01 included) are within noise.",
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "checkpoints_modified": false,
+    "results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false,
+    "test_data_tuning": false,
+    "exp02_config_created": false,
+    "exp02_trained": false
+  },
+  "next_main_control_decision": "approve_or_reject_exp02_preparation"
+}

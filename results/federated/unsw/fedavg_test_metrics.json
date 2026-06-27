@@ -1,0 +1,41 @@
+{
+  "dataset": "unsw_nb15",
+  "task": "binary",
+  "model": "SecureIDSNet",
+  "input_dim": 190,
+  "algorithm": "FedAvg",
+  "checkpoint_path": "C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2\\models\\federated\\fedavg_unsw_binary.pt",
+  "threshold": 0.5,
+  "test_set_used_for_tuning": false,
+  "final_checkpoint": true,
+  "best_round": 20,
+  "rounds_run": 20,
+  "metrics": {
+    "accuracy": 0.8761327926725637,
+    "precision": 0.989568915367796,
+    "recall": 0.8267234227968594,
+    "f1": 0.9008459526211748,
+    "macro_f1": 0.8679284268229737,
+    "confusion_matrix": {
+      "tp": 98662,
+      "fp": 1040,
+      "fn": 20679,
+      "tn": 54960
+    },
+    "n_samples": 175341
+  },
+  "centralized_reference": {
+    "checkpoint": "models/final/final_unsw_binary.pt",
+    "metrics": "results/final/centralized/unsw_test_metrics.json",
+    "manifest": "results/audits/training_manifest_unsw_nb15.json"
+  },
+  "safety_notes": {
+    "no_fake_metrics": true,
+    "final_test_after_best_validation_round_only": true,
+    "no_cicids_fedavg_training": true,
+    "no_security_or_attack_simulation": true,
+    "no_robust_aggregation": true,
+    "no_xai": true,
+    "no_dashboard_model_demo": true
+  }
+}

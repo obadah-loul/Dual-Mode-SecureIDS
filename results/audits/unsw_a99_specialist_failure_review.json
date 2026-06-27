@@ -1,0 +1,97 @@
+{
+  "audit_name": "unsw_a99_specialist_failure_review",
+  "task_type": "a99_failure_review_deep_analysis_no_training",
+  "generated_on": "2026-06-25",
+  "baseline_a9": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "a99_seed42": {
+    "checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+    "status": "FAIL_SCREEN",
+    "oracle_attack_family_macro_f1": 0.474716,
+    "oracle_accuracy": 0.754015,
+    "rare_class_macro_f1": 0.285025,
+    "routed_attack_family_macro_f1": 0.477364,
+    "correctly_attributed_rate": 0.719315,
+    "missed_as_benign_count": 2310,
+    "missed_as_benign_rate": 0.050957,
+    "validation_macro_f1": 0.5863
+  },
+  "screen_gates": {
+    "oracle_attack_family_target": 0.515429,
+    "oracle_attack_family_pass": false,
+    "rare_class_target": 0.385669,
+    "rare_class_pass": false,
+    "binary_router_unchanged": true,
+    "oracle_routed_separated": true,
+    "overall": "FAIL_SCREEN"
+  },
+  "comparison_vs_a9": {
+    "oracle_attack_family_macro_f1_delta": -0.025713,
+    "rare_class_macro_f1_delta": -0.100644,
+    "binary_macro_f1_delta": 0.0,
+    "routed_correctly_attributed_rate_delta_vs_a9_0_7208": -0.001485,
+    "per_class_oracle_f1_delta_vs_a9": {
+      "Generic": 0.000039,
+      "Exploits": -0.004534,
+      "Fuzzers": -0.075643,
+      "DoS": 0.031468,
+      "Reconnaissance": 0.001007,
+      "Analysis": -0.012330,
+      "Backdoor": 0.029809,
+      "Shellcode": -0.125188,
+      "Worms": -0.076110
+    },
+    "interpretation": "Marginal gains on the already-overlapping DoS/Backdoor were paid for by clear regressions on Fuzzers, Shellcode, and Worms. Net attack-family and rare-class macro-F1 fell below A9. Binary is identical (router frozen)."
+  },
+  "failure_diagnosis": {
+    "validation_to_test_gap": true,
+    "validation_to_test_gap_value": 0.111555,
+    "likely_overfitting": true,
+    "rare_class_regression": true,
+    "classes_collapsed": [
+      "Analysis: 0/677 predicted as Analysis (recall 0.000); 426 -> DoS, 128 -> Backdoor, 118 -> Exploits",
+      "Worms: recall collapsed 0.659 -> 0.273 (F1 0.331 -> 0.255); tiny support, overfit",
+      "Shellcode: precision collapsed 0.308 -> 0.194 (over-predicted; Fuzzers -> Shellcode 704); F1 0.440 -> 0.315"
+    ],
+    "root_causes": [
+      "Independent specialist encoder overfit: validation oracle macro-F1 0.5863 vs test 0.4747 (gap 0.1116).",
+      "Lost shared representation: attack-only training discarded the benign-informed joint A9 encoder (shaped by all 149,039 train rows + the binary task), which had helped Fuzzers/Shellcode/Worms; those classes regressed.",
+      "Class-weight over-pressure on rare classes: sqrt-inverse-frequency weights pushed Shellcode over-prediction (precision 0.31 -> 0.19) and did not save Worms recall (0.66 -> 0.27) -> rare macro fell to 0.285 (same RC5 pattern as A9.6).",
+      "Intrinsic RC1 overlap unchanged: Analysis/Backdoor/DoS/Exploits remain mutually confused; the specialist never predicts Analysis and uses Backdoor/DoS as low-precision dumping grounds.",
+      "Official-partition prior shift (RC4) amplifies the val->test gap: train/val benign 31.9% vs test 44.9%."
+    ],
+    "oracle_vs_routed_interpretation": "Oracle (teacher-forced on true attack rows) macro-F1 0.4747; routed end-to-end correctly-attributed rate 0.7193. The frozen A9 binary router reproduces A9 exactly (0.894488), so the routed cap is NOT the router -- the limitation is the specialist itself. Oracle is reported separately from routed and is not a deployment metric.",
+    "specialist_too_complex": true,
+    "class_balancing_hurt_rare": true,
+    "partition_shift_is_contributing_not_sole_cause": true,
+    "attack_only_lost_shared_representation": true
+  },
+  "formal_recommendation": {
+    "reject_a99_as_configured": true,
+    "run_3_seed_confirmation": false,
+    "keep_a9_as_accepted_baseline": true,
+    "a99_diagnostic_only": true,
+    "reasons": [
+      "Seed42 fails both pre-registered screen gates (oracle 0.4747 < 0.515429 and below A9 0.5004; rare 0.2850 < 0.385669).",
+      "Running 3 seeds on a configuration that underperforms A9 on a single clean seed would waste compute and risk fishing for a lucky seed.",
+      "A9 remains stronger on attack-family and rare-class; it stays the accepted UNSW final baseline.",
+      "A9.9 is valuable as a diagnostic: it shows the independent attack-only encoder overfits and loses the shared representation -- directly informing A9.10."
+    ]
+  },
+  "scientific_safety": {
+    "no_training_run": true,
+    "no_evaluation_run": true,
+    "no_test_tuning": true,
+    "no_fake_metrics": true,
+    "no_checkpoint_modification": true,
+    "no_v1_modification": true,
+    "weak_classes_reported_not_hidden": true,
+    "no_taxonomy_change": true,
+    "oracle_not_reported_as_routed": true
+  },
+  "next_main_control_decision": "approve_or_reject_a10_adjusted_specialist_plan"
+}

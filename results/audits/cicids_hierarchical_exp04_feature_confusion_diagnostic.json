@@ -1,0 +1,162 @@
+{
+  "audit_name": "cicids_hierarchical_exp04_feature_confusion_diagnostic",
+  "task_type": "feature_confusion_diagnostic_no_training",
+  "generated_on": "2026-06-25",
+  "experiment_id": "cicids_hierarchical_exp04_feature_confusion_diagnostic",
+  "current_status": {
+    "official_baseline_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "strongest_candidate": "cicids_hierarchical_exp03_attack_loss_weight_125_confirmation",
+    "official_final_model": "EXP03 1.25 seed999",
+    "official_final_checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "promoted_source_checkpoint": "models/experiments/cicids_hierarchical_exp03_attack_loss_weight_125_seed999.pt",
+    "promotion_record": "results/audits/cicids_hierarchical_exp03_125_final_promotion_record_20260625_160136.json",
+    "backup_directory": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136",
+    "rollback_target": "results/audits/promotion_backups/cicids_exp03_125_seed999_20260625_160136/models_final/final_cicids_hierarchical.pt",
+    "final_model_changed": true,
+    "exp04_status": "diagnostic_only_not_promoted"
+  },
+  "diagnostic_scope": {
+    "training_run": false,
+    "new_checkpoint_created": false,
+    "preprocessing_rebuild": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "test_tuning": false
+  },
+  "baseline_metrics": {
+    "binary_macro_f1": 0.972167,
+    "attack_family_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "correct_attribution_rate": 0.909008,
+    "missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp03_125_metrics": {
+    "binary_macro_f1": 0.973477,
+    "attack_family_macro_f1": 0.870986,
+    "rare_class_macro_f1": 0.774602,
+    "correct_attribution_rate": 0.908243,
+    "missed_as_benign_rate": 0.053831,
+    "benign_false_alarm_rate": 0.008481
+  },
+  "slowhttp_ftp_confusion_summary": {
+    "baseline_total_pair_errors": 14754,
+    "exp03_125_mean_total_pair_errors": 14758,
+    "baseline_slowhttptest_to_ftp": 11796,
+    "baseline_ftp_to_slowhttptest": 2958,
+    "exp03_125_mean_slowhttptest_to_ftp": 10665,
+    "exp03_125_mean_ftp_to_slowhttptest": 4093,
+    "interpretation": "loss_weighting_rebalanced_direction_but_did_not_reduce_total_pair_overlap"
+  },
+  "pair_separability_evidence": {
+    "deep_model_pair_balanced_accuracy": {
+      "baseline": 0.6672,
+      "exp03_125_mean": 0.6746,
+      "definition": "mean(SlowHTTPTest recall, FTP-BruteForce recall) on the test split (descriptive only)"
+    },
+    "linear_probe_pair_balanced_accuracy_val": 0.681825,
+    "linear_probe_detail": {
+      "probe_type": "logistic_regression_linear_balanced",
+      "fit_split": "train",
+      "eval_split": "val_held_out",
+      "per_class_cap": 20000,
+      "seed": 42,
+      "val_accuracy": 0.681825,
+      "val_recall_slowhttptest": 0.96745,
+      "val_recall_ftp_bruteforce": 0.3962
+    },
+    "key_comparison": "A trivial linear probe on the same 77 features reaches ~0.682 balanced accuracy on the pair, equal to or higher than the deep hierarchical model (0.667-0.675). The deep nonlinear model has therefore NOT left separability on the table; the 77-D feature space itself caps achievable separation at ~0.68 balanced.",
+    "smd_summary": {
+      "n_features": 77,
+      "n_strong_separators_abs_smd_ge_0p8": 3,
+      "n_moderate_0p2_to_0p8": 0,
+      "n_weak_lt_0p2": 74,
+      "max_abs_smd": 0.900221,
+      "top_features": ["Flow Pkts/s (0.900)", "Fwd Pkts/s (0.900)", "Bwd Pkts/s (0.900)", "Flow Duration (0.194)", "Flow IAT Min (0.190)"],
+      "note": "Only one effective axis (packet rate, expressed by three near-duplicate features) meaningfully separates the classes; 74/77 features are weak (|SMD|<0.2)."
+    },
+    "feature_space_gap": "The 77-feature set contains NO destination-port feature (only 'Protocol'); destination port (21 FTP vs 80 HTTP) is the natural separator and is absent. This is the most likely missing discriminative signal."
+  },
+  "feature_diagnostic": {
+    "feature_arrays_inspected": true,
+    "feature_arrays_loaded": true,
+    "feature_arrays_loaded_note": "Loaded via numpy mmap with a 20,000-per-class stratified cap (only the two classes' sampled rows were read; the full 6.74M-row array was NOT loaded).",
+    "sampling_used": true,
+    "train_validation_only": true,
+    "test_used_descriptively_only": true,
+    "top_features_csv": "results/audits/cicids_hierarchical_exp04_slowhttp_ftp_feature_diagnostics.csv",
+    "probe_json": "results/audits/cicids_hierarchical_exp04_slowhttp_ftp_probe.json",
+    "conclusion": "FEATURE_LIMITED: SlowHTTPTest and FTP-BruteForce overlap in the current 77-feature space; a linear probe matches the deep model's separation ceiling (~0.68 balanced). Further model/loss experiments will redistribute the pair error (as EXP02/EXP03 did) but cannot reduce it. Only feature engineering / a new preprocessing protocol (e.g., restoring destination port and richer flow-timing/idle features) can raise the ceiling."
+  },
+  "limited_vs_model_conclusion": {
+    "verdict": "feature_limited",
+    "confidence": "high",
+    "basis": [
+      "Deep model and trivial linear probe reach the same ~0.68 balanced accuracy on the pair (no model headroom).",
+      "Only 3/77 features (one packet-rate axis) separate the classes; 74/77 have |SMD|<0.2.",
+      "Pair total confusion conserved across the entire loss-weight sweep (14,754 -> 14,758).",
+      "The natural separator (destination port) is absent from the feature space."
+    ]
+  },
+  "more_training_runs_likely_to_help": false,
+  "largest_remaining_confusions_csv": "results/audits/cicids_hierarchical_exp04_feature_confusions.csv",
+  "exp05_recommendation": {
+    "recommended_direction": "B_feature_engineering OR C_promote_exp03_with_documented_limitations (main control chooses)",
+    "recommended_next_id": "cicids_hierarchical_exp05_feature_audit_slowhttp_ftp (if B) / promote_exp03_125_final (if C)",
+    "reason": "The pair is feature-limited: model/loss EXP05 (focal/class-balanced/weighting/two-stage) is proven futile for this pair (it only redistributes the conserved error). The only way to exceed the current ceiling is feature engineering (a new preprocessing protocol, e.g. restore destination port + flow-timing/idle features), which breaks comparability and needs a main-control decision. If that effort is not wanted, EXP03 1.25 is already a strong, honest final candidate (attack-family +0.0219, rare +0.0576 vs baseline, routing within noise) and should be promoted with the SlowHTTPTest/FTP and tiny-class limitations documented.",
+    "expected_manual_runs": 0,
+    "requires_code_change": false,
+    "requires_new_preprocessing_protocol": true,
+    "requires_main_control_decision": true
+  },
+  "exp05_options": [
+    {"rank": 1, "option_id": "promote_exp03_125_with_documented_limitations", "direction": "C_stop_promote", "status": "recommend_now", "targets_slowhttp_ftp": false, "requires_code_change": false, "requires_new_preprocessing_protocol": false, "estimated_manual_runs": 0, "note": "Model is at the feature ceiling for the pair; EXP03 1.25 is a strong honest improvement. Honest default."},
+    {"rank": 2, "option_id": "feature_audit_and_engineering_slowhttp_ftp", "direction": "B_feature_engineering", "status": "needs_main_control_decision", "targets_slowhttp_ftp": true, "requires_code_change": true, "requires_new_preprocessing_protocol": true, "estimated_manual_runs": "preprocessing+retrain (many)", "note": "Restore destination port + richer flow-timing/idle features; the only path to raise the ceiling. Breaks comparability; large effort."},
+    {"rank": 3, "option_id": "validation_only_threshold_calibration", "direction": "A_calibration", "status": "possible_later", "targets_slowhttp_ftp": false, "requires_code_change": true, "requires_new_preprocessing_protocol": false, "estimated_manual_runs": "3_to_4", "note": "Head-1 routing tool; recovers missed-as-benign; does NOT separate the pair. Useful for routing, not for this confusion."},
+    {"rank": 4, "option_id": "head2_focal_loss", "direction": "A_model_loss", "status": "reject", "targets_slowhttp_ftp": true, "requires_code_change": true, "requires_new_preprocessing_protocol": false, "estimated_manual_runs": "4_to_6", "note": "Proven futile for a feature-limited pair; would only redistribute error and risk tiny-class instability (EXP03 1.35 precedent)."},
+    {"rank": 5, "option_id": "class_balanced_or_pair_targeted_weighting", "direction": "A_model_loss", "status": "reject", "targets_slowhttp_ftp": true, "requires_code_change": true, "requires_new_preprocessing_protocol": false, "estimated_manual_runs": "3_plus", "note": "Conservation proves zero-sum on the pair; per-class hacking risk."},
+    {"rank": 6, "option_id": "two_stage_finetuning", "direction": "A_model_loss", "status": "possible_later", "targets_slowhttp_ftp": "maybe", "requires_code_change": true, "requires_new_preprocessing_protocol": false, "estimated_manual_runs": "3_to_6", "note": "Cannot exceed the feature ceiling; deprioritized."}
+  ],
+  "scientific_safety_rules": {
+    "no_test_tuning": true,
+    "no_fake_metrics": true,
+    "no_taxonomy_inflation": true,
+    "no_weak_class_hiding": true,
+    "no_tiny_class_overfit": true,
+    "validation_first_selection": true
+  },
+  "created_or_modified_files": [
+    "tools/diagnostics/cicids_slowhttp_ftp_feature_probe.py",
+    "results/audits/cicids_hierarchical_exp04_slowhttp_ftp_feature_diagnostics.csv",
+    "results/audits/cicids_hierarchical_exp04_slowhttp_ftp_probe.json",
+    "results/audits/cicids_hierarchical_exp04_feature_confusions.csv",
+    "results/audits/cicids_hierarchical_exp04_feature_confusion_diagnostic.json",
+    "results/audits/cicids_hierarchical_exp05_recommendation_matrix.csv",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP04_FEATURE_CONFUSION_DIAGNOSTIC.md"
+  ],
+  "commands_or_checks_run": [
+    "Read processed artifacts (split_summary.json, attack_family_label_mapping.json, hierarchical_preprocessing_manifest.json, feature_names.json).",
+    "numpy mmap header check of X/y dtypes and shapes (no data loaded).",
+    "Ran tools/diagnostics/cicids_slowhttp_ftp_feature_probe.py --per-class-cap 20000 --seed 42 --run-probe (train SMD + train-fit/val-eval linear probe).",
+    "Computed deep-model pair balanced accuracy from existing per-class test metrics (descriptive only).",
+    "Validated all JSON/CSV deliverables."
+  ],
+  "manual_commands_prepared_if_any": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2; .\\.venv\\Scripts\\python.exe tools\\diagnostics\\cicids_slowhttp_ftp_feature_probe.py --per-class-cap 20000 --seed 42 --run-probe  (re-runnable; bounded; train/val only; writes only under results/audits/)"
+  ],
+  "forbidden_actions_confirmed": {
+    "training_run": false,
+    "new_checkpoint_created": false,
+    "full_preprocessing_rebuild_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_claimed": false,
+    "test_tuning": false,
+    "v1_modified": false,
+    "exp05_configs_created": false
+  },
+  "next_main_control_decision": "approve_exp05_direction_or_promote_exp03_with_documented_limitations"
+}

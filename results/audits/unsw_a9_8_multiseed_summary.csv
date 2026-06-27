@@ -1,0 +1,4 @@
+metric,a9_linear_mean,a9_linear_std,a9_7_branch_mean,a9_7_branch_std,branch_minus_linear_delta,promotion_result
+binary_macro_f1,0.893974,0.002360,0.899914,0.001620,0.005940,not_sufficient_for_promotion
+attack_family_macro_f1,0.494965,0.014303,0.499489,0.010440,0.004524,failed_primary_promotion_requirement
+rare_class_macro_f1,0.360617,0.056629,0.371887,0.038713,0.011270,small_gain_not_enough_to_promote

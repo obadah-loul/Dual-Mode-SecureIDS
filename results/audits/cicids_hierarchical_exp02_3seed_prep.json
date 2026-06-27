@@ -1,0 +1,155 @@
+{
+  "audit_name": "cicids_hierarchical_exp02_3seed_prep",
+  "task_type": "controlled_3seed_experiment_preparation",
+  "generated_on": "2026-06-25",
+  "experiment_id": "cicids_hierarchical_exp02_attack_loss_weight",
+  "experiment_idea": "attack_family_loss_weight_increase",
+  "controlled_change": {
+    "attack_loss_weight_baseline": 1.0,
+    "attack_loss_weight_exp02": 1.5,
+    "head2_architecture": "baseline_linear_head2",
+    "preprocessing_changed": false,
+    "taxonomy_changed": false,
+    "split_changed": false,
+    "test_tuning": false
+  },
+  "baseline": {
+    "checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "binary_head1_macro_f1": 0.972167,
+    "attack_family_head2_macro_f1": 0.849111,
+    "rare_class_macro_f1": 0.716987,
+    "end_to_end_correct_attribution_rate": 0.909008,
+    "attack_missed_as_benign_rate": 0.053807,
+    "benign_false_alarm_rate": 0.010008
+  },
+  "exp01_status": {
+    "id": "cicids_hierarchical_exp01_head2_mlp_capacity",
+    "classification": "REJECT_AS_IMPROVEMENT",
+    "keep_as": "DIAGNOSTIC_EXPERIMENT_EVIDENCE"
+  },
+  "seed_configs": [
+    {
+      "seed": 42,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP02_ATTACK_LOSS_WEIGHT_SEED42_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp02_attack_loss_weight_seed42.json"
+    },
+    {
+      "seed": 123,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP02_ATTACK_LOSS_WEIGHT_SEED123_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp02_attack_loss_weight_seed123.json"
+    },
+    {
+      "seed": 999,
+      "config_path": "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999.yaml",
+      "checkpoint_path": "models/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999.pt",
+      "results_dir": "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999",
+      "report_path": "docs/experiments/CICIDS_HIERARCHICAL_EXP02_ATTACK_LOSS_WEIGHT_SEED999_REPORT.md",
+      "manifest_path": "results/audits/hierarchical_training_manifest_cicids_hierarchical_exp02_attack_loss_weight_seed999.json"
+    }
+  ],
+  "created_or_modified_files": [
+    "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123.yaml",
+    "configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999.yaml",
+    "docs/experiments/CICIDS_HIERARCHICAL_EXP02_3SEED_PREP_PLAN.md",
+    "results/audits/cicids_hierarchical_exp02_3seed_prep.json",
+    "results/audits/cicids_hierarchical_exp02_3seed_expected_runs.csv",
+    "tests/test_cicids_exp02_3seed_preparation.py"
+  ],
+  "created_directories": [
+    "configs/training/experiments",
+    "models/experiments",
+    "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42",
+    "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123",
+    "results/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999",
+    "docs/experiments"
+  ],
+  "code_changes_made": false,
+  "tests_added_or_updated": [
+    "tests/test_cicids_exp02_3seed_preparation.py"
+  ],
+  "tests_run_by_agent": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp02_3seed_preparation.py tests/test_cicids_exp01_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "result": "41 passed in 1.15s"
+    }
+  ],
+  "manual_test_commands_for_user": [
+    "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+    "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+    ".\\.venv\\Scripts\\python.exe -m pytest tests/test_cicids_exp02_3seed_preparation.py tests/test_cicids_exp01_preparation.py tests/test_train_hierarchical_cli_gate.py tests/test_hierarchical_training_config.py -q",
+    "Get-Content \"results\\audits\\cicids_hierarchical_exp02_3seed_prep.json\" -Raw | .\\.venv\\Scripts\\python.exe -m json.tool"
+  ],
+  "manual_training_commands": [
+    {
+      "seed": 42,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed42.yaml --execute"
+      ]
+    },
+    {
+      "seed": 123,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed123.yaml --execute"
+      ]
+    },
+    {
+      "seed": 999,
+      "command": [
+        "Set-Location C:\\IDS\\IDS_V2\\Secure-Distributed-Intrusion-Detection_V2",
+        "$env:PYTHONDONTWRITEBYTECODE = \"1\"",
+        ".\\.venv\\Scripts\\python.exe -m secureids.cli train-hierarchical --dataset cicids --config configs/training/experiments/cicids_hierarchical_exp02_attack_loss_weight_seed999.yaml --execute"
+      ]
+    }
+  ],
+  "post_run_validation_plan": [
+    "After each seed, paste first 30-50 console lines and final 80-120 console lines.",
+    "After each seed, paste output file existence checks.",
+    "After each seed, paste test_metrics.json, per_class_attack_metrics.csv, rare_class_metrics.csv, hierarchical_routing_summary.json, and training manifest JSON.",
+    "After all three seeds, compare mean and standard deviation for binary macro-F1, attack-family macro-F1, rare-class macro-F1, end-to-end correct attribution, attack missed as benign, and benign false alarm rate.",
+    "Classify EXP02 as PROMOTE, REJECT_AS_IMPROVEMENT, DIAGNOSTIC_ONLY, or NEEDS_ADDITIONAL_SEEDS_OR_ANALYSIS."
+  ],
+  "promotion_criteria": {
+    "primary": "mean attack-family macro-F1 over 3 seeds must improve meaningfully over 0.849111",
+    "rare_class": "mean rare-class macro-F1 should improve over 0.716987 or at least not collapse",
+    "binary_head1": "mean binary Head 1 macro-F1 should remain >= 0.965",
+    "routing": "mean end-to-end correct attribution should not drop badly from 0.909008",
+    "missed_attacks": "mean attack missed-as-benign should not materially worsen from 0.053807",
+    "false_alarm": "mean benign false alarm rate should remain acceptable vs 0.010008",
+    "stability": "track mean and standard deviation; do not promote based on one lucky seed"
+  },
+  "rejection_criteria": [
+    "Mean Head 2 macro-F1 does not improve meaningfully.",
+    "Rare-class macro-F1 collapses.",
+    "Missed attacks materially worsen.",
+    "Head 1 drops badly.",
+    "Results are unstable across seeds.",
+    "Any leakage, fake metric, overwrite, or path contamination issue appears."
+  ],
+  "forbidden_actions_confirmed": {
+    "v1_modified": false,
+    "training_run": false,
+    "full_preprocessing_rebuild_run": false,
+    "long_evaluation_run": false,
+    "xai_computation_run": false,
+    "streamlit_launched": false,
+    "final_checkpoints_modified": false,
+    "existing_results_deleted_moved_or_archived": false,
+    "git_commit_or_push": false,
+    "fake_metrics_or_predictions_claimed": false
+  },
+  "next_step": "main_control_approval_before_user_runs_exp02_seed_training"
+}

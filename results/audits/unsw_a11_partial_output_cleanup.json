@@ -1,0 +1,84 @@
+{
+  "audit_name": "unsw_a11_partial_output_cleanup",
+  "task_type": "controlled_cleanup_incomplete_a11_partial_preprocessing_outputs",
+  "generated_on": "2026-06-25",
+  "cleanup_reason": "previous A11 preprocessing run failed with KeyError: 0 after creating incomplete partial outputs",
+  "approved_scope": {
+    "allowed_paths": [
+      "data/processed/unsw_a11_enhanced/",
+      "models/experiments/preprocessors/unsw_a11_enhanced/"
+    ],
+    "forbidden_paths": [
+      "models/final/",
+      "results/final/",
+      "configs/",
+      "docs/",
+      "source_code",
+      "tests/",
+      "V1",
+      "A9 artifacts",
+      "A10/A9.10 artifacts",
+      "checkpoints",
+      "results/experiments/"
+    ]
+  },
+  "before_state": {
+    "partial_processed_dir_exists": true,
+    "partial_preprocessor_dir_exists": false,
+    "a11_seed42_checkpoint_exists": false,
+    "a11_seed42_training_results_exists": false,
+    "a9_final_checkpoint_exists": true
+  },
+  "paths_removed": [
+    "data/processed/unsw_a11_enhanced/"
+  ],
+  "paths_explicitly_not_touched": [
+    "models/experiments/preprocessors/unsw_a11_enhanced/ (did not exist)",
+    "models/experiments/unsw_a11_enhanced_feature_protocol_seed42.pt",
+    "results/experiments/unsw_a11_enhanced_feature_protocol_seed42/",
+    "models/final/",
+    "results/final/",
+    "configs/",
+    "docs/",
+    "secureids/",
+    "tests/",
+    "results/audits/ except this cleanup audit JSON",
+    "C:/IDS/IDS_V1/Secure-Distributed-Intrusion-Detection"
+  ],
+  "after_state": {
+    "partial_processed_dir_exists": false,
+    "partial_preprocessor_dir_exists": false,
+    "a11_seed42_checkpoint_exists": false,
+    "a11_seed42_training_results_exists": false,
+    "a9_final_checkpoint_exists": true,
+    "a9_final_checkpoint_sha256": "5FE688BF43C68A7DE63E106E0AD46F608BBAE3D78DCED6E90ABBE2C6F956CBEA"
+  },
+  "dry_run_validation_after_cleanup": {
+    "command": "python -m secureids.cli prepare-unsw-a11 --config configs/preprocessing/experiments/unsw_a11_enhanced_feature_protocol.yaml",
+    "exit_code": 0,
+    "writes_performed": false,
+    "partial_outputs_reported": false,
+    "reported_partial_outputs_line": "partial_outputs: detected=False, classification=none, safe_to_use_for_training=False"
+  },
+  "safety": {
+    "preprocessing_rerun": false,
+    "training_run": false,
+    "evaluation_run": false,
+    "xai_run": false,
+    "streamlit_launched": false,
+    "git_action": false,
+    "v1_modified": false,
+    "checkpoint_modified": false,
+    "checkpoint_created": false,
+    "models_final_modified": false,
+    "results_final_modified": false,
+    "a9_artifacts_modified": false,
+    "a10_a99_artifacts_modified": false,
+    "configs_modified": false,
+    "docs_modified_except_cleanup_audit_if_any": false,
+    "source_code_modified": false,
+    "tests_modified": false,
+    "promotion": false
+  },
+  "next_main_control_decision": "approve_or_reject_manual_a11_preprocessing_rerun"
+}

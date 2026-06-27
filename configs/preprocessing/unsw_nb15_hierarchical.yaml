@@ -1,0 +1,51 @@
+dataset: unsw_nb15
+task: hierarchical
+mode: hierarchical
+status: task_a2_dry_run_preparation_only
+taxonomy_config_path: configs/taxonomy/unsw_nb15_attack_taxonomy.yaml
+source_columns:
+  binary_label: label
+  attack_family_label: attack_cat
+binary_mapping:
+  normal_output: 0
+  attack_output: 1
+attack_family:
+  ignore_index: -1
+  mask_values:
+    benign_or_normal_rows: 0
+    attack_rows: 1
+  common_superclasses_reporting_only: true
+current_binary_processed_dir: data/processed/unsw_nb15/binary
+current_binary_feature_names_path: data/processed/unsw_nb15/binary/feature_names.json
+# A8.8: feature dim is 192 after the UNSW split-protocol correction (train on the
+# canonical 175,341-row partition). The legacy pre-correction value was 190.
+expected_current_feature_dim: 192
+planned_output_dir: data/processed/unsw_nb15/hierarchical
+planned_output_files:
+  - X_train.npy
+  - X_val.npy
+  - X_test.npy
+  - y_binary_train.npy
+  - y_binary_val.npy
+  - y_binary_test.npy
+  - y_attack_family_train.npy
+  - y_attack_family_val.npy
+  - y_attack_family_test.npy
+  - attack_family_mask_train.npy
+  - attack_family_mask_val.npy
+  - attack_family_mask_test.npy
+  - feature_names.json
+  - binary_label_mapping.json
+  - attack_family_label_mapping.json
+  - common_attack_superclass_mapping.json
+  - split_summary.json
+  - hierarchical_preprocessing_manifest.json
+task_a2_execution_policy:
+  no_real_preprocessing_execution: true
+  hierarchical_arrays_created: false
+  model_code_created: false
+  training_or_evaluation_run: false
+  checkpoints_created: false
+compatibility:
+  centralized_training: compatible_after_future_real_hierarchical_preprocessing
+  fedavg_training: compatible_after_future_real_hierarchical_preprocessing

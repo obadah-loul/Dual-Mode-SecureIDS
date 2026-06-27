@@ -1,0 +1,118 @@
+# UNSW A11 Enhanced Feature Protocol preprocessing config.
+# status: not_run_yet -> this config has NOT been executed.
+# This config is preparation only. It must not overwrite A9 artifacts.
+
+dataset: unsw_nb15
+task: preprocessing
+status: not_run_yet
+protocol_name: UNSW A11 Enhanced Feature Protocol
+experiment: unsw_a11_enhanced_feature_protocol
+source_protocol: A9 corrected-protocol raw split
+
+canonical_split:
+  train_source:
+    local_file: data/raw/unsw_nb15/UNSW_NB15_testing-set.csv
+    canonical_role: train
+    expected_rows: 175341
+  test_source:
+    local_file: data/raw/unsw_nb15/UNSW_NB15_training-set.csv
+    canonical_role: test
+    expected_rows: 82332
+  validation:
+    derived_from: canonical_train_source_only
+    strategy: official_train_test_with_validation_from_train
+    val_size_from_train: 0.15
+    random_seed: 42
+  expected_split_rows:
+    train: 149039
+    val: 26302
+    test: 82332
+
+target_columns:
+  binary_label: label
+  attack_family_label: attack_cat
+drop_columns:
+  - id
+  - label
+  - attack_cat
+categorical_columns:
+  - proto
+  - service
+  - state
+taxonomy_config_path: configs/taxonomy/unsw_nb15_attack_taxonomy.yaml
+
+feature_protocol:
+  train_only_fitting: true
+  no_test_fitting: true
+  no_test_label_feature_selection: true
+  no_test_tuning: true
+  numeric_only_scaling: true
+  one_hot_columns_not_scaled: true
+  median_imputation:
+    enabled: true
+    fit_on: train_only
+  numeric_scaling:
+    enabled: true
+    type: standard
+    fit_on: train_only
+    applies_to: numeric_columns_only
+  categorical_encoding:
+    encoder: onehot
+    handle_unknown: ignore
+    fit_on: train_only
+    scale_encoded_columns: false
+  categorical_grouping:
+    enabled: true
+    fit_on: train_only
+    proto:
+      enabled: true
+      method: min_frequency_other_bucket
+      min_frequency: 10
+      threshold_source: phase_1_train_only_inventory
+      other_bucket_name: __other__
+    service:
+      enabled: false
+      policy: conservative_or_disabled_unless_train_only_diagnostics_justify
+    state:
+      enabled: false
+      policy: conservative_or_disabled_unless_train_only_diagnostics_justify
+
+planned_outputs:
+  processed_data_dir: data/processed/unsw_a11_enhanced/
+  hierarchical_data_dir: data/processed/unsw_a11_enhanced/hierarchical
+  binary_data_dir: data/processed/unsw_a11_enhanced/binary
+  preprocessor_dir: models/experiments/preprocessors/unsw_a11_enhanced/
+  preprocessor_artifact: models/experiments/preprocessors/unsw_a11_enhanced/unsw_a11_enhanced_preprocessor.joblib
+  preprocessing_audit: results/audits/unsw_a11_enhanced_feature_protocol_preprocessing_audit.json
+  feature_inventory_csv: results/audits/unsw_a11_feature_protocol_feature_inventory.csv
+  category_inventory_csv: results/audits/unsw_a11_feature_protocol_category_inventory.csv
+  separability_diagnostics_csv: results/audits/unsw_a11_feature_protocol_separability_diagnostics.csv
+  preprocessing_manifest_json: data/processed/unsw_a11_enhanced/hierarchical/hierarchical_preprocessing_manifest.json
+  feature_names_json: data/processed/unsw_a11_enhanced/hierarchical/feature_names.json
+  attack_family_label_mapping_json: data/processed/unsw_a11_enhanced/hierarchical/attack_family_label_mapping.json
+
+baseline_reference:
+  checkpoint: models/final/final_unsw_hierarchical.pt
+  identity: A9 corrected-protocol hierarchical baseline
+  input_dim: 192
+  binary_macro_f1: 0.894488
+  attack_family_macro_f1: 0.500429
+  rare_class_macro_f1: 0.385669
+
+safety:
+  preprocessing_run: false
+  training_run: false
+  evaluation_run: false
+  no_overwrite_by_default: true
+  allow_overwrite: false
+  overwrite_a9_artifacts: false
+  overwrite_final_models: false
+  overwrite_final_results: false
+  refit_scaler_on_test: false
+  test_label_feature_selection: false
+  test_tuning: false
+  taxonomy_change: false
+  hide_weak_classes: false
+  fake_metrics: false
+  git_action: false
+  v1_modified: false

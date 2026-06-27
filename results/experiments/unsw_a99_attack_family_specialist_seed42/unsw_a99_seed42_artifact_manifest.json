@@ -1,0 +1,39 @@
+{
+  "experiment": "unsw_a99_attack_family_specialist_seed42",
+  "seed": 42,
+  "checkpoint": "models/experiments/unsw_a99_attack_family_specialist_seed42.pt",
+  "checkpoint_sha256": "E6F72328F70D498800DD62AA9853D104EA5C61F17AF292B7F9DF8E97649E3A0B",
+  "generated_by": "attack_family_specialist_artifacts.write_seed_artifacts",
+  "retraining": false,
+  "metric_views_separated": true,
+  "oracle_attack_family_macro_f1": 0.47471600686588533,
+  "routed_attack_family_macro_f1": 0.4773641165189237,
+  "rare_class_macro_f1": 0.28502508477477184,
+  "binary_router_macro_f1": 0.8944882344898011,
+  "a9_baseline": {
+    "binary_macro_f1": 0.894488,
+    "attack_family_macro_f1": 0.500429,
+    "rare_class_macro_f1": 0.385669
+  },
+  "screen_gate": {
+    "oracle_attack_family_gate": "fail",
+    "rare_class_gate": "fail",
+    "binary_router_unchanged": true,
+    "oracle_routed_separation": true,
+    "single_seed_promotion_allowed": false,
+    "overall_seed42_screen": "FAIL_SCREEN_DIAGNOSTIC_ONLY"
+  },
+  "artifacts": {
+    "training_history_csv": "results/experiments/unsw_a99_attack_family_specialist_seed42/training_history.csv",
+    "oracle_metrics_json": "results/experiments/unsw_a99_attack_family_specialist_seed42/oracle_attack_family_metrics.json",
+    "routed_metrics_json": "results/experiments/unsw_a99_attack_family_specialist_seed42/routed_end_to_end_metrics.json",
+    "per_class_attack_metrics_csv": "results/experiments/unsw_a99_attack_family_specialist_seed42/per_class_attack_metrics.csv",
+    "rare_class_metrics_csv": "results/experiments/unsw_a99_attack_family_specialist_seed42/rare_class_metrics.csv",
+    "attack_family_confusion_matrix_csv": "results/experiments/unsw_a99_attack_family_specialist_seed42/attack_family_confusion_matrix.csv",
+    "routing_summary_json": "results/experiments/unsw_a99_attack_family_specialist_seed42/hierarchical_routing_summary.json",
+    "training_config_snapshot_yaml": "results/experiments/unsw_a99_attack_family_specialist_seed42/training_config_snapshot.yaml",
+    "class_weight_snapshot_json": "results/experiments/unsw_a99_attack_family_specialist_seed42/class_weight_snapshot.json",
+    "model_summary_json": "results/experiments/unsw_a99_attack_family_specialist_seed42/model_summary.json",
+    "report_md": "docs/experiments/UNSW_A99_ATTACK_FAMILY_SPECIALIST_SEED42_REPORT.md"
+  }
+}

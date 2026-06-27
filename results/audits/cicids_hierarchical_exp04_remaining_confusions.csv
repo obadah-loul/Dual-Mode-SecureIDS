@@ -1,0 +1,27 @@
+source_model_or_seed,true_class,predicted_class,count,row_support,percent_of_true_class,comment
+baseline,DoS-SlowHTTPTest,FTP-BruteForce,11796,20941,56.3,Dominant remaining error; loss weighting only redistributes this
+exp03_125_seed42,DoS-SlowHTTPTest,FTP-BruteForce,11039,20941,52.7,Reduced vs baseline (boundary shifted toward SlowHTTPTest)
+exp03_125_seed123,DoS-SlowHTTPTest,FTP-BruteForce,9960,20941,47.6,Largest reduction of the three seeds
+exp03_125_seed999,DoS-SlowHTTPTest,FTP-BruteForce,10997,20941,52.5,Reduced vs baseline
+baseline,FTP-BruteForce,DoS-SlowHTTPTest,2958,28928,10.2,Reverse direction of the feature-overlap pair
+exp03_125_seed42,FTP-BruteForce,DoS-SlowHTTPTest,3299,28928,11.4,Increased vs baseline (cost of SlowHTTPTest recall gain)
+exp03_125_seed123,FTP-BruteForce,DoS-SlowHTTPTest,5650,28928,19.5,Largest FTP recall loss; offsets the SlowHTTPTest gain
+exp03_125_seed999,FTP-BruteForce,DoS-SlowHTTPTest,3330,28928,11.5,Increased vs baseline
+pair_total,SlowHTTPTest+FTP,both_directions,14754,49869,29.6,Baseline pair-total error mass (sum of both directions)
+pair_total_exp03_125_mean,SlowHTTPTest+FTP,both_directions,14758,49869,29.6,CONSERVED vs baseline (14754) - error redistributed not reduced (feature-limited)
+baseline,Infilteration / Infiltration,Web-BruteForce,220,24489,0.9,Baseline over-predicted Web-BruteForce; source of its 0.24 precision
+exp03_125_seed42,Infilteration / Infiltration,Web-BruteForce,17,24489,0.07,Corrected by EXP03 - drives the stable Web-BruteForce precision win
+exp03_125_seed123,Infilteration / Infiltration,Web-BruteForce,24,24489,0.10,Corrected by EXP03
+exp03_125_seed999,Infilteration / Infiltration,Web-BruteForce,17,24489,0.07,Corrected by EXP03
+baseline,Web-XSS,Bot,10,38,26.3,Web-XSS frozen at 17/38 correct; main leak is to Bot
+exp03_125_seed42,Web-XSS,Bot,10,38,26.3,Unchanged - deterministically stuck across all seeds
+exp03_125_seed123,Web-XSS,Bot,15,38,39.5,Tiny-support variance (38 samples)
+exp03_125_seed999,Web-XSS,Bot,10,38,26.3,Unchanged
+baseline,Web-XSS,Infilteration / Infiltration,4,38,10.5,Second Web-XSS leak target
+exp03_125_seed42,Web-XSS,Infilteration / Infiltration,10,38,26.3,Tiny-support variance
+baseline,Web-BruteForce,Infilteration / Infiltration,17,96,17.7,Web-BruteForce recall loss target (96 samples)
+exp03_125_seed42,Web-BruteForce,Infilteration / Infiltration,27,96,28.1,Recall traded for precision (61/96 correct vs baseline 72/96)
+exp03_125_seed42,DDoS-LOIC-HTTP,Bot,992,86401,1.1,Unstable across seeds (baseline 287; seed999 0) - high-variance not a target
+exp03_125_seed999,DDoS-LOIC-HTTP,Bot,0,86401,0.0,Same class same config - shows this confusion is seed-noise
+exp03_125_seed42,Infilteration / Infiltration,Bot,291,24489,1.2,Stable minor leak (~290-470); large class so low macro impact
+baseline,DDoS-LOIC-HTTP,DDoS-LOIC-UDP,118,86401,0.1,Stable minor confusion; negligible macro impact

@@ -1,0 +1,41 @@
+dataset: cicids2018
+task: binary
+raw_dir: data/raw/cicids2018
+output_dir: data/processed/cicids2018/binary
+artifact_path: models/final/preprocessors/cicids2018_binary_preprocessor.joblib
+target_column: Label
+drop_columns:
+  - Flow ID
+  - Src IP
+  - Dst IP
+  - Dst Port
+  - Destination Port
+  - Dest Port
+  - Src Port
+  - Source Port
+  - Sport
+  - Dport
+  - Timestamp
+  - Label
+binary_mapping:
+  benign_values:
+    - BENIGN
+    - Benign
+    - benign
+  attack_rule: all_non_benign_are_attack
+split:
+  strategy: stratified_random
+  train_size: 0.70
+  val_size: 0.15
+  test_size: 0.15
+  random_seed: 42
+cleaning:
+  strip_column_whitespace: true
+  replace_inf_with_nan: true
+  numeric_coerce: true
+imputation:
+  numeric_strategy: median
+  fit_on: train_only
+scaling:
+  type: standard
+  fit_on: train_only
