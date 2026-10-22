@@ -13,6 +13,8 @@ materialized.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import json
 from pathlib import Path
 from typing import Any
@@ -20,6 +22,7 @@ from typing import Any
 import numpy as np
 
 from secureids.training.config import TrainingConfig, load_training_config
+from secureids.artifacts import read_artifact_path
 
 SPLITS: tuple[str, ...] = ("train", "val", "test")
 
@@ -39,15 +42,15 @@ def load_numpy_split(
         raise ValueError(f"split must be one of {SPLITS}, got {split!r}.")
 
     base = Path(processed_dir)
-    x_path = base / f"X_{split}.npy"
-    y_path = base / f"y_{split}.npy"
+    x_path = read_artifact_path(base / f"X_{split}.npy")
+    y_path = read_artifact_path(base / f"y_{split}.npy")
     if not x_path.exists():
         raise FileNotFoundError(f"Missing feature array: {x_path}.")
     if not y_path.exists():
         raise FileNotFoundError(f"Missing label array: {y_path}.")
 
-    X = np.load(x_path, mmap_mode="r" if mmap else None)
-    y = np.load(y_path)
+    X = load_numpy_readonly(x_path, mmap_mode="r" if mmap else None)
+    y = load_numpy_readonly(y_path)
     return X, y
 
 
@@ -94,13 +97,13 @@ def build_training_plan(config: TrainingConfig) -> dict[str, Any]:
     splits: dict[str, dict[str, Any]] = {}
     split_dims: dict[str, int] = {}
     for split in SPLITS:
-        x_path = processed / f"X_{split}.npy"
-        y_path = processed / f"y_{split}.npy"
+        x_path = read_artifact_path(processed / f"X_{split}.npy")
+        y_path = read_artifact_path(processed / f"y_{split}.npy")
         x_exists = x_path.exists()
         y_exists = y_path.exists()
         detected = None
         if x_exists:
-            detected = int(np.load(x_path, mmap_mode="r").shape[1])
+            detected = int(load_numpy_readonly(x_path, mmap_mode="r").shape[1])
             split_dims[split] = detected
         splits[split] = {
             "X_path": str(x_path),

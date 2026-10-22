@@ -1,3 +1,10 @@
+> **Historical record — correction dated 22 October 2026.** Current scope is defined by the
+> [project verification report](../PROJECT_VERIFICATION_REPORT.md). Original task-scoped claims of no test tuning
+> do not establish an untouched test set across development: test feedback informed later
+> choices. Old plans/status statements are not evidence of current functionality.
+> Federation was simulated; privacy, TLS, and authenticated origins were not demonstrated.
+> Original measurements below are retained.
+
 # UNSW-NB15 Hierarchical Improvement Audit (Reopen A9 for Controlled Improvement)
 
 Status: `planning / audit only — no training, no checkpoint change, no promotion`

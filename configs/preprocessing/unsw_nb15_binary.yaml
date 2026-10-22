@@ -1,4 +1,11 @@
 dataset: unsw_nb15
+source_verification:
+  train:
+    rows: 175341
+    binary_counts: {0: 56000, 1: 119341}
+  test:
+    rows: 82332
+    binary_counts: {0: 37000, 1: 45332}
 task: binary
 # A8.8 UNSW split protocol correction (see docs/UNSW_SPLIT_PROTOCOL_DECISION.md).
 # The local raw file NAMES are swapped relative to the canonical UNSW-NB15 sizes:

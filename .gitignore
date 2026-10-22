@@ -41,3 +41,10 @@ results/**/partial/
 draft/
 
 .claude/
+.secureids-local.json
+verification/
+publication/
+artifacts/
+.env.*
+!.env.example
+*.zip

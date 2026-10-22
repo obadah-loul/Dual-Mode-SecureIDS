@@ -20,6 +20,8 @@ Execution policy
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import copy
 import csv
 import random
@@ -458,7 +460,7 @@ def validate_execute_preconditions(
         if not x_path.exists():
             errors.append(f"missing array: {x_path}.")
         else:
-            x_header = np.load(x_path, mmap_mode="r")
+            x_header = load_numpy_readonly(x_path, mmap_mode="r")
             split_shapes.setdefault(split, {})["X"] = list(x_header.shape)
             if int(x_header.shape[1]) != config.input_dim:
                 errors.append(
@@ -468,7 +470,7 @@ def validate_execute_preconditions(
         if not y_path.exists():
             errors.append(f"missing array: {y_path}.")
         else:
-            y_arr = np.load(y_path)
+            y_arr = load_numpy_readonly(y_path)
             split_shapes.setdefault(split, {})["y"] = list(np.asarray(y_arr).shape)
             unique_labels = {int(value) for value in np.unique(y_arr)}
             if not unique_labels.issubset({0, 1}):

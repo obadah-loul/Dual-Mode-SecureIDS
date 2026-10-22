@@ -14,6 +14,8 @@ Safety contract for this build phase:
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 from pathlib import Path
 from typing import Any
 
@@ -192,12 +194,12 @@ def _execute_training(  # pragma: no cover - never run in the A9.9 build phase
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    X_train = np.load(data_dir / "X_train.npy")
-    y_train = np.load(data_dir / "y_attack_family_train.npy")
-    m_train = np.load(data_dir / "attack_family_mask_train.npy")
-    X_val = np.load(data_dir / "X_val.npy")
-    y_val = np.load(data_dir / "y_attack_family_val.npy")
-    m_val = np.load(data_dir / "attack_family_mask_val.npy")
+    X_train = load_numpy_readonly(data_dir / "X_train.npy")
+    y_train = load_numpy_readonly(data_dir / "y_attack_family_train.npy")
+    m_train = load_numpy_readonly(data_dir / "attack_family_mask_train.npy")
+    X_val = load_numpy_readonly(data_dir / "X_val.npy")
+    y_val = load_numpy_readonly(data_dir / "y_attack_family_val.npy")
+    m_val = load_numpy_readonly(data_dir / "attack_family_mask_val.npy")
 
     train_rows = select_attack_rows(y_train, m_train)
     val_rows = select_attack_rows(y_val, m_val)

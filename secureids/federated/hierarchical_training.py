@@ -57,6 +57,8 @@ from secureids.training.hierarchical_datasets import (
     load_hierarchical_split,
 )
 from secureids.training.hierarchical_evaluation import evaluate_hierarchical_model
+from secureids.training.hierarchical_metrics import rare_family_names
+from secureids.artifacts import read_artifact_path, sha256_file
 
 
 class HierarchicalFedAvgTrainingError(RuntimeError):
@@ -212,11 +214,18 @@ def _validate_attack_config(plan: HierarchicalFederatedPlan) -> dict[str, Any]:
             "attack.scaling_factor",
         )
 
+    num_clients = int(plan.raw['federation']['num_clients'])
+    malicious_count = math.floor(num_clients * malicious_fraction) if enabled else 0
     return {
         "enabled": enabled,
         "type": attack_type,
         "configured_type": raw_attack.get("type", "none"),
         "malicious_fraction": malicious_fraction,
+        "requested_malicious_fraction": malicious_fraction,
+        "realized_malicious_fraction": malicious_count / num_clients,
+        "malicious_client_count": malicious_count,
+        "population_client_count": num_clients,
+        "attack_target": 'absolute_model_state',
         "seed": seed,
         "parameters": parameters,
     }
@@ -393,6 +402,11 @@ def _apply_attack_to_client_updates(
         "malicious_client_ids": malicious_client_ids,
         "attack_applied": False,
         "warnings": [],
+        "requested_malicious_fraction": float(attack_config['malicious_fraction']),
+        "realized_malicious_fraction": len(malicious_indices) / len(client_ids) if client_ids else 0.0,
+        "malicious_client_count": len(malicious_indices),
+        "participating_client_count": len(client_ids),
+        "attack_target": 'absolute_model_state',
     }
 
     if not attack_config["enabled"] or attack_config["type"] == "none":
@@ -546,6 +560,7 @@ def validate_aggregation_with_integrity(
     round_id: int,
     aggregation_config: dict[str, Any] | None = None,
     attack_round: dict[str, Any] | None = None,
+    expected_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Hash, verify, and aggregate client updates for one future round."""
 
@@ -553,6 +568,10 @@ def validate_aggregation_with_integrity(
         raise HierarchicalFedAvgTrainingError(
             "client_updates, sample_counts, and client_ids must have equal length."
         )
+    if not client_ids or len(set(client_ids)) != len(client_ids):
+        raise HierarchicalFedAvgTrainingError('Client IDs must be nonempty and unique.')
+    if any(isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n <= 0 for n in sample_counts):
+        raise HierarchicalFedAvgTrainingError('Sample counts must be positive integers.')
     effective_aggregation = aggregation_config or {
         "strategy": "fedavg",
         "trim_ratio": None,
@@ -580,7 +599,12 @@ def validate_aggregation_with_integrity(
         )
         for client_id, update, sample_count in zip(client_ids, client_updates, sample_counts)
     ]
-    verification = verify_update_integrity_records(records, client_updates)
+    if expected_records is not None:
+        if [str(r.get('client_id')) for r in expected_records] != client_ids or any(str(r.get('round_id')) != str(round_id) for r in expected_records):
+            raise HierarchicalFedAvgTrainingError('Integrity records have incorrect client or round identity.')
+    verification = verify_update_integrity_records(expected_records if expected_records is not None else records, client_updates)
+    verification['scope'] = 'supplied_reference_comparison' if expected_records is not None else 'local_fingerprint_self_check'
+    verification['independent_origin_authenticated'] = False
     if not verification["all_verified"]:
         raise HierarchicalFedAvgTrainingError("Client update hash verification failed.")
     aggregated = _aggregate_client_updates(
@@ -601,7 +625,9 @@ def validate_aggregation_with_integrity(
             "client_ids": list(client_ids),
             "sample_counts": [int(value) for value in sample_counts],
             "total_samples": int(sum(sample_counts)),
-            "integrity_verified": bool(verification["all_verified"]),
+            "integrity_verified": expected_records is not None and bool(verification["all_verified"]),
+            "fingerprints_match": bool(verification['all_verified']),
+            "integrity_scope": verification['scope'],
             "attack_type": effective_attack["type"],
             "attack_applied": bool(effective_attack["attack_applied"]),
             "malicious_client_ids": list(effective_attack["malicious_client_ids"]),
@@ -914,10 +940,14 @@ def _write_report(
         f"Protocol: `{plan.raw['protocol_label']}`",
         f"Aggregation: `{outcome['aggregation']['strategy']}`",
         f"Attack: `{outcome['attack']['type']}`",
-        f"Malicious fraction: `{outcome['attack']['malicious_fraction']}`",
+        f"Requested malicious fraction: `{outcome['attack']['malicious_fraction']}`",
+        f"Realized malicious fraction: `{len(outcome['attack']['malicious_client_ids']) / plan.num_clients}` "
+        f"({len(outcome['attack']['malicious_client_ids'])} of {plan.num_clients})",
         f"Selected malicious clients: `{outcome['attack']['malicious_client_ids']}`",
+        "Federation: in-process simulation over centrally available arrays.",
+        "Attack target: absolute floating model states, not parameter deltas.",
         "",
-        "Status: future actual run completed under explicit main-control approval.",
+        "Status: simulated experiment completed; this report does not establish deployed privacy.",
         "",
         "Safety notes:",
         "",
@@ -932,7 +962,8 @@ def _write_report(
         f"- Rounds run: `{outcome['rounds_run']}`",
         f"- Test metrics path: `{outcome['metrics_path']}`",
         f"- Manifest path: `{outcome['manifest_path']}`",
-        f"- SHA-256 update integrity verified: `{outcome['integrity_verified']}`",
+        f"- Supplied-reference comparisons passed: `{outcome['integrity_verified']}`",
+        "- Default runner hashes are local fingerprint self-checks; no independent origin authentication.",
     ]
     selection = outcome.get("selection")
     if selection:
@@ -963,6 +994,63 @@ def _write_report(
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def execution_readiness_errors(plan, project_root, *, check_outputs=True):
+    """Separate supported execution, actual resources, and output collisions."""
+    errors = []
+    if plan.raw['aggregation']['strategy'] not in SUPPORTED_AGGREGATION_STRATEGIES:
+        errors.append('Runner supports fedavg and trimmed_mean aggregation only.')
+    federation = plan.raw['federation']
+    if float(federation['client_fraction']) != 1.0:
+        errors.append('Runner supports full participation only (client_fraction=1.0).')
+    if federation['client_split'] != 'attack_family_aware_iid':
+        errors.append('Runner supports attack_family_aware_iid only.')
+    for name, path in plan.checked_paths.items():
+        if not Path(path).exists():
+            errors.append(f'Missing {name}: {path}')
+    data_dir = Path(plan.checked_paths['processed_dir'])
+    for split in ('train', 'val', 'test'):
+        try:
+            arrays = load_hierarchical_split(data_dir, split)
+            X, y, family, mask = arrays
+            if X.ndim != 2 or X.shape[1] != int(plan.raw['model']['input_dim']) or any(a.ndim != 1 or len(a) != len(X) for a in (y, family, mask)):
+                errors.append(f'Invalid {split} feature/label shapes.')
+        except (ValueError, OSError) as error:
+            errors.append(f'{split}: {error}')
+    reference = plan.raw['centralized_reference']
+    path = _project_path(project_root, reference['checkpoint'])
+    if not path.exists():
+        errors.append(f'Missing centralized reference: {path}')
+    elif sha256_file(path).lower() != str(reference['sha256']).lower():
+        errors.append('Centralized reference SHA-256 mismatch.')
+    if check_outputs and existing_planned_outputs(plan, project_root):
+        errors.append('Planned outputs already exist; preserve historical results and use new paths.')
+    return errors
+
+
+def build_run_provenance(plan, checkpoint_path):
+    """Identity for future runs; historical manifests are never rewritten."""
+    import importlib.metadata
+    import platform
+    import subprocess
+    root = Path(__file__).resolve().parents[2]
+    try:
+        revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+    except (OSError, subprocess.CalledProcessError):
+        revision = None
+    source_hash = __import__('hashlib').sha256()
+    for path in sorted((root / 'secureids').rglob('*.py')):
+        source_hash.update(path.relative_to(root).as_posix().encode())
+        source_hash.update(path.read_bytes())
+    data_dir = Path(plan.checked_paths['processed_dir'])
+    inputs = [read_artifact_path(data_dir / f'{prefix}_{split}.npy') for split in ('train', 'val', 'test') for prefix in ('X', 'y_binary', 'y_attack_family', 'attack_family_mask')]
+    return {'git_revision': revision, 'source_tree_sha256': source_hash.hexdigest(),
+            'python': platform.python_version(), 'platform': platform.platform(),
+            'packages': {n: importlib.metadata.version(n) for n in ('torch', 'numpy', 'scikit-learn', 'pandas', 'PyYAML')},
+            'input_sha256': {str(p): sha256_file(p) for p in inputs},
+            'checkpoint_sha256': sha256_file(checkpoint_path),
+            'integrity_scope': 'local_fingerprints_without_origin_authentication'}
+
+
 def run_hierarchical_fedavg_dry_run(
     config_path: str | Path,
     project_root: Path,
@@ -982,8 +1070,12 @@ def run_hierarchical_fedavg_dry_run(
         {"name": name, "path": str(path), "exists": path.exists()}
         for name, path in outputs.items()
     ]
+    readiness_errors = execution_readiness_errors(plan, project_root)
     return {
         "status": "PASS",
+        "validation_scope": 'configuration',
+        "execution_ready": not readiness_errors,
+        "execution_blockers": readiness_errors,
         "dataset": plan.dataset,
         "config_path": str(plan.path),
         "protocol_label": plan.raw["protocol_label"],
@@ -1026,6 +1118,9 @@ def run_hierarchical_fedavg_training(
             "planned hierarchical FedAvg outputs already exist: "
             + "; ".join(str(path) for path in existing)
         )
+    blockers = execution_readiness_errors(plan, project_root, check_outputs=not overwrite)
+    if blockers:
+        raise HierarchicalFedAvgTrainingError('; '.join(blockers))
 
     torch = _torch()
     training_cfg = plan.raw["training"]
@@ -1051,7 +1146,7 @@ def run_hierarchical_fedavg_training(
 
     mapping = _load_json(Path(plan.checked_paths["attack_family_label_mapping"]))
     class_names = _class_names(mapping, int(plan.raw["model"]["attack_head_dim"]))
-    rare_class_names = [str(name) for name in plan.raw.get("rare_classes", [])]
+    rare_class_names = [str(name) for name in plan.raw.get('rare_classes', rare_family_names(mapping))]
 
     global_model = build_model_from_plan(plan).to(device)
     val_dataset = HierarchicalNumpyDataset(
@@ -1216,6 +1311,13 @@ def run_hierarchical_fedavg_training(
 
     outputs["checkpoint"].parent.mkdir(parents=True, exist_ok=True)
     checkpoint_payload = {
+        'architecture': 'SecureIDSHierarchicalAdvancedNet',
+        'architecture_metadata': copy.deepcopy(plan.raw['model']),
+        'input_dim': int(plan.raw['model']['input_dim']),
+        'attack_head_dim': int(plan.raw['model']['attack_head_dim']),
+        'config_snapshot': copy.deepcopy(plan.raw),
+        'feature_names': _load_json(Path(plan.checked_paths['feature_names'])),
+        'attack_family_label_mapping': copy.deepcopy(mapping),
         "model_state_dict": global_model.state_dict(),
         "dataset": plan.dataset,
         "protocol_label": plan.raw["protocol_label"],
@@ -1253,6 +1355,9 @@ def run_hierarchical_fedavg_training(
         "integrity": {
             "sha256_update_hashing": True,
             "verify_before_aggregation": True,
+            "verification_scope": 'local_fingerprint_self_check',
+            "supplied_reference_comparison": False,
+            "independent_origin_authenticated": False,
             "all_rounds_verified": all(
                 audit.get("integrity_verified") is True for audit in aggregation_rounds
             ),
@@ -1272,6 +1377,9 @@ def run_hierarchical_fedavg_training(
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "dataset": plan.dataset,
         "config_path": str(plan.path),
+        "config_snapshot": copy.deepcopy(plan.raw),
+        "config_sha256": sha256_file(plan.path),
+        "provenance": build_run_provenance(plan, outputs['checkpoint']),
         "checkpoint_path": str(outputs["checkpoint"]),
         "result_dir": str(outputs["result_dir"]),
         "best_round": best_round,

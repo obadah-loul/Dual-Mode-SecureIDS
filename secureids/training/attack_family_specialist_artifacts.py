@@ -16,6 +16,8 @@ unit tests. Nothing here trains, overwrites checkpoints, or touches final trees.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import csv
 import json
 from pathlib import Path
@@ -438,7 +440,7 @@ def generate_seed_artifacts(  # pragma: no cover - torch/data path, not unit tes
         raise SpecialistArtifactError(f"specialist checkpoint not found: {ckpt_file}")
     checkpoint_sha256 = hashlib.sha256(ckpt_file.read_bytes()).hexdigest().upper()
 
-    spec_ckpt = torch.load(ckpt_file, map_location="cpu", weights_only=False)
+    spec_ckpt = torch.load(ckpt_file, map_location="cpu", weights_only=True)
     meta = spec_ckpt["architecture_metadata"]
     specialist = AttackFamilySpecialistNet(
         input_dim=int(meta["input_dim"]),
@@ -451,7 +453,7 @@ def generate_seed_artifacts(  # pragma: no cover - torch/data path, not unit tes
     specialist.eval()
 
     router_file = root / str(config.frozen_a9_router["checkpoint"])
-    a9_ckpt = torch.load(router_file, map_location="cpu", weights_only=False)
+    a9_ckpt = torch.load(router_file, map_location="cpu", weights_only=True)
     a9_meta = a9_ckpt["architecture_metadata"]
     router = SecureIDSHierarchicalAdvancedNet(
         input_dim=int(a9_ckpt["input_dim"]),
@@ -465,10 +467,10 @@ def generate_seed_artifacts(  # pragma: no cover - torch/data path, not unit tes
     router.eval()
 
     data_dir = root / config.hierarchical_data_dir
-    X_test = np.load(data_dir / "X_test.npy")
-    y_bin_test = np.load(data_dir / "y_binary_test.npy").reshape(-1).astype(np.int64)
-    y_af_test = np.load(data_dir / "y_attack_family_test.npy").reshape(-1).astype(np.int64)
-    m_test = np.load(data_dir / "attack_family_mask_test.npy").reshape(-1).astype(np.int64)
+    X_test = load_numpy_readonly(data_dir / "X_test.npy")
+    y_bin_test = load_numpy_readonly(data_dir / "y_binary_test.npy").reshape(-1).astype(np.int64)
+    y_af_test = load_numpy_readonly(data_dir / "y_attack_family_test.npy").reshape(-1).astype(np.int64)
+    m_test = load_numpy_readonly(data_dir / "attack_family_mask_test.npy").reshape(-1).astype(np.int64)
 
     def _forward(model, X, head):
         outs = []
@@ -494,8 +496,8 @@ def generate_seed_artifacts(  # pragma: no cover - torch/data path, not unit tes
         y_attack, router_attack_pred_full[attack_rows], spec_pred, config.num_attack_families
     )
 
-    y_af_train = np.load(data_dir / "y_attack_family_train.npy").reshape(-1).astype(np.int64)
-    m_train = np.load(data_dir / "attack_family_mask_train.npy").reshape(-1).astype(np.int64)
+    y_af_train = load_numpy_readonly(data_dir / "y_attack_family_train.npy").reshape(-1).astype(np.int64)
+    m_train = load_numpy_readonly(data_dir / "attack_family_mask_train.npy").reshape(-1).astype(np.int64)
     train_attack = select_attack_rows(y_af_train, m_train)
     weights = _compute_attack_class_weights(y_af_train[train_attack], config.num_attack_families)
     class_weight_snapshot = {

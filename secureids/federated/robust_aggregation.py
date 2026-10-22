@@ -106,6 +106,12 @@ def validate_client_updates(updates: Sequence[Any]) -> str:
         raise AggregationValidationError("updates must be a non-empty sequence.")
     if len(updates) == 0:
         raise AggregationValidationError("At least one client update is required.")
+    torch = _torch()
+    for update in updates:
+        values = update.values() if isinstance(update, Mapping) else [update]
+        for value in values:
+            if torch.is_tensor(value) and not bool(torch.isfinite(value).all()):
+                raise AggregationValidationError('Client update tensors must be finite.')
     if _is_tensor(updates[0]):
         _validate_tensor_list(updates)
         return "tensor"
@@ -126,7 +132,7 @@ def _validate_weights(weights: Sequence[float] | None, num_updates: int) -> list
     if any(not math.isfinite(weight) or weight <= 0.0 for weight in normalized):
         raise AggregationValidationError("weights must be finite positive values.")
     total = sum(normalized)
-    if total <= 0.0:
+    if not math.isfinite(total) or total <= 0.0:
         raise AggregationValidationError("weights must sum to a positive value.")
     return [weight / total for weight in normalized]
 

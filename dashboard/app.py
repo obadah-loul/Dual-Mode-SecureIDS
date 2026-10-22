@@ -25,13 +25,13 @@ from secureids.xai.local_attribution import format_attribution_rows  # noqa: E40
 
 
 st.set_page_config(
-    page_title="Dual-Mode SecureIDS Live Demonstration",
+    page_title="Dual-Mode SecureIDS Research Replay",
     layout="wide",
 )
 
-st.title("Dual-Mode SecureIDS Live Demonstration")
+st.title("Dual-Mode SecureIDS Research Replay")
 st.caption(
-    "Live one-sample intrusion detection using selected hierarchical federated IDS models."
+    "Research prototype: genuine pretrained inference on saved processed benchmark rows."
 )
 
 st.info(
@@ -46,11 +46,11 @@ st.markdown(
 1. Deployment Mode
 2. Attack Scenario Playback
 3. Automatic Model Routing
-4. Run Live IDS Detection
+4. Run IDS Replay
 5. Detection Result
 6. Attack Family Classification
 7. Explainability
-8. Integrity Verification
+8. SHA-256 Fingerprints
 9. Federated Robustness Evidence
 """
 )
@@ -82,24 +82,23 @@ st.subheader("Deployment Mode")
 deployment_mode = st.radio(
     "Deployment mode",
     (
-        "Centralized IDS Mode - data sharing allowed",
-        "Federated IDS Mode - raw data cannot be shared",
+        "Centralized reference framing",
+        "Simulated federated framing",
     ),
     index=1,
 )
 
 if deployment_mode.startswith("Centralized"):
     st.info(
-        "Centralized IDS Mode is used when traffic data can be collected in a "
-        "trusted central environment. In this project, centralized models/results "
-        "provide the baseline reference. Live inference here uses saved selected "
-        "hierarchical federated IDS models."
+        "Centralized results are historical benchmark references. This descriptive "
+        "mode selector does not change the checkpoint: replay uses the selected "
+        "hierarchical federated model."
     )
 else:
     st.success(
-        "Federated IDS Mode is used when raw traffic data cannot be shared between "
-        "clients or sites. The live demonstration uses selected hierarchical "
-        "federated IDS models for safe one-sample inference."
+        "Federated experiments were single-process simulations with centrally "
+        "available arrays. Replay uses their selected checkpoints; no distributed "
+        "clients, raw-data secrecy, secure aggregation, or TLS is demonstrated."
     )
 
 st.subheader("Attack Scenario Playback")
@@ -111,7 +110,12 @@ scenario_name = st.radio(
 scenario = get_scenario_spec(scenario_name)
 dataset_name = scenario.dataset_name
 dataset_spec = get_dataset_spec(dataset_name)
-shape = cached_dataset_shape(dataset_name)
+try:
+    shape = cached_dataset_shape(dataset_name)
+except (FileNotFoundError, ValueError, OSError) as error:
+    st.error(f'Demo artifacts unavailable or incompatible: {error}')
+    st.info('Restore the documented artifact bundle before running detection.')
+    st.stop()
 model_checkpoint = dataset_spec.checkpoint_path.relative_to(PROJECT_ROOT).as_posix()
 processed_data_path = dataset_spec.data_dir.relative_to(PROJECT_ROOT).as_posix()
 
@@ -145,7 +149,8 @@ with st.expander("Technical Reproducibility Details"):
             {
                 "Scenario identifier": scenario.name,
                 "Source schema": dataset_name,
-                "Hidden test row used": int(scenario.sample_index),
+                "Original test row": int(scenario.sample_index),
+                "Available replay rows": int(shape['rows']),
                 "Feature count": int(shape["features"]),
                 "Model checkpoint": model_checkpoint,
                 "Processed data path": processed_data_path,
@@ -153,15 +158,15 @@ with st.expander("Technical Reproducibility Details"):
         ]
     )
 
-run_clicked = st.button("Run Live IDS Detection", type="primary")
+run_clicked = st.button("Run IDS Replay", type="primary")
 
 if run_clicked:
     with st.spinner("Running one-sample IDS inference and local attribution..."):
-        result = run_live_inference(
-            dataset_name,
-            int(scenario.sample_index),
-            top_k=8,
-        )
+        try:
+            result = run_live_inference(dataset_name, int(scenario.sample_index), top_k=8)
+        except Exception as error:
+            st.error(f'Inference could not complete: {error}')
+            st.stop()
 
     st.subheader("Detection Result")
     decision_col, probability_col, label_col, status_col = st.columns(4)
@@ -251,9 +256,9 @@ if run_clicked:
                 use_container_width=True,
             )
 
-    st.subheader("Integrity Verification")
+    st.subheader("SHA-256 Fingerprints")
     integrity_col, sample_hash_col, record_hash_col = st.columns(3)
-    integrity_col.metric("Integrity status", "Verified")
+    integrity_col.metric("Integrity status", "Fingerprints computed")
     sample_hash_col.metric(
         "Sample fingerprint",
         short_hash(result["sample_row_sha256"]),
@@ -263,8 +268,8 @@ if run_clicked:
         short_hash(result["prediction_record_sha256"]),
     )
     st.caption(
-        "SHA-256 fingerprints provide tamper-evidence for the selected sample and "
-        "prediction record. SHA-256 supports integrity verification. Trimmed Mean "
+        "Current SHA-256 fingerprints identify the sample and prediction record. "
+        "No independent trusted reference was compared. Trimmed Mean "
         "is the robust aggregation defense used in the federated robustness evidence."
     )
 
@@ -281,23 +286,29 @@ if run_clicked:
         )
         st.markdown(
             """
-- Byzantine attack scenario: SignFlip 25%
+- Byzantine attack scenario: full-state SignFlip; requested 25%, realized 1/5 = 20%
 - Baseline aggregation: FedAvg
 - Robust aggregation defense: Trimmed Mean
 - Datasets: CICIDS2018 and UNSW-NB15
 
 Gaussian Noise and Scaling are additional Byzantine attack types considered as
-future extensions. The finalized dashboard evidence focuses on Phase A SignFlip 25%.
+future extensions. Historical filenames retain the nominal SignFlip25 label.
 """
         )
         phase_a_rows = cached_phase_a_rows()
         if phase_a_rows:
-            st.dataframe(phase_a_rows, hide_index=True, use_container_width=True)
+            # This view relabels the recorded configuration; the CSV is immutable.
+            display_rows = [
+                {('requested_malicious_fraction' if key == 'malicious_fraction' else key): value
+                 for key, value in row.items()}
+                for row in phase_a_rows
+            ]
+            st.dataframe(display_rows, hide_index=True, use_container_width=True)
         else:
             st.info("Phase A matrix file was not found.")
 
 else:
-    st.subheader("Ready for Live IDS Detection")
+    st.subheader("Ready for IDS Replay")
     st.write(
         "Select an attack scenario and run one-sample detection to view the binary "
         "decision, attack-family classification, local feature attribution, and "

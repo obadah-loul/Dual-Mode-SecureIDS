@@ -24,7 +24,9 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def save_joblib(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump(payload, path)
+    # Exclusive creation also protects a preprocessor outside output_dir.
+    with path.open('xb') as handle:
+        joblib.dump(payload, handle)
 
 
 def build_manifest(

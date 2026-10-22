@@ -1,3 +1,10 @@
+> **Historical record — correction dated 22 October 2026.** Current scope is defined by the
+> [project verification report](../PROJECT_VERIFICATION_REPORT.md). Original task-scoped claims of no test tuning
+> do not establish an untouched test set across development: test feedback informed later
+> choices. Old plans/status statements are not evidence of current functionality.
+> Federation was simulated; privacy, TLS, and authenticated origins were not demonstrated.
+> Original measurements below are retained.
+
 # CICIDS Hierarchical EXP04 — Rare-Class & Confusion Optimization Plan (planning only)
 
 Status: `Plan only — NOT implemented, NOT trained`. No EXP04 config, checkpoint, or metrics were
@@ -117,14 +124,14 @@ feature-overlap, and their sum is conserved under loss weighting.**
   at 1.25; `binary_loss_weight` is a routing lever, not a rare-class one.
 - **Custom / per-class attack class weights:** **not supported in config.** The method
   (`sqrt_inverse_frequency`) and `WEIGHT_CAP = 10.0` are module constants in
-  [hierarchical_class_weights.py](secureids/training/hierarchical_class_weights.py); there is **no**
+  [hierarchical_class_weights.py](../../secureids/training/hierarchical_class_weights.py); there is **no**
   per-class multiplier or alternative-method config field. The cap is also **non-binding** (all rare
   weights already sit under 10.0), so raising it via config would have **no effect**. Any rare-class
   weight change therefore needs **code**.
 - **Focal loss:** does not exist anywhere — **code change**.
 - **Sampler:** none exists (`oversampling_enabled: false`) — **code change**.
 - **Validation-only threshold calibration:** threshold is hardcoded `0.5`
-  ([hierarchical_trainer.py:242](secureids/training/hierarchical_trainer.py:242)) — **code change**.
+  ([hierarchical_trainer.py (historical line 242)](../../secureids/training/hierarchical_trainer.py)) — **code change**.
 
 **Conclusion:** the config-only rare-class levers are **exhausted**. Every remaining rare-class modeling
 idea requires code, and the data says those ideas target either a feature-limited pair or tiny classes

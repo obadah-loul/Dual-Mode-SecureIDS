@@ -13,6 +13,8 @@ policy mirrors the binary centralized trainer:
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import copy
 import csv
 import json
@@ -103,10 +105,10 @@ def build_model(config: HierarchicalTrainingConfig) -> SecureIDSHierarchicalAdva
 # --------------------------------------------------------------------------- #
 def _load_split_arrays(data_dir: Path, split: str) -> dict[str, np.ndarray]:
     return {
-        "X": np.load(data_dir / f"X_{split}.npy"),
-        "y_binary": np.load(data_dir / f"y_binary_{split}.npy"),
-        "y_attack_family": np.load(data_dir / f"y_attack_family_{split}.npy"),
-        "attack_family_mask": np.load(data_dir / f"attack_family_mask_{split}.npy"),
+        "X": load_numpy_readonly(data_dir / f"X_{split}.npy"),
+        "y_binary": load_numpy_readonly(data_dir / f"y_binary_{split}.npy"),
+        "y_attack_family": load_numpy_readonly(data_dir / f"y_attack_family_{split}.npy"),
+        "attack_family_mask": load_numpy_readonly(data_dir / f"attack_family_mask_{split}.npy"),
     }
 
 

@@ -1,13 +1,20 @@
 # Hierarchical Federated Experiment Report
 
+> **October 2026 interpretation:** Historical numerical outputs are retained,
+> but these records reflect a **single-process, single-seed experiment**,
+> nominal 25% / realized 20% malicious clients, and full-state scaling rather
+> than parameter-delta SignFlip. Original saved paths below are historical
+> machine paths, not portable installation instructions. See
+> [the evidence-qualified project report](../PROJECT_VERIFICATION_REPORT.md).
+
 Dataset: `unsw_nb15`
 Protocol: `unsw_a9_hierarchical_byzantine_signflip_reference_frozen_baseline`
 Aggregation: `fedavg`
 Attack: `sign_flip`
-Malicious fraction: `0.25`
+Requested malicious fraction: `0.25` (actual: **1 of 5 = 20%**)
 Selected malicious clients: `['client_00']`
 
-Status: future actual run completed under explicit main-control approval.
+Status: historical run recorded as completed; not rerun during final integration.
 
 Safety notes:
 
@@ -22,4 +29,4 @@ Results:
 - Rounds run: `20`
 - Test metrics path: `C:\IDS\IDS_V2\Secure-Distributed-Intrusion-Detection_V2\results\experiments\federated_security\unsw_hierarchical_byzantine_signflip\test_metrics.json`
 - Manifest path: `C:\IDS\IDS_V2\Secure-Distributed-Intrusion-Detection_V2\results\audits\federated_security_unsw_hierarchical_byzantine_signflip_manifest.json`
-- SHA-256 update integrity verified: `True`
+- Historical SHA-256 self-check reported: `True` (not independent origin authentication or externally anchored integrity proof)

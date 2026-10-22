@@ -128,10 +128,7 @@ class FrozenA9EmbeddingExtractor(nn.Module):
 
 
 def _torch_load_checkpoint(path: Path, map_location: str = "cpu") -> dict[str, Any]:
-    try:
-        return torch.load(path, map_location=map_location, weights_only=False)
-    except TypeError:  # pragma: no cover - older torch
-        return torch.load(path, map_location=map_location)
+    return torch.load(path, map_location=map_location, weights_only=True)
 
 
 def build_a9_model_from_checkpoint_payload(payload: dict[str, Any]) -> SecureIDSHierarchicalAdvancedNet:

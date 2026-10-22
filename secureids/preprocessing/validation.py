@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 from typing import Any
 
 import numpy as np
@@ -91,12 +93,12 @@ def verify_expected_outputs(
 
     output_dir = str(output_dir)
     arrays = {
-        "X_train": np.load(f"{output_dir}/X_train.npy", mmap_mode="r"),
-        "X_val": np.load(f"{output_dir}/X_val.npy", mmap_mode="r"),
-        "X_test": np.load(f"{output_dir}/X_test.npy", mmap_mode="r"),
-        "y_train": np.load(f"{output_dir}/y_train.npy", mmap_mode="r"),
-        "y_val": np.load(f"{output_dir}/y_val.npy", mmap_mode="r"),
-        "y_test": np.load(f"{output_dir}/y_test.npy", mmap_mode="r"),
+        "X_train": load_numpy_readonly(f"{output_dir}/X_train.npy", mmap_mode="r"),
+        "X_val": load_numpy_readonly(f"{output_dir}/X_val.npy", mmap_mode="r"),
+        "X_test": load_numpy_readonly(f"{output_dir}/X_test.npy", mmap_mode="r"),
+        "y_train": load_numpy_readonly(f"{output_dir}/y_train.npy", mmap_mode="r"),
+        "y_val": load_numpy_readonly(f"{output_dir}/y_val.npy", mmap_mode="r"),
+        "y_test": load_numpy_readonly(f"{output_dir}/y_test.npy", mmap_mode="r"),
     }
 
     x_shapes = {name: tuple(array.shape) for name, array in arrays.items() if name.startswith("X_")}

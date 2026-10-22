@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import csv
 import json
 from pathlib import Path
@@ -213,10 +215,10 @@ def _execute_training(  # pragma: no cover - not run during A9.10 prep
     data_dir = config.resolve(config.hierarchical_data_dir)
     arrays = {
         split: {
-            "X": np.load(data_dir / f"X_{split}.npy"),
-            "y_attack_family": np.load(data_dir / f"y_attack_family_{split}.npy").reshape(-1).astype(np.int64),
-            "attack_family_mask": np.load(data_dir / f"attack_family_mask_{split}.npy").reshape(-1).astype(np.int64),
-            "y_binary": np.load(data_dir / f"y_binary_{split}.npy").reshape(-1).astype(np.int64),
+            "X": load_numpy_readonly(data_dir / f"X_{split}.npy"),
+            "y_attack_family": load_numpy_readonly(data_dir / f"y_attack_family_{split}.npy").reshape(-1).astype(np.int64),
+            "attack_family_mask": load_numpy_readonly(data_dir / f"attack_family_mask_{split}.npy").reshape(-1).astype(np.int64),
+            "y_binary": load_numpy_readonly(data_dir / f"y_binary_{split}.npy").reshape(-1).astype(np.int64),
         }
         for split in ("train", "val", "test")
     }

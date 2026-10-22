@@ -1,181 +1,178 @@
-# Secure, Robust, and Explainable Federated Intrusion Detection System
+# Dual-Mode SecureIDS
 
-## Overview
+A cybersecurity graduation **research prototype** for binary intrusion detection
+and dataset-specific attack-family classification. It includes centralized
+reference results, simulated federated learning, exploratory robustness results,
+and a Streamlit demonstration running genuine pretrained inference on selected
+processed benchmark records. It is **not** a production network IDS.
 
-This repository contains the V2 implementation workspace for the Dual-Mode
-SecureIDS Framework. The project combines centralized reference baselines,
-hierarchical federated intrusion detection, robustness evidence, integrity
-verification, explainability, and a live demonstration dashboard.
+The local recovery is based on commit `afab2b0fe56c205201b930a99d5c999fe0489fd4`.
+Read the [verification and claims report](docs/PROJECT_VERIFICATION_REPORT.md)
+and [recovery corrections](docs/LOCAL_RECOVERY.md) before interpreting
+historical experiment reports. Recovery preserves model bytes and numerical
+results, without retraining models or repeating experiments.
 
-The current detection objectives are:
+## Architecture and scope
 
-- Binary detection: Benign / Attack.
-- Attack-family classification for detected attack traffic.
+**Dual-mode** refers to centralized reference experiments versus simulated
+federated experiments. The dashboard's mode selector is descriptive only;
+both selections use saved federated checkpoints for replay inference.
+This is not two interchangeable live deployed detection engines.
 
-CICIDS2018 and UNSW-NB15 are intentionally handled through separate dataset
-adapters and preprocessors. UNSW-NB15 is not forced into the CICIDS2018 feature
-schema, and no direct frozen CICIDS-to-UNSW evaluation is claimed.
+Dataset adapters and train-fitted preprocessing feed a residual/gated MLP with a
+shared embedding, one binary logit, and a dataset-specific family head. Family
+predictions are exposed only when the binary decision is Attack. The family
+metric on true attack rows is an oracle-head diagnostic; routed outcomes also
+count attacks missed by the binary head.
 
-## Current Implementation Status
+| Dataset | Hierarchical inputs | Family outputs | Selected live checkpoint |
+|---|---:|---:|---|
+| CICIDS2018 | 77 | 14 | `models/experiments/federated_security/cicids_hierarchical_clean_fedavg.pt` |
+| UNSW-NB15 | 192 | 9 | `models/experiments/federated_security/unsw_hierarchical_clean_fedavg.pt` |
 
-Current finalized scope:
+Centralized binary and hierarchical models provide benchmark references. The
+federated runner is an in-process simulation over centrally available arrays:
+clients train locally, return full states, and use sample-weighted FedAvg or
+coordinate-wise Trimmed Mean. It supports full participation and
+attack-family-aware IID partitioning. Unsupported execution settings are rejected.
+This implementation does not establish deployment privacy, secure aggregation,
+TLS transport, or differential privacy.
 
-- Dual-mode SecureIDS framing: centralized reference mode and federated IDS mode.
-- Dataset-specific CICIDS2018 and UNSW-NB15 preprocessing and evaluation paths.
-- Hierarchical IDS models with binary and attack-family outputs.
-- Selected clean hierarchical federated baselines for CICIDS2018 and UNSW-NB15.
-- Phase A SignFlip 25% federated robustness evidence comparing FedAvg and
-  Trimmed Mean.
-- SHA-256 integrity/tamper-evidence for selected samples, prediction records,
-  and federated update manifests.
-- Streamlit live demonstration dashboard with saved benchmark attack scenarios.
-- Gradient x Input local feature attribution for one-sample live inference.
+Modules: `secureids/datasets`, `preprocessing`, `models`, `training`, `federated`,
+`security`, `inference`, and `xai`; CLI: `secureids/cli.py`; UI: `dashboard/app.py`.
+Exploratory specialist and A11 paths remain available, but are not the selected
+dashboard models. Legacy 190-feature UNSW binary artifacts must not be mixed
+with the current 192-feature hierarchical pipeline.
 
-Final evidence index:
-
-- `docs/experiments/FINAL_EVIDENCE_REPORT_INDEX.md`
-- `docs/experiments/CENTRALIZED_VS_FEDERATED_COMPARISON.md`
-- `docs/experiments/PHASE_A_SIGNFLIP25_ATTACK_DEFENSE_SUMMARY.md`
-
-Created preprocessing artifacts:
-
-- Train/validation/test NumPy outputs under `data/processed/`
-- Dataset-specific preprocessor artifacts under `models/final/preprocessors/`
-- CICIDS2018 preprocessing safety fix applied: port identifier fields are
-  removed before centralized training design.
-
-Not final claims:
-
-- TLS secure transport is a future deployment hardening extension.
-- Gaussian Noise and Scaling are optional future Byzantine attack extensions.
-- Phase B / 50% malicious-client work is archive-only stress-test evidence.
-- Standalone binary FedAvg artifacts are archive/baseline evidence, not the
-  final hierarchical target.
-- SHA-256 supports integrity/tamper-evidence; it is not the Byzantine defense.
-- Trimmed Mean is the robust aggregation defense evaluated in the final Phase A
-  matrix.
-
-## Dataset Status
-
-CICIDS2018:
-
-- Raw folder: `data/raw/cicids2018`
-- Current files: 14 CSV files
-- Audit status: headers and tiny samples inspected
-- Detected label column: `Label`
-
-UNSW-NB15:
-
-- Raw folder: `data/raw/unsw_nb15`
-- Current files:
-  - `UNSW_NB15_training-set.csv`
-  - `UNSW_NB15_testing-set.csv`
-- Audit status: headers and tiny samples inspected
-- Detected label column: `label`
-- Categorical columns tracked for preprocessing: `proto`, `service`, `state`
-
-## Architecture
-
-The V2 architecture is organized into these layers:
-
-- Dataset adapters: `secureids/datasets/`
-- Reusable preprocessing utilities: `secureids/preprocessing/`
-- Reporting and audit writers: `secureids/reporting/`
-- Model, training, federated, security, evaluation, inference, and XAI modules
-  under `secureids/`
-- Streamlit live demonstration entry point: `dashboard/app.py`
-- Configuration files: `configs/`
-- Design and audit documentation: `docs/`
-
-## Current Safe Commands
-
-PowerShell commands should be run from the V2 project root:
+## Clone and install (Python 3.12)
 
 ```powershell
-C:\IDS\IDS_V2\Secure-Distributed-Intrusion-Detection_V2
+git clone https://github.com/obadah-loul/Dual-Mode-SecureIDS.git
+cd Dual-Mode-SecureIDS
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.6.0
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Correct virtual-environment activation from the project root:
+The owner-authorized [v0.1.0 release](https://github.com/obadah-loul/Dual-Mode-SecureIDS/releases/tag/v0.1.0)
+provides the CICIDS demonstration below. On Linux use
+`python3.12 -m venv .venv` and `.venv/bin/python` in place of the Windows launcher
+and environment executable. The verified platform is Windows/Python3.12/CPU.
+CUDA and training are not required. The full tested Windows environment snapshot
+is `requirements-lock-py312-windows.txt`.
+
+## Obtain the small demo artifacts
+
+Git excludes model weights and dataset arrays. Download the approved
+[CICIDS demonstration archive](https://github.com/obadah-loul/Dual-Mode-SecureIDS/releases/download/v0.1.0/secureids-demo-cicids-v1.zip)
+to a local `downloads/` folder. Its exact identity is recorded in
+[configs/demo_artifacts.json](configs/demo_artifacts.json). This GitHub Release
+asset requires neither Git LFS nor full dataset downloads.
+
+| Archive | Size | Genuine replay rows | Distribution status |
+|---|---:|---:|---|
+| `secureids-demo-cicids-v1.zip` | 1.81 MB | 4 CICIDS scenarios | Owner-authorized public release; attribution included |
+| `secureids-demo-seven-v1.zip` | 3.72 MB | All 7 scenarios | Private review only pending UNSW republication clarification |
+
+Both retain real pretrained model weights and processed sample values. They
+contain feature names, label mappings, original row indices and provenance, not
+cached predictions. The seven-scenario package has two checkpoints and seven
+rows; the CICIDS candidate has one checkpoint and four rows. Neither includes
+raw data, full train/validation/test arrays, joblib preprocessors, or historical
+checkpoint collections. Already processed rows need no preprocessing fits.
+
+Download and install the CICIDS demo (checks archive and payload hashes before writes):
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+New-Item -ItemType Directory -Force downloads | Out-Null
+Invoke-WebRequest -Uri 'https://github.com/obadah-loul/Dual-Mode-SecureIDS/releases/download/v0.1.0/secureids-demo-cicids-v1.zip' -OutFile downloads/secureids-demo-cicids-v1.zip
+.\.venv\Scripts\python.exe tools/demo_package.py install downloads/secureids-demo-cicids-v1.zip --sha256 98ab04d6a311f7a3efc2f2e0c32ac8c1b0729adfc04e3656ecde7f2eb97d61b7
+.\.venv\Scripts\python.exe -m streamlit run dashboard/app.py --server.address 127.0.0.1
 ```
 
-Do not use parent-directory or bare environment paths such as
-`..venv\Scripts\Activate.ps1`, `..\venv\Scripts\Activate.ps1`, or
-`venv\Scripts\Activate.ps1`.
+Open `http://localhost:8501`. Select one of the four CICIDS scenarios and click
+**Run IDS Replay**. Inference and Gradient × Input run locally on the
+model. UNSW selections report missing artifacts with the CICIDS-only package.
+Installation refuses different existing files; use a clean clone for a different
+bundle. Rerunning installation of the same archive is safe.
 
-Dataset audit:
-
-```bash
-python -m secureids.cli audit-data --dataset all
-```
-
-Preprocessing dry-run validation:
-
-```bash
-python -m secureids.cli preprocess --dataset all --dry-run
-```
-
-Preprocessing execution:
-
-```bash
-python -m secureids.cli preprocess --dataset all --execute
-```
-
-The preprocessing safety check must pass before centralized training design.
-
-Centralized baseline validation:
-
-```bash
-python -m secureids.cli validate-centralized-baselines
-```
-
-This validation command reads existing finalized centralized baseline artifacts
-only. It does not train, retrain, evaluate models, load full arrays, or modify
-checkpoints, metrics, histories, confusion matrices, manifests, preprocessing,
-datasets, splits, thresholds, or model architecture.
-
-FedAvg dry-run validation:
-
-```bash
-python -m secureids.cli federated-dry-run --dataset unsw --config configs/federated/unsw_nb15_fedavg.yaml
-python -m secureids.cli federated-dry-run --dataset cicids --config configs/federated/cicids2018_fedavg.yaml
-```
-
-The FedAvg dry-run validates configuration, artifact references, feature counts,
-and deterministic client distribution planning only. It does not run federated
-training, evaluate on the test set, create federated checkpoints, or create
-final federated metrics.
-
-Live dashboard:
+Authorized private reviewers who received the full bundle instead install:
 
 ```powershell
-.\.venv\Scripts\python.exe -m streamlit run dashboard\app.py
+.\.venv\Scripts\python.exe tools/demo_package.py install downloads/secureids-demo-seven-v1.zip --sha256 3844534c2ff5d7618424e5fbc129702c0bf754553012f40942cf37ed03815b2f
 ```
 
-The dashboard performs one-sample inference against saved selected hierarchical
-federated checkpoints. It does not run training, preprocessing, full evaluation,
-federated experiments, or attack/defense experiments.
+Then run the same Streamlit command; all seven scenarios are available. These
+hashes are local artifact identities, not signatures or independent assurances
+of original dataset authenticity. [SHA256SUMS-demo.txt](SHA256SUMS-demo.txt) records
+them separately. The installer has no network activity and never loads pickle.
 
-Phase A evidence files:
+[Dataset rights and citations](docs/DATASET_RIGHTS.md) explain UNB's redistribution
+terms, UNSW's academic-use grant and the outstanding republication question.
+Do not publish the complete bundle until the required rights are established.
+Eligible academic users can obtain authorized matching artifacts and build the
+same compact package locally; see [distribution instructions](docs/DEMO_DISTRIBUTION.md).
+The repository has no owner-selected blanket code/model license; no third-party
+data or checkpoint is implicitly relicensed as open source.
 
-- `results/experiments/federated_security/phase_a_signflip25_attack_defense_matrix.csv`
-- `docs/experiments/PHASE_A_SIGNFLIP25_ATTACK_DEFENSE_SUMMARY.md`
+## What the demo verifies
 
-## Reproducibility And Safety Rules
+The dashboard replays selected genuine test rows; it does not capture packets,
+execute attacks, accept unknown raw traffic, or benchmark the full dataset.
+Original test indices remain visible even though only four/seven rows are stored.
+Both deployment-mode selections use the selected federated model; the radio
+control explains deployment framing. Explainability uses real model gradients.
 
-- Fit scalers, encoders, and imputers only on training data.
-- Transform validation and test data only with train-fitted artifacts.
-- Keep raw data under `data/raw/`.
-- Keep generated processed data out of version control.
-- Do not report invented values as real results.
-- Do not claim final metrics until they are reproducible from scripts and configs.
-- Keep failed or blocked experiments documented honestly.
+`configs/selected_models.json` identifies selected reference models and their
+training snapshots. The promoted centralized CICIDS model uses EXP03 attack loss
+weight1.25 and seed999; the base CICIDS YAML is the earlier loss1.0/seed42 recipe.
+Centralized and archival weights are not required for the replay and are excluded
+from the small demo archives. Compact bundles are deliberately insufficient for
+training or historical full-split evaluation.
 
-## GitHub Policy
+Optional development checks:
 
-Do not push, create pull requests, create branches, or commit generated artifacts
-without explicit approval. Raw datasets, processed arrays, private keys,
-certificates, caches, checkpoints, model artifacts, and local scratch files must
-not be committed.
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m secureids.cli --help
+.\.venv\Scripts\python.exe -m pytest -q tests/test_demo_package.py
+```
+
+The final consistency integration passed 393 automated tests with no failures
+or skips. Earlier 377-test and 35-packaging-test records are retained separately.
+Clean compact-bundle inference, XAI and dashboard checks also passed; no research
+experiment or original-model training was repeated. Full-suite tests requiring recovered
+historical artifacts may be unavailable in a fresh minimal demo clone.
+Configuration PASS differs from execution readiness. Older audit/preprocessing
+commands can write reports and must not overwrite preserved scientific evidence.
+No training/preprocessing command is needed for the demonstration.
+
+## Evidence and limitations
+
+The authoritative public-facing summary of implementation, test evidence,
+unsupported claims and remaining blockers is
+[the project verification report](docs/PROJECT_VERIFICATION_REPORT.md).
+
+Phase A compares clean FedAvg, attacked FedAvg, and attacked Trimmed Mean for
+both datasets. Historical `signflip25` filenames describe a requested 25% setting
+that selected **one of five clients: 20% realized**. The nominal 50% archive used
+two of five: 40%. SignFlip inverted absolute floating model states, rather than
+parameter deltas. Historical protocols and numerical outputs remain unchanged.
+
+SHA-256 identifies sample, prediction, checkpoint, and schema bytes. Self-created
+hashes are fingerprints, not independent integrity assurance or origin
+authentication. The UI states this. Supplied reference hashes can detect changed
+updates; the simulator does not authenticate senders.
+
+Within each run validation selected checkpoints. Across development, observed
+test results informed later experiments and model choices, so performance is
+exploratory rather than an untouched confirmatory estimate. CICIDS uses random
+row splitting, not a temporal/site holdout. Raw identity and flow-level overlap
+remain unverified without raw data. Rare supports are small. Single-seed
+federated evidence does not establish general robustness; UNSW defense improved
+macro-F1 while worsening the missed-attack rate.
+
+Read the [historical evidence index](docs/experiments/FINAL_EVIDENCE_REPORT_INDEX.md)
+with the [recovery corrections](docs/LOCAL_RECOVERY.md). Local verification covers
+compatibility, sample inference, numerical guards, and tests; it is not a fresh
+full benchmark evaluation.

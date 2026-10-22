@@ -56,14 +56,19 @@ def test_weighted_fedavg_state_dict_aggregation_has_audit():
         torch.tensor([4.0, 6.0]),
     )
     assert outcome["verification"]["all_verified"] is True
-    assert outcome["aggregation_audit"] == {
+    audit = outcome['aggregation_audit']
+    assert {k: audit[k] for k in ('round', 'algorithm', 'client_ids', 'sample_counts', 'total_samples', 'integrity_verified')} == {
         "round": 2,
         "algorithm": "fedavg",
         "client_ids": ["client_00", "client_01"],
         "sample_counts": [1, 3],
         "total_samples": 4,
-        "integrity_verified": True,
+        "integrity_verified": False,
     }
+    assert audit['integrity_scope'] == 'local_fingerprint_self_check'
+    assert audit['fingerprints_match'] is True
+    assert audit['strategy'] == 'fedavg'
+    assert audit['sample_count_weighted'] is True
 
 
 def test_runner_integrity_hook_rejects_tampered_update():

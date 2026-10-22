@@ -54,15 +54,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="secureids",
         description=(
-            "SecureIDS V2 CLI. Current commands are safe audit utilities only; "
-            "training, model evaluation, and checkpoint generation are not "
-            "enabled here."
+            "SecureIDS V2: dataset tools, read-only planning, and explicitly "
+            "gated preprocessing/training commands. Use --help for each command."
         ),
     )
     parser.add_argument(
         "--version",
         action="version",
-        version="secureids 0.1.0 (V2 skeleton)",
+        version="secureids 0.1.0",
     )
     subparsers = parser.add_subparsers(dest="command")
 
@@ -1578,6 +1577,10 @@ def handle_federated_plan(args: argparse.Namespace) -> int:
     missing = [check for check in outcome["path_checks"] if not check["exists"]]
     print(f"- lightweight path checks: {len(outcome['path_checks'])}")
     print(f"- missing lightweight paths: {len(missing)}")
+    print(f"- validation scope: {outcome['validation_scope']}")
+    print(f"- execution ready: {outcome['execution_ready']}")
+    for blocker in outcome['execution_blockers']:
+        print(f'  - {blocker}')
     return 0
 
 
@@ -1620,6 +1623,10 @@ def handle_federated_train_hierarchical(args: argparse.Namespace) -> int:
             check for check in outcome["planned_output_checks"] if check["exists"]
         ]
         print(f"- existing planned outputs: {len(existing)}")
+        print(f"- validation scope: {outcome['validation_scope']}")
+        print(f"- execution ready: {outcome['execution_ready']}")
+        for blocker in outcome['execution_blockers']:
+            print(f'  - {blocker}')
         return 0
 
     dataset_label = "CICIDS2018" if outcome.dataset == "cicids2018" else "UNSW-NB15"

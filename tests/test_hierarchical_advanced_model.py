@@ -129,52 +129,22 @@ def test_unsw_mixed_batch_loss_works():
     assert int(loss["attack_rows"]) == 3
 
 
-def test_safety_no_real_arrays_checkpoints_metrics_or_future_outputs(monkeypatch):
+def test_safety_model_forward_does_not_read_artifacts_or_write_files(monkeypatch):
     original_open = builtins.open
 
     def guarded_open(file, *args, **kwargs):
         path_text = str(file).replace("\\", "/")
-        if "data/processed" in path_text:
-            raise AssertionError(f"test attempted to open a processed artifact: {file}")
+        mode = args[0] if args else kwargs.get("mode", "r")
+        if "data/processed" in path_text or any(c in mode for c in "wax+"):
+            raise AssertionError(f"Model forward attempted artifact IO: {file}")
         return original_open(file, *args, **kwargs)
 
+    def reject_save(*args, **kwargs):
+        raise AssertionError("Model forward attempted to save an artifact")
+
     monkeypatch.setattr(builtins, "open", guarded_open)
+    monkeypatch.setattr(torch, "save", reject_save)
+    monkeypatch.setattr(Path, "write_text", reject_save)
+    monkeypatch.setattr(Path, "write_bytes", reject_save)
     model = _tiny_model(input_dim=77, attack_head_dim=14)
-    outputs = model(torch.randn(2, 77))
-    _assert_forward_shapes(outputs, batch_size=2, attack_head_dim=14)
-
-    # After A9 (UNSW-only), the UNSW hierarchical checkpoint legitimately exists,
-    # but CICIDS-hierarchical and both FedAvg-hierarchical checkpoints must not.
-    forbidden_checkpoints = [
-        PROJECT_ROOT / "models" / "final" / "final_cicids_hierarchical.pt",
-        PROJECT_ROOT / "models" / "federated" / "fedavg_cicids_hierarchical.pt",
-        PROJECT_ROOT / "models" / "federated" / "fedavg_unsw_hierarchical.pt",
-    ]
-    assert all(not path.exists() for path in forbidden_checkpoints)
-    # No CICIDS hierarchical final metrics and no federated hierarchical metrics.
-    cicids_hier_metrics = [
-        path
-        for path in (PROJECT_ROOT / "results" / "final" / "hierarchical" / "cicids").rglob("*")
-        if (PROJECT_ROOT / "results" / "final" / "hierarchical" / "cicids").exists()
-        and path.is_file()
-    ]
-    federated_hier_metrics = [
-        path
-        for path in (PROJECT_ROOT / "results" / "federated").rglob("*hierarchical*")
-        if (PROJECT_ROOT / "results" / "federated").exists() and path.is_file()
-    ]
-    assert cicids_hier_metrics == []
-    assert federated_hier_metrics == []
-
-    for rel in [
-        ("results", "security"),
-        ("results", "attacks"),
-        ("results", "robust"),
-    ]:
-        assert not (PROJECT_ROOT.joinpath(*rel)).exists()
-
-    xai_dir = PROJECT_ROOT / "results" / "xai"
-    if xai_dir.exists():
-        assert [path for path in xai_dir.rglob("*") if path.is_file()] == []
-
-    assert not (PROJECT_ROOT / "results" / "dashboard").exists()
+    _assert_forward_shapes(model(torch.randn(2, 77)), batch_size=2, attack_head_dim=14)

@@ -8,6 +8,8 @@ DataLoaders, write metrics, or save checkpoints.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly, read_artifact_path
+
 import json
 from pathlib import Path
 from typing import Any
@@ -57,7 +59,7 @@ def _feature_names_count(path: Path) -> int | None:
 def _array_shape(path: Path) -> tuple[int, ...] | None:
     if not path.exists():
         return None
-    array = np.load(path, mmap_mode="r")
+    array = load_numpy_readonly(path, mmap_mode="r")
     try:
         return tuple(int(dim) for dim in array.shape)
     finally:
@@ -223,7 +225,7 @@ def build_hierarchical_training_plan(
     for split in SPLITS:
         split_shapes[split] = {}
         for label, pattern in ARRAY_STEMS.items():
-            path = data_dir / pattern.format(split=split)
+            path = read_artifact_path(data_dir / pattern.format(split=split))
             if not path.exists():
                 missing_arrays.append(path.name)
             split_shapes[split][label] = _array_shape(path)

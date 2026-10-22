@@ -1,4 +1,11 @@
-﻿# UNSW A9.6 Head2 Loss Weight Experiment Plan
+> **Historical record — correction dated 22 October 2026.** Current scope is defined by the
+> [project verification report](PROJECT_VERIFICATION_REPORT.md). Original task-scoped claims of no test tuning
+> do not establish an untouched test set across development: test feedback informed later
+> choices. Old plans/status statements are not evidence of current functionality.
+> Federation was simulated; privacy, TLS, and authenticated origins were not demonstrated.
+> Original measurements below are retained.
+
+# UNSW A9.6 Head2 Loss Weight Experiment Plan
 
 Task: A9.6-prep controlled UNSW `head2_loss_weight` experiment
 

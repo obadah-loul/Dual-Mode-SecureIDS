@@ -41,13 +41,21 @@ def sigmoid(logits: Any) -> np.ndarray:
 def to_probabilities(scores: Any, from_logits: bool = True) -> np.ndarray:
     """Return probabilities, applying a sigmoid when ``scores`` are logits."""
 
-    return sigmoid(scores) if from_logits else _to_numpy(scores).astype(np.float64)
+    values = _to_numpy(scores).astype(np.float64)
+    if not np.all(np.isfinite(values)):
+        raise ValueError('Scores must be finite.')
+    if not from_logits and np.any((values < 0) | (values > 1)):
+        raise ValueError('Probabilities must be in [0, 1].')
+    return sigmoid(values) if from_logits else values
 
 
 def threshold_predictions(probabilities: Any, threshold: float = 0.5) -> np.ndarray:
     """Threshold probabilities into ``{0, 1}`` integer predictions."""
 
-    return (_to_numpy(probabilities) >= threshold).astype(np.int64)
+    if isinstance(threshold, bool) or not np.isfinite(threshold) or not 0 <= threshold <= 1:
+        raise ValueError('threshold must be finite and in [0, 1].')
+    values = to_probabilities(probabilities, from_logits=False)
+    return (values >= threshold).astype(np.int64)
 
 
 def _safe_div(numerator: float, denominator: float) -> float:
@@ -57,8 +65,10 @@ def _safe_div(numerator: float, denominator: float) -> float:
 def binary_confusion_matrix(y_true: Any, y_pred: Any) -> dict[str, int]:
     """Return the confusion matrix as ``{"tp", "fp", "fn", "tn"}``."""
 
-    yt = _to_numpy(y_true).astype(np.int64)
-    yp = _to_numpy(y_pred).astype(np.int64)
+    yt = _to_numpy(y_true)
+    yp = _to_numpy(y_pred)
+    if not np.all(np.isin(yt, [0, 1])) or not np.all(np.isin(yp, [0, 1])):
+        raise ValueError('Binary labels must be exactly 0 or 1.')
     if yt.shape[0] != yp.shape[0]:
         raise ValueError("y_true and y_pred must have the same length.")
     return {

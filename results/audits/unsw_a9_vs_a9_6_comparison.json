@@ -436,7 +436,7 @@
   "fedavg_security_xai_dashboard_started": false,
   "git_operations_run": false,
   "commands_run": [
-    "Get-Content C:\\Users\\PC\\.codex\\attachments\\d86cf656-ea60-44c8-9c66-7af571013302\\pasted-text.txt",
+    "[Local instruction attachment read; private path omitted for publication. Original retained in private review evidence.]",
     "PowerShell Test-Path check for listed A9, A9.6, and planning artifacts",
     "Python read-only schema inspection for A9/A9.6 metrics, manifests, routing JSON, CSVs, and planning JSON; first pass hit a UTF-8 BOM in the A9.6 prep JSON",
     "Python read-only schema inspection rerun with utf-8-sig for JSON/CSV inputs",

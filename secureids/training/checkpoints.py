@@ -78,14 +78,12 @@ def save_checkpoint(payload: dict[str, Any], path: Path | str) -> Path:
 
 
 def load_checkpoint(path: Path | str, map_location: str = "cpu") -> dict[str, Any]:
-    """Load a checkpoint payload saved by :func:`save_checkpoint`.
+    """Load tensors and primitive metadata with PyTorch's restricted loader.
 
-    The payload contains non-tensor metadata, so ``weights_only=False`` is used
-    where the installed torch supports it (with a fallback for older versions).
+    Unsupported legacy objects fail closed. Never retry with unrestricted
+    pickle or automatically allowlist classes from an artifact.
     """
-
-    target = Path(path)
-    try:
-        return torch.load(target, map_location=map_location, weights_only=False)
-    except TypeError:  # pragma: no cover - older torch without weights_only
-        return torch.load(target, map_location=map_location)
+    payload = torch.load(Path(path), map_location=map_location, weights_only=True)
+    if not isinstance(payload, dict):
+        raise ValueError('Checkpoint must contain a dictionary payload.')
+    return payload

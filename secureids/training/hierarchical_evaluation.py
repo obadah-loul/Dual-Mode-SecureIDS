@@ -120,6 +120,19 @@ def evaluate_hierarchical(
     y_binary = collected["y_binary"]
     y_attack_family = collected["y_attack_family"]
     mask = collected["attack_family_mask"]
+    if attack_logits.ndim != 2 or attack_logits.shape[1] != len(class_names):
+        raise ValueError('Family logits must match the fixed taxonomy.')
+    rows = attack_logits.shape[0]
+    if any(np.asarray(a).shape != (rows,) for a in (binary_logits, y_binary, y_attack_family, mask)):
+        raise ValueError('Hierarchical outputs, labels, and masks must align.')
+    if not np.isfinite(attack_logits).all() or not np.isfinite(binary_logits).all():
+        raise ValueError('Hierarchical logits must be finite.')
+    if not np.isin(y_binary, [0, 1]).all() or not np.array_equal(mask, y_binary):
+        raise ValueError('Family mask must identify exactly the binary attack rows.')
+    if np.any(y_attack_family[mask == 0] != -1):
+        raise ValueError('Benign family labels must use ignore_index=-1.')
+    if not np.isin(y_attack_family[mask == 1], np.arange(len(class_names))).all():
+        raise ValueError('Attack labels must belong to the fixed family taxonomy.')
     num_classes = int(attack_logits.shape[1])
 
     # --- Head 1: binary ---

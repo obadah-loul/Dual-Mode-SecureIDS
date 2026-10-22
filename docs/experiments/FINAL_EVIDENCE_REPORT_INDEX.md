@@ -1,6 +1,12 @@
+> Recovery correction (22 October 2026): read [scientific corrections](../LOCAL_RECOVERY.md) alongside this historical report. Nominal SignFlip25 realized 1/5 = 20%; stored numbers below are unchanged.
+
 # Final Evidence Report Index
 
 ## Purpose
+
+For the current, evidence-qualified interpretation use
+[PROJECT_VERIFICATION_REPORT.md](../PROJECT_VERIFICATION_REPORT.md).
+Historical reports and matrices below retain their original numeric results.
 
 This index ties together the final SecureIDS V2 evidence for reporting and demo
 use. It identifies the selected clean hierarchical federated baselines, the
@@ -12,21 +18,20 @@ artifacts, and final reporting boundaries.
 
 The final reported federated security matrix is Phase A only:
 
-- Attack: SignFlip 25%.
+- Attack: historical SignFlip25 configuration (requested 25%; realized 1/5 = 20%).
 - Aggregators: FedAvg versus Trimmed Mean.
 - Datasets: UNSW-NB15 and CICIDS2018.
 
 Phase B 50% malicious-client work is stopped. Gaussian and Scaling attacks were
 not run for the final matrix.
 
-TLS-based secure transport is a future deployment extension. The final
-prototype focuses on federated robustness, SHA-256 integrity verification, and
-live IDS inference.
+TLS transport is not implemented. The prototype contains simulated federated
+robustness experiments, SHA-256 fingerprint records (not authenticated origin),
+and real one-row inference against saved processed benchmark examples.
 
-Gaussian Noise and Scaling are additional Byzantine attack types/future
-extensions. The finalized robustness evidence focuses on Phase A SignFlip 25%
-for a clear FedAvg versus Trimmed Mean comparison across CICIDS2018 and
-UNSW-NB15.
+Gaussian Noise and Scaling were not part of the final evidence. The Phase A
+FedAvg versus Trimmed Mean comparison uses the historical nominal SignFlip25
+label, but five clients yielded 20% realized malicious participation.
 
 Phase B 50% is an extreme stress-test setting and is not part of the finalized
 reported robustness matrix.
@@ -92,7 +97,7 @@ training, preprocessing, evaluation, or experiment results.
 
 ## Final Phase A Security / Robustness Matrix
 
-Use the Phase A SignFlip 25% evidence as the final reported attack/defense
+Use the Phase A nominal SignFlip25 (20% realized) evidence as the final reported attack/defense
 matrix:
 
 `results/experiments/federated_security/phase_a_signflip25_attack_defense_matrix.csv`
@@ -101,8 +106,9 @@ Report/demo summary:
 
 `docs/experiments/PHASE_A_SIGNFLIP25_ATTACK_DEFENSE_SUMMARY.md`
 
-This matrix compares clean hierarchical FedAvg, SignFlip 25% under FedAvg, and
-SignFlip 25% under Trimmed Mean for UNSW-NB15 and CICIDS2018.
+The matrix compares clean hierarchical FedAvg, full-state SignFlip (nominal
+25%, realized 20%) under FedAvg, and that attack under Trimmed Mean for both
+datasets. These historical experimental metrics were not independently rerun.
 
 ## Integrity and Tamper-Evidence
 
@@ -111,9 +117,12 @@ evidence for federated client updates.
 
 Important interpretation:
 
-- SHA-256 update hashes provide tamper-evidence and integrity tracking.
-- SHA-256 is not the Byzantine defense itself.
-- Trimmed Mean is the Byzantine robustness defense evaluated in Phase A.
+- Historical SHA-256 update hashes are self-computed fingerprints, not independent
+  authentication or proof of trustworthy client origin.
+- Comparing to an independently supplied trusted record can detect changes to
+  recorded bytes; historical self-checks alone cannot establish this guarantee.
+- Trimmed Mean was the evaluated robust aggregator; its outcomes do not establish
+  general Byzantine resilience or deployment privacy.
 
 ## Supporting Reports and Manifests
 
@@ -135,7 +144,7 @@ The following artifacts are not part of the main final reported evidence:
 - Standalone binary FedAvg artifacts.
 - UNSW rounds=40 clean improvement evidence.
 - UNSW safety-gated rounds=40 failed selector evidence.
-- UNSW SignFlip 50% FedAvg stress-test result.
+- UNSW nominal SignFlip50 FedAvg archive: 2 of 5 = 40% realized.
 - Legacy/pre-A8 UNSW binary traces.
 - Unrun Phase B 50% configs.
 - Gaussian Noise and Scaling attacks, which were not run for final reporting.
@@ -147,12 +156,15 @@ work if specifically asked.
 
 ## Current Limitations
 
-- Dashboard live inference is implemented for selected benchmark attack
-  scenarios, including one-row inference, model routing, SHA-256 hashes,
-  Phase A robustness evidence, and safety/limitations text.
+- The dashboard runs model inference on a small set of genuine, preprocessed
+  benchmark rows and displays saved robustness evidence. It does not sniff
+  packets, classify arbitrary raw traffic, operate a federated network or
+  independently verify historical dataset provenance.
 - XAI is implemented as local Gradient x Input attribution for the live demo.
   Do not claim SHAP or LIME unless separately implemented later.
-- Phase A attack/defense rows do not report rare-class macro-F1.
+- Original Phase A attack/defense rows omit rare-class macro-F1. A separately
+  labeled [derived supplement](../recovery/rare_class_supplement.csv) uses saved
+  per-class scores; the original matrix remains unchanged.
 - TLS-based secure transport is a future deployment extension, not a final
   implemented claim.
 - 50% malicious-client, Gaussian Noise, and Scaling experiments are optional
@@ -163,13 +175,12 @@ work if specifically asked.
 1. Show dual-mode SecureIDS framing.
 2. Show selected clean hierarchical federated baselines for UNSW-NB15 and
    CICIDS2018.
-3. Show the Phase A SignFlip 25% attack/defense matrix.
-4. Explain that SignFlip simulates malicious federated clients flipping model
-   updates.
-5. Explain that 25% malicious means one malicious client out of five.
-6. Explain that FedAvg is vulnerable and Trimmed Mean is the robust aggregation
-   defense.
-7. Explain SHA-256 as integrity/tamper-evidence, not the defense itself.
+3. Show the Phase A matrix, labeled requested 25% / realized 20%.
+4. Explain that historical SignFlip scales absolute floating client model states.
+5. Explain that five configured clients and floor rounding selected one malicious
+   client (20%); no 25%-realized result was obtained.
+6. Explain the observed FedAvg/Trimmed Mean tradeoff without broad guarantees.
+7. Explain historical SHA-256 records as fingerprints, not authenticated origins.
 8. Mention that UNSW-NB15 is harder and has a more nuanced defense tradeoff.
 9. Mention that CICIDS2018 shows strong near-clean recovery with Trimmed Mean.
 10. Do not show archive-only artifacts unless asked.
@@ -178,8 +189,8 @@ work if specifically asked.
 
 - Build the final report/demo around the selected clean baselines, centralized
   reference comparison, and Phase A security matrix.
-- Keep SHA-256 described as integrity/tamper-evidence and Trimmed Mean described
-  as the robust aggregation defense.
+- Distinguish SHA-256 fingerprints from verification against an independent
+  trusted reference; describe Trimmed Mean as the tested robust aggregator.
 - Add an explicit limitations slide or section for rare-class attack/defense
   gaps, TLS as future deployment hardening, Gaussian/Scaling as optional future
   attacks, and stopped Phase B 50% work.

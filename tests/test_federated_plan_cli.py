@@ -28,13 +28,15 @@ def test_federated_plan_dry_run_writes_nothing():
         PROJECT_ROOT / plan.raw["outputs"]["audit_json"],
     ]
     before = {path: path.exists() for path in planned_paths}
+    before_bytes = {p: p.read_bytes() for p in planned_paths if p.is_file()}
 
     result = main(["federated-plan", "--config", CONFIG])
 
     after = {path: path.exists() for path in planned_paths}
     assert result == 0
     assert after == before
-    assert not any(after.values())
+    # Existing evidence is legitimate; the dry-run must leave its bytes unchanged.
+    assert {p: p.read_bytes() for p in planned_paths if p.is_file()} == before_bytes
 
 
 def test_federated_plan_execute_is_refused():

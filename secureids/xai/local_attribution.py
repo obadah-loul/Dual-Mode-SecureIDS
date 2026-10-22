@@ -24,6 +24,8 @@ def _as_one_sample_tensor(input_tensor: torch.Tensor) -> torch.Tensor:
         tensor = tensor.unsqueeze(0)
     if tensor.ndim != 2 or int(tensor.shape[0]) != 1:
         raise ValueError("Gradient x Input expects exactly one sample.")
+    if not torch.isfinite(tensor).all():
+        raise ValueError('Attribution input must be finite.')
     return tensor
 
 
@@ -91,12 +93,16 @@ def _compute_gradient_x_input(
     x = input_tensor.detach().clone().requires_grad_(True)
     outputs = model(x)
     score = score_selector(outputs).reshape(())
+    if not torch.isfinite(score):
+        raise ValueError('Attribution score must be finite.')
     score.backward()
 
     if x.grad is None:
         raise RuntimeError("Input gradients were not computed.")
 
     attributions = (x.grad.detach()[0] * x.detach()[0]).cpu()
+    if not torch.isfinite(attributions).all():
+        raise ValueError('Attributions must be finite.')
     input_values = x.detach()[0].cpu()
     model.zero_grad(set_to_none=True)
     return attributions, input_values

@@ -1,10 +1,13 @@
+> Recovery correction (22 October 2026): read [scientific corrections](../LOCAL_RECOVERY.md) alongside this historical report. Nominal SignFlip25 realized 1/5 = 20%; stored numbers below are unchanged.
+
 # Centralized vs Federated Comparison
 
 ## Purpose
 
-This documentation-only table compares the centralized hierarchical IDS
-reference against the selected clean hierarchical federated baselines for
-UNSW-NB15 and CICIDS2018.
+This table presents **saved historical metrics**, comparing centralized
+hierarchical references with selected clean hierarchical federated simulations
+for UNSW-NB15 and CICIDS2018. The metrics were not recomputed during recovery;
+test-informed research selection and dataset limitations apply.
 
 The values below are copied from existing saved metric artifacts only. No new
 training, preprocessing, evaluation, federated experiment, or attack/defense
@@ -38,10 +41,12 @@ Selected clean hierarchical federated metrics:
 
 - Centralized mode is the reference setting when traffic data can be collected
   in a trusted central environment.
-- Federated mode is the privacy-preserving setting where raw traffic data is not
-  shared between clients or sites.
-- The selected clean federated baselines remain close to the centralized
-  hierarchical references while supporting the federated deployment story.
+- Federated results were produced by a **single-process simulation** of
+  distributed client training over locally available processed arrays. This is
+  not a real multi-site deployment or a verified confidentiality guarantee.
+- The saved federated macro-F1 scores can be compared to the centralized
+  reference scores for these recorded exploratory conditions, but do not
+  establish privacy-preserving production deployment.
 - UNSW-NB15 remains the harder dataset, with a larger attack-family and
   rare-class gap between centralized and federated settings.
 - CICIDS2018 shows stronger clean federated recovery relative to its centralized

@@ -1,19 +1,20 @@
-# Phase A SignFlip 25% Hierarchical Federated Attack/Defense Summary
+> Recovery correction (22 October 2026): read [scientific corrections](../LOCAL_RECOVERY.md) alongside this historical report. Nominal SignFlip25 realized 1/5 = 20%; stored numbers below are unchanged.
+
+# Phase A Full-State SignFlip: Requested 25%, Realized 20%
 
 ## Status
 
-Phase A is accepted as complete.
-
-This is the minimum professional hierarchical federated attack/defense evidence
-for the current SecureIDS V2 reporting and demo scope.
+The historical Phase A experiment series was recorded as completed. It is exploratory
+evidence, not independent confirmation of a production-ready defense. No training
+or benchmark re-evaluation was performed during the October 2026 recovery.
 
 ## Purpose
 
 Phase A compares three hierarchical federated conditions:
 
 - Clean hierarchical FedAvg baseline.
-- SignFlip attack with 25% malicious clients under FedAvg.
-- SignFlip attack with 25% malicious clients under Trimmed Mean defense.
+- Full-state SignFlip with *requested* 25% malicious clients, *realized* 20%, under FedAvg.
+- The same requested/realized attack setting under Trimmed Mean aggregation.
 
 The comparison is reported for both target datasets:
 
@@ -26,17 +27,26 @@ This is simulated federated Byzantine attack testing, not real hacking. The
 malicious behavior is introduced inside the federated-learning experiment to
 measure robustness under controlled conditions.
 
-A 25% malicious-client fraction means 1 out of 5 federated clients is malicious.
-SignFlip means the malicious client flips or scales its model update to poison
-aggregation. FedAvg is the normal vulnerable baseline aggregator. Trimmed Mean is
-the robust aggregation defense.
+The configuration requests `malicious_fraction: 0.25`, but the implementation
+uses floor rounding with five configured clients. Therefore **one of five clients
+was malicious (20% realized, not 25%)**. The historical SignFlip implementation
+scales the malicious client's **absolute floating model state**, not its
+parameter delta from the global state. FedAvg is the comparison aggregator;
+Trimmed Mean is the evaluated robust aggregation technique, not a security guarantee.
 
-SHA-256 integrity provides tamper-evidence for update integrity. It is not the
-Byzantine defense itself; the defense evaluated here is Trimmed Mean.
+The original update hashes were generated and checked within the same simulation.
+They are useful fingerprints but **do not independently authenticate client origin
+or establish that a received update was untampered**. SHA-256 hashing is not the
+Byzantine-robust aggregation technique.
 
 ## Phase A Result Matrix
 
-| Dataset | Scenario | Attack | Malicious % | Aggregator | Binary macro-F1 | Attack-family macro-F1 | Rare-class macro-F1 | Missed-as-benign | Best round | Status |
+**Interpretation:** `0.25` in the table is the **requested configuration**,
+not the realized fraction. For all attacked rows shown, the recorded realized
+rate was 1/5 = 0.20. All historical metrics are preserved as originally saved.
+These are test-informed exploratory observations, not untouched confirmatory estimates.
+
+| Dataset | Scenario | Attack | Requested fraction | Aggregator | Binary macro-F1 | Attack-family macro-F1 | Rare-class macro-F1 | Missed-as-benign | Best round | Status |
 | --- | --- | --- | ---: | --- | ---: | ---: | --- | ---: | ---: | --- |
 | UNSW-NB15 | clean_baseline | none | 0.00 | FedAvg | 0.882305 | 0.475889 | 0.307115 | 0.062097 | 16 | selected_clean_baseline |
 | UNSW-NB15 | signflip25_attacked_fedavg | SignFlip | 0.25 | FedAvg | 0.824630 | 0.378122 | not_reported | 0.049479 | 3 | completed_phase_a |
@@ -98,9 +108,13 @@ Trimmed Mean strongly recovered CICIDS2018 performance near the clean baseline.
 
 ## Main Conclusion
 
-Phase A demonstrates that malicious SignFlip clients degrade standard FedAvg and
-that Trimmed Mean can improve robustness. The defense is strongest on CICIDS2018
-and more nuanced on UNSW-NB15 due to class imbalance and safety tradeoffs.
+Within the saved single-seed experiment conditions, attacked FedAvg had lower
+macro-F1 than the selected clean baseline, and attacked Trimmed Mean recovered
+macro-F1 in several comparisons. UNSW-NB15 also had a higher missed-as-benign
+rate under Trimmed Mean. This supports a qualified **observed tradeoff**, not
+a general robustness or safety guarantee. The recorded settings used IID splits,
+full-state SignFlip and 20% realized malicious clients; there is no clean
+Trimmed Mean control in this Phase A matrix.
 
 ## Phase B / C Notes
 
@@ -123,9 +137,16 @@ used as the final hierarchical attack/defense target:
 
 ## Reporting / Demo Use
 
-Use this Phase A summary as the minimum attack/defense evidence in final
-reporting and demo.
+Use this Phase A summary only alongside [the verification and claims report](../PROJECT_VERIFICATION_REPORT.md)
+and [the recovery corrections](../LOCAL_RECOVERY.md).
 
 Keep the clean baseline decision documents as the selected clean references.
 Do not claim Trimmed Mean solves all safety issues; state the nuanced finding
 honestly.
+
+## Supplemental rare-family reporting
+
+The null/not_reported entries above remain the original saved evidence. The
+[derived rare-class supplement](../recovery/rare_class_supplement.csv) computes
+means from the saved per-class F1 values using frozen canonical family names.
+It is a supplemental calculation, not new predictions or benchmark evaluation.

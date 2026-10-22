@@ -7,6 +7,8 @@ trains, evaluates, saves checkpoints, or writes final metrics.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import json
 import math
 from pathlib import Path
@@ -209,9 +211,9 @@ def _count_train_labels(
     data_dir: Path,
     attack_head_dim: int,
 ) -> tuple[dict[str, int], dict[str, int], dict[str, Any]]:
-    y_binary = np.load(data_dir / "y_binary_train.npy", mmap_mode="r")
-    y_attack = np.load(data_dir / "y_attack_family_train.npy", mmap_mode="r")
-    mask = np.load(data_dir / "attack_family_mask_train.npy", mmap_mode="r")
+    y_binary = load_numpy_readonly(data_dir / "y_binary_train.npy", mmap_mode="r")
+    y_attack = load_numpy_readonly(data_dir / "y_attack_family_train.npy", mmap_mode="r")
+    mask = load_numpy_readonly(data_dir / "attack_family_mask_train.npy", mmap_mode="r")
     try:
         if y_binary.ndim != 1 or y_attack.ndim != 1 or mask.ndim != 1:
             raise HierarchicalClassWeightStrategyError("Train labels/mask must be 1D.")

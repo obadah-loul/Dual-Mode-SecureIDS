@@ -8,12 +8,15 @@ or create checkpoints.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+from secureids.preprocessing.identity import verify_reconstruction_identity, verify_unsw_source_roles
 import pandas as pd
 
 try:
@@ -155,12 +158,6 @@ def execute_dataset(
     expected_feature_dim = int(hierarchical_config["expected_current_feature_dim"])
     binary_dir = project_path(project_root, hierarchical_config["current_binary_processed_dir"])
     output_dir = project_path(project_root, hierarchical_config["planned_output_dir"])
-    ensure_output_dir_available(
-        output_dir,
-        project_root=project_root,
-        dataset=dataset,
-        overwrite=overwrite,
-    )
 
     feature_names_path = project_path(
         project_root,
@@ -175,6 +172,10 @@ def execute_dataset(
 
     taxonomy_info = build_taxonomy_info(taxonomy)
     source_shapes = load_binary_source_shapes(binary_dir, expected_feature_dim)
+    raw_paths = (discover_csv_files(project_path(project_root, binary_config['raw_dir']))
+                 if dataset == 'cicids2018' else
+                 [project_path(project_root, binary_config[k]) for k in ('train_file', 'test_file')])
+    verify_reconstruction_identity(binary_dir, raw_paths, binary_config['split'])
 
     if dataset == "cicids2018":
         labels = reconstruct_cicids_labels(project_root, taxonomy_info, binary_config)
@@ -189,6 +190,7 @@ def execute_dataset(
         )
 
     print(f"[{dataset}] creating output directory", flush=True)
+    ensure_output_dir_available(output_dir, project_root=project_root, dataset=dataset, overwrite=overwrite)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"[{dataset}] writing feature arrays copied from accepted binary outputs", flush=True)
@@ -453,6 +455,7 @@ def reconstruct_unsw_labels(
     raw_test = pd.read_csv(test_file)
     raw_train.columns = [str(column).strip() for column in raw_train.columns]
     raw_test.columns = [str(column).strip() for column in raw_test.columns]
+    verify_unsw_source_roles(raw_train, raw_test, binary_config)
 
     y_official_train = raw_train[target_column].map(
         lambda value: map_unsw_binary(value, normal_value, attack_value)
@@ -570,7 +573,7 @@ def verify_binary_alignment(
     for split in SPLITS:
         generated = labels[split]["y_binary"]
         existing_path = binary_dir / f"y_{split}.npy"
-        existing = np.load(existing_path, mmap_mode="r")
+        existing = load_numpy_readonly(existing_path, mmap_mode="r")
         matches = bool(generated.shape == existing.shape and np.array_equal(generated, existing))
         checks[split] = {
             "matches": matches,
@@ -586,8 +589,8 @@ def load_binary_source_shapes(binary_dir: Path, expected_feature_dim: int) -> di
     for split in SPLITS:
         x_path = binary_dir / f"X_{split}.npy"
         y_path = binary_dir / f"y_{split}.npy"
-        x = np.load(x_path, mmap_mode="r")
-        y = np.load(y_path, mmap_mode="r")
+        x = load_numpy_readonly(x_path, mmap_mode="r")
+        y = load_numpy_readonly(y_path, mmap_mode="r")
         if x.ndim != 2 or x.shape[1] != expected_feature_dim:
             raise HierarchicalPreprocessingError(
                 f"Unexpected {x_path} shape {x.shape}; expected feature dim {expected_feature_dim}"
@@ -692,7 +695,7 @@ def build_split_summary(
 ) -> dict[str, Any]:
     summary: dict[str, Any] = {}
     for split in SPLITS:
-        x_shape = list(np.load(output_dir / f"X_{split}.npy", mmap_mode="r").shape)
+        x_shape = list(load_numpy_readonly(output_dir / f"X_{split}.npy", mmap_mode="r").shape)
         y_binary = labels[split]["y_binary"]
         y_attack = labels[split]["y_attack_family"]
         mask = labels[split]["attack_family_mask"]

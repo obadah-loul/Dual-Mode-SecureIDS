@@ -8,6 +8,8 @@ artifacts are references only.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import csv
 import inspect
 import json
@@ -805,12 +807,12 @@ def run_fedavg_training(
     cuda_available = bool(torch.cuda.is_available())
 
     paths = validation["paths"]
-    x_train = np.load(paths["X_train"], mmap_mode="r")
-    y_train = np.load(paths["y_train"], mmap_mode="r")
-    x_val = np.load(paths["X_val"], mmap_mode="r")
-    y_val = np.load(paths["y_val"], mmap_mode="r")
-    x_test = np.load(paths["X_test"], mmap_mode="r")
-    y_test = np.load(paths["y_test"], mmap_mode="r")
+    x_train = load_numpy_readonly(paths["X_train"], mmap_mode="r")
+    y_train = load_numpy_readonly(paths["y_train"], mmap_mode="r")
+    x_val = load_numpy_readonly(paths["X_val"], mmap_mode="r")
+    y_val = load_numpy_readonly(paths["y_val"], mmap_mode="r")
+    x_test = load_numpy_readonly(paths["X_test"], mmap_mode="r")
+    y_test = load_numpy_readonly(paths["y_test"], mmap_mode="r")
 
     client_indices = plan_stratified_iid_client_indices(
         y_train=y_train,

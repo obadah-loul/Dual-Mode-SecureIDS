@@ -7,6 +7,8 @@ evaluate on test data, create checkpoints, or create final metrics.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly, read_artifact_path
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -118,6 +120,7 @@ def _validate_processed_paths(
         "label_mapping": str(processed_dir / "label_mapping.json"),
         "preprocessing_manifest": str(processed_dir / "preprocessing_manifest.json"),
     }
+    processed_paths = {k: str(read_artifact_path(v)) for k, v in processed_paths.items()}
     _record_check(checks, "processed_dir_exists", processed_dir.exists(), str(processed_dir))
     for name, path_text in processed_paths.items():
         if name == "processed_dir":
@@ -143,7 +146,7 @@ def _validate_processed_paths(
     x_train_path = Path(processed_paths["X_train"])
     if x_train_path.exists():
         try:
-            x_train = np.load(x_train_path, mmap_mode="r")
+            x_train = load_numpy_readonly(x_train_path, mmap_mode="r")
             x_train_shape = [int(value) for value in x_train.shape]
             _record_check(
                 checks,
@@ -318,7 +321,7 @@ def run_fedavg_dry_run(
     y_train_path = Path(processed_paths["y_train"])
     if y_train_path.exists():
         try:
-            y_train = np.load(y_train_path, mmap_mode="r")
+            y_train = load_numpy_readonly(y_train_path, mmap_mode="r")
             train_label_count = int(y_train.shape[0])
             client_distribution = plan_stratified_iid_client_distribution(
                 y_train=y_train,

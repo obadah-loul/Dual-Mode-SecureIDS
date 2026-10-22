@@ -85,7 +85,8 @@ def test_exp02_seed_outputs_are_isolated(seed: int) -> None:
     assert not config.outputs["result_dir"].startswith("results/final/")
     assert config.outputs["checkpoint"] != "models/final/final_cicids_hierarchical.pt"
     assert config.outputs["result_dir"] != "results/final/hierarchical/cicids"
-    assert not (REPO_ROOT / config.outputs["checkpoint"]).exists()
+    # Completed experiments may already have checkpoints. Config loading must preserve them.
+    assert config.outputs["checkpoint"].endswith(f"{experiment}.pt")
 
 
 def test_exp02_seed_manifest_paths_are_unique() -> None:

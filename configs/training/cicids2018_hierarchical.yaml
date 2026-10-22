@@ -1,3 +1,5 @@
+# Historical baseline recipe. Promoted centralized model: EXP03 loss=1.25, seed999.
+# See configs/selected_models.json and results/final/hierarchical/cicids/training_config_snapshot.yaml.
 dataset: cicids2018
 task: hierarchical
 status: task_a6_design_only_full_training_not_run

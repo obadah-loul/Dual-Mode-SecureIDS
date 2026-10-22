@@ -8,6 +8,8 @@ It does not train, backpropagate, save checkpoints, or create final metrics.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly, read_artifact_path
+
 import json
 import math
 import sys
@@ -152,10 +154,10 @@ def _load_split_arrays(
 ) -> dict[str, np.ndarray]:
     mode = "r" if mmap else None
     return {
-        "X": np.load(data_dir / f"X_{split}.npy", mmap_mode=mode),
-        "y_binary": np.load(data_dir / f"y_binary_{split}.npy", mmap_mode=mode),
-        "y_attack_family": np.load(data_dir / f"y_attack_family_{split}.npy", mmap_mode=mode),
-        "attack_family_mask": np.load(data_dir / f"attack_family_mask_{split}.npy", mmap_mode=mode),
+        "X": load_numpy_readonly(data_dir / f"X_{split}.npy", mmap_mode=mode),
+        "y_binary": load_numpy_readonly(data_dir / f"y_binary_{split}.npy", mmap_mode=mode),
+        "y_attack_family": load_numpy_readonly(data_dir / f"y_attack_family_{split}.npy", mmap_mode=mode),
+        "attack_family_mask": load_numpy_readonly(data_dir / f"attack_family_mask_{split}.npy", mmap_mode=mode),
     }
 
 
@@ -902,7 +904,7 @@ def _build_data_summary(
     class_names: list[str],
     warnings: list[str],
 ) -> tuple[dict[str, Any], dict[str, Any], list[str]]:
-    missing_files = [name for name in REQUIRED_ARRAYS if not (data_dir / name).exists()]
+    missing_files = [name for name in REQUIRED_ARRAYS if not read_artifact_path(data_dir / name).exists()]
     blocking: list[str] = []
     if not data_dir.is_dir():
         blocking.append(f"Hierarchical processed folder is missing: {data_dir}")

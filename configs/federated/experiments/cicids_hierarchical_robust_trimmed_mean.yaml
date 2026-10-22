@@ -86,3 +86,11 @@ safety:
   a11_used_as_final: false
   no_test_tuning: true
   do_not_rerun_dataset_optimization: true
+
+# Consistent reporting for future runs; historical metrics are unchanged.
+rare_classes:
+  - DDoS-LOIC-UDP
+  - DoS-Slowloris
+  - Web-BruteForce
+  - Web-XSS
+  - SQL-Injection

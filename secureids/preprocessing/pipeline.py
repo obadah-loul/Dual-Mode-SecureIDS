@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import csv
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+from secureids.artifacts import sha256_file
+from secureids.preprocessing.identity import source_identities, verify_unsw_source_roles
 from numpy.lib.format import open_memmap
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
@@ -292,6 +296,7 @@ def execute_cicids_preprocessing(
     raw_dir = project_path(project_root, values["raw_dir"])
     output_dir = project_path(project_root, values["output_dir"])
     artifact_path = project_path(project_root, values["artifact_path"])
+    guard_preprocessing_outputs(output_dir, artifact_path)
     output_dir.mkdir(parents=True, exist_ok=True)
     artifact_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -429,6 +434,7 @@ def execute_unsw_preprocessing(
     test_file = project_path(project_root, values["test_file"])
     output_dir = project_path(project_root, values["output_dir"])
     artifact_path = project_path(project_root, values["artifact_path"])
+    guard_preprocessing_outputs(output_dir, artifact_path)
     output_dir.mkdir(parents=True, exist_ok=True)
     artifact_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -440,6 +446,7 @@ def execute_unsw_preprocessing(
     raw_test = pd.read_csv(test_file)
     raw_train.columns = strip_column_whitespace(list(raw_train.columns))
     raw_test.columns = strip_column_whitespace(list(raw_test.columns))
+    verify_unsw_source_roles(raw_train, raw_test, values)
 
     required_columns = {target_column, *drop_columns, *categorical_columns}
     missing_columns = sorted(required_columns - set(raw_train.columns))
@@ -501,9 +508,9 @@ def execute_unsw_preprocessing(
         "output_labels": {"0": "Benign / Normal", "1": "Attack"},
     }
     y_arrays = {
-        "train": np.load(output_dir / "y_train.npy", mmap_mode="r"),
-        "val": np.load(output_dir / "y_val.npy", mmap_mode="r"),
-        "test": np.load(output_dir / "y_test.npy", mmap_mode="r"),
+        "train": load_numpy_readonly(output_dir / "y_train.npy", mmap_mode="r"),
+        "val": load_numpy_readonly(output_dir / "y_val.npy", mmap_mode="r"),
+        "test": load_numpy_readonly(output_dir / "y_test.npy", mmap_mode="r"),
     }
     split_summary = build_split_summary(y_arrays)
     manifest = build_execution_manifest(
@@ -809,6 +816,11 @@ def build_split_summary(y_arrays: dict[str, np.ndarray]) -> dict[str, Any]:
     return summary
 
 
+def guard_preprocessing_outputs(output_dir, artifact_path):
+    if artifact_path.exists() or (output_dir.exists() and any(output_dir.iterdir())):
+        raise FileExistsError('Preprocessing outputs already exist; use new output and preprocessor paths.')
+
+
 def build_execution_manifest(
     dataset: str,
     config: PreprocessingConfig,
@@ -839,6 +851,8 @@ def build_execution_manifest(
         random_seed=get_random_seed(config.values),
     )
     manifest.update({
+        'source_identities': source_identities(input_paths),
+        'processed_array_sha256': {p.name: sha256_file(p) for p in sorted(output_dir.glob('*.npy'))},
         "task": config.values.get("task"),
         "feature_count": len(feature_names),
         "split_summary": split_summary,

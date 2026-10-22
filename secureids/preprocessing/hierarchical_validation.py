@@ -6,6 +6,8 @@ This module validates A3 outputs and writes readiness reports only.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -384,12 +386,12 @@ def validate_split(
     old_y_path = binary_base / f"y_{split}.npy"
     old_x_path = binary_base / f"X_{split}.npy"
 
-    X = np.load(x_path, mmap_mode="r")
-    yb = np.load(yb_path, mmap_mode="r")
-    ya = np.load(ya_path, mmap_mode="r")
-    mask = np.load(mask_path, mmap_mode="r")
-    old_y = np.load(old_y_path, mmap_mode="r")
-    old_x = np.load(old_x_path, mmap_mode="r")
+    X = load_numpy_readonly(x_path, mmap_mode="r")
+    yb = load_numpy_readonly(yb_path, mmap_mode="r")
+    ya = load_numpy_readonly(ya_path, mmap_mode="r")
+    mask = load_numpy_readonly(mask_path, mmap_mode="r")
+    old_y = load_numpy_readonly(old_y_path, mmap_mode="r")
+    old_x = load_numpy_readonly(old_x_path, mmap_mode="r")
 
     x_2d = X.ndim == 2
     y_1d = yb.ndim == 1 and ya.ndim == 1

@@ -1,0 +1,31 @@
+{
+  "format_version": 1,
+  "publication_status": "cicids_published_unsw_private",
+  "bundles": [
+    {
+      "file": "secureids-demo-cicids-v1.zip",
+      "bytes": 1811548,
+      "sha256": "98ab04d6a311f7a3efc2f2e0c32ac8c1b0729adfc04e3656ecde7f2eb97d61b7",
+      "payload_files": 11,
+      "scenarios": 4,
+      "datasets": [
+        "cicids2018"
+      ],
+      "distribution_status": "owner_authorized_cicids_public_release_with_attribution",
+      "download_url": "https://github.com/obadah-loul/Dual-Mode-SecureIDS/releases/download/v0.1.0/secureids-demo-cicids-v1.zip"
+    },
+    {
+      "file": "secureids-demo-seven-v1.zip",
+      "bytes": 3719669,
+      "sha256": "3844534c2ff5d7618424e5fbc129702c0bf754553012f40942cf37ed03815b2f",
+      "payload_files": 20,
+      "scenarios": 7,
+      "datasets": [
+        "cicids2018",
+        "unsw_nb15"
+      ],
+      "distribution_status": "private_review_only_pending_unsw_permission",
+      "download_url": null
+    }
+  ]
+}

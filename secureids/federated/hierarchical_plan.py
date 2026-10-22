@@ -444,6 +444,8 @@ def run_hierarchical_federated_plan_dry_run(
     """Validate a future hierarchical federated config without writing files."""
 
     plan = load_hierarchical_federated_plan(config_path, project_root=project_root)
+    from secureids.federated.hierarchical_training import execution_readiness_errors
+    blockers = execution_readiness_errors(plan, project_root)
     path_checks = [
         {
             "name": name,
@@ -454,6 +456,9 @@ def run_hierarchical_federated_plan_dry_run(
     ]
     return {
         "status": "PASS",
+        "validation_scope": 'configuration',
+        "execution_ready": not blockers,
+        "execution_blockers": blockers,
         "config_path": str(plan.path),
         "dataset": plan.dataset,
         "protocol_label": plan.raw["protocol_label"],

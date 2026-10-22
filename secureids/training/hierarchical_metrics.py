@@ -36,13 +36,20 @@ def multiclass_confusion_matrix(
 ) -> np.ndarray:
     """Return the ``num_classes x num_classes`` confusion matrix (rows=true)."""
 
-    yt = _to_numpy(y_true).reshape(-1).astype(np.int64)
-    yp = _to_numpy(y_pred).reshape(-1).astype(np.int64)
+    if isinstance(num_classes, bool) or not isinstance(num_classes, (int, np.integer)) or num_classes <= 0:
+        raise ValueError('num_classes must be a positive integer.')
+    yt = _to_numpy(y_true).reshape(-1)
+    yp = _to_numpy(y_pred).reshape(-1)
+    for labels in (yt, yp):
+        if not np.all(np.isfinite(labels)) or np.any(labels != np.floor(labels)):
+            raise ValueError('Class labels must be finite integers.')
+        if np.any((labels < 0) | (labels >= num_classes)):
+            raise ValueError('Class labels are outside the fixed class set.')
+    yt, yp = yt.astype(np.int64), yp.astype(np.int64)
     if yt.shape[0] != yp.shape[0]:
         raise ValueError("y_true and y_pred must have the same length.")
     cm = np.zeros((int(num_classes), int(num_classes)), dtype=np.int64)
-    valid = (yt >= 0) & (yt < int(num_classes)) & (yp >= 0) & (yp < int(num_classes))
-    np.add.at(cm, (yt[valid], yp[valid]), 1)
+    np.add.at(cm, (yt, yp), 1)
     return cm
 
 
@@ -96,6 +103,13 @@ def multiclass_classification_report(
         "confusion_matrix": cm.tolist(),
         "class_names": names,
     }
+
+
+def rare_family_names(mapping):
+    """Resolve raw rare labels to the canonical family names used in reports."""
+    raw_to_family = mapping.get('raw_label_to_attack_family', {})
+    names = [raw_to_family.get(name, name) for name in mapping.get('rare_raw_labels', [])]
+    return list(dict.fromkeys(names))
 
 
 def rare_class_macro_f1(

@@ -249,13 +249,14 @@ def test_exact_length_weights_pass():
 # --- Train-only weight builder ----------------------------------------------
 
 def _unsw_train_labels_exist() -> bool:
+    from secureids.artifacts import read_artifact_path
     base = PROJECT_ROOT / "data" / "processed" / "unsw_nb15" / "hierarchical"
     needed = [
         "y_binary_train.npy",
         "y_attack_family_train.npy",
         "attack_family_mask_train.npy",
     ]
-    return base.is_dir() and all((base / name).exists() for name in needed)
+    return base.is_dir() and all(read_artifact_path(base / name).exists() for name in needed)
 
 
 @pytest.mark.skipif(

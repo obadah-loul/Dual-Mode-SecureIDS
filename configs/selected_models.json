@@ -1,0 +1,82 @@
+{
+  "cicids2018_centralized": {
+    "checkpoint": "models/final/final_cicids_hierarchical.pt",
+    "sha256": "2c154253162cf18cd25d78f2ab77127ce51c26488d1f9bcabc93baf591cd74c0",
+    "dataset": "cicids2018",
+    "input_dim": 77,
+    "attack_head_dim": 14,
+    "architecture": "SecureIDSHierarchicalAdvancedNet",
+    "hidden_dims": [
+      256,
+      128,
+      128
+    ],
+    "normalization": "layernorm",
+    "attack_head_type": "linear",
+    "dropout": 0.2,
+    "digest_basis": "historical frozen reference matched",
+    "training_snapshot": "results/final/hierarchical/cicids/training_config_snapshot.yaml",
+    "snapshot_caveat": null,
+    "best_round": null
+  },
+  "cicids2018_federated": {
+    "checkpoint": "models/experiments/federated_security/cicids_hierarchical_clean_fedavg.pt",
+    "sha256": "c05c743a7b02d71ea679a20e1d24e99952a67f25f459a6895c893d195ed56fdc",
+    "dataset": "cicids2018",
+    "input_dim": 77,
+    "attack_head_dim": 14,
+    "architecture": "SecureIDSHierarchicalAdvancedNet",
+    "hidden_dims": [
+      256,
+      128,
+      128
+    ],
+    "normalization": "layernorm",
+    "attack_head_type": "linear",
+    "dropout": 0.2,
+    "digest_basis": "local recovery fingerprint; no independent historic digest found",
+    "training_snapshot": "configs/federated/experiments/cicids_hierarchical_clean_fedavg.yaml",
+    "snapshot_caveat": "Available configuration is not a complete immutable historical execution identity",
+    "best_round": 19
+  },
+  "unsw_nb15_centralized": {
+    "checkpoint": "models/final/final_unsw_hierarchical.pt",
+    "sha256": "5fe688bf43c68a7de63e106e0ad46f608bbae3d78dced6e90abbe2c6f956cbea",
+    "dataset": "unsw_nb15",
+    "input_dim": 192,
+    "attack_head_dim": 9,
+    "architecture": "SecureIDSHierarchicalAdvancedNet",
+    "hidden_dims": [
+      256,
+      128,
+      128
+    ],
+    "normalization": "layernorm",
+    "attack_head_type": "linear",
+    "dropout": 0.2,
+    "digest_basis": "historical frozen reference matched",
+    "training_snapshot": "results/final/hierarchical/unsw/training_config_snapshot.yaml",
+    "snapshot_caveat": null,
+    "best_round": null
+  },
+  "unsw_nb15_federated": {
+    "checkpoint": "models/experiments/federated_security/unsw_hierarchical_clean_fedavg.pt",
+    "sha256": "636d7abe8b2974637c237e2ad12e4d1f47ced3a4762f3e1c7097cd6e6beb741c",
+    "dataset": "unsw_nb15",
+    "input_dim": 192,
+    "attack_head_dim": 9,
+    "architecture": "SecureIDSHierarchicalAdvancedNet",
+    "hidden_dims": [
+      256,
+      128,
+      128
+    ],
+    "normalization": "layernorm",
+    "attack_head_type": "linear",
+    "dropout": 0.2,
+    "digest_basis": "local recovery fingerprint; no independent historic digest found",
+    "training_snapshot": "configs/federated/experiments/unsw_hierarchical_clean_fedavg.yaml",
+    "snapshot_caveat": "Available configuration is not a complete immutable historical execution identity",
+    "best_round": 16
+  }
+}

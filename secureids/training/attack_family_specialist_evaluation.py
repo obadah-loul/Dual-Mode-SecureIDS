@@ -97,15 +97,20 @@ def compute_routed_attack_family_metrics(
         router said attack; ignored where the router said benign).
 
     A row is ``correctly_attributed`` only if the router routed it AND the
-    specialist family is correct. Missed rows count as errors, so routed
-    macro-F1 <= oracle macro-F1 whenever Head 1 misses any attack.
+    specialist family is correct. Missed rows count as false negatives for
+    their true family. Attribution accuracy is bounded by router recall;
+    macro-F1 has no universal ordering against the oracle view.
     """
 
-    yt = np.asarray(y_true_attack).reshape(-1).astype(np.int64)
-    routed = np.asarray(router_calls_attack).reshape(-1).astype(np.int64)
-    sp = np.asarray(specialist_pred_attack).reshape(-1).astype(np.int64)
+    yt = np.asarray(y_true_attack).reshape(-1)
+    routed = np.asarray(router_calls_attack).reshape(-1)
+    sp = np.asarray(specialist_pred_attack).reshape(-1)
     if not (yt.shape[0] == routed.shape[0] == sp.shape[0]):
         raise ValueError("routed metric arrays must have the same length.")
+    if not np.isin(routed, [0, 1]).all():
+        raise ValueError('Router decisions must be binary.')
+    if not np.isin(yt, np.arange(num_classes)).all() or not np.isin(sp[routed == 1], np.arange(num_classes)).all():
+        raise ValueError('Family labels must belong to the fixed taxonomy.')
 
     names = _names(num_classes, class_names)
     rare = list(rare_class_names) if rare_class_names is not None else list(RARE_CLASSES)
@@ -119,9 +124,13 @@ def compute_routed_attack_family_metrics(
     correctly_attributed = int(np.sum(routed_mask & (effective_pred == yt)))
     wrong_family = int(np.sum(routed_mask & (effective_pred != yt)))
 
-    # Routed per-class F1 over the full class set; missed/ -1 predictions never
-    # match any true class, so they correctly depress recall (visible weak classes).
-    report = multiclass_classification_report(yt, effective_pred, int(num_classes), class_names=names)
+    # Include an explicit missed column. The old confusion primitive discarded
+    # -1 predictions entirely, omitting those false negatives from recall.
+    report = multiclass_classification_report(
+        yt, np.where(routed_mask, sp, num_classes), int(num_classes) + 1,
+        class_names=names + ['Missed-as-benign'])
+    report['per_class'] = report['per_class'][:num_classes]
+    report['macro_f1'] = float(np.mean([p['f1'] for p in report['per_class']]))
     rare_block = rare_class_macro_f1(report, rare)
 
     return {

@@ -8,12 +8,15 @@ datasets, or performs full training.
 
 from __future__ import annotations
 
+from secureids.artifacts import load_numpy_readonly
+
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import torch
 from torch.utils.data import Dataset
+from secureids.artifacts import read_artifact_path
 
 SPLITS: tuple[str, ...] = ("train", "val", "test")
 CHUNK_SIZE = 262_144
@@ -82,14 +85,15 @@ def load_hierarchical_split(
         "y_attack_family": root / f"y_attack_family_{split}.npy",
         "attack_family_mask": root / f"attack_family_mask_{split}.npy",
     }
+    paths = {name: read_artifact_path(path) for name, path in paths.items()}
     missing = [str(path) for path in paths.values() if not path.exists()]
     if missing:
         raise FileNotFoundError(f"Missing hierarchical split files: {missing}")
     return (
-        np.load(paths["X"], mmap_mode=mode),
-        np.load(paths["y_binary"], mmap_mode=mode),
-        np.load(paths["y_attack_family"], mmap_mode=mode),
-        np.load(paths["attack_family_mask"], mmap_mode=mode),
+        load_numpy_readonly(paths["X"], mmap_mode=mode),
+        load_numpy_readonly(paths["y_binary"], mmap_mode=mode),
+        load_numpy_readonly(paths["y_attack_family"], mmap_mode=mode),
+        load_numpy_readonly(paths["attack_family_mask"], mmap_mode=mode),
     )
 
 
